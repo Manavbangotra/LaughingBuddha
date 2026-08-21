@@ -1,0 +1,8 @@
+.venv/
+node_modules/
+build/
+__pycache__/
+*.pyc
+.pytest_cache/
+data/manifest.json
+.claude/settings.local.json

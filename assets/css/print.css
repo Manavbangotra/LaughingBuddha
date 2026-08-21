@@ -1,0 +1,266 @@
+/* =============================================================================
+   print.css — CSS Paged Media rules, interpreted by Paged.js.
+
+   Page geometry is a 170 × 244 mm technical-book trim with asymmetric margins
+   so the inner edge clears the binding. Running heads carry the book title on
+   verso pages and the current chapter on recto pages; folios sit at the outer
+   bottom corner.
+
+   The palette is pinned to the light tokens here regardless of the rendering
+   browser's colour-scheme preference — a PDF has no theme to follow.
+   ========================================================================== */
+
+/* Folios and running heads sit on the *outer* edge, which means the margin box
+   differs between verso and recto. CSS Paged Media has no `@bottom-outside`
+   box, so each side is declared explicitly. */
+
+@page {
+  size: 170mm 244mm;
+  margin: 18mm 16mm 18mm 20mm;
+}
+
+@page :left {
+  margin: 18mm 20mm 18mm 16mm;
+  @top-left {
+    content: string(booktitle);
+    font-family: var(--font-ui);
+    font-size: 8pt;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #737d8c;
+    vertical-align: bottom;
+    padding-bottom: 5mm;
+  }
+  @bottom-left {
+    content: counter(page);
+    font-family: var(--font-ui);
+    font-size: 8.5pt;
+    color: #4b5563;
+    vertical-align: top;
+    padding-top: 5mm;
+  }
+}
+
+@page :right {
+  @top-right {
+    content: string(chaptitle);
+    font-family: var(--font-ui);
+    font-size: 8pt;
+    letter-spacing: 0.04em;
+    color: #737d8c;
+    vertical-align: bottom;
+    padding-bottom: 5mm;
+  }
+  @bottom-right {
+    content: counter(page);
+    font-family: var(--font-ui);
+    font-size: 8.5pt;
+    color: #4b5563;
+    vertical-align: top;
+    padding-top: 5mm;
+  }
+}
+
+/* A part or chapter opener carries no running head. */
+@page opener {
+  @top-left { content: none; }
+  @top-right { content: none; }
+  @bottom-left { content: none; }
+  @bottom-right { content: none; }
+}
+
+@page :first {
+  @top-left { content: none; }
+  @top-right { content: none; }
+  @bottom-left { content: none; }
+  @bottom-right { content: none; }
+}
+
+/* --- pinned light palette -------------------------------------------------- */
+
+:root {
+  --bg: #ffffff;         --bg-soft: #f7f8fa;    --bg-sunken: #eef1f5;
+  --fg: #14181f;         --fg-muted: #4b5563;   --fg-faint: #737d8c;
+  --rule: #dde2e9;       --rule-strong: #c2cad5;
+  --accent: #1d4ed8;     --accent-soft: #dbe6ff;
+  --link: #14181f;       --link-visited: #14181f;
+  --code-bg: #f6f8fa;    --code-fg: #14181f;    --code-border: #e2e7ee;
+  --dgm-fill: #eef2f7;   --dgm-fill-alt: #e2e8f0; --dgm-cluster: #f8fafc;
+  --dgm-line: #64748b;   --dgm-line-soft: #94a3b8; --dgm-text: #0f172a;
+  --dgm-note-fill: #fef9c3; --dgm-note-line: #ca8a04;
+  --measure: none;
+}
+
+/* --- document flow --------------------------------------------------------- */
+
+body {
+  font-size: 9.8pt;
+  line-height: 1.5;
+  background: #fff;
+  color: #14181f;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  orphans: 3;
+  widows: 3;
+  /* Ragged right, deliberately. Justifying a measure this narrow around
+     non-breaking inline <code> spans and inline maths opens rivers, and the
+     hyphenation dictionary cannot save lines containing identifiers. */
+  text-align: left;
+}
+
+.prose { max-width: none; }
+
+/* Print links read as plain text; the URL is dead weight on paper, but the
+   anchor is kept so the PDF stays internally navigable. */
+a, a:visited { color: #14181f; text-decoration: none; }
+a.xref, .citation a { color: #1a3f8f; }
+
+/* --- openers --------------------------------------------------------------- */
+
+.part-opener {
+  page: opener;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 150mm;
+  text-align: left;
+  border: 0;
+}
+.part-opener .kicker {
+  font-family: var(--font-ui);
+  font-size: 10pt;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #737d8c;
+  margin-bottom: 4mm;
+}
+.part-opener h1 {
+  font-size: 26pt;
+  line-height: 1.12;
+  margin-bottom: 6mm;
+  border: 0;
+}
+.part-opener .summary {
+  font-size: 11pt;
+  color: #4b5563;
+  max-width: 105mm;
+  font-style: italic;
+  text-align: left;
+}
+
+section.doc { break-before: page; }
+
+/* Running heads come from named strings: the opener sets the book title once,
+   each chapter's <h1> re-sets the chapter string as the flow reaches it. */
+.runhead-book { string-set: booktitle content(text); height: 0; overflow: hidden;
+                font-size: 0; line-height: 0; margin: 0; }
+.chapter-head h1 { string-set: chaptitle content(text); }
+
+.chapter-head {
+  margin-bottom: 9mm;
+  padding-bottom: 4mm;
+  border-bottom: 0.6pt solid #c2cad5;
+}
+.chapter-head .eyebrow {
+  font-family: var(--font-ui);
+  font-size: 8pt;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #737d8c;
+  margin: 0 0 2mm;
+}
+.chapter-head h1 { font-size: 19pt; margin: 0; border: 0; text-align: left; }
+.chapter-head .meta { display: none; }
+
+/* --- headings in print ------------------------------------------------------ */
+
+h1, h2, h3, h4 { text-align: left; hyphens: none; break-after: avoid-page; }
+h2 {
+  font-size: 12.5pt;
+  margin: 7mm 0 2.5mm;
+  padding-bottom: 1.2mm;
+  border-bottom: 0.5pt solid #dde2e9;
+}
+h3 { font-size: 10.6pt; margin: 5mm 0 1.8mm; }
+h4 { font-size: 8.2pt; margin: 4mm 0 1.5mm; }
+
+p { margin: 0 0 2.6mm; }
+ul, ol { margin: 0 0 2.8mm; padding-left: 5.5mm; }
+li { margin: 0.7mm 0; }
+
+/* --- blocks that must not straddle a page break ----------------------------- */
+
+.codeblock, aside.callout, figure, .equation, .table-figure, table {
+  break-inside: avoid;
+}
+
+pre.code {
+  font-size: 7.4pt;
+  line-height: 1.45;
+  padding: 2mm 0;
+  overflow: visible;
+}
+pre.code > code { white-space: pre-wrap; }
+/* Wrapped continuations hang under the code, clear of the number column. */
+pre.code .cl { padding-left: 9mm; text-indent: 0; min-height: 0; }
+pre.code .cl::before { width: 6.5mm; }
+.codeblock { margin: 3.5mm 0; }
+.code-name, .code-badge { font-size: 7pt; padding: 1.2mm 2.5mm; }
+
+/* A long listing may legitimately need to break; allow it rather than push a
+   half-empty page, but keep at least four lines together on each side. */
+.codeblock.long { break-inside: auto; }
+.codeblock.long pre.code { orphans: 4; widows: 4; }
+
+aside.callout { margin: 3.5mm 0; padding: 2.5mm 3mm 0.8mm; font-size: 9.2pt; }
+aside.callout .callout-title { font-size: 7pt; }
+
+figure { margin: 5mm 0; }
+.diagram-svg { overflow: visible; }
+.diagram-svg svg { max-width: 100%; max-height: 175mm; height: auto; }
+figcaption { font-size: 8pt; margin-top: 2mm; text-align: left; }
+
+table { font-size: 7.8pt; }
+th, td { padding: 1.3mm 2mm; }
+.table-scroll { overflow: visible; }
+
+.equation { margin: 3.5mm 0; }
+.equation .eq-body { overflow: visible; }
+.katex { font-size: 1em; }
+.katex-display > .katex { white-space: normal; }
+
+/* --- screen-only chrome ----------------------------------------------------- */
+
+.topbar, .sidebar, .rail, .pager, .hanchor, #search-results { display: none !important; }
+
+/* --- PDF front matter -------------------------------------------------------- */
+
+.pdf-title-page {
+  page: opener;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 195mm;
+}
+.pdf-title-page .btitle {
+  font-family: var(--font-ui);
+  font-size: 30pt;
+  font-weight: 650;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin-bottom: 5mm;
+}
+.pdf-title-page .bsub {
+  font-size: 12pt;
+  color: #4b5563;
+  max-width: 115mm;
+  line-height: 1.45;
+  text-align: left;
+}
+.pdf-title-page .bmeta {
+  margin-top: 14mm;
+  font-family: var(--font-ui);
+  font-size: 8.5pt;
+  color: #737d8c;
+}

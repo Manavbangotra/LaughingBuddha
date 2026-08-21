@@ -1,0 +1,2823 @@
+# =============================================================================
+#  bibliography.yaml — the book's single source of citation truth.
+#
+#  `verified: true` means title, authors, year and identifier were checked
+#  against a primary source (the arXiv abstract page, publisher record, or
+#  proceedings listing) on `verified_on`, and `verified_via` names that source.
+#  Anything else renders in the text as [UNVERIFIED] and is reported by
+#  `make check`. Nothing is ever cited from memory.
+#
+#  The four narrative fields — contribution, why_it_mattered, what_changed_after,
+#  descendants — are required for any work the book discusses rather than merely
+#  cites. The annotated-bibliography appendix is generated from them.
+# =============================================================================
+
+entries:
+
+  bahdanau2015:
+    title: "Neural Machine Translation by Jointly Learning to Align and Translate"
+    authors: ["Dzmitry Bahdanau", "Kyunghyun Cho", "Yoshua Bengio"]
+    year: 2015
+    venue: "ICLR 2015"
+    arxiv: "1409.0473"
+    url: "https://arxiv.org/abs/1409.0473"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "arXiv abstract page arxiv.org/abs/1409.0473 (v1 2014-09-01; ICLR 2015 oral)"
+    contribution: >-
+      Introduced additive (concatenative) attention: rather than compressing a
+      source sentence into one fixed vector, the decoder learns a soft alignment
+      and reads a different weighted combination of encoder states at every
+      output step.
+    why_it_mattered: >-
+      It identified the fixed-length bottleneck as the reason encoder-decoder
+      translation degraded on long sentences, and showed that a differentiable,
+      content-based read fixes it. Every later attention mechanism is a variation
+      on this idea.
+    what_changed_after: >-
+      Attention went from a niche addition to a standard component of sequence
+      models, and the notion of a learned soft alignment became the substrate
+      the Transformer would later build on exclusively.
+    descendants: ["Luong attention", "Transformer self-attention", "cross-attention in VLMs"]
+
+  luong2015:
+    title: "Effective Approaches to Attention-based Neural Machine Translation"
+    authors: ["Minh-Thang Luong", "Hieu Pham", "Christopher D. Manning"]
+    year: 2015
+    venue: "EMNLP 2015"
+    arxiv: "1508.04025"
+    url: "https://arxiv.org/abs/1508.04025"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "arXiv abstract page arxiv.org/abs/1508.04025 (v1 2015-08-17; EMNLP 2015)"
+    contribution: >-
+      Systematised attention scoring functions, and showed that a plain dot
+      product between decoder and encoder states works as well as Bahdanau's
+      learned additive network while being cheaper.
+    why_it_mattered: >-
+      It established multiplicative scoring as the practical default, which is
+      the direct ancestor of the dot-product score inside scaled dot-product
+      attention.
+    what_changed_after: >-
+      Dot-product scoring became the standard, and the remaining question was
+      how to keep its variance under control at higher dimension.
+    descendants: ["Scaled dot-product attention"]
+
+  sukhbaatar2015:
+    title: "End-To-End Memory Networks"
+    authors: ["Sainbayar Sukhbaatar", "Arthur Szlam", "Jason Weston", "Rob Fergus"]
+    year: 2015
+    venue: "NIPS 2015"
+    arxiv: "1503.08895"
+    url: "https://arxiv.org/abs/1503.08895"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "arXiv abstract page arxiv.org/abs/1503.08895 (v1 2015-03-31; NIPS 2015)"
+    contribution: >-
+      Formulated memory access as a differentiable, content-addressed lookup in
+      which one embedding of a memory item is used for matching against the
+      query and a second, separate embedding is used for what gets returned.
+    why_it_mattered: >-
+      That separation of the matching representation from the returned
+      representation is exactly the key/value split, arrived at before the
+      terminology existed.
+    what_changed_after: >-
+      Content-based addressing with distinct key and value projections became
+      the standard formulation of neural memory read operations.
+    descendants: ["Query-key-value attention", "retrieval-augmented architectures"]
+
+  vaswani2017:
+    title: "Attention Is All You Need"
+    authors: ["Ashish Vaswani", "Noam Shazeer", "Niki Parmar", "Jakob Uszkoreit",
+              "Llion Jones", "Aidan N. Gomez", "Łukasz Kaiser", "Illia Polosukhin"]
+    year: 2017
+    venue: "NeurIPS 2017"
+    arxiv: "1706.03762"
+    url: "https://arxiv.org/abs/1706.03762"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "arXiv abstract page arxiv.org/abs/1706.03762 (v1 2017-06-12)"
+    contribution: >-
+      Introduced the Transformer: a sequence-transduction architecture built
+      entirely from attention and position-wise feed-forward layers, with no
+      recurrence and no convolution. Named and motivated scaled dot-product
+      attention and multi-head attention.
+    why_it_mattered: >-
+      Removing sequential dependence along the time axis made the forward and
+      backward passes parallel across sequence positions. That, rather than any
+      accuracy result in the paper, is what allowed model and data scale to grow
+      by orders of magnitude over the following years.
+    what_changed_after: >-
+      Effectively every large language model, and most modern vision, audio and
+      multimodal models, are Transformer variants. Research shifted from
+      designing architectures to scaling one architecture.
+    descendants: ["BERT", "GPT-family models", "Vision Transformer", "T5",
+                  "modern multimodal and reasoning models"]
+
+  shazeer2019:
+    title: "Fast Transformer Decoding: One Write-Head is All You Need"
+    authors: ["Noam Shazeer"]
+    year: 2019
+    venue: null
+    arxiv: "1911.02150"
+    url: "https://arxiv.org/abs/1911.02150"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "arXiv abstract page arxiv.org/abs/1911.02150 (v1 2019-11-06; preprint, no venue listed)"
+    contribution: >-
+      Introduced multi-query attention: keep h separate query projections but
+      share a single key and value head across all of them, shrinking the
+      per-token KV cache by a factor of h.
+    why_it_mattered: >-
+      It reframed decoding cost as a memory-bandwidth problem rather than an
+      arithmetic one, which is the correct framing for autoregressive inference
+      and the basis of most serving optimisation since.
+    what_changed_after: >-
+      KV-cache size became a first-class architectural constraint, chosen at
+      design time rather than discovered at deployment time.
+    descendants: ["Grouped-query attention", "multi-head latent attention",
+                  "paged KV caches"]
+
+  dao2022:
+    title: "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness"
+    authors: ["Tri Dao", "Daniel Y. Fu", "Stefano Ermon", "Atri Rudra",
+              "Christopher Ré"]
+    year: 2022
+    venue: "NeurIPS 2022"
+    arxiv: "2205.14135"
+    url: "https://arxiv.org/abs/2205.14135"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "arXiv abstract page arxiv.org/abs/2205.14135 (v1 2022-05-27)"
+    contribution: >-
+      Computed exact attention without ever materialising the n×n score matrix
+      in high-bandwidth memory, by tiling the computation into on-chip SRAM and
+      using the online-softmax recurrence to combine tiles.
+    why_it_mattered: >-
+      It separated two things the field had conflated: attention's quadratic
+      *arithmetic* cost, which is unavoidable for exact attention, and its
+      quadratic *memory* cost, which is an artefact of a naive implementation.
+      Long contexts became practical without approximating attention.
+    what_changed_after: >-
+      IO-aware kernel design became standard practice, and the many
+      approximate-attention schemes proposed to save memory largely lost their
+      motivation.
+    descendants: ["FlashAttention-2 and -3", "fused attention kernels in
+                  mainstream serving stacks", "paged attention"]
+
+  # ---------------------------------------------------------------------------
+  # Part I — Mathematical Foundations
+  #
+  # Deliberately sparse. Standard mathematics has no "original paper" a reader
+  # should be sent to, and inventing citations for it would be dishonest. The
+  # two research citations below are here because their origin genuinely
+  # explains something the reader will otherwise take on faith.
+  # ---------------------------------------------------------------------------
+
+  deisenroth2020:
+    title: "Mathematics for Machine Learning"
+    authors: ["Marc Peter Deisenroth", "A. Aldo Faisal", "Cheng Soon Ong"]
+    year: 2020
+    venue: "Cambridge University Press"
+    url: "https://mml-book.github.io/"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "Official book site mml-book.github.io — authors, publisher, year and free PDF availability confirmed"
+    contribution: >-
+      A self-contained treatment of exactly the linear algebra, analytic
+      geometry, probability and optimisation that machine learning uses, with a
+      second half deriving standard ML methods from that foundation.
+    why_it_mattered: >-
+      It replaced the awkward advice to read three unrelated undergraduate
+      textbooks and work out which parts mattered. It is also free, which is why
+      this book recommends it as the companion volume for Part I.
+    descendants: []
+
+  boyd2004:
+    title: "Convex Optimization"
+    authors: ["Stephen Boyd", "Lieven Vandenberghe"]
+    year: 2004
+    venue: "Cambridge University Press"
+    doi: "10.1017/CBO9780511804441"
+    url: "https://web.stanford.edu/~boyd/cvxbook/"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "Cambridge Core record (ISBN 9780511804441, DOI 10.1017/CBO9780511804441) and the authors' Stanford page"
+    contribution: >-
+      Established convex optimisation as a single coherent subject with a
+      recognisable set of problem classes, and made the boundary between
+      tractable and intractable optimisation legible to practitioners.
+    why_it_mattered: >-
+      It gives the vocabulary for saying precisely why convex problems are
+      solvable and neural-network training is not, which is the distinction
+      Chapter 12 of this book turns on.
+    descendants: []
+
+  goodfellow2016:
+    title: "Deep Learning"
+    authors: ["Ian Goodfellow", "Yoshua Bengio", "Aaron Courville"]
+    year: 2016
+    venue: "MIT Press"
+    url: "https://www.deeplearningbook.org/"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "Official site deeplearningbook.org — authors, publisher, year and free online availability confirmed"
+    contribution: >-
+      The first comprehensive graduate textbook of deep learning, including a
+      mathematical-preliminaries section that fixed much of the notation the
+      field now uses.
+    why_it_mattered: >-
+      It standardised vocabulary and notation across a field that had been
+      accumulating both haphazardly. Predates the Transformer, so Parts VII
+      onward of this book have no counterpart in it.
+    descendants: []
+
+  robbins1951:
+    title: "A Stochastic Approximation Method"
+    authors: ["Herbert Robbins", "Sutton Monro"]
+    year: 1951
+    venue: "The Annals of Mathematical Statistics 22(3), 400-407"
+    doi: "10.1214/aoms/1177729586"
+    url: "https://doi.org/10.1214/aoms/1177729586"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "Project Euclid record — journal, volume 22, issue 3, pages 400-407, DOI 10.1214/aoms/1177729586"
+    contribution: >-
+      Showed that a root of an unknown function can be found from noisy
+      evaluations alone, provided the step sizes are square-summable but not
+      summable.
+    why_it_mattered: >-
+      This is the theoretical origin of stochastic gradient descent, six decades
+      before it trained neural networks, and its step-size conditions are why
+      learning-rate schedules decay the way they do.
+    what_changed_after: >-
+      Optimisation from noisy samples became a rigorous subject rather than a
+      heuristic, and the conditions derived here still bound what any
+      minibatch method can guarantee.
+    descendants: ["Stochastic gradient descent", "Adam and adaptive methods",
+                  "learning-rate schedules"]
+
+  kingma2015:
+    title: "Adam: A Method for Stochastic Optimization"
+    authors: ["Diederik P. Kingma", "Jimmy Ba"]
+    year: 2015
+    venue: "ICLR 2015"
+    arxiv: "1412.6980"
+    url: "https://arxiv.org/abs/1412.6980"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "arXiv abstract page arxiv.org/abs/1412.6980 (v1 2014-12-22; ICLR 2015, San Diego)"
+    contribution: >-
+      Combined momentum with per-parameter adaptive step sizes estimated from
+      running first and second moments of the gradient, with bias correction for
+      the initial steps.
+    why_it_mattered: >-
+      It made training deep networks far less sensitive to the learning rate,
+      which in practice is what let practitioners stop tuning optimisers and
+      start changing architectures.
+    what_changed_after: >-
+      Adam and its variants became the default optimiser for nearly all deep
+      learning, and plain SGD became the specialist choice rather than the norm.
+    descendants: ["AdamW", "Adafactor", "Lion", "modern optimiser families"]
+
+  strang2010:
+    title: "MIT 18.06 Linear Algebra (Spring 2010)"
+    authors: ["Gilbert Strang"]
+    year: 2010
+    venue: "MIT OpenCourseWare"
+    url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "MIT OpenCourseWare course page — course number, instructor, Spring 2010 term, CC BY-NC-SA 4.0 licence"
+    contribution: >-
+      A complete undergraduate linear algebra course, freely available in full,
+      organised around the four fundamental subspaces and matrix factorisations
+      rather than around determinants.
+    why_it_mattered: >-
+      The factorisation-first framing is the one that transfers to machine
+      learning, and this course is the most accessible place to absorb it.
+    descendants: []
+
+  # ---------------------------------------------------------------------------
+  # Part II — Python for Data and AI
+  # ---------------------------------------------------------------------------
+
+  harris2020:
+    title: "Array programming with NumPy"
+    authors: ["Charles R. Harris", "K. Jarrod Millman", "Stéfan J. van der Walt",
+              "Ralf Gommers", "Pauli Virtanen", "David Cournapeau",
+              "Eric Wieser", "Julian Taylor", "Sebastian Berg",
+              "Nathaniel J. Smith", "Robert Kern", "Matti Picus",
+              "Stephan Hoyer", "Marten H. van Kerkwijk", "Matthew Brett",
+              "Allan Haldane", "Jaime Fernández del Río", "Mark Wiebe",
+              "Pearu Peterson", "Pierre Gérard-Marchant", "Kevin Sheppard",
+              "Tyler Reddy", "Warren Weckesser", "Hameer Abbasi",
+              "Christoph Gohlke", "Travis E. Oliphant"]
+    year: 2020
+    venue: "Nature 585(7825), 357-362"
+    doi: "10.1038/s41586-020-2649-2"
+    url: "https://doi.org/10.1038/s41586-020-2649-2"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "Official citation page numpy.org/citing-numpy (Nature paywalled; the project's own page is authoritative for its citation) — full author list, volume, pages, DOI"
+    contribution: >-
+      The reference description of NumPy's array programming model: the
+      n-dimensional array, dtypes, broadcasting, views, and vectorised
+      operations over contiguous memory.
+    why_it_mattered: >-
+      NumPy's array is the common data structure the entire scientific Python
+      ecosystem agreed on. Pandas, SciPy, scikit-learn, Matplotlib and every
+      deep-learning framework interoperate because they all speak this one
+      interface.
+    what_changed_after: >-
+      Python became viable for numerical work at scale, which is the
+      precondition for it becoming the language of machine learning.
+    descendants: ["pandas", "SciPy", "scikit-learn", "PyTorch tensors",
+                  "the Array API standard"]
+
+  mckinney2010:
+    title: "Data Structures for Statistical Computing in Python"
+    authors: ["Wes McKinney"]
+    year: 2010
+    venue: "Proceedings of the 9th Python in Science Conference, 56-61"
+    doi: "10.25080/Majora-92bf1922-00a"
+    url: "https://doi.org/10.25080/Majora-92bf1922-00a"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "Official citation page pandas.pydata.org/about/citing.html — title, proceedings, pages 56-61, editors, DOI"
+    contribution: >-
+      Introduced the pandas DataFrame: a labelled, heterogeneously-typed tabular
+      structure with an index, built on NumPy arrays, with alignment semantics
+      and relational operations.
+    why_it_mattered: >-
+      It gave Python the tabular data structure R had, which is what made Python
+      a plausible language for data analysis rather than only for numerics.
+    what_changed_after: >-
+      The DataFrame became the default in-memory representation for tabular data
+      in Python, and the interface later systems were measured against.
+    descendants: ["Polars", "Dask DataFrame", "PySpark DataFrame",
+                  "the Arrow-backed pandas 2.x internals"]
+
+  hunter2007:
+    title: "Matplotlib: A 2D Graphics Environment"
+    authors: ["John D. Hunter"]
+    year: 2007
+    venue: "Computing in Science & Engineering 9(3), 90-95"
+    doi: "10.1109/MCSE.2007.55"
+    url: "https://doi.org/10.1109/MCSE.2007.55"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "Crossref API record api.crossref.org/works/10.1109/MCSE.2007.55 (IEEE Xplore returned 403) — title, author, journal, volume 9 issue 3, pages 90-95, year"
+    contribution: >-
+      A publication-quality plotting library for Python with a scriptable
+      object model and multiple rendering backends.
+    why_it_mattered: >-
+      It removed the last practical reason to leave Python for analysis work,
+      and its object model is what almost every later Python plotting library
+      either builds on or defines itself against.
+    descendants: ["seaborn", "pandas .plot", "plotnine"]
+
+  pep8:
+    title: "PEP 8 – Style Guide for Python Code"
+    authors: ["Guido van Rossum", "Barry Warsaw", "Alyssa Coghlan"]
+    year: 2001
+    venue: "Python Enhancement Proposals"
+    url: "https://peps.python.org/pep-0008/"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "peps.python.org/pep-0008 — authors, created 05-Jul-2001, Status: Active"
+    contribution: >-
+      The community's shared style conventions for Python code: naming,
+      indentation, line length, imports, and whitespace.
+    why_it_mattered: >-
+      Near-universal adoption means Python code from unrelated projects reads
+      alike, which lowers the cost of moving between codebases. It is also the
+      specification that automated formatters implement.
+    descendants: ["black", "ruff format", "the formatting defaults of most linters"]
+
+  pep484:
+    title: "PEP 484 – Type Hints"
+    authors: ["Guido van Rossum", "Jukka Lehtosalo", "Łukasz Langa"]
+    year: 2014
+    venue: "Python Enhancement Proposals (targets Python 3.5)"
+    url: "https://peps.python.org/pep-0484/"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "peps.python.org/pep-0484 — authors, Python-Version 3.5, created 29-Sep-2014, Status: Final"
+    contribution: >-
+      A standard syntax for annotating types in Python, with a `typing` module
+      providing generics, unions and related constructs. Annotations are not
+      enforced at runtime.
+    why_it_mattered: >-
+      It made static analysis of Python practical, which matters most in exactly
+      the situation this book cares about: large codebases where a tensor of the
+      wrong shape surfaces as a crash forty minutes into a training run.
+    descendants: ["mypy", "pyright", "runtime validators such as Pydantic",
+                  "typed tensor-shape checkers"]
+
+  pep703:
+    title: "PEP 703 – Making the Global Interpreter Lock Optional in CPython"
+    authors: ["Sam Gross"]
+    year: 2023
+    venue: "Python Enhancement Proposals (first target: Python 3.13)"
+    url: "https://peps.python.org/pep-0703/"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "peps.python.org/pep-0703 — author Sam Gross, sponsor Łukasz Langa, Status: Final, Python-Version 3.13, experimental --disable-gil build"
+    contribution: >-
+      A build configuration that removes the global interpreter lock, using
+      biased and deferred reference counting, immortal objects, mimalloc and
+      per-object locking to keep the interpreter thread-safe without it.
+    why_it_mattered: >-
+      The GIL has shaped how Python programs are structured for three decades —
+      threads for I/O, processes for CPU. Removing it changes that default,
+      though the transition is deliberately gradual.
+    what_changed_after: >-
+      Free-threaded builds exist and are being tested, at a reported 5-6%
+      single-threaded overhead. Standard builds are unchanged, so the practical
+      advice has not yet moved for most readers.
+    descendants: ["free-threaded CPython builds", "per-interpreter GIL work"]
+
+  # ---------------------------------------------------------------------------
+  # Part III — Data Science
+  # ---------------------------------------------------------------------------
+
+  wickham2014:
+    title: "Tidy Data"
+    authors: ["Hadley Wickham"]
+    year: 2014
+    venue: "Journal of Statistical Software 59(10)"
+    doi: "10.18637/jss.v059.i10"
+    url: "https://doi.org/10.18637/jss.v059.i10"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "Crossref API record for DOI 10.18637/jss.v059.i10 — title, author, journal, volume 59 issue 10, year"
+    contribution: >-
+      Defined a standard shape for tabular data: one variable per column, one
+      observation per row, one table per kind of observational unit — and
+      named the small set of operations that convert messy data into it.
+    why_it_mattered: >-
+      It turned "cleaning the data" from an unstructured chore into a
+      transformation with a stated target, which is what made data-preparation
+      tooling composable.
+    descendants: ["tidyverse", "pandas melt/pivot idioms", "long-format
+                  conventions in plotting libraries"]
+
+  kaufman2012:
+    title: "Leakage in data mining: Formulation, detection, and avoidance"
+    authors: ["Shachar Kaufman", "Saharon Rosset", "Claudia Perlich",
+              "Ori Stitelman"]
+    year: 2012
+    venue: "ACM Transactions on Knowledge Discovery from Data 6(4), 1-21"
+    doi: "10.1145/2382577.2382579"
+    url: "https://doi.org/10.1145/2382577.2382579"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "Crossref API record for DOI 10.1145/2382577.2382579 — title, four authors, TKDD volume 6 issue 4, pages 1-21, year"
+    contribution: >-
+      Gave leakage a precise formulation — information available to the model
+      at training time that will not be available at prediction time — and a
+      taxonomy of the mechanisms by which it enters, with detection strategies.
+    why_it_mattered: >-
+      Leakage is the most common reason a model that performs excellently in
+      development fails in production, and before this paper it was folklore
+      rather than a named, diagnosable failure.
+    what_changed_after: >-
+      Leakage checks became a standard part of competent evaluation design, and
+      the term entered general use.
+    descendants: ["temporal validation splits", "group-aware cross-validation",
+                  "fit-on-train-only pipeline discipline"]
+
+  chawla2002:
+    title: "SMOTE: Synthetic Minority Over-sampling Technique"
+    authors: ["N. V. Chawla", "K. W. Bowyer", "L. O. Hall", "W. P. Kegelmeyer"]
+    year: 2002
+    venue: "Journal of Artificial Intelligence Research 16, 321-357"
+    doi: "10.1613/jair.953"
+    url: "https://doi.org/10.1613/jair.953"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "Crossref API record for DOI 10.1613/jair.953 — title, four authors, JAIR volume 16, pages 321-357, year"
+    contribution: >-
+      Proposed generating synthetic minority-class examples by interpolating
+      between a minority point and its nearest minority neighbours, rather than
+      duplicating existing points.
+    why_it_mattered: >-
+      It became the default response to class imbalance for a decade. Its
+      limitations — interpolating in feature space can create points in regions
+      no real example occupies, and it must never be applied before the split —
+      are as instructive as the method.
+    descendants: ["Borderline-SMOTE", "ADASYN", "class-weighted losses",
+                  "threshold tuning as the simpler alternative"]
+
+  koren2009:
+    title: "Matrix Factorization Techniques for Recommender Systems"
+    authors: ["Yehuda Koren", "Robert Bell", "Chris Volinsky"]
+    year: 2009
+    venue: "Computer 42(8), 30-37"
+    doi: "10.1109/MC.2009.263"
+    url: "https://doi.org/10.1109/MC.2009.263"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "Crossref API record for DOI 10.1109/MC.2009.263 — title, three authors, IEEE Computer volume 42 issue 8, pages 30-37, year"
+    contribution: >-
+      The accessible account of the latent-factor methods that won the Netflix
+      Prize: represent users and items as vectors in a shared low-dimensional
+      space and predict a rating as their inner product, with bias terms and
+      regularisation.
+    why_it_mattered: >-
+      It established the embedding-plus-inner-product formulation that
+      underlies modern retrieval and recommendation, and it is the clearest
+      early example of learning representations rather than engineering
+      features.
+    what_changed_after: >-
+      Latent factors displaced neighbourhood methods as the default, and the
+      user/item embedding pattern generalised into the two-tower architectures
+      used for retrieval today.
+    descendants: ["implicit-feedback ALS", "two-tower retrieval models",
+                  "embedding-based candidate generation"]
+
+  kohavi2009:
+    title: "Controlled experiments on the web: survey and practical guide"
+    authors: ["Ron Kohavi", "Roger Longbotham", "Dan Sommerfield",
+              "Randal M. Henne"]
+    year: 2009
+    venue: "Data Mining and Knowledge Discovery 18(1), 140-181"
+    doi: "10.1007/s10618-008-0114-1"
+    url: "https://doi.org/10.1007/s10618-008-0114-1"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "Crossref API record for DOI 10.1007/s10618-008-0114-1 — title, four authors, DMKD volume 18 issue 1, pages 140-181, year"
+    contribution: >-
+      A practitioner's account of running randomised controlled experiments on
+      web traffic at scale: randomisation units, the pitfalls that invalidate
+      results, and the organisational practices that make experimentation
+      trustworthy.
+    why_it_mattered: >-
+      It moved online experimentation from ad-hoc comparison to a discipline
+      with named failure modes, and documented the uncomfortable finding that
+      most tested ideas do not improve the metric they target.
+    descendants: ["modern experimentation platforms", "sequential and
+                  always-valid testing", "guardrail-metric practice"]
+
+  simpson1951:
+    title: "The Interpretation of Interaction in Contingency Tables"
+    authors: ["E. H. Simpson"]
+    year: 1951
+    venue: "Journal of the Royal Statistical Society Series B 13(2), 238-241"
+    doi: "10.1111/j.2517-6161.1951.tb00088.x"
+    url: "https://doi.org/10.1111/j.2517-6161.1951.tb00088.x"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "Crossref API record for DOI 10.1111/j.2517-6161.1951.tb00088.x — title, author, JRSS-B volume 13 issue 2, pages 238-241, year"
+    contribution: >-
+      Showed that an association present in every subgroup of a population can
+      reverse when the subgroups are pooled, and that no purely statistical
+      criterion decides which of the two answers is the right one.
+    why_it_mattered: >-
+      It is the cleanest demonstration that data alone does not determine a
+      causal conclusion — the correct analysis depends on knowledge of how the
+      data was generated, which is not in the data.
+    descendants: ["confounding as a formal concept", "causal graphs and
+                  adjustment criteria", "stratified analysis practice"]
+
+  sculley2015:
+    title: "Hidden Technical Debt in Machine Learning Systems"
+    authors: ["D. Sculley", "Gary Holt", "Daniel Golovin", "Eugene Davydov",
+              "Todd Phillips", "Dietmar Ebner", "Vinay Chaudhary",
+              "Michael Young", "Jean-François Crespo", "Dan Dennison"]
+    year: 2015
+    venue: "NIPS 2015"
+    url: "https://proceedings.neurips.cc/paper_files/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "NeurIPS proceedings page for NIPS 2015 — title and full ten-author list"
+    contribution: >-
+      Argued that machine-learning systems incur forms of technical debt
+      unavailable to ordinary software — entanglement of features, undeclared
+      consumers, data dependencies without versioning, pipeline jungles,
+      configuration sprawl — and that the model code is a small fraction of a
+      deployed system.
+    why_it_mattered: >-
+      It named the reason ML systems decay in ways that look like nothing in
+      the code changed, and supplied the vocabulary that MLOps subsequently
+      organised itself around.
+    descendants: ["feature stores", "data and model versioning practice",
+                  "the MLOps discipline generally"]
+
+  automind2025:
+    title: "AutoMind: Adaptive Knowledgeable Agent for Automated Data Science"
+    authors: ["Yixin Ou", "Yujie Luo", "Jingsheng Zheng", "Lanning Wei",
+              "Zhuoyun Yu", "Shuofei Qiao", "Jintian Zhang", "Da Zheng",
+              "Yuren Mao", "Yunjun Gao", "Huajun Chen", "Ningyu Zhang"]
+    year: 2025
+    venue: null
+    arxiv: "2506.10974"
+    url: "https://arxiv.org/abs/2506.10974"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "arXiv abstract page arxiv.org/abs/2506.10974 (v1 2025-06-12; preprint, no venue stated) — title and twelve-author list"
+    contribution: >-
+      An LLM-agent framework for end-to-end data science combining a curated
+      expert knowledge base, tree search over candidate solutions, and a coding
+      strategy that adapts to task difficulty.
+    why_it_mattered: >-
+      A concrete, benchmarked instance of the shift from agents that write
+      snippets to agents that attempt whole data-science workflows. Cited here
+      as evidence of where automation has reached, not as a settled result.
+    descendants: []
+
+  # ---------------------------------------------------------------------------
+  # Part IV — Classical Machine Learning
+  # ---------------------------------------------------------------------------
+
+  breiman2001rf:
+    title: "Random Forests"
+    authors: ["Leo Breiman"]
+    year: 2001
+    venue: "Machine Learning 45(1), 5-32"
+    doi: "10.1023/A:1010933404324"
+    url: "https://doi.org/10.1023/A:1010933404324"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "Crossref API record for DOI 10.1023/A:1010933404324 — title, author, Machine Learning volume 45 issue 1, pages 5-32, year"
+    contribution: >-
+      Combined bootstrap aggregation with random feature subsampling at each
+      split, so that the trees in an ensemble are decorrelated rather than
+      merely different, and showed the generalisation error converges as trees
+      are added.
+    why_it_mattered: >-
+      It made a high-variance, low-bias learner into one of the most reliable
+      general-purpose methods available, requiring almost no tuning — and the
+      decorrelation argument is the clearest demonstration that ensemble
+      diversity, not individual accuracy, is what averaging exploits.
+    what_changed_after: >-
+      Random forests became the default strong baseline for tabular problems for
+      a decade, until gradient boosting displaced them on accuracy.
+    descendants: ["Extremely randomized trees", "gradient-boosted ensembles",
+                  "feature-importance practice"]
+
+  breiman2001cultures:
+    title: "Statistical Modeling: The Two Cultures"
+    authors: ["Leo Breiman"]
+    year: 2001
+    venue: "Statistical Science 16(3)"
+    doi: "10.1214/ss/1009213726"
+    url: "https://doi.org/10.1214/ss/1009213726"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "Crossref API record for DOI 10.1214/ss/1009213726 — title, author, Statistical Science volume 16 issue 3, year (page range not present in the record and therefore omitted)"
+    contribution: >-
+      Distinguished a data-modelling culture, which assumes a stochastic model
+      generated the data and interprets its parameters, from an
+      algorithmic-modelling culture, which treats the mechanism as unknown and
+      judges a method by predictive accuracy alone.
+    why_it_mattered: >-
+      It named the philosophical split underlying most disagreements about
+      machine learning, and predicted the direction the field would take two
+      decades before the argument was settled by results.
+    descendants: ["the predictive-accuracy evaluation norm",
+                  "the interpretability debate"]
+
+  friedman2001:
+    title: "Greedy function approximation: A gradient boosting machine"
+    authors: ["Jerome H. Friedman"]
+    year: 2001
+    venue: "The Annals of Statistics 29(5)"
+    doi: "10.1214/aos/1013203451"
+    url: "https://doi.org/10.1214/aos/1013203451"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "Crossref API record for DOI 10.1214/aos/1013203451 — title, author, Annals of Statistics volume 29 issue 5, year (page range not present in the record and therefore omitted)"
+    contribution: >-
+      Framed boosting as gradient descent in function space: each new weak
+      learner is fitted to the negative gradient of the loss with respect to the
+      current predictions, which generalises boosting to any differentiable
+      loss.
+    why_it_mattered: >-
+      It turned a collection of algorithms into one principle, and that
+      principle is what every modern boosting library implements.
+    what_changed_after: >-
+      Gradient boosting became the dominant method for tabular prediction, a
+      position it has held for two decades.
+    descendants: ["XGBoost", "LightGBM", "CatBoost", "gradient-boosted ranking"]
+
+  chen2016:
+    title: "XGBoost: A Scalable Tree Boosting System"
+    authors: ["Tianqi Chen", "Carlos Guestrin"]
+    year: 2016
+    venue: "KDD 2016, 785-794"
+    doi: "10.1145/2939672.2939785"
+    url: "https://doi.org/10.1145/2939672.2939785"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "Crossref API record for DOI 10.1145/2939672.2939785 — title, two authors, KDD proceedings, pages 785-794, year"
+    contribution: >-
+      An engineering-led reimplementation of gradient boosting with a
+      second-order objective, explicit regularisation of tree complexity, a
+      sparsity-aware split finder, and cache- and disk-aware execution.
+    why_it_mattered: >-
+      The algorithmic changes were incremental and the systems work was not: it
+      made gradient boosting fast enough to iterate on, which is why it took
+      over applied tabular machine learning.
+    descendants: ["LightGBM", "CatBoost", "histogram-based boosting in
+                  scikit-learn"]
+
+  cortes1995:
+    title: "Support-vector networks"
+    authors: ["Corinna Cortes", "Vladimir Vapnik"]
+    year: 1995
+    venue: "Machine Learning 20(3), 273-297"
+    doi: "10.1007/BF00994018"
+    url: "https://doi.org/10.1007/BF00994018"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "Crossref API record for DOI 10.1007/BF00994018 — title, two authors, Machine Learning volume 20 issue 3, pages 273-297, year"
+    contribution: >-
+      Introduced the soft-margin support vector machine: maximise the margin
+      between classes while permitting bounded violations, with the solution
+      depending only on the support vectors and expressible through inner
+      products alone.
+    why_it_mattered: >-
+      The inner-product formulation is what permits the kernel trick — implicit
+      computation in a high-dimensional feature space without ever forming the
+      coordinates — and margin maximisation gave a principled account of
+      generalisation that predated the empirical era.
+    what_changed_after: >-
+      SVMs were the strongest general-purpose classifier for roughly a decade,
+      until ensembles overtook them on tabular data and deep networks on
+      unstructured data.
+    descendants: ["kernel methods generally", "support vector regression",
+                  "margin-based losses in deep learning"]
+
+  lloyd1982:
+    title: "Least squares quantization in PCM"
+    authors: ["Stuart P. Lloyd"]
+    year: 1982
+    venue: "IEEE Transactions on Information Theory 28(2), 129-137"
+    doi: "10.1109/TIT.1982.1056489"
+    url: "https://doi.org/10.1109/TIT.1982.1056489"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "Crossref API record for DOI 10.1109/TIT.1982.1056489 — title, author, IEEE T-IT volume 28 issue 2, pages 129-137, year (work circulated internally from 1957)"
+    contribution: >-
+      The alternating assign-then-update procedure now universally called
+      k-means, derived as an optimal scalar quantiser for pulse-code modulation.
+    why_it_mattered: >-
+      It is the archetype of alternating minimisation: each step is optimal
+      given the other and each strictly decreases the objective, which
+      guarantees convergence to a local optimum without guaranteeing a global
+      one.
+    descendants: ["k-means++", "mini-batch k-means", "expectation-maximisation
+                  more generally", "vector quantisation in neural codecs"]
+
+  liu2008:
+    title: "Isolation Forest"
+    authors: ["Fei Tony Liu", "Kai Ming Ting", "Zhi-Hua Zhou"]
+    year: 2008
+    venue: "ICDM 2008, 413-422"
+    doi: "10.1109/ICDM.2008.17"
+    url: "https://doi.org/10.1109/ICDM.2008.17"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "Crossref API record for DOI 10.1109/ICDM.2008.17 — title, three authors, ICDM proceedings, pages 413-422, year"
+    contribution: >-
+      Detected anomalies by how easily a point is isolated under random
+      axis-aligned splits, rather than by modelling normality and measuring
+      deviation from it.
+    why_it_mattered: >-
+      Inverting the problem removed the need to estimate a density, which is
+      what makes most anomaly detectors fail in high dimensions, and gave a
+      method that is linear in the number of points.
+    descendants: ["Extended Isolation Forest", "streaming isolation variants"]
+
+  grinsztajn2022:
+    title: "Why do tree-based models still outperform deep learning on tabular data?"
+    authors: ["Léo Grinsztajn", "Edouard Oyallon", "Gaël Varoquaux"]
+    year: 2022
+    venue: null
+    arxiv: "2207.08815"
+    url: "https://arxiv.org/abs/2207.08815"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "arXiv abstract page arxiv.org/abs/2207.08815 (v1 2022-07-18; venue not stated on the listing) — title and three-author list"
+    contribution: >-
+      Benchmarked tree ensembles against neural networks across 45 tabular
+      datasets and identified three concrete reasons trees win at medium scale:
+      robustness to uninformative features, sensitivity to feature orientation,
+      and the ability to fit irregular, non-smooth target functions.
+    why_it_mattered: >-
+      It replaced a folk belief with named mechanisms, which is what makes the
+      comparison useful — the reasons are properties of the data rather than of
+      the year, so they remain the right frame even as the recommendation moves.
+    descendants: ["tabular deep-learning architectures designed against these
+                  three failure modes", "tabular foundation models"]
+
+  hollmann2025:
+    title: "Accurate predictions on small data with a tabular foundation model"
+    authors: ["Noah Hollmann", "Samuel Müller", "Lennart Purucker",
+              "Arjun Krishnakumar", "Max Körfer", "Shi Bin Hoo",
+              "Robin Tibor Schirrmeister", "Frank Hutter"]
+    year: 2025
+    venue: "Nature 637, 319-326"
+    doi: "10.1038/s41586-024-08328-6"
+    url: "https://doi.org/10.1038/s41586-024-08328-6"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "Crossref API record for DOI 10.1038/s41586-024-08328-6 — title, eight authors, Nature volume 637, pages 319-326, year 2025"
+    contribution: >-
+      A transformer pre-trained on synthetic tabular tasks that performs
+      classification by in-context learning rather than by fitting: the training
+      set is supplied as context and predictions follow in a single forward
+      pass.
+    why_it_mattered: >-
+      It is the first credible challenge to gradient boosting's two-decade hold
+      on tabular data, reporting better accuracy than heavily-tuned ensembles on
+      datasets up to roughly 10,000 samples, in seconds rather than hours.
+    what_changed_after: >-
+      Tabular foundation models became an active area, and the default
+      recommendation for small tabular datasets is genuinely in question for the
+      first time since gradient boosting took over.
+    descendants: ["scaled and extended TabPFN variants",
+                  "other tabular in-context learners"]
+
+  pedregosa2011:
+    title: "Scikit-learn: Machine Learning in Python"
+    authors: ["Fabian Pedregosa", "Gaël Varoquaux", "Alexandre Gramfort",
+              "Vincent Michel", "Bertrand Thirion", "Olivier Grisel",
+              "Mathieu Blondel", "Peter Prettenhofer", "Ron Weiss",
+              "Vincent Dubourg", "Jake Vanderplas", "Alexandre Passos",
+              "David Cournapeau", "Matthieu Brucher", "Matthieu Perrot",
+              "Édouard Duchesnay"]
+    year: 2011
+    venue: "Journal of Machine Learning Research 12, 2825-2830"
+    url: "https://www.jmlr.org/papers/v12/pedregosa11a.html"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "Official JMLR paper page jmlr.org/papers/v12/pedregosa11a.html — title, sixteen authors, JMLR volume 12, pages 2825-2830, year"
+    contribution: >-
+      A machine-learning library with one consistent interface — fit, predict,
+      transform — across dozens of algorithms, with composable pipelines and
+      uniform cross-validation.
+    why_it_mattered: >-
+      The uniform interface is the contribution. It made algorithms
+      interchangeable in code, which made honest comparison cheap and made the
+      fit/transform discipline that prevents leakage the path of least
+      resistance.
+    descendants: ["the fit/predict convention adopted across the ecosystem",
+                  "pipeline abstractions in most ML frameworks"]
+
+  hoerl1970:
+    title: "Ridge Regression: Biased Estimation for Nonorthogonal Problems"
+    authors: ["Arthur E. Hoerl", "Robert W. Kennard"]
+    year: 1970
+    venue: "Technometrics 12(1), 55-67"
+    doi: "10.1080/00401706.1970.10488634"
+    url: "https://doi.org/10.1080/00401706.1970.10488634"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "Crossref API record for 10.1080/00401706.1970.10488634 — title, both authors, Technometrics vol 12 issue 1, pages 55-67, 1970"
+    contribution: >-
+      Introduced the L2 penalty for linear regression, showing that adding a
+      small ridge to the diagonal of X^T X yields a biased estimator with lower
+      total mean squared error than ordinary least squares when the design
+      matrix is ill-conditioned.
+    why_it_mattered: >-
+      It made the case that unbiasedness is not the right objective — a
+      deliberately biased estimator can be uniformly better — which is the
+      conceptual root of every regularisation method that followed, including
+      weight decay in neural networks.
+    what_changed_after: >-
+      Penalised estimation became standard practice rather than a curiosity, and
+      the bias-variance trade-off became something a practitioner tunes rather
+      than something a theorist discusses.
+    descendants: ["the lasso (tibshirani1996)", "elastic net",
+                  "weight decay in deep learning"]
+
+  tibshirani1996:
+    title: "Regression Shrinkage and Selection Via the Lasso"
+    authors: ["Robert Tibshirani"]
+    year: 1996
+    venue: "Journal of the Royal Statistical Society Series B 58(1), 267-288"
+    doi: "10.1111/j.2517-6161.1996.tb02080.x"
+    url: "https://doi.org/10.1111/j.2517-6161.1996.tb02080.x"
+    verified: true
+    verified_on: "2026-08-13"
+    verified_via: "Crossref API record for 10.1111/j.2517-6161.1996.tb02080.x — title, author, JRSS Series B vol 58 issue 1, pages 267-288, 1996"
+    contribution: >-
+      Replaced ridge's L2 penalty with an L1 penalty, which shrinks coefficients
+      and sets many of them to exactly zero — performing estimation and variable
+      selection in a single convex optimisation.
+    why_it_mattered: >-
+      Sparsity became something you could obtain by optimisation rather than by
+      combinatorial search over subsets, which had been intractable beyond a few
+      dozen features. It also made regression usable when the number of features
+      exceeds the number of observations.
+    what_changed_after: >-
+      A large literature on sparse estimation and compressed sensing followed,
+      and L1 regularisation became a standard tool wherever an interpretable
+      subset of inputs is wanted.
+    descendants: ["elastic net", "group lasso", "LARS",
+                  "compressed sensing", "L1 regularisation in deep learning"]
+
+  bergstra2012:
+    title: "Random Search for Hyper-Parameter Optimization"
+    authors: ["James Bergstra", "Yoshua Bengio"]
+    year: 2012
+    venue: "Journal of Machine Learning Research 13, 281-305"
+    url: "https://www.jmlr.org/papers/v13/bergstra12a.html"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "Official JMLR paper page jmlr.org/papers/v13/bergstra12a.html — title, both authors, volume 13, pages 281-305, year 2012"
+    contribution: >-
+      Showed that random search over hyperparameters is more efficient than
+      grid search at equal budget, and gave the geometric reason: when only a
+      few of the hyperparameters matter, a grid wastes most of its trials
+      re-testing the same values of the important ones.
+    why_it_mattered: >-
+      It replaced a universal default with a better one on the strength of an
+      argument rather than a benchmark, and the argument generalises — the
+      effective dimensionality of a search space is usually far below its
+      nominal dimensionality.
+    what_changed_after: >-
+      Random search became the baseline that every subsequent hyperparameter
+      method had to beat, and grid search stopped being defensible for more
+      than two or three parameters.
+    descendants: ["Hyperband (li2018hyperband)", "TPE and Optuna (akiba2019)",
+                  "population-based training"]
+
+  li2018hyperband:
+    title: "Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization"
+    authors: ["Lisha Li", "Kevin Jamieson", "Giulia DeSalvo",
+              "Afshin Rostamizadeh", "Ameet Talwalkar"]
+    year: 2018
+    venue: "Journal of Machine Learning Research 18, article 185, 1-52"
+    url: "https://www.jmlr.org/papers/v18/16-558.html"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "Official JMLR paper page jmlr.org/papers/v18/16-558.html — title, five authors, volume 18, article 185, pages 1-52, year 2018"
+    contribution: >-
+      Framed hyperparameter search as a pure-exploration bandit problem over
+      resource allocation, and gave a principled schedule — repeated successive
+      halving at several bracket sizes — that needs no model of the objective.
+    why_it_mattered: >-
+      It attacked a different axis from every model-based method: instead of
+      choosing better configurations, it spends less on bad ones. That turns
+      out to be where most of the practical speed-up is, and it composes with
+      model-based sampling rather than competing with it.
+    descendants: ["ASHA and asynchronous successive halving",
+                  "BOHB", "the pruners in modern HPO libraries"]
+
+  akiba2019:
+    title: "Optuna: A Next-generation Hyperparameter Optimization Framework"
+    authors: ["Takuya Akiba", "Shotaro Sano", "Toshihiko Yanase",
+              "Takeru Ohta", "Masanori Koyama"]
+    year: 2019
+    venue: "Proceedings of the 25th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, 2623-2631"
+    doi: "10.1145/3292500.3330701"
+    url: "https://doi.org/10.1145/3292500.3330701"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "Crossref API record for 10.1145/3292500.3330701 — title, five authors, KDD '19 proceedings, pages 2623-2631, 2019"
+    contribution: >-
+      A define-by-run API in which the search space is expressed by the trial
+      code itself rather than declared up front, combined with TPE sampling and
+      pluggable pruning.
+    why_it_mattered: >-
+      Define-by-run made conditional and dynamic search spaces natural to
+      write, which had been the main friction in earlier frameworks. The
+      library became the practical default, which matters because it made
+      sampler-plus-pruner the standard combination rather than an advanced one.
+    descendants: ["define-by-run search spaces in later HPO tooling"]
+
+  sculley2015:
+    title: "Hidden Technical Debt in Machine Learning Systems"
+    authors: ["D. Sculley", "Gary Holt", "Daniel Golovin", "Eugene Davydov",
+              "Todd Phillips", "Dietmar Ebner", "Vinay Chaudhary",
+              "Michael Young", "Jean-François Crespo", "Dan Dennison"]
+    year: 2015
+    venue: "Advances in Neural Information Processing Systems 28 (NIPS 2015)"
+    url: "https://papers.nips.cc/paper_files/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "Official NeurIPS proceedings abstract page papers.nips.cc — title, all ten authors, NIPS 2015. NIPS 2015 proceedings carry no DOI, so none is recorded."
+    contribution: >-
+      Argued that the model code is a small fraction of a real ML system and
+      that the surrounding infrastructure accrues a distinctive kind of
+      technical debt, then named the specific forms: entanglement (CACE —
+      changing anything changes everything), correction cascades, undeclared
+      consumers, data dependency debt, glue code, pipeline jungles, and
+      configuration debt.
+    why_it_mattered: >-
+      It gave the field a vocabulary for a problem practitioners had but could
+      not articulate, and shifted the conversation from model quality to system
+      maintainability. The named failure modes are still the most useful
+      checklist available for reviewing an ML system.
+    what_changed_after: >-
+      MLOps emerged as a discipline with this paper as its most-cited framing,
+      and the ML Test Score (breck2017) turned its observations into an
+      auditable rubric.
+    descendants: ["The ML Test Score (breck2017)", "the MLOps field broadly",
+                  "feature stores as an answer to data dependency debt"]
+
+  breck2017:
+    title: "The ML test score: A rubric for ML production readiness and technical debt reduction"
+    authors: ["Eric Breck", "Shanqing Cai", "Eric Nielsen", "Michael Salib",
+              "D. Sculley"]
+    year: 2017
+    venue: "2017 IEEE International Conference on Big Data, 1123-1132"
+    doi: "10.1109/BigData.2017.8258038"
+    url: "https://doi.org/10.1109/BigData.2017.8258038"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "Crossref API record for 10.1109/BigData.2017.8258038 — title, five authors, IEEE Big Data 2017, pages 1123-1132"
+    contribution: >-
+      Turned production readiness into a scored rubric of twenty-eight
+      concrete, checkable tests across four areas: features and data, model
+      development, infrastructure, and monitoring.
+    why_it_mattered: >-
+      It made "is this ready to deploy" an answerable question with evidence
+      attached, rather than a judgement call. The rubric's most useful property
+      is that a low score is diagnostic — it names which of the four areas is
+      neglected, and teams are reliably strongest on model development and
+      weakest on monitoring.
+    descendants: ["model cards and deployment checklists",
+                  "promotion gates in model registries"]
+
+  gama2014:
+    title: "A survey on concept drift adaptation"
+    authors: ["João Gama", "Indrė Žliobaitė", "Albert Bifet",
+              "Mykola Pechenizkiy", "Abdelhamid Bouchachia"]
+    year: 2014
+    venue: "ACM Computing Surveys 46, 1-37"
+    doi: "10.1145/2523813"
+    url: "https://doi.org/10.1145/2523813"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "Crossref API record for 10.1145/2523813 — title, five authors, ACM Computing Surveys volume 46, pages 1-37, 2014. Crossref returns no issue number, so none is recorded."
+    contribution: >-
+      A systematic taxonomy of concept drift — sudden, gradual, incremental,
+      recurring — and of the adaptation strategies for each, together with a
+      survey of the supervised change detectors (DDM, EDDM, ADWIN and
+      relatives) that watch a running error rate.
+    why_it_mattered: >-
+      It is the reference framing for what "drift" means, and the vocabulary it
+      standardised is what lets a team say precisely which kind of change they
+      are seeing.
+    what_changed_after: >-
+      The practical centre of gravity moved away from the supervised detectors
+      it surveys, because they assume labels arrive promptly and in most
+      production settings they do not. The taxonomy survived; the detectors are
+      now the special case rather than the default.
+    descendants: ["river and other streaming-ML libraries",
+                  "unsupervised shift detection (rabanser2019)"]
+
+  rabanser2019:
+    title: "Failing Loudly: An Empirical Study of Methods for Detecting Dataset Shift"
+    authors: ["Stephan Rabanser", "Stephan Günnemann", "Zachary C. Lipton"]
+    year: 2019
+    venue: "Advances in Neural Information Processing Systems (NeurIPS) 2019"
+    arxiv: "1810.11953"
+    url: "https://arxiv.org/abs/1810.11953"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "arXiv abstract page arxiv.org/abs/1810.11953 — title, three authors, v1 submitted 2018-10-29, journal reference states NeurIPS 2019"
+    contribution: >-
+      A systematic empirical comparison of methods for detecting dataset shift
+      without labels: dimensionality reduction followed by two-sample testing,
+      compared against univariate tests with multiple-testing correction and
+      against classifier-based two-sample tests.
+    why_it_mattered: >-
+      It addresses the regime production systems are actually in — labels
+      delayed or absent — which the supervised drift literature does not. Its
+      finding that a reduction plus a two-sample test is a strong general
+      approach, and that per-feature tests with correction are a surprisingly
+      strong baseline, is directly usable.
+    descendants: ["alibi-detect and comparable drift libraries",
+                  "the input-monitoring layer of production ML platforms"]
+
+  rosenblatt1958:
+    title: "The perceptron: A probabilistic model for information storage and organization in the brain"
+    authors: ["Frank Rosenblatt"]
+    year: 1958
+    venue: "Psychological Review 65(6), 386-408"
+    doi: "10.1037/h0042519"
+    url: "https://doi.org/10.1037/h0042519"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "Crossref API record for 10.1037/h0042519 — title, author, Psychological Review volume 65, pages 386-408, 1958"
+    contribution: >-
+      A learning rule for a linear threshold unit, with a convergence guarantee
+      when the data is linearly separable — the first algorithm that adjusted
+      its own parameters from examples rather than being programmed.
+    why_it_mattered: >-
+      It established the central premise of the field: that a machine can learn
+      a decision rule from labelled examples by iteratively correcting its own
+      errors. Every parameter update in this book is a descendant.
+    what_changed_after: >-
+      Enormous early enthusiasm, followed by a collapse when the linear
+      hypothesis space was shown to exclude XOR. The lesson that survived is
+      that a learning rule and a hypothesis space are separate choices.
+    descendants: ["multi-layer perceptrons", "the entire connectionist tradition"]
+
+  cybenko1989:
+    title: "Approximation by superpositions of a sigmoidal function"
+    authors: ["George Cybenko"]
+    year: 1989
+    venue: "Mathematics of Control, Signals, and Systems 2, 303-314"
+    doi: "10.1007/BF02551274"
+    url: "https://doi.org/10.1007/BF02551274"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "Crossref API record for 10.1007/BF02551274 — title, author, MCSS volume 2, pages 303-314, 1989"
+    contribution: >-
+      Proved that finite sums of a sigmoidal function of affine maps are dense
+      in the continuous functions on a compact set: a single hidden layer of
+      sufficient width can approximate any continuous function arbitrarily
+      well.
+    why_it_mattered: >-
+      It answered the representational question left open after Minsky and
+      Papert — the hypothesis space of a network with one hidden layer is not
+      merely larger than a perceptron's, it is universal.
+    what_changed_after: >-
+      Attention shifted from what networks CAN represent to what they can be
+      trained to find and how efficiently, since the theorem bounds neither the
+      width required nor the optimisation difficulty.
+    descendants: ["depth-separation results", "expressivity theory"]
+
+  rumelhart1986:
+    title: "Learning representations by back-propagating errors"
+    authors: ["David E. Rumelhart", "Geoffrey E. Hinton", "Ronald J. Williams"]
+    year: 1986
+    venue: "Nature 323, 533-536"
+    doi: "10.1038/323533a0"
+    url: "https://doi.org/10.1038/323533a0"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "Crossref API record for 10.1038/323533a0 — title, three authors, Nature volume 323, pages 533-536, October 1986"
+    contribution: >-
+      Popularised the application of reverse-mode differentiation to
+      multi-layer networks, making it practical to train hidden layers by
+      propagating error derivatives backwards through the architecture.
+    why_it_mattered: >-
+      It supplied the missing training algorithm for the multi-layer networks
+      that Minsky and Papert's critique had implied were necessary, and turned
+      the universal-approximation result from an existence statement into an
+      engineering method.
+    what_changed_after: >-
+      Multi-layer networks became trainable in practice, which is the
+      precondition for everything in Parts VI onward. The algorithm is
+      unchanged today; only its scale and its numerics have moved.
+    descendants: ["automatic differentiation frameworks", "every deep network trained since"]
+
+  bengio1994:
+    title: "Learning long-term dependencies with gradient descent is difficult"
+    authors: ["Yoshua Bengio", "Patrice Simard", "Paolo Frasconi"]
+    year: 1994
+    venue: "IEEE Transactions on Neural Networks 5(2), 157-166"
+    doi: "10.1109/72.279181"
+    url: "https://doi.org/10.1109/72.279181"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "Crossref API record for 10.1109/72.279181 — title, three authors, IEEE TNN volume 5, pages 157-166, March 1994"
+    contribution: >-
+      Showed that the difficulty of learning long-range dependencies in
+      recurrent networks is not an implementation problem but a structural one:
+      gradients through a long product of Jacobians either vanish or explode,
+      and the condition for stable storage of information is close to the
+      condition that makes gradients vanish.
+    why_it_mattered: >-
+      It converted a practical frustration into a theorem, and located the
+      problem in the repeated multiplication rather than in the optimiser. That
+      diagnosis is what gated architectures were designed against.
+    descendants: ["LSTM (hochreiter1997)", "gradient clipping", "residual connections",
+                  "state space models"]
+
+  hochreiter1997:
+    title: "Long Short-Term Memory"
+    authors: ["Sepp Hochreiter", "Jürgen Schmidhuber"]
+    year: 1997
+    venue: "Neural Computation 9(8), 1735-1780"
+    doi: "10.1162/neco.1997.9.8.1735"
+    url: "https://doi.org/10.1162/neco.1997.9.8.1735"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "Crossref API record for 10.1162/neco.1997.9.8.1735 — title, both authors, Neural Computation volume 9, pages 1735-1780, 1997"
+    contribution: >-
+      An architecture with a linear self-connected memory cell and multiplicative
+      gates, so that gradient can flow across many steps without being repeatedly
+      multiplied by a weight matrix.
+    why_it_mattered: >-
+      It made long-range sequence learning work in practice for the first time,
+      and the mechanism — an additive path that the gradient can travel along
+      unattenuated — is the same idea that residual connections later brought to
+      depth rather than time.
+    what_changed_after: >-
+      Two decades of sequence modelling, until attention removed the need for a
+      sequential bottleneck. The additive-path idea outlived the architecture.
+    descendants: ["GRU", "residual connections (he2016resnet)", "state space models"]
+
+  lecun1998:
+    title: "Gradient-based learning applied to document recognition"
+    authors: ["Yann LeCun", "Léon Bottou", "Yoshua Bengio", "Patrick Haffner"]
+    year: 1998
+    venue: "Proceedings of the IEEE 86(11), 2278-2324"
+    doi: "10.1109/5.726791"
+    url: "https://doi.org/10.1109/5.726791"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "Crossref API record for 10.1109/5.726791 — title, four authors, Proceedings of the IEEE volume 86, pages 2278-2324, 1998"
+    contribution: >-
+      Established the convolutional architecture — local receptive fields,
+      shared weights and spatial subsampling — as a way of building translation
+      equivariance into the hypothesis space rather than learning it from data.
+    why_it_mattered: >-
+      It is the clearest demonstration in the field that an architecture is an
+      assumption: the convolution encodes what is known about images, and that
+      prior is worth orders of magnitude of data.
+    descendants: ["AlexNet (krizhevsky2012)", "ResNet (he2016resnet)",
+                  "every convolutional vision model"]
+
+  hinton2006:
+    title: "A Fast Learning Algorithm for Deep Belief Nets"
+    authors: ["Geoffrey E. Hinton", "Simon Osindero", "Yee-Whye Teh"]
+    year: 2006
+    venue: "Neural Computation 18(7), 1527-1554"
+    doi: "10.1162/neco.2006.18.7.1527"
+    url: "https://doi.org/10.1162/neco.2006.18.7.1527"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "Crossref API record for 10.1162/neco.2006.18.7.1527 — title, three authors, Neural Computation volume 18, pages 1527-1554, July 2006"
+    contribution: >-
+      A layer-wise unsupervised pre-training scheme that made deep networks
+      trainable at a time when training them end to end from random
+      initialisation reliably failed.
+    why_it_mattered: >-
+      It restarted the field. The specific method was superseded within a few
+      years by better initialisation, better activations and more data, but it
+      established that depth was achievable and worth pursuing.
+    what_changed_after: >-
+      Unsupervised pre-training was abandoned for supervised vision tasks and
+      then returned, transformed, as the pre-training paradigm of Part IX.
+    descendants: ["denoising autoencoders", "modern self-supervised pre-training"]
+
+  glorot2010:
+    title: "Understanding the difficulty of training deep feedforward neural networks"
+    authors: ["Xavier Glorot", "Yoshua Bengio"]
+    year: 2010
+    venue: "Proceedings of the Thirteenth International Conference on Artificial Intelligence and Statistics, PMLR 9, 249-256"
+    url: "https://proceedings.mlr.press/v9/glorot10a.html"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "Official PMLR page proceedings.mlr.press/v9/glorot10a.html — title, both authors, AISTATS volume 9, pages 249-256, 2010"
+    contribution: >-
+      Diagnosed why deep networks failed to train by measuring activation and
+      gradient variance layer by layer, and derived an initialisation scale
+      that keeps both approximately constant with depth.
+    why_it_mattered: >-
+      It replaced initialisation folklore with a variance calculation, and in
+      doing so reframed trainability as a signal-propagation problem — the
+      frame that normalisation and residual connections were later designed
+      within.
+    descendants: ["He initialisation (he2015init)", "normalization layers",
+                  "signal-propagation analyses of deep networks"]
+
+  krizhevsky2012:
+    title: "ImageNet classification with deep convolutional neural networks"
+    authors: ["Alex Krizhevsky", "Ilya Sutskever", "Geoffrey E. Hinton"]
+    year: 2017
+    venue: "Communications of the ACM 60(6), 84-90 (originally NIPS 2012)"
+    doi: "10.1145/3065386"
+    url: "https://doi.org/10.1145/3065386"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "Crossref API record for 10.1145/3065386 — title, three authors, Communications of the ACM volume 60, pages 84-90. This is the 2017 CACM reprint, which is the version carrying a DOI; the original appeared at NIPS 2012."
+    contribution: >-
+      Won ImageNet 2012 by a large margin with a deep convolutional network
+      trained on GPUs, using ReLU activations, dropout and heavy data
+      augmentation.
+    why_it_mattered: >-
+      It was the empirical demonstration that ended the argument. The
+      components were mostly known; what was new was the combination of scale,
+      hardware and a dataset large enough for the capacity to pay.
+    what_changed_after: >-
+      Deep learning became the default approach to perception within about two
+      years, and GPU training became a precondition for competitive work.
+    descendants: ["VGG", "ResNet (he2016resnet)", "the modern vision stack"]
+
+  srivastava2014:
+    title: "Dropout: A Simple Way to Prevent Neural Networks from Overfitting"
+    authors: ["Nitish Srivastava", "Geoffrey Hinton", "Alex Krizhevsky",
+              "Ilya Sutskever", "Ruslan Salakhutdinov"]
+    year: 2014
+    venue: "Journal of Machine Learning Research 15, 1929-1958"
+    url: "https://www.jmlr.org/papers/v15/srivastava14a.html"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "Official JMLR page jmlr.org/papers/v15/srivastava14a.html — title, five authors, volume 15, pages 1929-1958, 2014"
+    contribution: >-
+      Randomly zeroing units during training, which prevents co-adaptation
+      between them and is interpretable as training an exponentially large
+      ensemble of subnetworks that share weights.
+    why_it_mattered: >-
+      It was the dominant regulariser of the era and gave the field an
+      ensemble-flavoured account of why a stochastic training perturbation
+      improves generalisation.
+    what_changed_after: >-
+      Largely displaced in convolutional networks by batch normalisation and
+      heavy augmentation, and retained in transformers at low rates. The
+      ensemble framing persists.
+    descendants: ["DropConnect", "stochastic depth", "Monte Carlo dropout for uncertainty"]
+
+  he2015init:
+    title: "Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification"
+    authors: ["Kaiming He", "Xiangyu Zhang", "Shaoqing Ren", "Jian Sun"]
+    year: 2015
+    venue: "2015 IEEE International Conference on Computer Vision (ICCV), 1026-1034"
+    doi: "10.1109/ICCV.2015.123"
+    url: "https://doi.org/10.1109/ICCV.2015.123"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "Crossref API record for 10.1109/ICCV.2015.123 — title, four authors, ICCV 2015, pages 1026-1034"
+    contribution: >-
+      Redid Glorot's variance calculation for rectified units, which zero half
+      the activations and therefore halve the variance, giving the factor of
+      two that makes very deep rectified networks trainable; and introduced
+      PReLU.
+    why_it_mattered: >-
+      It is the clearest case in the field of a one-line change with a
+      three-line derivation unlocking a large practical gain, and it made
+      thirty-layer rectified networks trainable from scratch.
+    descendants: ["ResNet (he2016resnet)", "the default initialisation in every framework"]
+
+  he2016resnet:
+    title: "Deep Residual Learning for Image Recognition"
+    authors: ["Kaiming He", "Xiangyu Zhang", "Shaoqing Ren", "Jian Sun"]
+    year: 2016
+    venue: "2016 IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 770-778"
+    doi: "10.1109/CVPR.2016.90"
+    url: "https://doi.org/10.1109/CVPR.2016.90"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "Crossref API record for 10.1109/CVPR.2016.90 — title, four authors, CVPR 2016, pages 770-778"
+    contribution: >-
+      Reformulated layers to learn a residual relative to their input, so that
+      the identity is the default behaviour and the gradient has an
+      unattenuated additive path to every layer.
+    why_it_mattered: >-
+      It removed depth as a barrier. The observation that motivated it — deeper
+      plain networks were WORSE on training error, not merely on test error —
+      showed the problem was optimisation rather than capacity, and the fix
+      generalised far beyond vision.
+    what_changed_after: >-
+      Residual connections became universal, including in every transformer.
+      The additive-path idea unifies this with LSTM's memory cell.
+    descendants: ["every transformer block", "DenseNet", "stochastic depth"]
+
+  kingma2015adam:
+    title: "Adam: A Method for Stochastic Optimization"
+    authors: ["Diederik P. Kingma", "Jimmy Ba"]
+    year: 2014
+    venue: "arXiv 1412.6980 (presented at ICLR 2015)"
+    arxiv: "1412.6980"
+    url: "https://arxiv.org/abs/1412.6980"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "arXiv API record for 1412.6980 — title, both authors, v1 submitted 2014-12-22. The arXiv record carries no journal reference; the ICLR 2015 venue is widely reported and is stated here as context rather than as verified metadata."
+    contribution: >-
+      Combined momentum with a per-parameter adaptive step size from a running
+      second-moment estimate, plus bias correction for the initialisation of
+      both moment accumulators.
+    why_it_mattered: >-
+      It made training work acceptably across a wide range of architectures
+      without per-problem learning-rate tuning, which mattered enormously when
+      architectures were changing every few months.
+    descendants: ["AdamW (loshchilov2019adamw)", "Adafactor", "LAMB", "Lion"]
+
+  ioffe2015:
+    title: "Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift"
+    authors: ["Sergey Ioffe", "Christian Szegedy"]
+    year: 2015
+    venue: "arXiv 1502.03167 (presented at ICML 2015)"
+    arxiv: "1502.03167"
+    url: "https://arxiv.org/abs/1502.03167"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "arXiv API record for 1502.03167 — title, both authors, v1 submitted 2015-02-11. No journal reference on the arXiv record; ICML 2015 stated as context."
+    contribution: >-
+      Normalising each layer's pre-activations across the batch, with learnable
+      scale and shift, which permits much larger learning rates and reduces
+      sensitivity to initialisation.
+    why_it_mattered: >-
+      It made deep networks dramatically easier to train, and it is also a
+      cautionary tale: the mechanism named in its title was later shown not to
+      be the operative one (santurkar2018), while the technique itself works.
+    what_changed_after: >-
+      Normalisation became a standard component. The batch dependence it
+      introduced later motivated LayerNorm and RMSNorm for sequence models.
+    descendants: ["LayerNorm (ba2016layernorm)", "RMSNorm (zhang2019rmsnorm)",
+                  "GroupNorm"]
+
+  ba2016layernorm:
+    title: "Layer Normalization"
+    authors: ["Jimmy Lei Ba", "Jamie Ryan Kiros", "Geoffrey E. Hinton"]
+    year: 2016
+    venue: "arXiv 1607.06450"
+    arxiv: "1607.06450"
+    url: "https://arxiv.org/abs/1607.06450"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "arXiv API record for 1607.06450 — title, three authors, v1 submitted 2016-07-21"
+    contribution: >-
+      Normalising across the features of a single example rather than across
+      the batch, which removes the dependence on batch size and makes the
+      operation identical at training and inference time.
+    why_it_mattered: >-
+      Batch statistics are awkward for variable-length sequences and unusable
+      at batch size one. LayerNorm made normalisation available to recurrent
+      and, later, transformer architectures.
+    descendants: ["RMSNorm (zhang2019rmsnorm)", "the normalisation in every transformer"]
+
+  zhang2017rethinking:
+    title: "Understanding deep learning requires rethinking generalization"
+    authors: ["Chiyuan Zhang", "Samy Bengio", "Moritz Hardt", "Benjamin Recht",
+              "Oriol Vinyals"]
+    year: 2016
+    venue: "arXiv 1611.03530 (presented at ICLR 2017)"
+    arxiv: "1611.03530"
+    url: "https://arxiv.org/abs/1611.03530"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "arXiv API record for 1611.03530 — title, five authors, v1 submitted 2016-11-10. No journal reference on the arXiv record; ICLR 2017 stated as context."
+    contribution: >-
+      Showed that standard architectures trained with standard methods can fit
+      randomly labelled data perfectly, so their effective capacity is
+      sufficient to memorise the training set outright.
+    why_it_mattered: >-
+      It demonstrated that classical uniform-convergence bounds cannot explain
+      why these models generalise, since the same model that generalises on
+      real labels also memorises random ones. Explicit regularisation improves
+      generalisation but is not what makes it possible.
+    what_changed_after: >-
+      A large literature on implicit regularisation, double descent and
+      benign overfitting; the question remains open.
+    descendants: ["double-descent studies", "implicit-bias analyses of SGD"]
+
+  santurkar2018:
+    title: "How Does Batch Normalization Help Optimization?"
+    authors: ["Shibani Santurkar", "Dimitris Tsipras", "Andrew Ilyas",
+              "Aleksander Madry"]
+    year: 2018
+    venue: "arXiv 1805.11604 (presented at NeurIPS 2018)"
+    arxiv: "1805.11604"
+    url: "https://arxiv.org/abs/1805.11604"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "arXiv API record for 1805.11604 — title, four authors, v1 submitted 2018-05-29. No journal reference on the arXiv record; NeurIPS 2018 stated as context."
+    contribution: >-
+      Tested the internal-covariate-shift explanation directly by injecting
+      distributional noise after the normalisation layer, and found the
+      training benefit survived. Proposed instead that batch normalisation
+      smooths the loss landscape, improving the Lipschitz constants of the loss
+      and its gradients.
+    why_it_mattered: >-
+      A widely repeated mechanistic explanation was shown to be wrong while the
+      technique it explained remained correct — a useful and uncomfortable
+      demonstration that a method working is not evidence that the stated
+      reason is right.
+    descendants: ["loss-landscape analyses", "normalisation-free architectures"]
+
+  loshchilov2019adamw:
+    title: "Decoupled Weight Decay Regularization"
+    authors: ["Ilya Loshchilov", "Frank Hutter"]
+    year: 2017
+    venue: "arXiv 1711.05101 (presented at ICLR 2019)"
+    arxiv: "1711.05101"
+    url: "https://arxiv.org/abs/1711.05101"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "arXiv API record for 1711.05101 — title, both authors, v1 submitted 2017-11-14. No journal reference on the arXiv record; ICLR 2019 stated as context."
+    contribution: >-
+      Showed that adding an L2 penalty to the loss is not equivalent to weight
+      decay under an adaptive optimiser, because the adaptive denominator
+      rescales the penalty per parameter, and decoupled the decay from the
+      gradient update.
+    why_it_mattered: >-
+      It corrected a subtle and universal bug: everyone believed they were
+      applying weight decay and were applying something else. AdamW became the
+      default optimiser for transformer training.
+    descendants: ["the default optimiser configuration of essentially every LLM"]
+
+  zhang2019rmsnorm:
+    title: "Root Mean Square Layer Normalization"
+    authors: ["Biao Zhang", "Rico Sennrich"]
+    year: 2019
+    venue: "arXiv 1910.07467 (presented at NeurIPS 2019)"
+    arxiv: "1910.07467"
+    url: "https://arxiv.org/abs/1910.07467"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "arXiv API record for 1910.07467 — title, both authors, v1 submitted 2019-10-16. No journal reference on the arXiv record; NeurIPS 2019 stated as context."
+    contribution: >-
+      Removed the mean-centring step from LayerNorm, rescaling only by the root
+      mean square, and showed comparable quality at meaningfully lower cost.
+    why_it_mattered: >-
+      It identified that the re-centring half of LayerNorm was doing little
+      work, and the resulting simplification is now the standard normalisation
+      in essentially every large open-weight language model.
+    descendants: ["the normalisation layer of LLaMA, Mistral, Gemma, Qwen and successors"]
+
+  kingma2014vae:
+    title: "Auto-Encoding Variational Bayes"
+    authors: ["Diederik P. Kingma", "Max Welling"]
+    year: 2013
+    venue: "arXiv 1312.6114 (presented at ICLR 2014)"
+    arxiv: "1312.6114"
+    url: "https://arxiv.org/abs/1312.6114"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "arXiv API record for 1312.6114 — title, both authors, v1 submitted 2013-12-20. No journal reference on the arXiv record; ICLR 2014 stated as context."
+    contribution: >-
+      Made variational inference trainable by gradient descent through the
+      reparameterisation trick, turning an autoencoder into a generative model
+      with a probabilistic latent space.
+    why_it_mattered: >-
+      It gave deep learning a principled generative latent-variable model and
+      introduced the reparameterisation trick, which is now standard wherever a
+      gradient must pass through a sampling step.
+    descendants: ["VQ-VAE", "the latent space of latent diffusion models",
+                  "reparameterisation in stochastic computation graphs"]
+
+  szegedy2016:
+    title: "Rethinking the Inception Architecture for Computer Vision"
+    authors: ["Christian Szegedy", "Vincent Vanhoucke", "Sergey Ioffe",
+              "Jonathon Shlens", "Zbigniew Wojna"]
+    year: 2016
+    venue: "CVPR 2016 (arXiv preprint December 2015)"
+    arxiv: "1512.00567"
+    url: "https://arxiv.org/abs/1512.00567"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "arXiv abstract page arxiv.org/abs/1512.00567 — title, five authors and 2015 submission confirmed; abstract confirms the paper's subject is efficient scaling via factorized convolutions and aggressive regularization."
+    contribution: >
+      Introduced Inception-v2/v3 and, as one of its regularization components,
+      label smoothing: replacing the one-hot target with a mixture of the
+      one-hot vector and the uniform distribution.
+    why_it_mattered: >
+      Label smoothing became a near-universal default in classification and
+      later in sequence models, on the strength of a short subsection of a
+      paper primarily about convolutional architecture.
+    what_changed_after: >
+      Adopted throughout image classification and machine translation; later
+      analysed as improving calibration and as a form of distillation from a
+      uniform teacher.
+    descendants: ["Transformer training recipes", "calibration literature",
+                  "knowledge distillation"]
+
+  lin2017focal:
+    title: "Focal Loss for Dense Object Detection"
+    authors: ["Tsung-Yi Lin", "Priya Goyal", "Ross Girshick", "Kaiming He",
+              "Piotr Dollár"]
+    year: 2017
+    venue: "ICCV 2017 (arXiv preprint August 2017)"
+    arxiv: "1708.02002"
+    url: "https://arxiv.org/abs/1708.02002"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "arXiv abstract page arxiv.org/abs/1708.02002 — title, five authors and 2017 submission confirmed; abstract confirms the extreme foreground-background imbalance motivation and the down-weighting of well-classified examples."
+    contribution: >
+      Identified extreme foreground/background class imbalance as the reason
+      one-stage detectors trailed two-stage ones, and proposed a loss that
+      down-weights well-classified examples by a factor (1-p)^gamma.
+    why_it_mattered: >
+      Made one-stage detection competitive with two-stage detection, and gave
+      the field a widely reused tool for imbalanced classification.
+    what_changed_after: >
+      RetinaNet became a standard detection baseline; focal loss was adopted
+      well outside detection, often at imbalance ratios far milder than the
+      thousands-to-one regime it was validated in.
+    descendants: ["RetinaNet", "one-stage detectors", "imbalanced-classification practice"]
+
+  baydin2018:
+    title: "Automatic Differentiation in Machine Learning: a Survey"
+    authors: ["Atilim Gunes Baydin", "Barak A. Pearlmutter",
+              "Alexey Andreyevich Radul", "Jeffrey Mark Siskind"]
+    year: 2018
+    venue: "Journal of Machine Learning Research 18(153):1-43 (arXiv preprint 2015)"
+    arxiv: "1502.05767"
+    url: "https://arxiv.org/abs/1502.05767"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "arXiv abstract page arxiv.org/abs/1502.05767 — title, four authors, 2015 submission and the JMLR 18(153):1-43, 2018 journal reference all confirmed on the listing."
+    contribution: >
+      Surveys automatic differentiation for a machine learning audience, and
+      carefully separates AD from symbolic and numerical differentiation —
+      a distinction the abstract notes is routinely muddled.
+    why_it_mattered: >
+      Gave the field a common vocabulary for what frameworks actually do,
+      and established that backpropagation is a special case of reverse-mode
+      AD rather than a separate algorithm.
+    what_changed_after: >
+      Framework documentation and teaching material increasingly adopted the
+      AD framing; "differentiable programming" became a usable term.
+    descendants: ["JAX", "differentiable programming", "higher-order AD"]
+
+  pascanu2013:
+    title: "On the difficulty of training Recurrent Neural Networks"
+    authors: ["Razvan Pascanu", "Tomas Mikolov", "Yoshua Bengio"]
+    year: 2013
+    venue: "ICML 2013 (arXiv preprint November 2012)"
+    arxiv: "1211.5063"
+    url: "https://arxiv.org/abs/1211.5063"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "arXiv abstract page arxiv.org/abs/1211.5063 — title, three authors, November 2012 submission with February 2013 revision confirmed; abstract confirms the gradient-norm-clipping proposal and the vanishing/exploding analysis."
+    contribution: >
+      Analysed the exploding and vanishing gradient problem from analytical,
+      geometric and dynamical-systems angles, and proposed gradient norm
+      clipping for the exploding case and a soft constraint for the
+      vanishing one.
+    why_it_mattered: >
+      Gradient clipping became standard practice well beyond recurrent
+      networks, and the analysis is the clearest statement of why the
+      backward recursion's matrix product is the governing quantity.
+    what_changed_after: >
+      Clipping is a default in essentially every large-model training recipe;
+      the analysis fed directly into initialisation and normalisation work.
+    descendants: ["gradient clipping", "LSTM practice",
+                  "large-model training recipes"]
+
+  loshchilov2017sgdr:
+    title: "SGDR: Stochastic Gradient Descent with Warm Restarts"
+    authors: ["Ilya Loshchilov", "Frank Hutter"]
+    year: 2017
+    venue: "ICLR 2017 (arXiv preprint August 2016)"
+    arxiv: "1608.03983"
+    url: "https://arxiv.org/abs/1608.03983"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "arXiv abstract page arxiv.org/abs/1608.03983 — title, two authors, August 2016 submission with a May 2017 final version, and the ICLR 2017 comment confirmed on the listing."
+    contribution: >
+      Introduced warm restarts for SGD, in which the learning rate is
+      periodically reset to its peak and annealed again on cycles of
+      increasing length, with cosine annealing used within each cycle.
+    why_it_mattered: >
+      Cosine annealing became the near-universal default schedule for deep
+      learning, and the warm restarts the paper was actually arguing for
+      did not — a good example of a component outliving its paper's thesis.
+    what_changed_after: >
+      Cosine schedules appear in essentially every large-model training
+      recipe; snapshot ensembling grew out of the restart idea.
+    descendants: ["cosine annealing", "snapshot ensembles",
+                  "warmup + cosine recipes"]
+
+  goyal2017:
+    title: "Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour"
+    authors: ["Priya Goyal", "Piotr Dollár", "Ross Girshick",
+              "Pieter Noordhuis", "Lukasz Wesolowski", "Aapo Kyrola",
+              "Andrew Tulloch", "Yangqing Jia", "Kaiming He"]
+    year: 2017
+    venue: "arXiv preprint (June 2017)"
+    arxiv: "1706.02677"
+    url: "https://arxiv.org/abs/1706.02677"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "arXiv abstract page arxiv.org/abs/1706.02677 — title, nine authors and 2017 submission confirmed; abstract confirms both the hyper-parameter-free linear scaling rule and the warmup scheme as the paper's two contributions."
+    contribution: >
+      Established the linear scaling rule — multiply the learning rate by
+      the same factor as the batch size — together with the gradual warmup
+      needed to make it survive the early steps of training.
+    why_it_mattered: >
+      Made large-batch distributed training practical, and gave the field
+      the two techniques that every large-scale recipe still uses.
+    what_changed_after: >
+      Batch sizes in the thousands became routine; LARS and LAMB extended
+      the idea to the regime where linear scaling alone breaks down.
+    descendants: ["LARS", "LAMB", "large-batch pretraining recipes"]
+
+  smith2017cyclical:
+    title: "Cyclical Learning Rates for Training Neural Networks"
+    authors: ["Leslie N. Smith"]
+    year: 2017
+    venue: "WACV 2017 (arXiv preprint June 2015)"
+    arxiv: "1506.01186"
+    url: "https://arxiv.org/abs/1506.01186"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "arXiv abstract page arxiv.org/abs/1506.01186 — title, single author, June 2015 submission with April 2017 final version and the WACV 2017 comment confirmed; abstract confirms both the cyclical policy and the linearly-increasing-rate procedure for estimating reasonable bounds."
+    contribution: >
+      Proposed cycling the learning rate between bounds instead of decaying
+      it monotonically, and — more durably — the learning-rate range test:
+      linearly increasing the rate for a few epochs to estimate reasonable
+      bounds.
+    why_it_mattered: >
+      The range test is a cheap and widely adopted diagnostic that replaces
+      a large part of a learning-rate grid search.
+    what_changed_after: >
+      Built into several training libraries as an lr_find utility; fed
+      directly into the one-cycle policy of smith2018supercon.
+    descendants: ["lr range test", "one-cycle", "fast.ai lr_find"]
+
+  smith2018supercon:
+    title: "Super-Convergence: Very Fast Training of Neural Networks Using Large Learning Rates"
+    authors: ["Leslie N. Smith", "Nicholay Topin"]
+    year: 2018
+    venue: "arXiv preprint (August 2017, revised May 2018)"
+    arxiv: "1708.07120"
+    url: "https://arxiv.org/abs/1708.07120"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "arXiv abstract page arxiv.org/abs/1708.07120 — title, two authors, August 2017 submission with May 2018 revision confirmed; abstract confirms the one-learning-rate-cycle-with-large-maximum policy."
+    contribution: >
+      Described the one-cycle policy — a single rise to a large maximum
+      learning rate followed by an anneal well below the starting value —
+      and the super-convergence phenomenon it produces.
+    why_it_mattered: >
+      Showed that very large learning rates, used briefly and with adjusted
+      regularisation, can train some networks an order of magnitude faster.
+    what_changed_after: >
+      One-cycle became a standard fast-training recipe, particularly in
+      vision; the interaction with regularisation it describes anticipates
+      later work on schedules as implicit regularisation.
+    descendants: ["one-cycle policy", "fast.ai fit_one_cycle"]
+
+  saxe2014:
+    title: "Exact solutions to the nonlinear dynamics of learning in deep linear neural networks"
+    authors: ["Andrew M. Saxe", "James L. McClelland", "Surya Ganguli"]
+    year: 2014
+    venue: "ICLR 2014 (arXiv preprint December 2013)"
+    arxiv: "1312.6120"
+    url: "https://arxiv.org/abs/1312.6120"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "arXiv abstract page arxiv.org/abs/1312.6120 — title, three authors and 2013 submission confirmed; abstract confirms the random orthogonal initial conditions with depth-independent learning times and the edge-of-chaos remark."
+    contribution: >
+      Solved the learning dynamics of deep LINEAR networks exactly, and
+      showed that random orthogonal initialisation gives learning times
+      independent of depth — with the caveat that gradients propagate
+      faithfully in deep nonlinear networks only at the edge of chaos.
+    why_it_mattered: >
+      Made orthogonal initialisation a standard option, and established the
+      signal-propagation framing that mean-field analyses of initialisation
+      later developed.
+    what_changed_after: >
+      Orthogonal initialisation became standard in recurrent networks;
+      the edge-of-chaos idea fed directly into dynamical-isometry work.
+    descendants: ["orthogonal init", "dynamical isometry",
+                  "mean-field theory of deep networks"]
+
+  liu2020admin:
+    title: "Understanding the Difficulty of Training Transformers"
+    authors: ["Liyuan Liu", "Xiaodong Liu", "Jianfeng Gao", "Weizhu Chen",
+              "Jiawei Han"]
+    year: 2020
+    venue: "EMNLP 2020 (arXiv preprint April 2020)"
+    arxiv: "2004.08249"
+    url: "https://arxiv.org/abs/2004.08249"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "arXiv abstract page arxiv.org/abs/2004.08249 — title, five authors, April 2020 submission and the EMNLP 2020 comment confirmed; abstract confirms the amplification-effect diagnosis and the Admin initialisation proposal."
+    contribution: >
+      Identified an amplification effect as the cause of transformer
+      training instability — heavy dependence on the residual branch means
+      small parameter perturbations are amplified — and proposed Admin, an
+      adaptive initialisation that controls the branch's contribution
+      early while preserving capacity later.
+    why_it_mattered: >
+      Located the instability in the residual branch specifically rather
+      than in unbalanced gradients, which is the diagnosis that later
+      branch-scaling and zero-initialisation recipes act on.
+    what_changed_after: >
+      Residual-branch scaling and zero-initialised branch outputs became
+      standard in deep transformer recipes.
+    descendants: ["Admin", "residual branch scaling", "deep transformer recipes"]
+
+  xiong2020prenorm:
+    title: "On Layer Normalization in the Transformer Architecture"
+    authors: ["Ruibin Xiong", "Yunchang Yang", "Di He", "Kai Zheng",
+              "Shuxin Zheng", "Chen Xing", "Huishuai Zhang", "Yanyan Lan",
+              "Liwei Wang", "Tie-Yan Liu"]
+    year: 2020
+    venue: "ICML 2020 (arXiv preprint February 2020)"
+    arxiv: "2002.04745"
+    url: "https://arxiv.org/abs/2002.04745"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "arXiv abstract page arxiv.org/abs/2002.04745 — title, ten authors, February 2020 submission and the ICML 2020 comment confirmed; abstract confirms the mean-field analysis of Post-LN gradients at initialisation and the claim that Pre-LN removes the warmup requirement."
+    contribution: >
+      Analysed layer-normalisation placement in the transformer with mean
+      field theory, showing that Post-LN has badly scaled gradients at
+      initialisation — which is why warmup is needed — while Pre-LN does
+      not, and that Pre-LN without warmup matches the baseline.
+    why_it_mattered: >
+      Gave a mechanism for a choice that had been empirical, and Pre-LN
+      became the default placement in essentially every subsequent
+      transformer.
+    what_changed_after: >
+      Pre-normalisation is universal in large language models; the warmup
+      question separated from the normalisation-placement question.
+    descendants: ["pre-norm transformers", "deep transformer recipes",
+                  "normalisation placement analyses"]
+
+  belkin2019:
+    title: "Reconciling modern machine learning practice and the bias-variance trade-off"
+    authors: ["Mikhail Belkin", "Daniel Hsu", "Siyuan Ma", "Soumik Mandal"]
+    year: 2019
+    venue: "Proceedings of the National Academy of Sciences 116(32) (arXiv preprint December 2018)"
+    arxiv: "1812.11118"
+    doi: "10.1073/pnas.1903070116"
+    url: "https://arxiv.org/abs/1812.11118"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "arXiv abstract page arxiv.org/abs/1812.11118 — title, four authors, December 2018 submission with September 2019 revision, and the PNAS DOI 10.1073/pnas.1903070116 confirmed on the listing; abstract confirms the unified double-descent curve and the beyond-interpolation improvement."
+    contribution: >
+      Named and characterised the double descent curve: past the
+      interpolation threshold, increasing capacity further IMPROVES test
+      performance, so the classical U-shape is one half of a larger picture.
+    why_it_mattered: >
+      Reconciled the observed success of heavily overparameterised models
+      with a bias-variance account that appeared to forbid it, and made
+      "more parameters overfit" untenable as a general rule.
+    what_changed_after: >
+      Double descent was demonstrated in deep networks and in the number of
+      training epochs; the interpolation regime became a subject in its own
+      right.
+    descendants: ["deep double descent", "benign overfitting",
+                  "implicit regularisation"]
+
+  dosovitskiy2021vit:
+    title: "An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale"
+    authors: ["Alexey Dosovitskiy", "Lucas Beyer", "Alexander Kolesnikov",
+              "Dirk Weissenborn", "Xiaohua Zhai", "Thomas Unterthiner",
+              "Mostafa Dehghani", "Matthias Minderer", "Georg Heigold",
+              "Sylvain Gelly", "Jakob Uszkoreit", "Neil Houlsby"]
+    year: 2021
+    venue: "ICLR 2021 (arXiv preprint October 2020)"
+    arxiv: "2010.11929"
+    url: "https://arxiv.org/abs/2010.11929"
+    verified: true
+    verified_on: "2026-08-14"
+    verified_via: "arXiv abstract page arxiv.org/abs/2010.11929 — title, twelve authors, October 2020 submission with June 2021 revision, and the ICLR camera-ready comment confirmed; abstract confirms the dependence on large-scale pretraining before matching convolutional networks."
+    contribution: >
+      Applied a plain transformer to image patches with no convolutional
+      inductive bias, and showed it matches or beats convolutional networks
+      once pretrained on enough data — while underperforming them at
+      smaller data scales.
+    why_it_mattered: >
+      Demonstrated that the convolution's inductive bias is a
+      sample-efficiency device rather than a necessity, and unified vision
+      and language on one architecture.
+    what_changed_after: >
+      Vision transformers became standard for large-scale vision; hybrids
+      and modernised convolutional networks followed as the comparison was
+      re-run more carefully.
+    descendants: ["ViT variants", "CLIP", "hybrid conv-attention models",
+                  "ConvNeXt"]
+
+  su2021rope:
+    title: "RoFormer: Enhanced Transformer with Rotary Position Embedding"
+    authors: ["Jianlin Su", "Yu Lu", "Shengfeng Pan", "Ahmed Murtadha",
+              "Bo Wen", "Yunfeng Liu"]
+    year: 2021
+    venue: "arXiv preprint (April 2021; revised November 2023). Later published in Neurocomputing."
+    arxiv: "2104.09864"
+    url: "https://arxiv.org/abs/2104.09864"
+    verified: true
+    verified_on: "2026-08-15"
+    verified_via: "arXiv abstract page arxiv.org/abs/2104.09864 — title, six authors, April 2021 submission with November 2023 revision confirmed; abstract confirms the rotation-matrix encoding of absolute position that yields explicit relative dependence in self-attention."
+    contribution: >
+      Introduced rotary position embedding: rotate the query and key vectors
+      by an angle proportional to position, so their dot product depends
+      only on the RELATIVE offset, with no added position vector.
+    why_it_mattered: >
+      Became the default positional scheme in essentially every open-weight
+      language model, replacing both learned absolute embeddings and
+      sinusoidal ones.
+    what_changed_after: >
+      RoPE scaling methods (NTK-aware, YaRN, position interpolation) grew
+      into the standard route to extending a model's context window after
+      pretraining.
+    descendants: ["RoPE scaling", "YaRN", "position interpolation",
+                  "Llama/Mistral/Qwen position handling"]
+
+  press2022alibi:
+    title: "Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation"
+    authors: ["Ofir Press", "Noah A. Smith", "Mike Lewis"]
+    year: 2022
+    venue: "ICLR 2022 (arXiv preprint August 2021)"
+    arxiv: "2108.12409"
+    url: "https://arxiv.org/abs/2108.12409"
+    verified: true
+    verified_on: "2026-08-15"
+    verified_via: "arXiv abstract page arxiv.org/abs/2108.12409 — title, three authors, August 2021 submission with April 2022 revision confirmed; abstract confirms the 1.3B model trained at 1024 tokens matching a sinusoidal model's perplexity at 2048, with 11% faster training and 11% less memory."
+    contribution: >
+      Replaced positional embeddings entirely with a fixed linear penalty on
+      attention scores proportional to the distance between positions, and
+      showed it extrapolates to sequences longer than those trained on.
+    why_it_mattered: >
+      Reframed positional encoding as a question about EXTRAPOLATION rather
+      than representation, and gave the field a concrete baseline for it.
+    what_changed_after: >
+      Adopted in several large models; the extrapolation framing drove the
+      subsequent RoPE-scaling literature even though ALiBi itself was not
+      the eventual default.
+    descendants: ["length extrapolation benchmarks", "RoPE scaling",
+                  "relative position bias variants"]
+
+  dao2022flash:
+    title: "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness"
+    authors: ["Tri Dao", "Daniel Y. Fu", "Stefano Ermon", "Atri Rudra",
+              "Christopher Ré"]
+    year: 2022
+    venue: "NeurIPS 2022 (arXiv preprint May 2022)"
+    arxiv: "2205.14135"
+    url: "https://arxiv.org/abs/2205.14135"
+    verified: true
+    verified_on: "2026-08-15"
+    verified_via: "arXiv abstract page arxiv.org/abs/2205.14135 — title, five authors and 2022 submission confirmed; abstract confirms the IO-awareness framing, the tiling to reduce HBM/SRAM transfers, and the reported 15% BERT-large, 3x GPT-2 and 2.4x long-range speedups with contexts to 64K."
+    contribution: >
+      Made attention IO-aware: tile the computation so the T-by-T attention
+      matrix is never written to high-bandwidth memory, giving the same
+      EXACT result with far fewer memory transfers.
+    why_it_mattered: >
+      Turned attention from a memory-bound operation into a much less
+      memory-bound one, which is what made long contexts practical. Crucially
+      it is exact, so it required no accuracy trade-off and adoption was
+      immediate.
+    what_changed_after: >
+      FlashAttention-2 and -3; IO-awareness became a standard lens for kernel
+      design; long-context models became routine.
+    descendants: ["FlashAttention-2", "FlashAttention-3", "PagedAttention",
+                  "long-context models"]
+
+  shazeer2019mqa:
+    title: "Fast Transformer Decoding: One Write-Head is All You Need"
+    authors: ["Noam Shazeer"]
+    year: 2019
+    venue: "arXiv preprint (November 2019)"
+    arxiv: "1911.02150"
+    url: "https://arxiv.org/abs/1911.02150"
+    verified: true
+    verified_on: "2026-08-15"
+    verified_via: "arXiv abstract page arxiv.org/abs/1911.02150 — title, single author and 2019 submission confirmed; abstract confirms the memory-bandwidth diagnosis of incremental decoding and the sharing of keys and values across heads."
+    contribution: >
+      Diagnosed incremental decoding as memory-bandwidth-bound on the cost of
+      repeatedly loading the key and value tensors, and proposed multi-query
+      attention — one shared key/value head for all query heads.
+    why_it_mattered: >
+      Shrank the KV cache by the number of heads, which is the dominant
+      memory cost of serving a long-context model.
+    what_changed_after: >
+      Generalised into grouped-query attention (ainslie2023gqa), now the
+      default in most open-weight models.
+    descendants: ["GQA", "KV-cache optimisation", "serving stacks"]
+
+  ainslie2023gqa:
+    title: "GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints"
+    authors: ["Joshua Ainslie", "James Lee-Thorp", "Michiel de Jong",
+              "Yury Zemlyanskiy", "Federico Lebrón", "Sumit Sanghai"]
+    year: 2023
+    venue: "EMNLP 2023 (arXiv preprint May 2023)"
+    arxiv: "2305.13245"
+    url: "https://arxiv.org/abs/2305.13245"
+    verified: true
+    verified_on: "2026-08-15"
+    verified_via: "arXiv abstract page arxiv.org/abs/2305.13245 — title, six authors, May 2023 submission and the EMNLP 2023 venue confirmed; abstract confirms both the 5%-of-pretraining uptraining recipe and grouped-query attention as an interpolation between MHA and MQA."
+    contribution: >
+      Introduced grouped-query attention — an intermediate number of
+      key/value heads between multi-head and multi-query — and a recipe for
+      converting an existing multi-head checkpoint at about 5% of the
+      original pretraining compute.
+    why_it_mattered: >
+      Gave most of multi-query attention's memory saving at close to
+      multi-head quality, and made the conversion cheap enough to apply to
+      models that already existed.
+    what_changed_after: >
+      GQA is the default attention variant in most open-weight models
+      released since 2023.
+    descendants: ["Llama-2 70B onward", "Mistral", "most 2024+ open models"]
+
+  shazeer2020glu:
+    title: "GLU Variants Improve Transformer"
+    authors: ["Noam Shazeer"]
+    year: 2020
+    venue: "arXiv preprint (February 2020)"
+    arxiv: "2002.05202"
+    url: "https://arxiv.org/abs/2002.05202"
+    verified: true
+    verified_on: "2026-08-15"
+    verified_via: "arXiv abstract page arxiv.org/abs/2002.05202 — title, single author and 2020 submission confirmed; abstract confirms GLU as the componentwise product of two linear projections and the testing of variants in transformer feed-forward sublayers against ReLU and GELU. NOTE: the abstract does not name SwiGLU specifically, so this book does not attribute that name to this paper's abstract."
+    contribution: >
+      Evaluated gated linear unit variants in the transformer feed-forward
+      sublayer and found they improve on plain ReLU or GELU.
+    why_it_mattered: >
+      The gated feed-forward block became standard in large language models,
+      at the cost of a third weight matrix per block.
+    what_changed_after: >
+      Gated feed-forward layers appear in essentially every large open-weight
+      model; the three-matrix block is now the default shape.
+    descendants: ["SwiGLU feed-forward blocks", "PaLM", "Llama", "Mistral"]
+
+  press2017tying:
+    title: "Using the Output Embedding to Improve Language Models"
+    authors: ["Ofir Press", "Lior Wolf"]
+    year: 2017
+    venue: "EACL 2017 (arXiv preprint August 2016)"
+    arxiv: "1608.05859"
+    url: "https://arxiv.org/abs/1608.05859"
+    verified: true
+    verified_on: "2026-08-15"
+    verified_via: "arXiv abstract page arxiv.org/abs/1608.05859 — title, two authors, August 2016 submission with February 2017 revision and the EACL 2017 venue confirmed; abstract confirms the tying proposal, the gradient analysis, and the report that NMT models halve in size without loss."
+    contribution: >
+      Observed that a language model's output projection is itself a valid
+      word embedding, and proposed tying it to the input embedding — with a
+      gradient analysis showing the shared matrix evolves like the untied
+      output embedding rather than like the untied input one.
+    why_it_mattered: >
+      A large parameter saving at a scale where embeddings were most of the
+      model, plus a perplexity improvement, so it became standard for small
+      and mid-sized language models.
+    what_changed_after: >
+      Tying was near-universal through the GPT-2 era; large models mostly
+      abandoned it as the embedding fraction fell.
+    descendants: ["GPT-2 tied embeddings", "adaptive embeddings",
+                  "factorised embeddings"]
+
+  devlin2019bert:
+    title: "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding"
+    authors: ["Jacob Devlin", "Ming-Wei Chang", "Kenton Lee",
+              "Kristina Toutanova"]
+    year: 2019
+    venue: "NAACL-HLT 2019 (arXiv preprint October 2018)"
+    arxiv: "1810.04805"
+    url: "https://arxiv.org/abs/1810.04805"
+    verified: true
+    verified_on: "2026-08-15"
+    verified_via: "arXiv abstract page arxiv.org/abs/1810.04805 — title, four authors, October 2018 submission with May 2019 revision confirmed; abstract confirms the bidirectional pretraining by jointly conditioning on left and right context, and the eleven-benchmark result."
+    contribution: >
+      Established the encoder-only, bidirectionally-pretrained transformer
+      with a masked-language-modelling objective, and the pretrain-then-
+      fine-tune recipe for language understanding tasks.
+    why_it_mattered: >
+      Dominated language-understanding benchmarks and made bidirectional
+      pretrained representations the default for classification and
+      retrieval, which they remain.
+    what_changed_after: >
+      An entire family of encoder-only variants; embedding and reranking
+      models are still this shape, even as generative models moved to
+      decoder-only.
+    descendants: ["RoBERTa", "sentence embeddings", "cross-encoder rerankers"]
+
+  raffel2020t5:
+    title: "Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer"
+    authors: ["Colin Raffel", "Noam Shazeer", "Adam Roberts", "Katherine Lee",
+              "Sharan Narang", "Michael Matena", "Yanqi Zhou", "Wei Li",
+              "Peter J. Liu"]
+    year: 2020
+    venue: "Journal of Machine Learning Research 21(140) (arXiv preprint October 2019)"
+    arxiv: "1910.10683"
+    url: "https://arxiv.org/abs/1910.10683"
+    verified: true
+    verified_on: "2026-08-15"
+    verified_via: "arXiv abstract page arxiv.org/abs/1910.10683 — title, nine authors, October 2019 submission with September 2023 latest revision confirmed; abstract confirms the text-to-text framing, the systematic study of objectives and architectures, and the Colossal Clean Crawled Corpus."
+    contribution: >
+      Reframed every NLP task as text-to-text and ran a systematic
+      comparison of architectures, objectives, corruption rates, datasets
+      and transfer methods at matched scale — the most thorough ablation
+      study of its era.
+    why_it_mattered: >
+      Gave the field evidence rather than intuition about which design
+      choices matter, and produced the strongest general-purpose
+      encoder-decoder model.
+    what_changed_after: >
+      The text-to-text framing became standard for instruction tuning; C4
+      became a widely used pretraining corpus; the ablation methodology was
+      widely imitated.
+    descendants: ["FLAN", "instruction tuning", "C4", "UL2"]
+
+  radford2019:
+    title: "Language Models are Unsupervised Multitask Learners"
+    authors: ["Alec Radford", "Jeffrey Wu", "Rewon Child", "David Luan",
+              "Dario Amodei", "Ilya Sutskever"]
+    year: 2019
+    venue: "OpenAI technical report (not peer-reviewed)"
+    url: "https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf"
+    verified: true
+    verified_on: "2026-08-15"
+    verified_via: "The report PDF itself, read from cdn.openai.com — title page confirms the title, the six authors with their OpenAI affiliation, and an abstract stating the WebText dataset, the zero-shot task transfer result, and GPT-2 as a 1.5B-parameter Transformer reaching state of the art on 7 of 8 language modelling datasets. NOTE: this is a technical report with no venue and no arXiv entry."
+    contribution: >
+      Showed that a decoder-only language model trained only on next-token
+      prediction over diverse web text performs many tasks zero-shot, with
+      capability increasing log-linearly in model capacity.
+    why_it_mattered: >
+      Made the case that one generative objective subsumes task-specific
+      training, which is the argument that decided the decoder-only
+      convergence.
+    what_changed_after: >
+      Scaling of decoder-only models became the field's dominant programme;
+      the zero-shot framing led directly to few-shot prompting.
+    descendants: ["GPT-3", "in-context learning", "every decoder-only LLM"]
+
+  kaplan2020scaling:
+    title: "Scaling Laws for Neural Language Models"
+    authors: ["Jared Kaplan", "Sam McCandlish", "Tom Henighan", "Tom B. Brown",
+              "Benjamin Chess", "Rewon Child", "Scott Gray", "Alec Radford",
+              "Jeffrey Wu", "Dario Amodei"]
+    year: 2020
+    venue: "arXiv preprint (January 2020)"
+    arxiv: "2001.08361"
+    url: "https://arxiv.org/abs/2001.08361"
+    verified: true
+    verified_on: "2026-08-15"
+    verified_via: "arXiv abstract page arxiv.org/abs/2001.08361 — title, ten authors and 2020 submission confirmed; abstract confirms the power-law scaling in model size, dataset size and compute, the negligible effect of width and depth within the tested range, and the recommendation to train very large models on relatively modest data and stop before convergence."
+    contribution: >
+      Established that language-model loss follows clean power laws in
+      parameters, data and compute over several orders of magnitude, and
+      that architectural details like width and depth barely matter within
+      a broad range.
+    why_it_mattered: >
+      Turned model scaling from guesswork into extrapolation, and its
+      recommendation — spend a marginal budget mostly on model size —
+      directly shaped the GPT-3 generation of models.
+    what_changed_after: >
+      Scaling laws became the standard planning tool; the specific
+      allocation recommendation was overturned two years later by
+      hoffmann2022chinchilla.
+    descendants: ["GPT-3", "Chinchilla", "all subsequent scaling-law work"]
+
+  hoffmann2022chinchilla:
+    title: "Training Compute-Optimal Large Language Models"
+    authors: ["Jordan Hoffmann", "Sebastian Borgeaud", "Arthur Mensch",
+              "Elena Buchatskaya", "Trevor Cai", "Eliza Rutherford",
+              "Diego de Las Casas", "Lisa Anne Hendricks", "Johannes Welbl",
+              "Aidan Clark", "Tom Hennigan", "Eric Noland", "Katie Millican",
+              "George van den Driessche", "Bogdan Damoc", "Aurelia Guy",
+              "Simon Osindero", "Karen Simonyan", "Erich Elsen",
+              "Jack W. Rae", "Oriol Vinyals", "Laurent Sifre"]
+    year: 2022
+    venue: "NeurIPS 2022 (arXiv preprint March 2022)"
+    arxiv: "2203.15556"
+    url: "https://arxiv.org/abs/2203.15556"
+    verified: true
+    verified_on: "2026-08-15"
+    verified_via: "arXiv abstract page arxiv.org/abs/2203.15556 — title, 22 authors and 2022 submission confirmed; abstract confirms the >400-model study, the finding that current large models are undertrained, the equal-scaling recommendation (double the model, double the tokens), and Chinchilla's 67.5% MMLU at Gopher's compute budget."
+    contribution: >
+      Retrained the scaling analysis over 400 models with per-run learning
+      rate schedules and found that model size and training tokens should
+      scale EQUALLY — overturning kaplan2020scaling's allocation and showing
+      that the largest models of the day were substantially undertrained.
+    why_it_mattered: >
+      Demonstrated with Chinchilla that a smaller model trained longer beats
+      a larger one at the same compute, which redirected the field from
+      parameter count to token count.
+    what_changed_after: >
+      "Chinchilla-optimal" became the planning default; later practice
+      pushed well past it once inference cost was included in the objective.
+    descendants: ["Llama", "inference-aware scaling laws",
+                  "token-count-first pretraining"]
+
+  # --- Part VIII — Natural Language Processing --------------------------------
+
+  gage1994:
+    title: "A New Algorithm for Data Compression"
+    authors: ["Philip Gage"]
+    year: 1994
+    venue: "The C Users Journal 12(2), February 1994, pp. 23-38"
+    url: "https://dl.acm.org/doi/10.5555/177910.177914"
+    verified: true
+    verified_on: "2026-08-20"
+    verified_via: "ACM Digital Library record dl.acm.org/doi/10.5555/177910.177914 and the archived article PDF at derczynski.com/papers/archive/BPE_Gage.pdf — single author, The C Users Journal volume 12 issue 2, February 1994, pages 23-38 confirmed. NOTE: a print trade-magazine article, not a peer-reviewed venue, and it is about file compression with no linguistic content whatsoever."
+    contribution: >
+      Described byte pair encoding: repeatedly find the most frequent pair of
+      adjacent bytes in a file and replace it with an unused byte, recording
+      the substitution in a table, until no pair repeats or the table is full.
+    why_it_mattered: >
+      It is the exact algorithm that sennrich2016 later applied to text, and
+      knowing its origin is the strongest available evidence that subword
+      vocabularies are a compression artefact rather than a linguistic model.
+    what_changed_after: >
+      Nothing, for twenty-one years. The algorithm was a minor entry in the
+      compression literature until it was repurposed for machine translation.
+    descendants: ["subword tokenization", "byte-level BPE", "every modern LLM tokenizer"]
+
+  sennrich2016:
+    title: "Neural Machine Translation of Rare Words with Subword Units"
+    authors: ["Rico Sennrich", "Barry Haddow", "Alexandra Birch"]
+    year: 2016
+    venue: "ACL 2016 (arXiv preprint August 2015)"
+    arxiv: "1508.07909"
+    url: "https://arxiv.org/abs/1508.07909"
+    verified: true
+    verified_on: "2026-08-20"
+    verified_via: "arXiv abstract page arxiv.org/abs/1508.07909 — title, three authors, v1 dated 31 August 2015 through v5 dated 10 June 2016, ACL 2016 venue confirmed on the page."
+    contribution: >
+      Applied Gage's byte pair encoding to text as an open-vocabulary solution
+      for translation: learn a fixed number of merges over a character-level
+      corpus, and segment any word — including one never seen in training —
+      into units the model already has embeddings for.
+    why_it_mattered: >
+      It eliminated the out-of-vocabulary token, which every word-level model
+      before it had to handle with a lossy UNK placeholder, and it did so
+      without a linguistic morphological analyser.
+    what_changed_after: >
+      Subword vocabularies became universal. Every production tokenizer since
+      is BPE, a BPE variant, or a unigram model competing with it.
+    descendants: ["GPT byte-level BPE", "SentencePiece", "WordPiece as a sibling"]
+
+  schuster2012:
+    title: "Japanese and Korean Voice Search"
+    authors: ["Mike Schuster", "Kaisuke Nakajima"]
+    year: 2012
+    venue: "ICASSP 2012, pp. 5149-5152"
+    url: "https://research.google/pubs/pub37842/"
+    verified: true
+    verified_on: "2026-08-20"
+    verified_via: "Google Research publication record research.google/pubs/pub37842 — two authors, ICASSP (IEEE International Conference on Acoustics, Speech and Signal Processing) 2012, pages 5149-5152 confirmed; corroborated by the ICASSP proceedings listing which gives Kyoto, 25-30 March 2012."
+    contribution: >
+      Introduced the WordPiece model — a greedy, incrementally-grown word-unit
+      inventory initialised from the basic Unicode characters of the target
+      script — to handle the effectively infinite vocabulary of Japanese and
+      Korean voice search.
+    why_it_mattered: >
+      It is the origin of the tokenizer BERT and its descendants use, and it
+      predates the subword-for-translation literature by three years. The
+      motivating problem was speech recognition in scripts without whitespace
+      word boundaries, not translation.
+    what_changed_after: >
+      WordPiece became Google's default text-input representation, carried
+      into wu2016's translation system and then into devlin2019bert.
+    descendants: ["WordPiece in BERT", "the likelihood-based merge criterion"]
+
+  wu2016:
+    title: "Google's Neural Machine Translation System: Bridging the Gap between Human and Machine Translation"
+    authors: ["Yonghui Wu", "Mike Schuster", "Zhifeng Chen", "Quoc V. Le",
+              "Mohammad Norouzi", "Wolfgang Macherey", "Maxim Krikun",
+              "Yuan Cao", "Qin Gao", "Klaus Macherey", "Jeff Klingner",
+              "Apurva Shah", "Melvin Johnson", "Xiaobing Liu",
+              "Lukasz Kaiser", "Stephan Gouws", "Yoshikiyo Kato",
+              "Taku Kudo", "Hideto Kazawa", "Keith Stevens", "George Kurian",
+              "Nishant Patil", "Wei Wang", "Cliff Young", "Jason Smith",
+              "Jason Riesa", "Alex Rudnick", "Oriol Vinyals", "Greg Corrado",
+              "Macduff Hughes", "Jeffrey Dean"]
+    year: 2016
+    venue: "arXiv preprint (September 2016); deployed in Google Translate"
+    arxiv: "1609.08144"
+    url: "https://arxiv.org/abs/1609.08144"
+    verified: true
+    verified_on: "2026-08-20"
+    verified_via: "arXiv abstract page arxiv.org/abs/1609.08144 — title and the 31-author list confirmed, v1 dated 26 September 2016; no peer-reviewed venue is stated on the page."
+    contribution: >
+      The system paper that put WordPiece into production translation, and the
+      most-cited source for the WordPiece description because schuster2012 is
+      behind a paywall and gives the algorithm in three sentences.
+    why_it_mattered: >
+      It is the bridge between the speech-recognition origin of WordPiece and
+      its use in language understanding, and it documents the practical
+      vocabulary sizes (8k-32k) that became the field's defaults.
+    what_changed_after: >
+      Fixed 32k as the reflex vocabulary size for years, including in BERT.
+    descendants: ["BERT's WordPiece vocabulary", "32k vocabulary defaults"]
+
+  kudo2018sentencepiece:
+    title: "SentencePiece: A simple and language independent subword tokenizer and detokenizer for Neural Text Processing"
+    authors: ["Taku Kudo", "John Richardson"]
+    year: 2018
+    venue: "EMNLP 2018 (system demonstration)"
+    arxiv: "1808.06226"
+    url: "https://arxiv.org/abs/1808.06226"
+    verified: true
+    verified_on: "2026-08-20"
+    verified_via: "arXiv abstract page arxiv.org/abs/1808.06226 — two authors, v1 dated 19 August 2018, page states 'Accepted as a demo paper at EMNLP2018'."
+    contribution: >
+      Removed the pre-tokenization step entirely by treating the input as a raw
+      Unicode stream with whitespace encoded as an ordinary symbol, making
+      segmentation lossless and reversible and the whole pipeline
+      language-independent.
+    why_it_mattered: >
+      Every earlier subword implementation assumed a whitespace tokenizer ran
+      first, which quietly made them wrong for Japanese, Chinese and Thai and
+      made detokenization ambiguous everywhere else.
+    what_changed_after: >
+      SentencePiece became the standard implementation, and the
+      "whitespace is just a character" convention is now near-universal.
+    descendants: ["Llama tokenizers", "T5 tokenizer", "multilingual tokenizers"]
+
+  kudo2018subword:
+    title: "Subword Regularization: Improving Neural Network Translation Models with Multiple Subword Candidates"
+    authors: ["Taku Kudo"]
+    year: 2018
+    venue: "ACL 2018 (long paper)"
+    arxiv: "1804.10959"
+    url: "https://arxiv.org/abs/1804.10959"
+    verified: true
+    verified_on: "2026-08-20"
+    verified_via: "arXiv abstract page arxiv.org/abs/1804.10959 — single author, v1 dated 29 April 2018, page states acceptance at ACL2018 as a long paper."
+    contribution: >
+      Introduced the unigram language model tokenizer, which starts from a
+      large candidate vocabulary and prunes it by likelihood rather than
+      growing it by merges, and which yields a distribution over segmentations
+      rather than one segmentation.
+    why_it_mattered: >
+      It is the only mainstream tokenizer with a probabilistic objective, and
+      the sampling it enables is a genuine data augmentation for translation.
+      It also makes explicit that BPE's segmentation is arbitrary — one of many
+      valid ones, chosen by a greedy rule with no model behind it.
+    what_changed_after: >
+      Unigram became SentencePiece's other mode and the default for several
+      multilingual models; BPE-dropout followed the same idea for BPE.
+    descendants: ["SentencePiece unigram mode", "BPE-dropout", "T5 tokenizer"]
+
+  mikolov2013efficient:
+    title: "Efficient Estimation of Word Representations in Vector Space"
+    authors: ["Tomas Mikolov", "Kai Chen", "Greg Corrado", "Jeffrey Dean"]
+    year: 2013
+    venue: "ICLR 2013 Workshop track (arXiv preprint January 2013)"
+    arxiv: "1301.3781"
+    url: "https://arxiv.org/abs/1301.3781"
+    verified: true
+    verified_on: "2026-08-20"
+    verified_via: "arXiv abstract page arxiv.org/abs/1301.3781 — four authors, v1 dated 16 January 2013, v3 dated 7 September 2013; the page states no peer-reviewed venue, and the ICLR 2013 workshop attribution comes from the DBLP record rather than from arXiv."
+    contribution: >
+      Introduced the CBOW and skip-gram architectures — shallow models that
+      learn word vectors by predicting context, trained on billions of words at
+      a cost the neural language models of the day could not match.
+    why_it_mattered: >
+      It made dense word representations cheap enough to be infrastructure
+      rather than research, and it introduced the analogy evaluation that
+      shaped how the field talked about embeddings for years.
+    what_changed_after: >
+      Pretrained word vectors became a standard input layer for every NLP
+      system, a position they held until contextual embeddings displaced them.
+    descendants: ["GloVe", "fastText", "the entire embedding-as-infrastructure idea"]
+
+  mikolov2013distributed:
+    title: "Distributed Representations of Words and Phrases and their Compositionality"
+    authors: ["Tomas Mikolov", "Ilya Sutskever", "Kai Chen", "Greg Corrado",
+              "Jeffrey Dean"]
+    year: 2013
+    venue: "NIPS 2013 (arXiv preprint October 2013)"
+    arxiv: "1310.4546"
+    url: "https://arxiv.org/abs/1310.4546"
+    verified: true
+    verified_on: "2026-08-20"
+    verified_via: "arXiv abstract page arxiv.org/abs/1310.4546 — five authors, v1 dated 16 October 2013; the page states no venue, and the NIPS 2013 attribution comes from the proceedings listing."
+    contribution: >
+      Gave skip-gram its practical training method: negative sampling in place
+      of the full softmax, subsampling of frequent words, and a phrase
+      detection step.
+    why_it_mattered: >
+      Negative sampling is what made the method fast, and it is the ancestor of
+      the contrastive objective that trains every modern embedding model.
+    what_changed_after: >
+      Contrastive training with sampled negatives became the default recipe for
+      representation learning far beyond words.
+    descendants: ["contrastive learning", "dense retrieval training", "InfoNCE"]
+
+  pennington2014:
+    title: "GloVe: Global Vectors for Word Representation"
+    authors: ["Jeffrey Pennington", "Richard Socher", "Christopher D. Manning"]
+    year: 2014
+    venue: "EMNLP 2014, pp. 1532-1543"
+    url: "https://aclanthology.org/D14-1162/"
+    verified: true
+    verified_on: "2026-08-20"
+    verified_via: "ACL Anthology record aclanthology.org/D14-1162 — three authors, EMNLP 2014 proceedings, pages 1532-1543, DOI 10.3115/v1/D14-1162 confirmed."
+    contribution: >
+      Fitted word vectors directly to the logarithm of global co-occurrence
+      counts with a weighted least-squares objective, rather than to local
+      prediction windows.
+    why_it_mattered: >
+      It reframed the question as "what function of the co-occurrence matrix
+      are we approximating", which is the framing levy2014 then showed applies
+      to skip-gram as well.
+    what_changed_after: >
+      The count-based and prediction-based traditions were shown to be
+      variations on one problem rather than rival schools.
+    descendants: ["matrix-factorisation views of embeddings", "static embedding baselines"]
+
+  levy2014:
+    title: "Neural Word Embedding as Implicit Matrix Factorization"
+    authors: ["Omer Levy", "Yoav Goldberg"]
+    year: 2014
+    venue: "NIPS 2014, pp. 2177-2185"
+    url: "https://papers.nips.cc/paper/5477-neural-word-embedding-as-implicit-matrix-factorization"
+    verified: true
+    verified_on: "2026-08-20"
+    verified_via: "NIPS proceedings page papers.nips.cc/paper/5477 — two authors, Advances in Neural Information Processing Systems 27 (NIPS 2014); abstract confirms the result that skip-gram with negative sampling implicitly factorises a word-context PMI matrix shifted by a global constant."
+    contribution: >
+      Proved that skip-gram with negative sampling is implicitly factorising a
+      shifted positive pointwise-mutual-information matrix.
+    why_it_mattered: >
+      It removed the mystery from word2vec. The neural framing was an
+      optimisation strategy, not a different model of language, and the same
+      information was available to count-based methods all along.
+    what_changed_after: >
+      Ended the count-versus-predict debate, and is the standard example of a
+      neural method turning out to have a closed-form interpretation.
+    descendants: ["SVD-on-PPMI baselines", "levy2015"]
+
+  levy2015:
+    title: "Improving Distributional Similarity with Lessons Learned from Word Embeddings"
+    authors: ["Omer Levy", "Yoav Goldberg", "Ido Dagan"]
+    year: 2015
+    venue: "TACL 3, pp. 211-225"
+    url: "https://aclanthology.org/Q15-1016/"
+    verified: true
+    verified_on: "2026-08-20"
+    verified_via: "ACL Anthology record aclanthology.org/Q15-1016 — three authors, Transactions of the ACL volume 3, pages 211-225, DOI 10.1162/tacl_a_00134 confirmed; abstract confirms the claim that much of the reported gain comes from system design choices and hyperparameter settings rather than from the algorithms."
+    contribution: >
+      Showed that most of the performance difference between embedding methods
+      was hyperparameters and preprocessing, and that transferring those
+      choices to count-based methods closed the gap.
+    why_it_mattered: >
+      It is the cleanest published example in NLP of a reported algorithmic
+      advance being a tuning advance, and the methodology it implies —
+      equalise the budget before comparing — is the one this book applies to
+      every comparison it makes.
+    what_changed_after: >
+      Raised the evidentiary bar for embedding papers, and prefigured the same
+      finding at a larger scale in liu2019roberta.
+    descendants: ["controlled-budget comparisons", "liu2019roberta's argument"]
+
+  bojanowski2017:
+    title: "Enriching Word Vectors with Subword Information"
+    authors: ["Piotr Bojanowski", "Edouard Grave", "Armand Joulin",
+              "Tomas Mikolov"]
+    year: 2017
+    venue: "TACL 5 (arXiv preprint July 2016)"
+    arxiv: "1607.04606"
+    url: "https://arxiv.org/abs/1607.04606"
+    verified: true
+    verified_on: "2026-08-20"
+    verified_via: "arXiv abstract page arxiv.org/abs/1607.04606 — four authors, v1 dated 15 July 2016, page states 'Accepted to TACL'."
+    contribution: >
+      Represented each word as a bag of character n-grams so that a vector can
+      be composed for a word never seen in training, and so that morphological
+      relatives share parameters.
+    why_it_mattered: >
+      It gave static embeddings the open-vocabulary property that subword
+      tokenization gave sequence models, and it is why fastText remains usable
+      for morphologically rich languages where word2vec is not.
+    what_changed_after: >
+      Character-aware composition became standard for static vectors and for
+      multilingual work at low resource levels.
+    descendants: ["fastText", "character-aware embedding layers"]
+
+  peters2018:
+    title: "Deep contextualized word representations"
+    authors: ["Matthew E. Peters", "Mark Neumann", "Mohit Iyyer",
+              "Matt Gardner", "Christopher Clark", "Kenton Lee",
+              "Luke Zettlemoyer"]
+    year: 2018
+    venue: "NAACL-HLT 2018 (arXiv preprint February 2018)"
+    arxiv: "1802.05365"
+    url: "https://arxiv.org/abs/1802.05365"
+    verified: true
+    verified_on: "2026-08-20"
+    verified_via: "arXiv abstract page arxiv.org/abs/1802.05365 — seven authors, v1 dated 15 February 2018, NAACL 2018 venue confirmed on the page."
+    contribution: >
+      Produced word representations as a function of the whole sentence, taken
+      from the internal states of a deep bidirectional LSTM language model, and
+      showed that a learned combination of layers beats any single layer.
+    why_it_mattered: >
+      It broke the one-vector-per-word-type assumption that every static
+      embedding method shares, and demonstrated that different depths encode
+      different linguistic information.
+    what_changed_after: >
+      Contextual representations became the default in under a year, and the
+      layer-mixing result is the origin of the modern practice of choosing
+      which layer to read features from.
+    descendants: ["BERT", "layer-wise probing", "feature-based transfer"]
+
+  howard2018:
+    title: "Universal Language Model Fine-tuning for Text Classification"
+    authors: ["Jeremy Howard", "Sebastian Ruder"]
+    year: 2018
+    venue: "ACL 2018 (arXiv preprint January 2018)"
+    arxiv: "1801.06146"
+    url: "https://arxiv.org/abs/1801.06146"
+    verified: true
+    verified_on: "2026-08-20"
+    verified_via: "arXiv abstract page arxiv.org/abs/1801.06146 — two authors, v1 dated 18 January 2018, ACL 2018 venue confirmed on the page."
+    contribution: >
+      Established the pretrain-then-fine-tune recipe for text — fine-tune the
+      whole language model rather than using it as a frozen feature extractor —
+      with discriminative learning rates and gradual unfreezing.
+    why_it_mattered: >
+      It is the transfer-learning half of the BERT recipe, published before
+      BERT and using a recurrent model, which separates the idea from the
+      architecture that later carried it.
+    what_changed_after: >
+      Full fine-tuning replaced frozen features as the default way to use a
+      pretrained model, which is the assumption Part XIV then revisits.
+    descendants: ["BERT fine-tuning", "gradual unfreezing", "LLM fine-tuning practice"]
+
+  liu2019roberta:
+    title: "RoBERTa: A Robustly Optimized BERT Pretraining Approach"
+    authors: ["Yinhan Liu", "Myle Ott", "Naman Goyal", "Jingfei Du",
+              "Mandar Joshi", "Danqi Chen", "Omer Levy", "Mike Lewis",
+              "Luke Zettlemoyer", "Veselin Stoyanov"]
+    year: 2019
+    venue: "arXiv preprint (July 2019)"
+    arxiv: "1907.11692"
+    url: "https://arxiv.org/abs/1907.11692"
+    verified: true
+    verified_on: "2026-08-20"
+    verified_via: "arXiv abstract page arxiv.org/abs/1907.11692 — ten authors, v1 dated 26 July 2019; the page states no peer-reviewed venue. NOTE: widely cited as a conference paper but it was never published as one."
+    contribution: >
+      A replication study of BERT that changed only the training budget and
+      data, dropped next-sentence prediction, and used dynamic masking —
+      producing state-of-the-art results without any architectural change.
+    why_it_mattered: >
+      It established that BERT was significantly undertrained, which means a
+      large share of the 2019-2020 architecture literature was measuring
+      training budget while reporting architecture.
+    what_changed_after: >
+      Replication-with-equalised-budget became an expected control, and the
+      RoBERTa recipe replaced BERT's as the encoder baseline.
+    descendants: ["encoder baselines", "budget-controlled comparison", "hoffmann2022chinchilla's argument"]
+
+  lan2020albert:
+    title: "ALBERT: A Lite BERT for Self-supervised Learning of Language Representations"
+    authors: ["Zhenzhong Lan", "Mingda Chen", "Sebastian Goodman",
+              "Kevin Gimpel", "Piyush Sharma", "Radu Soricut"]
+    year: 2020
+    venue: "ICLR 2020 (arXiv preprint September 2019)"
+    arxiv: "1909.11942"
+    url: "https://arxiv.org/abs/1909.11942"
+    verified: true
+    verified_on: "2026-08-20"
+    verified_via: "arXiv abstract page arxiv.org/abs/1909.11942 — six authors, v1 dated 26 September 2019; the page lists no venue, ICLR 2020 acceptance is from the conference proceedings."
+    contribution: >
+      Reduced BERT's parameter count with factorised embeddings and
+      cross-layer parameter sharing, and replaced next-sentence prediction with
+      a sentence-order prediction task.
+    why_it_mattered: >
+      Its sentence-order result is the strongest evidence that NSP was too easy
+      to teach anything — a diagnosis, not just a substitution.
+    what_changed_after: >
+      Parameter sharing stayed a niche technique; the NSP critique became
+      consensus.
+    descendants: ["sentence-order objectives", "parameter-sharing encoders"]
+
+  sanh2019:
+    title: "DistilBERT, a distilled version of BERT: smaller, faster, cheaper and lighter"
+    authors: ["Victor Sanh", "Lysandre Debut", "Julien Chaumond",
+              "Thomas Wolf"]
+    year: 2019
+    venue: "5th Workshop on Energy Efficient Machine Learning and Cognitive Computing, NeurIPS 2019"
+    arxiv: "1910.01108"
+    url: "https://arxiv.org/abs/1910.01108"
+    verified: true
+    verified_on: "2026-08-20"
+    verified_via: "arXiv abstract page arxiv.org/abs/1910.01108 — four authors, v1 dated 2 October 2019, page states the 5th Workshop on Energy Efficient Machine Learning and Cognitive Computing at NeurIPS 2019."
+    contribution: >
+      Distilled BERT into a 6-layer student retaining most of its benchmark
+      performance at roughly 40% fewer parameters and 60% faster inference.
+    why_it_mattered: >
+      It made encoder models cheap enough to serve at scale, which is why the
+      encoder era's models are still in production long after the research
+      attention moved to decoders.
+    what_changed_after: >
+      Distillation became a standard deployment step rather than a research
+      curiosity.
+    descendants: ["MiniLM", "distilled embedding models", "Part XIV distillation"]
+
+  clark2020electra:
+    title: "ELECTRA: Pre-training Text Encoders as Discriminators Rather Than Generators"
+    authors: ["Kevin Clark", "Minh-Thang Luong", "Quoc V. Le",
+              "Christopher D. Manning"]
+    year: 2020
+    venue: "ICLR 2020 (arXiv preprint March 2020)"
+    arxiv: "2003.10555"
+    url: "https://arxiv.org/abs/2003.10555"
+    verified: true
+    verified_on: "2026-08-20"
+    verified_via: "arXiv abstract page arxiv.org/abs/2003.10555 — four authors, v1 dated 23 March 2020, ICLR 2020 venue confirmed on the page."
+    contribution: >
+      Replaced masked-token reconstruction with replaced-token detection: a
+      small generator corrupts tokens and the encoder classifies every position
+      as original or replaced.
+    why_it_mattered: >
+      It fixes MLM's most obvious inefficiency — that only the masked 15% of
+      positions produce learning signal — and gets a large compute-efficiency
+      gain from that alone.
+    what_changed_after: >
+      Established that the pretraining objective's sample efficiency is a
+      first-class design variable, though ELECTRA itself stayed a minority
+      choice.
+    descendants: ["replaced-token detection", "efficient pretraining objectives"]
+
+  conneau2020xlmr:
+    title: "Unsupervised Cross-lingual Representation Learning at Scale"
+    authors: ["Alexis Conneau", "Kartikay Khandelwal", "Naman Goyal",
+              "Vishrav Chaudhary", "Guillaume Wenzek", "Francisco Guzman",
+              "Edouard Grave", "Myle Ott", "Luke Zettlemoyer",
+              "Veselin Stoyanov"]
+    year: 2020
+    venue: "ACL 2020 (arXiv preprint November 2019)"
+    arxiv: "1911.02116"
+    url: "https://arxiv.org/abs/1911.02116"
+    verified: true
+    verified_on: "2026-08-20"
+    verified_via: "arXiv abstract page arxiv.org/abs/1911.02116 — ten authors, v1 dated 5 November 2019, ACL 2020 venue confirmed on the page."
+    contribution: >
+      Trained one masked language model on a hundred languages and showed
+      strong cross-lingual transfer, while documenting the capacity dilution
+      that sets in as languages are added at fixed model size.
+    why_it_mattered: >
+      It states the multilingual tradeoff precisely — transfer helps
+      low-resource languages and hurts high-resource ones at fixed capacity —
+      which is the same tension a shared tokenizer creates.
+    what_changed_after: >
+      Multilingual encoders became the default for non-English understanding
+      tasks, and "the curse of multilinguality" entered the vocabulary.
+    descendants: ["multilingual embedding models", "language-balanced sampling"]
+
+  reimers2019:
+    title: "Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks"
+    authors: ["Nils Reimers", "Iryna Gurevych"]
+    year: 2019
+    venue: "EMNLP 2019 (arXiv preprint August 2019)"
+    arxiv: "1908.10084"
+    url: "https://arxiv.org/abs/1908.10084"
+    verified: true
+    verified_on: "2026-08-20"
+    verified_via: "arXiv abstract page arxiv.org/abs/1908.10084 — two authors, v1 dated 27 August 2019, EMNLP 2019 venue confirmed on the page."
+    contribution: >
+      Fine-tuned BERT in a siamese configuration so that sentence vectors can
+      be compared with cosine similarity, reducing a pairwise-comparison task
+      from quadratic cross-encoder inference to one encoding per sentence.
+    why_it_mattered: >
+      Out-of-the-box BERT sentence vectors are worse than averaged GloVe. This
+      paper is why the field knows that, and its bi-encoder architecture is the
+      foundation of every embedding-based retrieval system in Parts XI and XII.
+    what_changed_after: >
+      The bi-encoder/cross-encoder split became the standard retrieve-then-rerank
+      architecture.
+    descendants: ["dense retrieval", "embedding APIs", "cross-encoder reranking"]
+
+  tjongkimsang2003:
+    title: "Introduction to the CoNLL-2003 Shared Task: Language-Independent Named Entity Recognition"
+    authors: ["Erik F. Tjong Kim Sang", "Fien De Meulder"]
+    year: 2003
+    venue: "CoNLL 2003 at HLT-NAACL 2003, pp. 142-147"
+    url: "https://aclanthology.org/W03-0419/"
+    verified: true
+    verified_on: "2026-08-20"
+    verified_via: "ACL Anthology record aclanthology.org/W03-0419 — two authors, Proceedings of the Seventh Conference on Natural Language Learning at HLT-NAACL 2003, pages 142-147 confirmed."
+    contribution: >
+      Defined the shared task, the four-entity English and German datasets, and
+      the entity-level F1 evaluation that named-entity recognition still uses.
+    why_it_mattered: >
+      Its evaluation decision — score whole spans, not tokens — is the reason
+      NER numbers are comparable across two decades, and it is the concrete
+      example this book uses for why the unit of evaluation is a modelling
+      decision.
+    what_changed_after: >
+      CoNLL-2003 F1 became the reference number for sequence labelling, and the
+      BIO tagging scheme it popularised is still the default encoding.
+    descendants: ["BIO tagging", "span-level F1", "modern extraction benchmarks"]
+
+  lample2016:
+    title: "Neural Architectures for Named Entity Recognition"
+    authors: ["Guillaume Lample", "Miguel Ballesteros", "Sandeep Subramanian",
+              "Kazuya Kawakami", "Chris Dyer"]
+    year: 2016
+    venue: "NAACL 2016 (arXiv preprint March 2016)"
+    arxiv: "1603.01360"
+    url: "https://arxiv.org/abs/1603.01360"
+    verified: true
+    verified_on: "2026-08-20"
+    verified_via: "arXiv abstract page arxiv.org/abs/1603.01360 — five authors, v1 dated 4 March 2016, NAACL 2016 venue confirmed on the page."
+    contribution: >
+      Established the BiLSTM-CRF architecture for sequence labelling, in which
+      a CRF layer over the tag sequence enforces the transition constraints
+      that independent per-token classification cannot.
+    why_it_mattered: >
+      It is the cleanest demonstration that structured prediction beats
+      independent classification when the label space has hard constraints —
+      an argument that still applies to constrained decoding in Part X.
+    what_changed_after: >
+      BiLSTM-CRF was the standard NER architecture until BERT replaced the
+      encoder, and CRF heads are still used on top of transformers.
+    descendants: ["BERT-CRF taggers", "constrained decoding", "structured extraction"]
+
+  rajpurkar2016:
+    title: "SQuAD: 100,000+ Questions for Machine Comprehension of Text"
+    authors: ["Pranav Rajpurkar", "Jian Zhang", "Konstantin Lopyrev",
+              "Percy Liang"]
+    year: 2016
+    venue: "EMNLP 2016 (arXiv preprint June 2016)"
+    arxiv: "1606.05250"
+    url: "https://arxiv.org/abs/1606.05250"
+    verified: true
+    verified_on: "2026-08-20"
+    verified_via: "arXiv abstract page arxiv.org/abs/1606.05250 — four authors, v1 dated 16 June 2016, EMNLP 2016 venue confirmed on the page."
+    contribution: >
+      A large extractive question-answering dataset in which every answer is a
+      span of the provided passage, making the task learnable and the
+      evaluation exact.
+    why_it_mattered: >
+      Span extraction is the task format that connects NER to retrieval-based
+      question answering, and it is the reason "answer with a span from the
+      source" is the grounding pattern RAG inherits.
+    what_changed_after: >
+      Extractive QA became a standard fine-tuning target, and the span-answer
+      format shaped how grounded generation is evaluated.
+    descendants: ["extractive QA", "grounded answer evaluation", "RAG citation checking"]
+
+  wang2019glue:
+    title: "GLUE: A Multi-Task Benchmark and Analysis Platform for Natural Language Understanding"
+    authors: ["Alex Wang", "Amanpreet Singh", "Julian Michael", "Felix Hill",
+              "Omer Levy", "Samuel R. Bowman"]
+    year: 2019
+    venue: "ICLR 2019 (arXiv preprint April 2018)"
+    arxiv: "1804.07461"
+    url: "https://arxiv.org/abs/1804.07461"
+    verified: true
+    verified_on: "2026-08-20"
+    verified_via: "arXiv abstract page arxiv.org/abs/1804.07461 — six authors, v1 dated 20 April 2018, ICLR 2019 venue confirmed on the page."
+    contribution: >
+      Aggregated nine language-understanding tasks behind one leaderboard and
+      one score, with a diagnostic set intended to expose what a model had not
+      learned.
+    why_it_mattered: >
+      It set the competitive frame the encoder era optimised against, and it
+      was saturated within about a year — the canonical example of a benchmark
+      being solved without the underlying capability being solved.
+    what_changed_after: >
+      SuperGLUE followed immediately, and benchmark saturation became a
+      recognised phenomenon rather than a surprise.
+    descendants: ["SuperGLUE", "benchmark saturation as a concept", "Part XXV"]
+
+  muennighoff2023mteb:
+    title: "MTEB: Massive Text Embedding Benchmark"
+    authors: ["Niklas Muennighoff", "Nouamane Tazi", "Loic Magne",
+              "Nils Reimers"]
+    year: 2023
+    venue: "EACL 2023 (arXiv preprint October 2022)"
+    arxiv: "2210.07316"
+    url: "https://arxiv.org/abs/2210.07316"
+    verified: true
+    verified_on: "2026-08-20"
+    verified_via: "arXiv abstract page arxiv.org/abs/2210.07316 — four authors, v1 dated 13 October 2022; the page lists no venue, EACL 2023 acceptance is from the proceedings listing."
+    contribution: >
+      Evaluated text embedding models across eight task types and dozens of
+      datasets, showing that no single model dominates and that ranking depends
+      heavily on which task is measured.
+    why_it_mattered: >
+      It is the empirical basis for refusing to answer "which embedding model
+      is best" without naming the task, which is the position Part XI takes.
+    what_changed_after: >
+      MTEB became the default embedding leaderboard, with the usual consequence
+      that models began to be tuned for it.
+    descendants: ["embedding model selection practice", "MTEB leaderboard effects"]
+
+  petrov2023:
+    title: "Language Model Tokenizers Introduce Unfairness Between Languages"
+    authors: ["Aleksandar Petrov", "Emanuele La Malfa", "Philip H. S. Torr",
+              "Adel Bibi"]
+    year: 2023
+    venue: "NeurIPS 2023 (arXiv preprint May 2023)"
+    arxiv: "2305.15425"
+    url: "https://arxiv.org/abs/2305.15425"
+    verified: true
+    verified_on: "2026-08-20"
+    verified_via: "arXiv abstract page arxiv.org/abs/2305.15425 — four authors, v1 dated 17 May 2023, page states publication at NeurIPS 2023; abstract confirms the finding that the same text translated into different languages can differ in tokenized length by up to a factor of 15."
+    contribution: >
+      Measured tokenized length for the same content across languages and
+      quantified the resulting disparities in cost, latency, and usable context
+      window.
+    why_it_mattered: >
+      It converts a technical property of the tokenizer into a measurable
+      inequity with a price attached, which is the form in which the
+      tokenization decision reaches a product.
+    what_changed_after: >
+      Tokenizer fertility per language became a reported metric for
+      multilingual models rather than an implementation detail.
+    descendants: ["tokenizer fertility metrics", "multilingual pricing analysis"]
+
+  rust2021:
+    title: "How Good is Your Tokenizer? On the Monolingual Performance of Multilingual Language Models"
+    authors: ["Phillip Rust", "Jonas Pfeiffer", "Ivan Vulic",
+              "Sebastian Ruder", "Iryna Gurevych"]
+    year: 2021
+    venue: "ACL 2021 (arXiv preprint December 2020)"
+    arxiv: "2012.15613"
+    url: "https://arxiv.org/abs/2012.15613"
+    verified: true
+    verified_on: "2026-08-20"
+    verified_via: "arXiv abstract page arxiv.org/abs/2012.15613 — five authors, v1 dated 31 December 2020, ACL 2021 venue confirmed on the page."
+    contribution: >
+      Isolated the tokenizer as a variable by giving multilingual models
+      language-specific tokenizers, and attributed a measurable share of the
+      monolingual-versus-multilingual gap to tokenization alone.
+    why_it_mattered: >
+      It is the experiment that turns "the tokenizer matters" from an intuition
+      into a controlled measurement, and it shows the effect survives when
+      model and data are held fixed.
+    what_changed_after: >
+      Tokenizer replacement and vocabulary adaptation became recognised
+      interventions for adapting a model to a new language.
+    descendants: ["vocabulary adaptation", "tokenizer transplant methods"]

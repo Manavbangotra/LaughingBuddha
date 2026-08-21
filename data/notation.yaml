@@ -1,0 +1,369 @@
+# =============================================================================
+#  notation.yaml — the book's fixed symbol table.
+#
+#  Notation is locked here BEFORE chapters are written, because the alternative
+#  is discovering in Part XV that `d` meant three different things. Any chapter
+#  that must deviate — usually because a paper's own convention would otherwise
+#  be unreadable — has to say so explicitly in the text.
+#
+#  `tex` must use only the macros defined in tools/katex_render.js, so that the
+#  notation appendix renders identically to the chapters that use the symbol.
+# =============================================================================
+
+symbols:
+
+  # --- Sets and numbers -----------------------------------------------------
+  reals:
+    tex: "\\R"
+    group: "Sets and Numbers"
+    meaning: "The real numbers."
+  reals-n:
+    tex: "\\R^{n}"
+    group: "Sets and Numbers"
+    meaning: "The set of real column vectors with n components."
+  reals-mn:
+    tex: "\\R^{m \\times n}"
+    group: "Sets and Numbers"
+    meaning: "The set of real matrices with m rows and n columns."
+  naturals:
+    tex: "\\N"
+    group: "Sets and Numbers"
+    meaning: "The natural numbers, taken to start at 1 unless stated otherwise."
+  set-builder:
+    tex: "\\{x : P(x)\\}"
+    group: "Sets and Numbers"
+    meaning: "The set of all x satisfying the predicate P."
+  indicator:
+    tex: "\\mathbb{1}[\\,\\cdot\\,]"
+    group: "Sets and Numbers"
+    meaning: "Indicator: 1 when the condition holds, 0 otherwise."
+  simplex:
+    tex: "\\Delta^{k-1}"
+    group: "Sets and Numbers"
+    meaning: "The probability simplex: non-negative k-vectors summing to 1."
+    notes: "The output space of a softmax over k classes."
+
+  # --- Linear algebra -------------------------------------------------------
+  scalar:
+    tex: "a,\\; b,\\; \\alpha"
+    group: "Linear Algebra"
+    meaning: "Scalars: lowercase italic Latin or Greek."
+  vector:
+    tex: "\\vec{x}"
+    group: "Linear Algebra"
+    meaning: "A column vector, lowercase bold."
+    notes: "All vectors are column vectors unless transposed."
+  matrix:
+    tex: "\\mat{A}"
+    group: "Linear Algebra"
+    meaning: "A matrix, uppercase bold."
+  element:
+    tex: "A_{ij}"
+    group: "Linear Algebra"
+    meaning: "The entry of A in row i and column j."
+    notes: "Indices are 1-based in mathematics and 0-based in code; the text
+      flags the transition wherever both appear."
+  transpose:
+    tex: "\\mat{A}\\T"
+    group: "Linear Algebra"
+    meaning: "Transpose of A."
+  inverse:
+    tex: "\\mat{A}\\inv"
+    group: "Linear Algebra"
+    meaning: "Inverse of a square, non-singular A."
+  identity:
+    tex: "\\mat{I}_{n}"
+    group: "Linear Algebra"
+    meaning: "The n by n identity matrix."
+  dot-product:
+    tex: "\\vec{x}\\T\\vec{y}"
+    group: "Linear Algebra"
+    meaning: "Inner (dot) product of two vectors of equal length."
+  hadamard:
+    tex: "\\vec{x} \\odot \\vec{y}"
+    group: "Linear Algebra"
+    meaning: "Element-wise (Hadamard) product."
+  norm:
+    tex: "\\norm{\\vec{x}}_{p}"
+    group: "Linear Algebra"
+    meaning: "The p-norm of x; the subscript is omitted when p = 2."
+  frobenius:
+    tex: "\\norm{\\mat{A}}_{F}"
+    group: "Linear Algebra"
+    meaning: "Frobenius norm: the Euclidean norm of the flattened matrix."
+  trace:
+    tex: "\\tr(\\mat{A})"
+    group: "Linear Algebra"
+    meaning: "Trace: the sum of the diagonal entries."
+  rank-sym:
+    tex: "\\rank(\\mat{A})"
+    group: "Linear Algebra"
+    meaning: "Rank: the dimension of the column space."
+  diag:
+    tex: "\\diag(\\vec{v})"
+    group: "Linear Algebra"
+    meaning: "The diagonal matrix whose diagonal is v."
+  eigen:
+    tex: "\\lambda_{i},\\; \\vec{u}_{i}"
+    group: "Linear Algebra"
+    meaning: "The i-th eigenvalue and its eigenvector."
+  singular-values:
+    tex: "\\sigma_{i}"
+    group: "Linear Algebra"
+    meaning: "The i-th singular value, ordered descending."
+    notes: "Also used for a standard deviation; context disambiguates and the
+      text says which is meant on first use in a chapter."
+
+  # --- Probability and statistics ------------------------------------------
+  prob:
+    tex: "\\Prob(A)"
+    group: "Probability and Statistics"
+    meaning: "Probability of the event A."
+  conditional:
+    tex: "\\Prob(A \\given B)"
+    group: "Probability and Statistics"
+    meaning: "Probability of A given B."
+  density:
+    tex: "p(x)"
+    group: "Probability and Statistics"
+    meaning: "Probability mass or density function."
+    notes: "The book writes p for the true distribution and q for a model or
+      approximating distribution."
+  model-dist:
+    tex: "p_{\\theta}(x)"
+    group: "Probability and Statistics"
+    meaning: "A distribution parameterised by θ."
+  expectation:
+    tex: "\\E_{x \\sim p}[f(x)]"
+    group: "Probability and Statistics"
+    meaning: "Expectation of f(x) when x is drawn from p."
+  variance:
+    tex: "\\Var(X)"
+    group: "Probability and Statistics"
+    meaning: "Variance of the random variable X."
+  covariance:
+    tex: "\\Cov(X, Y)"
+    group: "Probability and Statistics"
+    meaning: "Covariance of X and Y."
+  normal:
+    tex: "\\mathcal{N}(\\mu, \\sigma^{2})"
+    group: "Probability and Statistics"
+    meaning: "Normal distribution with mean μ and variance σ²."
+  kl:
+    tex: "\\KL(p \\,\\|\\, q)"
+    group: "Probability and Statistics"
+    meaning: "Kullback–Leibler divergence from q to p."
+    notes: "Asymmetric: KL(p‖q) ≠ KL(q‖p). The book always names which argument
+      is the reference."
+  entropy:
+    tex: "H(p)"
+    group: "Probability and Statistics"
+    meaning: "Shannon entropy, in nats unless bits are stated."
+  cross-entropy:
+    tex: "H(p, q)"
+    group: "Probability and Statistics"
+    meaning: "Cross-entropy between p and q."
+  iid:
+    tex: "x_{i} \\overset{\\text{iid}}{\\sim} p"
+    group: "Probability and Statistics"
+    meaning: "Samples drawn independently from an identical distribution."
+
+  # --- Calculus and optimisation -------------------------------------------
+  derivative:
+    tex: "\\frac{\\dd f}{\\dd x}"
+    group: "Calculus and Optimisation"
+    meaning: "Derivative of a single-variable function."
+  partial:
+    tex: "\\frac{\\partial f}{\\partial x_{i}}"
+    group: "Calculus and Optimisation"
+    meaning: "Partial derivative with respect to one coordinate."
+  gradient:
+    tex: "\\nabla_{\\theta} \\Loss"
+    group: "Calculus and Optimisation"
+    meaning: "Gradient of the loss with respect to the parameters θ."
+    notes: "Shaped like θ. Treated as a column vector when θ is a vector."
+  jacobian:
+    tex: "\\mat{J}_{f}"
+    group: "Calculus and Optimisation"
+    meaning: "Jacobian: the matrix of first partial derivatives of a vector-valued f."
+  hessian:
+    tex: "\\mat{H}"
+    group: "Calculus and Optimisation"
+    meaning: "Hessian: the matrix of second partial derivatives."
+  learning-rate:
+    tex: "\\eta"
+    group: "Calculus and Optimisation"
+    meaning: "Learning rate (step size)."
+  argmin:
+    tex: "\\argmin_{\\theta} f(\\theta)"
+    group: "Calculus and Optimisation"
+    meaning: "The argument minimising f."
+  argmax-sym:
+    tex: "\\argmax_{\\theta} f(\\theta)"
+    group: "Calculus and Optimisation"
+    meaning: "The argument maximising f."
+
+  # --- Learning problems ----------------------------------------------------
+  dataset:
+    tex: "\\Data = \\{(\\vec{x}_{i}, y_{i})\\}_{i=1}^{N}"
+    group: "Learning Problems"
+    meaning: "A labelled dataset of N examples."
+  input:
+    tex: "\\vec{x} \\in \\R^{d}"
+    group: "Learning Problems"
+    meaning: "An input example (feature vector) of dimension d."
+  target:
+    tex: "y,\\; \\hat{y}"
+    group: "Learning Problems"
+    meaning: "True target and model prediction."
+    notes: "A hat always denotes an estimate produced by a model."
+  params:
+    tex: "\\theta"
+    group: "Learning Problems"
+    meaning: "All learnable parameters of a model, collectively."
+  hyperparams:
+    tex: "\\phi"
+    group: "Learning Problems"
+    meaning: "Hyperparameters: settings not learned by gradient descent."
+  loss:
+    tex: "\\Loss(\\theta)"
+    group: "Learning Problems"
+    meaning: "The objective being minimised, averaged over a batch or dataset."
+  per-example-loss:
+    tex: "\\ell(\\hat{y}, y)"
+    group: "Learning Problems"
+    meaning: "Loss on a single example."
+  likelihood:
+    tex: "\\Like(\\theta)"
+    group: "Learning Problems"
+    meaning: "The likelihood of the observed data under parameters theta."
+    notes: >
+      Upright L, deliberately distinct from the script L used for a loss. Most
+      losses in this book are a negative log-likelihood, so the two symbols
+      appear together and must not be confused.
+  coefficient-vector:
+    tex: "\\vecgreek{\\beta}"
+    group: "Learning Problems"
+    meaning: "The coefficient vector of a linear or generalised linear model."
+    notes: >
+      Bold Greek uses \vecgreek rather than \vec, because \mathbf does not
+      embolden Greek glyphs. Reserved for regression coefficients; the weights
+      of a neural network are w and theta.
+  indicator:
+    tex: "\\Ind[A]"
+    group: "Learning Problems"
+    meaning: "Indicator: 1 when the condition A holds, 0 otherwise."
+  logit-fn:
+    tex: "\\logit(p) = \\log\\frac{p}{1-p}"
+    group: "Learning Problems"
+    meaning: "The log-odds of a probability; the inverse of the sigmoid."
+  hypothesis:
+    tex: "f_{\\theta}(\\vec{x})"
+    group: "Learning Problems"
+    meaning: "The model's function from input to output."
+  batch-size:
+    tex: "B"
+    group: "Learning Problems"
+    meaning: "Number of examples in a minibatch."
+  num-examples:
+    tex: "N"
+    group: "Learning Problems"
+    meaning: "Number of examples in a dataset."
+
+  # --- Sequences, transformers, and language models -------------------------
+  seq-len:
+    tex: "n"
+    group: "Sequences and Transformers"
+    meaning: "Sequence length in tokens."
+    notes: "The literature also writes L, S, or T; this book uses n throughout
+      and notes the mapping when quoting a paper."
+  model-dim:
+    tex: "d_{\\text{model}}"
+    group: "Sequences and Transformers"
+    meaning: "Residual-stream width: the dimension of a token representation."
+  key-dim:
+    tex: "d_{k}"
+    group: "Sequences and Transformers"
+    meaning: "Dimension of each query and key vector, per attention head."
+  value-dim:
+    tex: "d_{v}"
+    group: "Sequences and Transformers"
+    meaning: "Dimension of each value vector, per attention head."
+  ffn-dim:
+    tex: "d_{\\text{ff}}"
+    group: "Sequences and Transformers"
+    meaning: "Hidden width of the position-wise feed-forward network."
+  num-heads:
+    tex: "h"
+    group: "Sequences and Transformers"
+    meaning: "Number of attention heads."
+  num-layers:
+    tex: "L"
+    group: "Sequences and Transformers"
+    meaning: "Number of stacked Transformer blocks."
+  vocab:
+    tex: "V"
+    group: "Sequences and Transformers"
+    meaning: "Vocabulary size in tokens."
+  token-seq:
+    tex: "t_{1:n}"
+    group: "Sequences and Transformers"
+    meaning: "A token sequence of length n."
+  hidden-states:
+    tex: "\\mat{X} \\in \\R^{n \\times d_{\\text{model}}}"
+    group: "Sequences and Transformers"
+    meaning: "Stacked token representations; row i is the vector for position i."
+    notes: "The book uses row-major convention: tokens index rows. Some papers
+      use the column convention; formulas transpose accordingly."
+  qkv:
+    tex: "\\mat{Q},\\; \\mat{K},\\; \\mat{V}"
+    group: "Sequences and Transformers"
+    meaning: "Query, key, and value matrices."
+  proj-weights:
+    tex: "\\mat{W}^{Q},\\; \\mat{W}^{K},\\; \\mat{W}^{V},\\; \\mat{W}^{O}"
+    group: "Sequences and Transformers"
+    meaning: "Learned projections producing Q, K, V, and mixing head outputs."
+  attention:
+    tex: "\\attn(\\mat{Q}, \\mat{K}, \\mat{V})"
+    group: "Sequences and Transformers"
+    meaning: "The attention operation defined in Part VII."
+  softmax-sym:
+    tex: "\\softmax(\\vec{z})"
+    group: "Sequences and Transformers"
+    meaning: "Softmax; applied row-wise to matrices."
+  logits:
+    tex: "\\vec{z}"
+    group: "Sequences and Transformers"
+    meaning: "Pre-softmax scores."
+  temperature:
+    tex: "\\tau"
+    group: "Sequences and Transformers"
+    meaning: "Sampling temperature applied to logits before softmax."
+  mask:
+    tex: "\\mat{M}"
+    group: "Sequences and Transformers"
+    meaning: "Additive attention mask; masked positions receive −∞."
+
+  # --- Complexity and systems ----------------------------------------------
+  big-o:
+    tex: "O(\\cdot)"
+    group: "Complexity and Systems"
+    meaning: "Asymptotic upper bound on time or memory."
+  throughput:
+    tex: "\\text{tok}/\\text{s}"
+    group: "Complexity and Systems"
+    meaning: "Tokens generated or processed per second."
+  flops:
+    tex: "C"
+    group: "Complexity and Systems"
+    meaning: "Training compute, in FLOPs."
+    notes: "Used in the scaling-law chapters alongside N for parameters and D
+      for training tokens."
+  params-count:
+    tex: "N_{\\text{params}}"
+    group: "Complexity and Systems"
+    meaning: "Number of model parameters."
+  tokens-count:
+    tex: "D"
+    group: "Complexity and Systems"
+    meaning: "Number of training tokens."

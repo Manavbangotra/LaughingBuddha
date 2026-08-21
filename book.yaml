@@ -1,0 +1,636 @@
+# =============================================================================
+#  book.yaml — single source of truth for structure, ordering, and depth tier.
+#
+#  The build system reads this file to determine reading order, chapter
+#  numbering, output grouping, and which chapter template each chapter must
+#  satisfy. Chapter bodies live in src/<part-dir>/<slug>.md and carry their own
+#  frontmatter (requires / provides / citations / status); tools/checks/
+#  reconciles the two and fails the build on any mismatch.
+#
+#  tier: focused -> 12-section chapter template (see templates/chapter-focused.md)
+#  tier: full    -> 21-section chapter template (see templates/chapter-full.md)
+# =============================================================================
+
+title: "Machines That Learn and Act"
+subtitle: "A Complete Textbook of Modern AI — from Mathematical Foundations to Production Agentic Systems"
+edition: "First Edition"
+version: "0.1.0-dev"
+language: en
+build_date_source: git   # page footers use the build date, not a hardcoded one
+
+audience: >-
+  Readers with basic programming experience and no formal machine-learning
+  background who intend to reach professional AI/ML engineering competence and,
+  ultimately, the ability to read and produce research. The book assumes
+  willingness to learn Python and to work through mathematics, and it assumes
+  nothing else.
+
+# ---------------------------------------------------------------------------
+# Depth tiers
+# ---------------------------------------------------------------------------
+tiers:
+  focused:
+    sections: 12
+    min_words: 2600
+    template: templates/chapter-focused.md
+  full:
+    sections: 21
+    min_words: 4200
+    template: templates/chapter-full.md
+
+# ---------------------------------------------------------------------------
+# Parts and chapters, in reading order. Global chapter numbers are assigned by
+# the build from this ordering — never hardcode a chapter number in prose, use
+# the {{ch:<id>}} cross-reference macro.
+# ---------------------------------------------------------------------------
+parts:
+
+  - number: 1
+    roman: I
+    dir: part-01-mathematics
+    title: "Mathematical Foundations"
+    tier: focused
+    summary: >-
+      Only the mathematics that is actually load-bearing for AI, taught for use
+      rather than for its own sake. Every concept is tied to the place it later
+      appears in the book.
+    chapters:
+      - {id: math-notation,        slug: ch001-notation,        title: "Mathematical Notation and the Language of Machine Learning"}
+      - {id: math-functions,       slug: ch002-functions,       title: "Functions, Exponents, and Logarithms"}
+      - {id: math-vectors,         slug: ch003-vectors,         title: "Vectors, Dot Products, and Geometric Intuition"}
+      - {id: math-matrices,        slug: ch004-matrices,        title: "Matrices, Matrix Multiplication, and Linear Maps"}
+      - {id: math-norms,           slug: ch005-norms,           title: "Norms, Distances, and Similarity Measures"}
+      - {id: math-eigen,           slug: ch006-eigen,           title: "Eigenvalues, Eigenvectors, and the Singular Value Decomposition"}
+      - {id: math-probability,     slug: ch007-probability,     title: "Probability, Conditional Probability, and Bayes' Theorem"}
+      - {id: math-random-vars,     slug: ch008-random-variables,title: "Random Variables, Distributions, and Expectation"}
+      - {id: math-covariance,      slug: ch009-covariance,      title: "Variance, Covariance, and Correlation"}
+      - {id: math-inference,       slug: ch010-inference,       title: "Statistical Inference, Sampling, and Hypothesis Testing"}
+      - {id: math-derivatives,     slug: ch011-derivatives,     title: "Derivatives, Partial Derivatives, Gradients, and the Chain Rule"}
+      - {id: math-optimization,    slug: ch012-optimization,    title: "Convexity, Gradient Descent, and Numerical Optimization"}
+
+  - number: 2
+    roman: II
+    dir: part-02-python
+    title: "Python for Data and AI"
+    tier: focused
+    summary: >-
+      The Python that AI work actually uses: vectorized numerics, dataframes,
+      and the engineering practices that keep experiments reproducible.
+    chapters:
+      - {id: py-fundamentals,      slug: ch013-fundamentals,    title: "Python Fundamentals for AI Work"}
+      - {id: py-functions-classes, slug: ch014-functions-classes,title: "Functions, Classes, and Modules"}
+      - {id: py-environments,      slug: ch015-environments,    title: "Environments, Packaging, and Project Structure"}
+      - {id: py-numpy,             slug: ch016-numpy,           title: "NumPy: Arrays, Broadcasting, and Vectorized Computation"}
+      - {id: py-pandas,            slug: ch017-pandas,          title: "Pandas: DataFrames, Joins, and Data Wrangling"}
+      - {id: py-visualization,     slug: ch018-visualization,   title: "Visualization with Matplotlib"}
+      - {id: py-io-apis-sql,       slug: ch019-io-apis-sql,     title: "Files, JSON, APIs, and SQL from Python"}
+      - {id: py-engineering,       slug: ch020-engineering,     title: "Debugging, Logging, Testing, Async, and Performance"}
+
+  - number: 3
+    roman: III
+    dir: part-03-data-science
+    title: "Data Science"
+    tier: focused
+    summary: >-
+      Working with real data: collecting it, cleaning it, understanding it, and
+      drawing conclusions that survive contact with reality.
+    chapters:
+      - {id: ds-what-it-is,        slug: ch021-what-data-science-is, title: "What Data Science Actually Is"}
+      - {id: ds-collection,        slug: ch022-collection,      title: "Data Collection, Ingestion, and Storage"}
+      - {id: ds-cleaning,          slug: ch023-cleaning,        title: "Data Cleaning: Missing Values, Outliers, and Feature Types"}
+      - {id: ds-eda,               slug: ch024-eda,             title: "Exploratory Data Analysis and Visualization"}
+      - {id: ds-causation,         slug: ch025-causation,       title: "Correlation, Causation, and Confounding"}
+      - {id: ds-experiments,       slug: ch026-experiments,     title: "Experiment Design and A/B Testing"}
+      - {id: ds-feature-eng,       slug: ch027-feature-engineering, title: "Feature Engineering and Feature Selection"}
+      - {id: ds-leakage,           slug: ch028-leakage,         title: "Data Leakage, Imbalanced Data, and Dataset Pathologies"}
+      - {id: ds-timeseries,        slug: ch029-timeseries,      title: "Time Series, Forecasting, and Anomaly Detection"}
+      - {id: ds-recsys,            slug: ch030-recommenders,    title: "Recommendation Systems"}
+
+  - number: 4
+    roman: IV
+    dir: part-04-classical-ml
+    title: "Classical Machine Learning"
+    tier: focused
+    summary: >-
+      The algorithms that still win on tabular data, derived from first
+      principles rather than described as library calls.
+    chapters:
+      - {id: ml-what-it-is,        slug: ch031-what-ml-is,      title: "What Machine Learning Is: Learning Paradigms"}
+      - {id: ml-linear-regression, slug: ch032-linear-regression, title: "Linear Regression from First Principles"}
+      - {id: ml-logistic,          slug: ch033-logistic,        title: "Logistic Regression and Classification"}
+      - {id: ml-metrics,           slug: ch034-metrics,         title: "Evaluation Metrics and the Bias–Variance Tradeoff"}
+      - {id: ml-knn-nb,            slug: ch035-knn-naive-bayes, title: "k-Nearest Neighbors and Naive Bayes"}
+      - {id: ml-trees,             slug: ch036-decision-trees,  title: "Decision Trees"}
+      - {id: ml-forests,           slug: ch037-random-forests,  title: "Random Forests and Bagging"}
+      - {id: ml-boosting,          slug: ch038-gradient-boosting, title: "Gradient Boosting: Theory, XGBoost, LightGBM, CatBoost"}
+      - {id: ml-svm,               slug: ch039-svm,             title: "Support Vector Machines and Kernels"}
+      - {id: ml-clustering,        slug: ch040-clustering,      title: "Clustering: K-Means, DBSCAN, and Hierarchical Methods"}
+      - {id: ml-pca,               slug: ch041-pca,             title: "PCA and Dimensionality Reduction"}
+      - {id: ml-anomaly,           slug: ch042-anomaly,         title: "Anomaly Detection Methods"}
+
+  - number: 5
+    roman: V
+    dir: part-05-ml-engineering
+    title: "Machine Learning Engineering"
+    tier: focused
+    summary: >-
+      Turning a model that works in a notebook into one that keeps working.
+    chapters:
+      - {id: mle-splits,           slug: ch043-splits,          title: "Splits, Cross-Validation, and Honest Evaluation"}
+      - {id: mle-hpo,              slug: ch044-hpo,             title: "Hyperparameter Optimization: Grid, Random, and Bayesian"}
+      - {id: mle-pipelines,        slug: ch045-pipelines,       title: "Data and Feature Pipelines"}
+      - {id: mle-reproducibility,  slug: ch046-reproducibility, title: "Reproducibility, Experiment Tracking, and Versioning"}
+      - {id: mle-registry,         slug: ch047-registry,        title: "Model Registry and the Deployment Handoff"}
+      - {id: mle-drift,            slug: ch048-drift,           title: "Monitoring, Drift, and Model Degradation"}
+
+  - number: 6
+    roman: VI
+    dir: part-06-deep-learning
+    title: "Deep Learning"
+    tier: full
+    summary: >-
+      Neural networks built up from the perceptron, with backpropagation derived
+      by hand before any framework is used.
+    chapters:
+      - {id: dl-neural-networks,   slug: ch049-neural-networks, title: "Neural Networks and the Perceptron"}
+      - {id: dl-activations,       slug: ch050-activations,     title: "Activation Functions"}
+      - {id: dl-forward,           slug: ch051-forward,         title: "Forward Propagation and Computational Graphs"}
+      - {id: dl-losses,            slug: ch052-losses,          title: "Loss Functions"}
+      - {id: dl-backprop,          slug: ch053-backpropagation, title: "Backpropagation Derived from Scratch"}
+      - {id: dl-optimizers,        slug: ch054-optimizers,      title: "Optimizers: SGD, Momentum, RMSProp, and Adam"}
+      - {id: dl-lr-schedules,      slug: ch055-lr-schedules,    title: "Learning-Rate Schedules and Warmup"}
+      - {id: dl-initialization,    slug: ch056-initialization,  title: "Initialization and Signal Propagation"}
+      - {id: dl-normalization,     slug: ch057-normalization,   title: "Normalization: Batch, Layer, and RMSNorm"}
+      - {id: dl-regularization,    slug: ch058-regularization,  title: "Regularization, Dropout, Overfitting, and Underfitting"}
+      - {id: dl-cnns,              slug: ch059-cnns,            title: "Convolutional Neural Networks"}
+      - {id: dl-rnns,              slug: ch060-rnns,            title: "Recurrent Networks: RNN, LSTM, and GRU"}
+      - {id: dl-autoencoders,      slug: ch061-autoencoders,    title: "Autoencoders and Representation Learning"}
+
+  - number: 7
+    roman: VII
+    dir: part-07-transformers
+    title: "Transformers"
+    tier: full
+    summary: >-
+      The architecture underneath every modern foundation model, built component
+      by component and then assembled from scratch.
+    chapters:
+      - {id: tf-why-attention,     slug: ch062-why-attention,   title: "Why Recurrence Failed: The Road to Attention"}
+      - {id: tf-scaled-dot-product,slug: ch063-scaled-dot-product-attention, title: "Scaled Dot-Product Attention"}
+      - {id: tf-multi-head,        slug: ch064-multi-head-attention, title: "Multi-Head Attention"}
+      - {id: tf-positional,        slug: ch065-positional,      title: "Positional Encoding, RoPE, and ALiBi"}
+      - {id: tf-embeddings,        slug: ch066-embeddings,      title: "Token Embeddings and the Unembedding Matrix"}
+      - {id: tf-ffn-residual,      slug: ch067-ffn-residual,    title: "Feed-Forward Networks, Residuals, and Normalization Placement"}
+      - {id: tf-architectures,     slug: ch068-architectures,   title: "Encoder, Decoder, and Encoder–Decoder Transformers"}
+      - {id: tf-masking-kv,        slug: ch069-masking-kv-cache,title: "Causal Masking and the KV Cache"}
+      - {id: tf-complexity,        slug: ch070-complexity,      title: "Computational and Memory Complexity of Attention"}
+      - {id: tf-efficient,         slug: ch071-efficient-attention, title: "Efficient Attention: FlashAttention, GQA/MQA, Sparse and Linear Variants"}
+
+  - number: 8
+    roman: VIII
+    dir: part-08-nlp
+    title: "Natural Language Processing"
+    tier: full
+    summary: >-
+      How text becomes tensors, and what the encoder era established that the
+      generative era still depends on.
+    chapters:
+      - {id: nlp-preprocessing,    slug: ch072-preprocessing,   title: "Text Preprocessing and the Tokenization Problem"}
+      - {id: nlp-subword,          slug: ch073-subword,         title: "Subword Tokenization: BPE, WordPiece, and SentencePiece"}
+      - {id: nlp-static-embeddings,slug: ch074-word2vec-glove,  title: "Static Word Embeddings: Word2Vec and GloVe"}
+      - {id: nlp-contextual,       slug: ch075-contextual,      title: "Contextual Embeddings and the Encoder Revolution"}
+      - {id: nlp-bert,             slug: ch076-bert,            title: "BERT, RoBERTa, and Masked Language Modeling"}
+      - {id: nlp-extraction,       slug: ch077-extraction,      title: "Classification, Named Entity Recognition, and Information Extraction"}
+      - {id: nlp-similarity,       slug: ch078-similarity,      title: "Semantic Similarity and Sentence Embeddings"}
+
+  - number: 9
+    roman: IX
+    dir: part-09-foundation-models
+    title: "Foundation Models"
+    tier: full
+    summary: >-
+      Pretraining, scaling, and the alignment pipeline that turns a next-token
+      predictor into a usable assistant.
+    chapters:
+      - {id: fm-what-they-are,     slug: ch079-what-they-are,   title: "What Foundation Models Are"}
+      - {id: fm-pretraining,       slug: ch080-pretraining,     title: "Pretraining and Self-Supervised Objectives"}
+      - {id: fm-datasets,          slug: ch081-datasets,        title: "Pretraining Dataset Construction and Curation"}
+      - {id: fm-scaling-laws,      slug: ch082-scaling-laws,    title: "Scaling Laws: Parameters, Data, and Compute"}
+      - {id: fm-emergence,         slug: ch083-emergence,       title: "Emergent Capabilities and What Emergence Means"}
+      - {id: fm-instruction-tuning,slug: ch084-instruction-tuning, title: "Instruction Tuning"}
+      - {id: fm-rlhf,              slug: ch085-rlhf,            title: "Alignment and RLHF"}
+      - {id: fm-dpo,               slug: ch086-dpo,             title: "Preference Optimization: DPO and Its Descendants"}
+      - {id: fm-distillation,      slug: ch087-distillation,    title: "Distillation and Model Specialization"}
+
+  - number: 10
+    roman: X
+    dir: part-10-llms
+    title: "Large Language Models"
+    tier: full
+    summary: >-
+      What an LLM does mechanically, end to end, from the moment a prompt
+      arrives to the moment a token is emitted.
+    chapters:
+      - {id: llm-anatomy,          slug: ch088-anatomy,         title: "Anatomy of an LLM: From Tokens to Logits"}
+      - {id: llm-next-token,       slug: ch089-next-token,      title: "Next-Token Prediction and Cross-Entropy Loss"}
+      - {id: llm-decoding,         slug: ch090-decoding,        title: "Decoding: Softmax, Temperature, Top-k, Top-p, and Beam Search"}
+      - {id: llm-inference,        slug: ch091-inference,       title: "Context Windows, KV Cache, and Inference Mechanics"}
+      - {id: llm-prompt-lifecycle, slug: ch092-prompt-lifecycle,title: "What Actually Happens When You Send a Prompt"}
+      - {id: llm-prompting,        slug: ch093-prompting,       title: "Prompting and System Prompts"}
+      - {id: llm-structured-output,slug: ch094-structured-output, title: "Structured Output and Constrained Decoding"}
+      - {id: llm-function-calling, slug: ch095-function-calling,title: "Function Calling and Tool Use"}
+      - {id: llm-hallucination,    slug: ch096-hallucination,   title: "Hallucination: Causes, Taxonomy, and Mitigation"}
+      - {id: llm-long-context,     slug: ch097-long-context,    title: "Long-Context Behavior and Its Limits"}
+      - {id: llm-routing,          slug: ch098-routing,         title: "Model Routing and Model Selection"}
+
+  - number: 11
+    roman: XI
+    dir: part-11-embeddings
+    title: "Embeddings and Vector Search"
+    tier: full
+    summary: >-
+      Representation as infrastructure: how meaning becomes geometry, and how to
+      search that geometry at scale.
+    chapters:
+      - {id: emb-what-they-are,    slug: ch099-what-embeddings-are, title: "What Embeddings Are: Representation Learning Revisited"}
+      - {id: emb-similarity,       slug: ch100-similarity,      title: "Similarity Measures and the Geometry of Embedding Space"}
+      - {id: emb-models,           slug: ch101-embedding-models,title: "Embedding Models: Training, Choosing, and Evaluating"}
+      - {id: emb-vector-db,        slug: ch102-vector-databases,title: "Vector Databases and Index Structures"}
+      - {id: emb-ann,              slug: ch103-ann,             title: "Approximate Nearest Neighbors: HNSW, IVF, and Product Quantization"}
+      - {id: emb-hybrid,           slug: ch104-hybrid-search,   title: "Sparse Retrieval, BM25, and Hybrid Search"}
+      - {id: emb-reranking,        slug: ch105-reranking,       title: "Reranking and Cross-Encoders"}
+
+  - number: 12
+    roman: XII
+    dir: part-12-rag
+    title: "Retrieval-Augmented Generation"
+    tier: full
+    summary: >-
+      RAG from the naive baseline through the retrieval architectures that
+      actually hold up in production, ending in systematic failure diagnosis.
+    chapters:
+      - {id: rag-why,              slug: ch106-why-rag,         title: "Why RAG Exists"}
+      - {id: rag-ingestion,        slug: ch107-ingestion,       title: "Document Ingestion and Parsing"}
+      - {id: rag-chunking,         slug: ch108-chunking,        title: "Chunking Strategies"}
+      - {id: rag-indexing,         slug: ch109-indexing,        title: "Indexing, Metadata, and Retrieval"}
+      - {id: rag-generation,       slug: ch110-generation,      title: "Prompt Construction, Generation, and Citation"}
+      - {id: rag-query-understanding, slug: ch111-query-understanding, title: "Query Understanding: Rewriting, Expansion, and Multi-Query"}
+      - {id: rag-advanced-retrieval,  slug: ch112-advanced-retrieval,  title: "Advanced Retrieval: Parent–Child, Contextual, and Hybrid"}
+      - {id: rag-graph,            slug: ch113-graphrag,        title: "GraphRAG and Knowledge-Graph Retrieval"}
+      - {id: rag-corrective,       slug: ch114-corrective-adaptive, title: "Corrective and Adaptive RAG"}
+      - {id: rag-agentic,          slug: ch115-agentic-rag,     title: "Agentic RAG"}
+      - {id: rag-structured,       slug: ch116-structured-multimodal, title: "Structured and Multimodal RAG: SQL, Tables, and Images"}
+      - {id: rag-failures,         slug: ch117-failure-modes,   title: "RAG Failure Modes and How to Debug Them"}
+
+  - number: 13
+    roman: XIII
+    dir: part-13-multimodal
+    title: "Multimodal AI"
+    tier: full
+    summary: >-
+      Vision from convolutions to vision-language models, plus the document
+      intelligence stack that most real multimodal systems actually need.
+    chapters:
+      - {id: mm-cv-fundamentals,   slug: ch118-cv-fundamentals, title: "Computer Vision Fundamentals"}
+      - {id: mm-classification,    slug: ch119-classification,  title: "Image Classification and the ResNet Lineage"}
+      - {id: mm-detection,         slug: ch120-detection,       title: "Object Detection: Faster R-CNN, YOLO, and DETR"}
+      - {id: mm-segmentation,      slug: ch121-segmentation,    title: "Segmentation and the Segment Anything Model"}
+      - {id: mm-vit,               slug: ch122-vision-transformers, title: "Vision Transformers"}
+      - {id: mm-clip,              slug: ch123-clip,            title: "CLIP and Contrastive Vision–Language Alignment"}
+      - {id: mm-ocr,               slug: ch124-ocr,             title: "OCR and Document AI"}
+      - {id: mm-layout,            slug: ch125-layout,          title: "Layout, Tables, and Chart Understanding"}
+      - {id: mm-vlms,              slug: ch126-vlms,            title: "Vision-Language Models"}
+      - {id: mm-multimodal-rag,    slug: ch127-multimodal-rag,  title: "Multimodal Embeddings and Multimodal Retrieval"}
+      - {id: mm-video-audio,       slug: ch128-video-audio,     title: "Video, Audio, and Spatial Reasoning"}
+
+  - number: 14
+    roman: XIV
+    dir: part-14-fine-tuning
+    title: "Fine-Tuning and Model Adaptation"
+    tier: full
+    summary: >-
+      Changing a model's weights: when it is the right answer, and how to do it
+      without destroying what the model already knew.
+    chapters:
+      - {id: ft-when,              slug: ch129-when-to-fine-tune, title: "When to Fine-Tune and When Not To"}
+      - {id: ft-sft,               slug: ch130-sft,             title: "Supervised Fine-Tuning"}
+      - {id: ft-lora,              slug: ch131-lora,            title: "LoRA and the Low-Rank Hypothesis"}
+      - {id: ft-qlora-peft,        slug: ch132-qlora-peft,      title: "QLoRA, PEFT, and Adapters"}
+      - {id: ft-datasets,          slug: ch133-datasets,        title: "Dataset Creation for Fine-Tuning"}
+      - {id: ft-synthetic,         slug: ch134-synthetic-data,  title: "Synthetic Data and Data Quality"}
+      - {id: ft-preference,        slug: ch135-preference,      title: "Preference Optimization in Practice"}
+      - {id: ft-training-config,   slug: ch136-training-config, title: "Training Configuration, Catastrophic Forgetting, and Overfitting"}
+      - {id: ft-merging,           slug: ch137-merging,         title: "Model Merging and Distillation"}
+
+  - number: 15
+    roman: XV
+    dir: part-15-quantization
+    title: "Quantization and Local AI"
+    tier: full
+    summary: >-
+      Numerical precision as an engineering variable, and the arithmetic that
+      tells you whether a model fits on the hardware you have.
+    chapters:
+      - {id: q-formats,            slug: ch138-numeric-formats, title: "Numerical Formats: FP32, FP16, BF16, and FP8"}
+      - {id: q-theory,             slug: ch139-quantization-theory, title: "Why Quantization Works: Theory and Error Analysis"}
+      - {id: q-int8-int4,          slug: ch140-int8-int4,       title: "INT8, INT4, GPTQ, and AWQ"}
+      - {id: q-gguf,               slug: ch141-gguf-llamacpp,   title: "GGUF, llama.cpp, and Weight-Only Quantization"}
+      - {id: q-activation-kv,      slug: ch142-activation-kv,   title: "Activation and KV-Cache Quantization"}
+      - {id: q-memory-math,        slug: ch143-memory-math,     title: "Memory Math: Will This Model Fit?"}
+      - {id: q-runtimes,           slug: ch144-local-runtimes,  title: "Local Inference Runtimes: Ollama, vLLM, and MLX"}
+      - {id: q-throughput-latency, slug: ch145-throughput-latency, title: "Throughput versus Latency Engineering"}
+
+  - number: 16
+    roman: XVI
+    dir: part-16-reasoning
+    title: "Reasoning Models"
+    tier: full
+    summary: >-
+      Spending compute at inference time, and the difference between apparent
+      reasoning and reliable reasoning.
+    chapters:
+      - {id: rsn-vs-generation,    slug: ch146-reasoning-vs-generation, title: "Reasoning versus Generation"}
+      - {id: rsn-cot,              slug: ch147-chain-of-thought,title: "Chain-of-Thought and Its Mechanics"}
+      - {id: rsn-test-time-compute,slug: ch148-test-time-compute, title: "Test-Time Compute and Search"}
+      - {id: rsn-self-consistency, slug: ch149-self-consistency,title: "Self-Consistency, Reflection, and Critic Models"}
+      - {id: rsn-supervision,      slug: ch150-process-supervision, title: "Process versus Outcome Supervision"}
+      - {id: rsn-tool-assisted,    slug: ch151-tool-assisted,   title: "Tool-Assisted and Verified Reasoning"}
+      - {id: rsn-benchmarks,       slug: ch152-benchmarks,      title: "Reasoning Benchmarks and the Reliability Gap"}
+
+  - number: 17
+    roman: XVII
+    dir: part-17-agents
+    title: "AI Agents"
+    tier: full
+    summary: >-
+      The agent as an architecture, not a product category: loops, tools, state,
+      memory, recovery, and the limits of delegated authority.
+    chapters:
+      - {id: ag-what-is-an-agent,  slug: ch153-what-is-an-agent,title: "What an AI Agent Is: LLM versus Workflow versus Agent"}
+      - {id: ag-tool-calling,      slug: ch154-tool-calling,    title: "Tool Calling and Tool Design"}
+      - {id: ag-loop,              slug: ch155-agent-loop,      title: "The Agent Loop: Perception, Decision, Action"}
+      - {id: ag-react,             slug: ch156-react,           title: "ReAct and Interleaved Reasoning and Acting"}
+      - {id: ag-planning,          slug: ch157-planning,        title: "Planning and Plan-and-Execute"}
+      - {id: ag-memory,            slug: ch158-memory,          title: "Agent Memory: Short-Term, Working, and Long-Term"}
+      - {id: ag-recovery,          slug: ch159-recovery,        title: "Reflection, Replanning, and Error Recovery"}
+      - {id: ag-termination,       slug: ch160-termination,     title: "Termination, Budgets, and Human-in-the-Loop"}
+      - {id: ag-security,          slug: ch161-agent-security,  title: "Agent Security and Excessive Agency"}
+
+  - number: 18
+    roman: XVIII
+    dir: part-18-agentic-systems
+    title: "Agentic AI Systems"
+    tier: full
+    summary: >-
+      Systems of agents: orchestration, durable state, specialization, and the
+      failure modes that only appear when agents talk to each other.
+    chapters:
+      - {id: as-single-agent,      slug: ch162-single-agent,    title: "Single-Agent Architectures"}
+      - {id: as-multi-agent,       slug: ch163-multi-agent,     title: "Multi-Agent Architectures and Communication"}
+      - {id: as-roles,             slug: ch164-roles,           title: "Supervisor, Worker, Planner, and Critic Roles"}
+      - {id: as-graph,             slug: ch165-graph-orchestration, title: "Graph-Based Orchestration"}
+      - {id: as-state-machines,    slug: ch166-state-machines,  title: "State Machines, Events, and Durable Execution"}
+      - {id: as-long-running,      slug: ch167-long-running,    title: "Long-Running and Autonomous Workflows"}
+      - {id: as-specialized,       slug: ch168-specialized,     title: "Specialized Agents: Research, Coding, Data, Browser, Computer-Use"}
+      - {id: as-failures,          slug: ch169-failures,        title: "Multi-Agent Failure Modes"}
+
+  - number: 19
+    roman: XIX
+    dir: part-19-mcp
+    title: "MCP and Tool Ecosystems"
+    tier: full
+    summary: >-
+      Why tool integration needed a protocol, how the Model Context Protocol
+      works, and how to build and operate servers safely.
+    chapters:
+      - {id: mcp-why,              slug: ch170-why-protocols,   title: "Why Tool Protocols Exist"}
+      - {id: mcp-architecture,     slug: ch171-architecture,    title: "MCP Architecture: Hosts, Clients, Servers, and Transports"}
+      - {id: mcp-primitives,       slug: ch172-primitives,      title: "Tools, Resources, and Prompts"}
+      - {id: mcp-schemas,          slug: ch173-schemas,         title: "Tool Schemas, Discovery, and Context Budgets"}
+      - {id: mcp-security,         slug: ch174-security,        title: "Authentication, Authorization, and MCP Security"}
+      - {id: mcp-building,         slug: ch175-building,        title: "Building an MCP Server and Client"}
+      - {id: mcp-production,       slug: ch176-production,      title: "Production MCP and Ecosystem Design"}
+
+  - number: 20
+    roman: XX
+    dir: part-20-ai-data-science
+    title: "AI for Data Science"
+    tier: full
+    summary: >-
+      Agents that do analysis: what can be automated today, what cannot, and how
+      to keep automated analysis trustworthy.
+    chapters:
+      - {id: aids-stack,           slug: ch177-stack,           title: "The AI-Assisted Data Science Stack"}
+      - {id: aids-text-to-sql,     slug: ch178-text-to-sql,     title: "Text-to-SQL and Data Discovery"}
+      - {id: aids-agentic-eda,     slug: ch179-agentic-eda,     title: "Agentic EDA, Cleaning, and Visualization"}
+      - {id: aids-automl,          slug: ch180-automl,          title: "Automated Feature Engineering and Model Selection"}
+      - {id: aids-autonomous,      slug: ch181-autonomous,      title: "Autonomous Experimentation and Report Generation"}
+      - {id: aids-oversight,       slug: ch182-oversight,       title: "Where Human Oversight Remains Necessary"}
+
+  - number: 21
+    roman: XXI
+    dir: part-21-ai-software-engineering
+    title: "AI Coding and Software Engineering"
+    tier: full
+    summary: >-
+      From autocomplete to autonomous issue resolution, and the engineering
+      discipline that separates the two.
+    chapters:
+      - {id: aise-generation,      slug: ch183-code-generation, title: "Code Generation and Completion"}
+      - {id: aise-repo,            slug: ch184-repository-understanding, title: "Repository Understanding and Code Retrieval"}
+      - {id: aise-swe-agents,      slug: ch185-swe-agents,      title: "SWE Agents and Automated Issue Resolution"}
+      - {id: aise-testing,         slug: ch186-testing-debugging, title: "Test Generation, Debugging, and Refactoring Agents"}
+      - {id: aise-cicd,            slug: ch187-cicd,            title: "CI/CD and Architecture Agents"}
+      - {id: aise-autonomy,        slug: ch188-autonomy,        title: "AI-Assisted versus Autonomous Software Engineering"}
+
+  - number: 22
+    roman: XXII
+    dir: part-22-system-design
+    title: "AI System Design"
+    tier: full
+    summary: >-
+      Architecture for systems whose central component is nondeterministic,
+      expensive, and occasionally wrong.
+    chapters:
+      - {id: sd-architecture,      slug: ch189-architecture,    title: "Architecting Production AI Systems"}
+      - {id: sd-routing-caching,   slug: ch190-routing-caching, title: "Model Routing, Caching, and Cost Optimization"}
+      - {id: sd-async,             slug: ch191-async-streaming, title: "Queues, Asynchronous Processing, and Streaming"}
+      - {id: sd-retrieval-agents,  slug: ch192-retrieval-agents,title: "Retrieval and Agent Architecture at Scale"}
+      - {id: sd-storage,           slug: ch193-storage,         title: "Storage: Databases, Vector Stores, and Object Storage"}
+      - {id: sd-apis-auth,         slug: ch194-apis-auth,       title: "APIs, Authentication, Authorization, and Rate Limiting"}
+      - {id: sd-fault-tolerance,   slug: ch195-fault-tolerance, title: "Fault Tolerance: Retries, Timeouts, and Circuit Breakers"}
+      - {id: sd-latency,           slug: ch196-latency,         title: "Latency Budgets and Performance Engineering"}
+
+  - number: 23
+    roman: XXIII
+    dir: part-23-infrastructure
+    title: "Model Serving and AI Infrastructure"
+    tier: full
+    summary: >-
+      The hardware and serving layer: what a GPU actually does with a batch, and
+      how serving stacks extract throughput from it.
+    chapters:
+      - {id: inf-cpu-gpu,          slug: ch197-cpu-gpu,         title: "CPU and GPU Inference Fundamentals"}
+      - {id: inf-gpu-memory,       slug: ch198-gpu-memory,      title: "GPU Memory, CUDA, and the Roofline Model"}
+      - {id: inf-batching,         slug: ch199-batching,        title: "Batching and Continuous Batching"}
+      - {id: inf-parallelism,      slug: ch200-parallelism,     title: "Parallelism: Tensor, Pipeline, Data, and Expert"}
+      - {id: inf-distributed,      slug: ch201-distributed,     title: "Distributed and Disaggregated Inference"}
+      - {id: inf-serving-stacks,   slug: ch202-serving-stacks,  title: "Serving Stacks: vLLM, TensorRT-LLM, and Triton"}
+      - {id: inf-kubernetes,       slug: ch203-kubernetes,      title: "Containers, Kubernetes, and Autoscaling"}
+      - {id: inf-edge,             slug: ch204-cloud-edge-local,title: "Cloud, Edge, and Local Deployment"}
+
+  - number: 24
+    roman: XXIV
+    dir: part-24-ops
+    title: "MLOps, LLMOps, and AgentOps"
+    tier: full
+    summary: >-
+      Operating AI systems over time: versioning, observability, and governance
+      for components that drift without anyone changing the code.
+    chapters:
+      - {id: ops-lifecycle,        slug: ch205-lifecycle,       title: "The ML Lifecycle"}
+      - {id: ops-versioning,       slug: ch206-versioning,      title: "Data and Model Versioning"}
+      - {id: ops-deployment,       slug: ch207-deployment,      title: "Deployment Strategies and Rollback"}
+      - {id: ops-observability,    slug: ch208-observability,   title: "Observability: Logging, Metrics, and Tracing"}
+      - {id: ops-prompt-versioning,slug: ch209-prompt-versioning, title: "Prompt and Evaluation-Set Versioning"}
+      - {id: ops-agent-tracing,    slug: ch210-agent-tracing,   title: "Agent Tracing and Tool-Call Monitoring"}
+      - {id: ops-governance,       slug: ch211-governance,      title: "Cost, Latency, and Governance"}
+
+  - number: 25
+    roman: XXV
+    dir: part-25-evaluation
+    title: "AI Evaluation"
+    tier: full
+    summary: >-
+      The discipline that determines whether anything else in this book is
+      working. Built from measurement theory up to production regression gates.
+    chapters:
+      - {id: ev-why-hard,          slug: ch212-why-hard,        title: "Why Evaluating AI Is Hard"}
+      - {id: ev-classical-metrics, slug: ch213-classical-metrics, title: "Traditional ML Metrics Revisited"}
+      - {id: ev-llm-benchmarks,    slug: ch214-llm-benchmarks,  title: "LLM Evaluation: Benchmarks and Their Limits"}
+      - {id: ev-human,             slug: ch215-human-evaluation,title: "Human Evaluation and Annotation Design"}
+      - {id: ev-llm-judge,         slug: ch216-llm-as-judge,    title: "LLM-as-a-Judge"}
+      - {id: ev-rag,               slug: ch217-rag-evaluation,  title: "RAG Evaluation"}
+      - {id: ev-agents,            slug: ch218-agent-evaluation,title: "Agent and Tool-Call Evaluation"}
+      - {id: ev-framework,         slug: ch219-building-a-framework, title: "Building an Evaluation Framework from Scratch"}
+      - {id: ev-online,            slug: ch220-online,          title: "Online Evaluation, A/B Testing, and Regression Gates"}
+
+  - number: 26
+    roman: XXVI
+    dir: part-26-security
+    title: "AI Security"
+    tier: full
+    summary: >-
+      Threat modeling for systems that execute untrusted natural language, with
+      defenses that assume the model will eventually be fooled.
+    chapters:
+      - {id: sec-threat-model,     slug: ch221-threat-model,    title: "The AI Threat Model"}
+      - {id: sec-prompt-injection, slug: ch222-prompt-injection,title: "Prompt Injection and Indirect Prompt Injection"}
+      - {id: sec-jailbreaks,       slug: ch223-jailbreaks,      title: "Jailbreaking and Guardrails"}
+      - {id: sec-data-leakage,     slug: ch224-data-leakage,    title: "Data Leakage and Secrets Management"}
+      - {id: sec-tool-abuse,       slug: ch225-tool-abuse,      title: "Tool Abuse, Agent Hijacking, and Sandboxing"}
+      - {id: sec-poisoning,        slug: ch226-poisoning,       title: "Data Poisoning, RAG Poisoning, and Supply-Chain Attacks"}
+      - {id: sec-permissions,      slug: ch227-permissions,     title: "Permission Systems, Approval Flows, and Governance"}
+
+  - number: 27
+    roman: XXVII
+    dir: part-27-responsible-ai
+    title: "Responsible AI"
+    tier: full
+    summary: >-
+      Fairness, interpretability, privacy, and regulation treated as engineering
+      requirements with measurable properties.
+    chapters:
+      - {id: rai-bias,             slug: ch228-bias-fairness,   title: "Bias and Fairness"}
+      - {id: rai-interpretability, slug: ch229-interpretability,title: "Explainability and Interpretability"}
+      - {id: rai-privacy,          slug: ch230-privacy,         title: "Privacy, Data Governance, and Copyright"}
+      - {id: rai-regulation,       slug: ch231-regulation,      title: "Regulation and Risk Management"}
+      - {id: rai-oversight,        slug: ch232-oversight,       title: "Human Oversight in Practice"}
+
+  - number: 28
+    roman: XXVIII
+    dir: part-28-research
+    title: "Advanced Research"
+    tier: full
+    summary: >-
+      The frontier, labeled honestly: what is established, what is emerging, and
+      what is still speculation.
+    chapters:
+      - {id: res-scaling,          slug: ch233-scaling-revisited, title: "Scaling Laws Revisited"}
+      - {id: res-moe,              slug: ch234-mixture-of-experts, title: "Mixture of Experts and Sparse Models"}
+      - {id: res-memory,           slug: ch235-memory-architectures, title: "Long-Context and Memory Architectures"}
+      - {id: res-test-time,        slug: ch236-test-time-training, title: "Test-Time Training and Test-Time Compute"}
+      - {id: res-continual,        slug: ch237-continual,       title: "Continual, Online, and Self-Improving Systems"}
+      - {id: res-world-models,     slug: ch238-world-models,    title: "World Models and Embodied AI"}
+      - {id: res-ai-for-science,   slug: ch239-ai-for-science,  title: "AI for Science and Autonomous Research"}
+      - {id: res-frontier,         slug: ch240-frontier,        title: "Reading the Frontier: Established, Emerging, Speculative"}
+
+# ---------------------------------------------------------------------------
+# Projects. Each is placed in the reading order immediately after the part it
+# depends on, and uses the project template rather than a chapter template.
+# ---------------------------------------------------------------------------
+projects:
+  - {id: proj-01, slug: p01-tabular-prediction,   title: "Classical ML Prediction System",              after_part: 5}
+  - {id: proj-02, slug: p02-ds-pipeline,          title: "End-to-End Data Science Pipeline",            after_part: 5}
+  - {id: proj-03, slug: p03-image-classifier,     title: "Deep Learning Image Classifier",              after_part: 6}
+  - {id: proj-04, slug: p04-transformer,          title: "A Transformer From Scratch",                  after_part: 7}
+  - {id: proj-05, slug: p05-small-language-model, title: "Training a Small Language Model",             after_part: 10}
+  - {id: proj-06, slug: p06-production-rag,       title: "A Production RAG System",                     after_part: 12}
+  - {id: proj-07, slug: p07-document-intelligence,title: "Multimodal Document Intelligence",            after_part: 13}
+  - {id: proj-08, slug: p08-fine-tuned-llm,       title: "Fine-Tuning an LLM",                          after_part: 14}
+  - {id: proj-09, slug: p09-local-inference,      title: "A Local LLM Inference System",                after_part: 15}
+  - {id: proj-10, slug: p10-single-agent,         title: "A Single AI Agent",                           after_part: 17}
+  - {id: proj-11, slug: p11-multi-agent,          title: "A Multi-Agent System",                        after_part: 18}
+  - {id: proj-12, slug: p12-mcp-ecosystem,        title: "An MCP Tool Ecosystem",                       after_part: 19}
+  - {id: proj-13, slug: p13-ai-data-scientist,    title: "An AI Data Scientist",                        after_part: 20}
+  - {id: proj-14, slug: p14-ai-platform,          title: "A Production AI Platform",                    after_part: 24}
+  - {id: proj-15, slug: p15-eval-harness,         title: "A Complete Evaluation Harness",               after_part: 25}
+
+capstone:
+  title: "Capstone — A Multimodal Agentic AI Data and Knowledge Platform"
+  chapters:
+    - {id: cap-requirements,  slug: c1-requirements,  title: "Requirements, Constraints, and System Architecture"}
+    - {id: cap-ingestion,     slug: c2-ingestion,     title: "Ingestion: Parsing, OCR, Extraction, and Indexing"}
+    - {id: cap-retrieval,     slug: c3-retrieval,     title: "Retrieval: Hybrid Search, Reranking, and Multimodal RAG"}
+    - {id: cap-agents,        slug: c4-agents,        title: "Orchestration: Agents, Tools, MCP, Memory, and Planning"}
+    - {id: cap-platform,      slug: c5-platform,      title: "The Platform: API, Storage, Workers, Serving, and Deployment"}
+    - {id: cap-operations,    slug: c6-operations,    title: "Operations: Evaluation, Observability, Security, and Cost"}
+
+appendices:
+  - {id: app-glossary,     slug: a01-glossary,     title: "Complete Glossary",                     generated: true}
+  - {id: app-acronyms,     slug: a02-acronyms,     title: "Acronym Dictionary",                    generated: true}
+  - {id: app-formulas,     slug: a03-formula-sheet,title: "Formula Sheet",                         generated: false}
+  - {id: app-python,       slug: a04-python-reference, title: "Python and Library Reference",      generated: false}
+  - {id: app-ml-compare,   slug: a05-ml-comparison,title: "ML Algorithm Comparison",               generated: false}
+  - {id: app-dl-compare,   slug: a06-dl-comparison,title: "Deep Learning Architecture Comparison", generated: false}
+  - {id: app-llm-compare,  slug: a07-llm-comparison, title: "LLM Architecture Comparison",         generated: false}
+  - {id: app-rag-compare,  slug: a08-rag-comparison, title: "RAG Architecture Comparison",         generated: false}
+  - {id: app-agent-compare,slug: a09-agent-comparison, title: "Agent Architecture Comparison",     generated: false}
+  - {id: app-metrics,      slug: a10-metrics,      title: "AI Evaluation Metrics Reference",       generated: false}
+  - {id: app-sysdesign,    slug: a11-system-design-checklist, title: "AI System Design Checklist", generated: false}
+  - {id: app-production,   slug: a12-production-checklist,    title: "Production AI Checklist",    generated: false}
+  - {id: app-roadmap,      slug: a13-research-roadmap,        title: "Research Roadmap",           generated: false}
+  - {id: app-papers,       slug: a14-papers,       title: "Annotated Bibliography",                generated: true}
+  - {id: app-notation,     slug: a15-notation,     title: "Notation Reference",                    generated: true}
+
+# ---------------------------------------------------------------------------
+# Callout kinds recognised by the renderer (blockquote first-line prefix).
+# ---------------------------------------------------------------------------
+callouts: [NOTE, WARNING, IMPORTANT, "PRODUCTION TIP", "RESEARCH NOTE", "MATH NOTE", "HISTORY"]
+
+# ---------------------------------------------------------------------------
+# Maturity labels required on any technology-specific discussion.
+# ---------------------------------------------------------------------------
+maturity_labels: [ESTABLISHED, MATURE, EMERGING, EXPERIMENTAL, "RESEARCH FRONTIER"]
+
+# ---------------------------------------------------------------------------
+# Code tiers for the verification harness.
+#   A = executed locally in .venv and must exit 0
+#   B = syntax + import checked only (needs GPU, network, API keys, or a large
+#       model). Rendered in the book with a "not executed locally" badge.
+#   C = illustrative fragment, not standalone runnable (marked as such in text)
+# ---------------------------------------------------------------------------
+code_tiers:
+  A: {executed: true,  badge: null}
+  B: {executed: false, badge: "Requires GPU / API access — verified by static analysis, not executed locally"}
+  C: {executed: false, badge: "Illustrative fragment — not a standalone program"}

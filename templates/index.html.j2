@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ book.title }}</title>
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<link rel="stylesheet" href="css/book.css">
+<link rel="stylesheet" href="css/screen.css">
+<script>
+  (function () {
+    var t = localStorage.getItem("book-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+  })();
+</script>
+</head>
+<body class="home-body">
+
+<header class="topbar">
+  <a class="brand" href="index.html">{{ book.title }}</a>
+  <div class="spacer"></div>
+  <div class="search-wrap">
+    <input id="search" type="search" placeholder="Search the book…  (press /)"
+           autocomplete="off" spellcheck="false" aria-label="Search">
+    <div id="search-results" role="listbox"></div>
+  </div>
+  <button class="iconbtn" id="theme-toggle" aria-label="Toggle colour theme">◐</button>
+</header>
+
+<div class="home">
+  <h1 class="title">{{ book.title }}</h1>
+  <p class="subtitle">{{ book.subtitle }}</p>
+
+  <div class="stat-grid">
+    <div class="stat"><span class="n">{{ stats.chapters_written }}<span style="color:var(--fg-faint);font-size:.6em"> / {{ stats.chapters_total }}</span></span><span class="k">Chapters</span></div>
+    <div class="stat"><span class="n">{{ "{:,}".format(stats.words) }}</span><span class="k">Words</span></div>
+    <div class="stat"><span class="n">{{ stats.diagrams }}</span><span class="k">Diagrams</span></div>
+    <div class="stat"><span class="n">{{ stats.code_blocks }}</span><span class="k">Code blocks</span></div>
+    <div class="stat"><span class="n">{{ book.parts | length }}</span><span class="k">Parts</span></div>
+  </div>
+
+  <p><a href="03-contents.html">Full table of contents</a> ·
+     <a href="02-how-to-read.html">How to read this book</a> ·
+     <a href="04-architecture.html">Dependency graph</a> ·
+     <a href="a15-notation.html">Notation</a> ·
+     <a href="a01-glossary.html">Glossary</a></p>
+
+  <h2>Parts</h2>
+  {% for group in nav %}
+    {% if group.roman %}
+    {% set first = group['items'] | selectattr("exists") | list | first %}
+    {% if first %}
+    <a class="part-card" href="{{ first.href }}">
+      <div class="pnum">PART {{ group.roman }}</div>
+      <div class="ptitle">{{ group.title }}</div>
+      {% if group.summary %}<div class="psum">{{ group.summary }}</div>{% endif %}
+    </a>
+    {% else %}
+    <div class="part-card" style="opacity:.45">
+      <div class="pnum">PART {{ group.roman }}</div>
+      <div class="ptitle">{{ group.title }}</div>
+      {% if group.summary %}<div class="psum">{{ group.summary }}</div>{% endif %}
+    </div>
+    {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  <p style="margin-top:2.5rem;color:var(--fg-faint);font-family:var(--font-ui);font-size:.8rem">
+    Built {{ build_date }} · version {{ book.version }}
+  </p>
+</div>
+
+<script src="js/book.js"></script>
+</body>
+</html>

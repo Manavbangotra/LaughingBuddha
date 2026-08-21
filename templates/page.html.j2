@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ doc.title }} — {{ book.title }}</title>
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<link rel="stylesheet" href="css/book.css">
+<link rel="stylesheet" href="css/screen.css">
+<script>
+  // Applied before first paint so the page never flashes the wrong theme.
+  (function () {
+    var t = localStorage.getItem("book-theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+  })();
+</script>
+</head>
+<body data-doc="{{ doc.id }}">
+
+<header class="topbar">
+  <button class="iconbtn" id="menu-toggle" aria-label="Toggle navigation">☰</button>
+  <a class="brand" href="index.html">{{ book.title }}</a>
+  <div class="spacer"></div>
+  <div class="search-wrap">
+    <input id="search" type="search" placeholder="Search the book…  (press /)"
+           autocomplete="off" spellcheck="false" aria-label="Search">
+    <div id="search-results" role="listbox"></div>
+  </div>
+  <button class="iconbtn" id="theme-toggle" aria-label="Toggle colour theme">◐</button>
+</header>
+
+<div class="layout">
+
+  <nav class="sidebar" aria-label="Book contents">
+    {% for group in nav %}
+    <details class="group" {% if group.number == doc.part or (group["items"] | selectattr("id", "equalto", doc.id) | list | length) %}open{% endif %}>
+      <summary>
+        {% if group.roman %}<span class="roman">{{ group.roman }}</span>{% endif %}
+        <span>{{ group.title }}</span>
+      </summary>
+      <ul>
+        {% for it in group['items'] %}
+          {% if it.exists %}
+          <li><a href="{{ it.href }}" {% if it.id == doc.id %}class="current"{% endif %}>
+            {% if it.number %}<span class="num">{{ it.number }}</span>{% endif %}{{ it.title }}
+          </a></li>
+          {% else %}
+          <li class="absent"><span>
+            {% if it.number %}<span class="num">{{ it.number }}</span>{% endif %}{{ it.title }}
+          </span></li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </details>
+    {% endfor %}
+  </nav>
+
+  <main id="top">
+    <article class="prose">
+      <header class="chapter-head">
+        {% if doc.kind in ("chapter", "project", "appendix", "capstone") %}
+        <p class="eyebrow">
+          {{ doc.label }}{% if part %} · Part {{ part.roman }} — {{ part.title }}{% endif %}
+        </p>
+        {% elif doc.kind == "part-intro" %}
+        <p class="eyebrow">Part {{ part.roman }}</p>
+        {% endif %}
+        <h1>{{ doc.title }}</h1>
+        <p class="meta">
+          {% if doc.tier %}{{ doc.tier }} depth · {% endif %}{{ "{:,}".format(words) }} words
+          {% if doc.status and doc.status != "draft" %} · {{ doc.status }}{% endif %}
+        </p>
+      </header>
+
+      {{ body | safe }}
+
+      <nav class="pager">
+        {% if prev %}
+        <a class="prev" href="{{ prev.slug }}.html">
+          <span class="dir">Previous</span>{{ prev.title }}
+        </a>
+        {% endif %}
+        {% if next %}
+        <a class="next" href="{{ next.slug }}.html">
+          <span class="dir">Next</span>{{ next.title }}
+        </a>
+        {% endif %}
+      </nav>
+    </article>
+  </main>
+
+  <aside class="rail" aria-label="On this page">
+    {% if toc %}
+    <h2>On this page</h2>
+    <ul>
+      {% for h in toc %}
+      <li><a class="lvl-{{ h.level }}" href="#{{ h.anchor }}">{{ h.html | safe }}</a></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </aside>
+
+</div>
+
+<script src="js/book.js"></script>
+</body>
+</html>

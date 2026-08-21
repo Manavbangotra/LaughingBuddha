@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ title }}</title>
+<link rel="stylesheet" href="file://{{ katex_css }}">
+<style>{{ css | safe }}</style>
+</head>
+<body>
+
+{# The named-string source lives inside the opener: a block sitting before it on
+   the default page would force Paged.js to start `page: opener` on a fresh
+   sheet, leaving a blank leaf at the front of every part. #}
+{% if is_front %}
+<section class="pdf-title-page">
+  <p class="runhead-book">{{ book.title }}</p>
+  <div class="btitle">{{ book.title }}</div>
+  <div class="bsub">{{ book.subtitle }}</div>
+  <div class="bmeta">{{ book.edition }} · version {{ book.version }} · built {{ build_date }}</div>
+</section>
+{% else %}
+<section class="part-opener">
+  <p class="runhead-book">{{ book.title }}</p>
+  <div class="kicker">{{ kicker }}</div>
+  <h1>{{ opener_title }}</h1>
+  {% if subtitle %}<p class="summary">{{ subtitle }}</p>{% endif %}
+</section>
+{% endif %}
+
+{% for s in sections %}
+<section class="doc" id="{{ s.doc.slug }}--top">
+  <header class="chapter-head">
+    {% if s.doc.kind in ("chapter", "project", "appendix", "capstone") %}
+    <p class="eyebrow">{{ s.doc.label }}</p>
+    {% endif %}
+    <h1>{{ s.doc.title }}</h1>
+  </header>
+  {{ s.body | safe }}
+</section>
+{% endfor %}
+
+</body>
+</html>

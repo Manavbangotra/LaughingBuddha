@@ -1,0 +1,4003 @@
+terms:
+  ab-test:
+    aliases:
+    - controlled experiment
+    - randomised controlled trial
+    formal: A randomised controlled experiment comparing a treatment against a control on
+      a pre-specified metric, analysed by a hypothesis test.
+    introduced_in: ds-experiments
+    intuitive: Randomly split users into two groups, change one thing for one of them, and
+      compare. The randomisation is what makes the comparison causal.
+    see_also:
+    - randomisation
+    - randomisation-unit
+    - guardrail-metric
+    - novelty-effect
+    - peeking
+    term: A/B test
+  activation-function:
+    formal: A scalar function applied elementwise to a layer's pre-activations, whose derivative
+      determines how gradient is attenuated or preserved on the way back through the layer.
+    introduced_in: dl-activations
+    intuitive: The nonlinearity applied after each affine step. Without one, stacking layers
+      gains nothing — the composition collapses to a single linear map.
+    see_also:
+    - relu
+    - saturation
+    - vanishing-gradient
+    term: activation function
+  activation-memory:
+    formal: Memory proportional to batch size times the total activation size across layers,
+      required because each backward step needs the forward values of its own operation.
+    introduced_in: dl-backprop
+    intuitive: The stored intermediate values the backward pass needs. It usually dominates
+      the memory a training run consumes — far more than the weights.
+    see_also:
+    - backpropagation
+    - gradient-checkpointing
+    - forward-pass
+    term: activation memory
+  adam:
+    autolink: false
+    formal: Maintains exponential moving averages of the gradient and its square, applies
+      bias correction for their zero initialisation, and steps by m_hat / (sqrt(v_hat) + eps).
+    introduced_in: dl-optimizers
+    intuitive: Momentum plus a per-parameter step size derived from how large that parameter's
+      gradients have recently been.
+    see_also:
+    - optimizer
+    - adamw
+    - momentum-term
+    term: Adam
+  adamw:
+    autolink: false
+    formal: 'Decoupled weight decay: the shrinkage term is excluded from the adaptive rescaling,
+      so every parameter decays at the same rate regardless of its gradient history.'
+    introduced_in: dl-optimizers
+    intuitive: Adam with the weight decay applied directly to the weights instead of added
+      to the loss — which turns out not to be the same thing.
+    see_also:
+    - adam
+    - weight-decay
+    - optimizer
+    term: AdamW
+  aliasing:
+    formal: Two bindings referencing the same object identity; mutation through either is
+      visible through both.
+    introduced_in: py-fundamentals
+    intuitive: Two names referring to the same object, so that changing it through one name
+      changes what the other sees. The most common source of surprise for programmers arriving
+      from value-semantics languages.
+    see_also:
+    - mutability
+    - shallow-copy
+    term: aliasing
+  anomaly-detection:
+    formal: Identification of observations with low probability under a model of normal behaviour,
+      typically in an unsupervised or semi-supervised setting.
+    introduced_in: ds-timeseries
+    intuitive: Finding observations that do not fit the usual pattern, usually without labelled
+      examples of what "unusual" looks like.
+    see_also:
+    - outlier
+    - stationarity
+    - class-imbalance
+    term: anomaly detection
+  arithmetic-intensity:
+    formal: $I = W/Q$ for $W$ arithmetic operations and $Q$ bytes moved; an operation is memory-bound
+      when $I$ is below the machine's ridge point $\pi/\beta$.
+    introduced_in: dl-forward
+    intuitive: How much arithmetic you do per byte you fetch from memory. Low intensity means
+      the processor sits idle waiting for data, which is exactly what batch size 1 produces.
+    term: arithmetic intensity
+  array-view:
+    autolink: false
+    formal: An ndarray whose buffer is owned by a base array, described by an offset and strides
+      into it.
+    introduced_in: py-numpy
+    intuitive: An array that shares memory with another rather than owning its own. Slicing
+      gives a view, so writing to the slice writes to the original — the most common source
+      of silent bugs in numerical Python.
+    see_also:
+    - ndarray
+    - strides
+    - shallow-copy
+    term: view
+  attention:
+    formal: A differentiable map that computes a probability distribution over a set of positions
+      from a query-key compatibility function, and returns the corresponding convex combination
+      of value vectors.
+    introduced_in: tf-scaled-dot-product
+    intuitive: A learned, content-based lookup. Each position in a sequence produces a description
+      of what it is looking for, compares that against a description offered by every position
+      it may read from, and takes a weighted average of what those positions carry — weighted
+      by how well the descriptions matched.
+    see_also:
+    - self-attention
+    - scaled-dot-product-attention
+    - attention-head
+    - query
+    - key
+    - value
+    term: attention
+  attention-head:
+    formal: One of h parallel attention computations, each operating in its own d_k-dimensional
+      subspace, whose outputs are concatenated and mixed by W^O.
+    introduced_in: tf-scaled-dot-product
+    intuitive: One independent copy of the attention operation, with its own query, key and
+      value projections, so it can specialise in one kind of relationship.
+    see_also:
+    - multi-head-attention
+    - attention
+    term: attention head
+  attention-weights:
+    aliases:
+    - attention matrix
+    - attention pattern
+    formal: A ∈ ℝ^{n×n} with A = softmax(QKᵀ/√d_k), row-stochastic by construction.
+    introduced_in: tf-scaled-dot-product
+    intuitive: The post-softmax numbers saying how much each position reads from each other
+      position. Each row sums to one.
+    see_also:
+    - attention
+    - softmax
+    term: attention weights
+  autocorrelation:
+    formal: The correlation of a series with a lagged copy of itself, as a function of the
+      lag.
+    introduced_in: ds-timeseries
+    intuitive: A series correlating with its own past. It means consecutive observations are
+      not independent, which breaks the standard-error formulas of Part I.
+    see_also:
+    - stationarity
+    - seasonality
+    - sampling-distribution
+    term: autocorrelation
+  autoencoder:
+    formal: An encoder-decoder pair minimising a reconstruction loss, whose bottleneck representation
+      is the learned code. With linear activations and squared error it recovers the PCA subspace.
+    introduced_in: dl-autoencoders
+    intuitive: A network trained to reproduce its own input through a narrow middle, so the
+      middle has to be a compressed description.
+    see_also:
+    - bottleneck-layer
+    - latent-space
+    - denoising-autoencoder
+    term: autoencoder
+  axis:
+    autolink: false
+    formal: The index of a dimension in an array's shape tuple; reductions remove it unless
+      keepdims is set.
+    introduced_in: py-numpy
+    intuitive: 'The dimension a reduction operates along. The rule that resolves most confusion:
+      axis=i means the i-th dimension is the one that disappears.'
+    see_also:
+    - ndarray
+    - broadcasting
+    term: axis
+  backpropagation:
+    formal: Reverse-mode automatic differentiation applied to a scalar-output computational
+      graph, computing all parameter gradients in a single reverse traversal.
+    introduced_in: dl-backprop
+    intuitive: Applying the chain rule backwards through the network, reusing each partial
+      result, so that all gradients cost about as much as one forward pass.
+    see_also:
+    - reverse-mode-ad
+    - computational-graph
+    - activation-memory
+    term: backpropagation
+  bagging:
+    aliases:
+    - bootstrap aggregation
+    formal: Averaging predictors fitted on bootstrap samples; the variance of the average
+      falls with ensemble size at a rate limited by inter-model correlation.
+    introduced_in: ml-forests
+    intuitive: Train many models on random resamples of the data and average them. Averaging
+      cancels the part of each model's error that is idiosyncratic, which reduces variance
+      without raising bias.
+    see_also:
+    - random-forest
+    - bias-variance-tradeoff
+    - boosting
+    - out-of-bag-error
+    term: bagging
+  batch-normalization:
+    autolink: false
+    formal: Normalisation using batch statistics with learnable scale and shift, using running
+      estimates at inference. Introduces a dependence between examples in a batch that is
+      absent at test time.
+    introduced_in: dl-normalization
+    intuitive: Standardise each feature across the examples in the batch, then let the network
+      rescale and shift it however it likes.
+    see_also:
+    - layer-normalization
+    - rmsnorm
+    - internal-covariate-shift
+    term: batch normalisation
+  bayes-theorem:
+    aliases:
+    - Bayes rule
+    - Bayes' rule
+    formal: P(H | E) = P(E | H) P(H) / P(E).
+    introduced_in: math-probability
+    intuitive: 'A rule for reversing a conditional: it converts "how likely is this evidence
+      if the hypothesis holds" into "how likely is the hypothesis given the evidence", which
+      is almost always the question you actually want answered.'
+    see_also:
+    - conditional-probability
+    - prior-term
+    - posterior
+    - likelihood-term
+    term: Bayes' theorem
+  bayesian-optimisation:
+    formal: 'Sequential model-based optimisation: maintain a surrogate posterior over the
+      objective and select the next point by maximising an acquisition function that trades
+      off predicted value against uncertainty.'
+    introduced_in: mle-hpo
+    intuitive: Fit a cheap model of how the objective depends on the hyperparameters and use
+      it to decide where to spend the next expensive evaluation.
+    see_also:
+    - tpe
+    - sampler
+    - hyperparameter-optimisation
+    term: Bayesian optimisation
+  benign-overfitting:
+    autolink: false
+    formal: Good test performance from a model with zero training error and capacity sufficient
+      to fit random labels; not explained by uniform-convergence bounds.
+    introduced_in: dl-regularization
+    intuitive: A model interpolates the training data exactly and still generalises — which
+      classical theory says should not happen.
+    see_also:
+    - regularisation-dl
+    - bias-variance-tradeoff
+    term: benign overfitting
+  bernoulli-distribution:
+    formal: P(X = 1) = p, P(X = 0) = 1 − p; mean p, variance p(1 − p).
+    introduced_in: math-random-vars
+    intuitive: A single yes-or-no trial with a fixed success probability. The simplest nontrivial
+      distribution, and the one behind binary classification.
+    see_also:
+    - probability-distribution
+    - categorical-distribution
+    - logistic-function
+    term: Bernoulli distribution
+  bias-variance-tradeoff:
+    formal: For squared loss, expected error decomposes as bias squared plus variance plus
+      irreducible noise.
+    introduced_in: ml-metrics
+    intuitive: Expected error splits into being systematically wrong (bias) and being unstable
+      across samples (variance). Reducing one usually raises the other, and the best model
+      balances them.
+    see_also:
+    - overfitting
+    - underfitting
+    - bagging
+    - boosting
+    term: bias-variance tradeoff
+  boosting:
+    formal: An additive model built stagewise, each stage fitted to the negative gradient
+      of the loss with respect to the current prediction.
+    introduced_in: ml-boosting
+    intuitive: Fit models in sequence, each correcting what the previous ones got wrong. Where
+      bagging reduces variance by averaging, boosting reduces bias by accumulating.
+    see_also:
+    - bagging
+    - gradient-boosting
+    - bias-variance-tradeoff
+    - learning-rate
+    term: boosting
+  bottleneck-layer:
+    autolink: false
+    formal: A layer of lower dimension than its input which constrains the information the
+      decoder can receive; the constraint is what makes the code informative rather than an
+      identity map.
+    introduced_in: dl-autoencoders
+    intuitive: The narrow layer that forces the network to throw something away, and therefore
+      to decide what matters.
+    see_also:
+    - autoencoder
+    - latent-space
+    term: bottleneck
+  bptt:
+    autolink: false
+    formal: Application of reverse-mode differentiation to the time-unrolled graph; truncated
+      in practice to a fixed window to bound memory and cost.
+    introduced_in: dl-rnns
+    intuitive: Unroll the recurrence into a deep feedforward network and backpropagate through
+      the unrolled copy.
+    see_also:
+    - recurrent-network
+    - backpropagation
+    - activation-memory
+    term: backpropagation through time
+  broadcasting:
+    formal: Dimensions are aligned from the right; each pair must be equal or one of them
+      must be 1, in which case it is repeated logically.
+    introduced_in: math-matrices
+    intuitive: The rule libraries use to stretch a smaller array across a larger one so that
+      shapes line up, without physically copying the data.
+    see_also:
+    - matrix
+    - vector
+    term: broadcasting
+  calibration:
+    formal: A model is calibrated if P(y = 1 | p̂ = p) = p for all p.
+    introduced_in: ml-metrics
+    intuitive: 'Whether predicted probabilities mean what they say: among cases given 70%,
+      about 70% should be positive. A model can rank perfectly and still be badly calibrated.'
+    see_also:
+    - roc-curve
+    - cross-entropy-term
+    - class-imbalance
+    term: calibration
+  canary-release:
+    formal: Progressive rollout in which a candidate serves an increasing fraction of traffic
+      subject to automated rollback on metric regression.
+    introduced_in: mle-registry
+    intuitive: Send a small slice of traffic to the new model and watch before sending more.
+    see_also:
+    - shadow-deployment
+    - promotion-gate
+    term: canary release
+  cardinality:
+    formal: The number of distinct levels in a categorical variable.
+    introduced_in: ds-cleaning
+    intuitive: How many distinct values a categorical column has. Low cardinality one-hot
+      encodes cheaply; high cardinality — user IDs, postcodes — needs a different treatment
+      entirely.
+    see_also:
+    - one-hot-encoding
+    - target-encoding
+    term: cardinality
+  categorical-distribution:
+    formal: P(X = i) = p_i with p_i ≥ 0 and Σ p_i = 1; a point on the probability simplex.
+    introduced_in: math-random-vars
+    intuitive: One draw from k mutually exclusive options with given probabilities. It is
+      what a language model's output layer produces at every step.
+    see_also:
+    - probability-distribution
+    - softmax
+    - bernoulli-distribution
+    term: categorical distribution
+  causal-effect:
+    formal: For a unit i, the difference Y_i(1) − Y_i(0) between potential outcomes under
+      treatment and control; the average treatment effect is its expectation.
+    introduced_in: ds-causation
+    intuitive: The difference in outcome between doing something and not doing it, for the
+      same unit. Only one of those is ever observed, which is why causal inference is hard.
+    see_also:
+    - confounding
+    - randomisation
+    - counterfactual
+    term: causal effect
+  causal-masking:
+    aliases:
+    - causal mask
+    - autoregressive mask
+    formal: Adding an additive mask M with Mᵢⱼ = −∞ for j > i to the score matrix before the
+      softmax, driving those attention weights to exactly zero.
+    introduced_in: tf-scaled-dot-product
+    intuitive: Forcing each position to attend only to itself and earlier positions, so a
+      model trained to predict the next token cannot read the answer.
+    see_also:
+    - self-attention
+    - kv-cache
+    term: causal masking
+  central-limit-theorem:
+    acronym: CLT
+    formal: For iid X_i with mean μ and finite variance σ², sqrt(n)(X̄ − μ) converges in distribution
+      to N(0, σ²).
+    introduced_in: math-inference
+    intuitive: Averages of many independent quantities are approximately Gaussian, whatever
+      the original quantities looked like. This is why the bell curve appears so often, and
+      why it is safe to use it for means.
+    see_also:
+    - gaussian-distribution
+    - sampling-distribution
+    - confidence-interval
+    term: central limit theorem
+  chain-rule:
+    formal: (g ∘ f)'(x) = g'(f(x)) · f'(x); in several variables, the Jacobian of a composition
+      is the product of the Jacobians.
+    introduced_in: math-derivatives
+    intuitive: To differentiate a composition, multiply the derivatives of each stage. Applied
+      systematically over a computational graph, this is exactly backpropagation.
+    see_also:
+    - derivative
+    - jacobian
+    - function-composition
+    term: chain rule
+  class-imbalance:
+    formal: A marginal class distribution far from uniform, such that the majority baseline
+      achieves high accuracy without discriminating.
+    introduced_in: ds-leakage
+    intuitive: One class is far rarer than the other. Accuracy becomes meaningless — a model
+      predicting "no" always scores 99.9% on a 0.1% positive rate.
+    see_also:
+    - resampling
+    - class-weighting
+    - bayes-theorem
+    term: class imbalance
+  class-weighting:
+    formal: Scaling per-class contributions to the loss, typically inversely to class frequency.
+    introduced_in: ds-leakage
+    intuitive: Telling the loss function that mistakes on the rare class cost more, rather
+      than changing the data. Usually simpler and safer than resampling.
+    see_also:
+    - class-imbalance
+    - resampling
+    term: class weighting
+  clustering-term:
+    formal: Partitioning observations to optimise an internal criterion of within-group similarity
+      and between-group separation.
+    introduced_in: ml-clustering
+    intuitive: Grouping observations that resemble each other, with no labels to check against.
+      There is no correct answer, only answers that are more or less useful.
+    see_also:
+    - k-means
+    - dbscan
+    - silhouette-score
+    - unsupervised-learning
+    term: clustering
+  cold-start:
+    formal: The absence of interaction data for a user or item, making preference estimation
+      from collaborative signal impossible.
+    introduced_in: ds-recsys
+    intuitive: A new user or item with no history, about whom collaborative methods have nothing
+      to say. Every real recommender needs a separate answer for this.
+    see_also:
+    - collaborative-filtering
+    - matrix-factorisation
+    term: cold start
+  collaborative-filtering:
+    formal: Prediction of a user's preference from the preference patterns of other users
+      and items, without item content features.
+    introduced_in: ds-recsys
+    intuitive: 'Recommending using patterns across users: people who agreed with you before
+      will agree with you again. It needs no knowledge of what the items actually are.'
+    see_also:
+    - matrix-factorisation
+    - cold-start
+    - implicit-feedback
+    term: collaborative filtering
+  collider-bias:
+    formal: Bias induced by conditioning on a common effect of two variables, opening a non-causal
+      path between them.
+    introduced_in: ds-causation
+    intuitive: Conditioning on a variable that both causes influence creates an association
+      between them that did not exist. Controlling for the wrong variable can manufacture
+      a correlation rather than remove one.
+    see_also:
+    - confounding
+    - selection-bias
+    term: collider bias
+  comprehension:
+    aliases:
+    - list comprehension
+    formal: An expression of the form [f(x) for x in iterable if predicate(x)], evaluated
+      eagerly for list, set and dict forms and lazily for the generator form.
+    introduced_in: py-fundamentals
+    intuitive: A compact expression that builds a list, set, dict or generator from an iterable
+      in one line, replacing the loop-append pattern.
+    see_also:
+    - generator
+    - iterator
+    term: comprehension
+  computational-graph:
+    formal: A directed acyclic graph whose nodes are tensors and operations; the forward pass
+      evaluates it and the backward pass traverses it in reverse topological order.
+    introduced_in: dl-forward
+    intuitive: A record of which operations produced which values, so the chain rule can be
+      applied mechanically afterwards.
+    see_also:
+    - forward-pass
+    - backpropagation
+    - reverse-mode-ad
+    term: computational graph
+  concept-drift-term:
+    formal: A change over time in the conditional distribution p(y | x).
+    introduced_in: ds-what-it-is
+    intuitive: The relationship between inputs and target changes, so the same input now implies
+      a different answer. Harder to detect than input drift, because the inputs may look entirely
+      normal.
+    see_also:
+    - data-drift-term
+    - stationarity
+    term: concept drift
+  concurrency:
+    formal: Composition of independently progressing computations, with interleaving but not
+      necessarily simultaneous execution.
+    introduced_in: py-engineering
+    intuitive: Structuring a program so several tasks are in progress at once, whether or
+      not they run simultaneously. Useful whenever tasks spend time waiting.
+    see_also:
+    - parallelism
+    - coroutine
+    - global-interpreter-lock
+    term: concurrency
+  condition-number:
+    formal: κ(A) = σ_max / σ_min, the ratio of largest to smallest singular value.
+    introduced_in: math-eigen
+    intuitive: How much a problem amplifies error. A badly conditioned problem turns a tiny
+      change in the input into a large change in the answer, and no algorithm can fix that.
+    see_also:
+    - singular-value-decomposition
+    - matrix-inverse
+    - gradient-descent
+    term: condition number
+  conditional-probability:
+    formal: P(A | B) = P(A ∩ B) / P(B), for P(B) > 0.
+    introduced_in: math-probability
+    intuitive: 'The probability of one thing given that you already know another. It is not
+      a new concept so much as a restriction: you discard the outcomes inconsistent with what
+      you know, and renormalise over what remains.'
+    see_also:
+    - bayes-theorem
+    - statistical-independence
+    - probability-term
+    term: conditional probability
+  confidence-interval:
+    formal: A random interval [L, U] with P(L ≤ θ ≤ U) = 1 − α under repeated sampling.
+    introduced_in: math-inference
+    intuitive: A range constructed so that, over repeated experiments, a stated proportion
+      of such ranges would contain the true value. It is a statement about the procedure,
+      not about any single interval.
+    see_also:
+    - sampling-distribution
+    - p-value
+    - hypothesis-test
+    term: confidence interval
+  confounding:
+    aliases:
+    - confounder
+    formal: A variable that is a common cause of both treatment and outcome, opening a non-causal
+      path between them.
+    introduced_in: ds-causation
+    intuitive: A third variable that influences both the supposed cause and the effect, creating
+      an association between them that is not causal. It is the standard reason a correlation
+      misleads.
+    see_also:
+    - simpsons-paradox
+    - randomisation
+    - causal-effect
+    - collider-bias
+    term: confounding
+  confusion-matrix:
+    formal: A contingency table of predictions against ground truth, with true and false positives
+      and negatives on the diagonal and off-diagonal.
+    introduced_in: ml-metrics
+    intuitive: A table of predicted class against true class. Every classification metric
+      is a ratio computed from its cells.
+    see_also:
+    - roc-curve
+    - calibration
+    - class-imbalance
+    term: confusion matrix
+  context-manager:
+    formal: An object implementing __enter__ and __exit__; __exit__ runs on every path out
+      of the block, including exceptions.
+    introduced_in: py-functions-classes
+    intuitive: An object usable with `with` that guarantees cleanup — closing a file, releasing
+      a lock, restoring a setting — even if an exception is raised.
+    see_also:
+    - side-effect
+    term: context manager
+  contiguity:
+    aliases:
+    - contiguous
+    formal: An array is C-contiguous when its strides correspond to row-major layout with
+      no gaps.
+    introduced_in: py-numpy
+    intuitive: Whether an array's elements sit in memory in the order you would walk them.
+      Non-contiguous arrays are slower, and some operations copy them silently to fix it.
+    see_also:
+    - strides
+    - array-view
+    term: contiguity
+  convex-function:
+    aliases:
+    - convexity
+    - convex
+    formal: f(λx + (1−λ)y) ≤ λf(x) + (1−λ)f(y) for all λ ∈ [0,1]. Equivalently, for twice-differentiable
+      f, the Hessian is positive semi-definite everywhere.
+    introduced_in: math-optimization
+    intuitive: 'A function shaped like a bowl: the straight line between any two points on
+      its graph never dips below the graph. Convex problems have no local minima to get stuck
+      in, which is why the distinction matters so much.'
+    see_also:
+    - local-minimum
+    - global-minimum
+    - hessian
+    - gradient-descent
+    term: convex function
+  convolution-layer:
+    autolink: false
+    formal: A linear map with local support and shared parameters, equivariant to translation
+      of its input.
+    introduced_in: dl-cnns
+    intuitive: Slide a small set of weights across the input and compute a weighted sum at
+      each position — the same weights everywhere.
+    see_also:
+    - receptive-field
+    - translation-equivariance
+    - pooling
+    term: convolution
+  coroutine:
+    formal: A function defined with async def, returning an awaitable whose execution is driven
+      by an event loop and suspended at await points.
+    introduced_in: py-engineering
+    intuitive: A function that can pause at an await and let something else run while it waits.
+      Thousands can be in flight on one thread, which is why async suits I/O-bound work.
+    see_also:
+    - concurrency
+    - event-loop
+    term: coroutine
+  correlation:
+    aliases:
+    - Pearson correlation
+    formal: 'ρ = Cov(X, Y) / (σ_X σ_Y), in [−1, 1]. Measures linear association only: ρ =
+      0 does not imply independence.'
+    introduced_in: math-covariance
+    intuitive: Covariance rescaled to lie between −1 and 1, so that the strength of a linear
+      relationship can be compared across quantities measured in different units.
+    see_also:
+    - covariance
+    - statistical-independence
+    term: correlation
+  cosine-similarity:
+    formal: cos θ = (x·y) / (‖x‖‖y‖), taking values in [−1, 1].
+    introduced_in: math-norms
+    intuitive: The dot product with both vectors' lengths divided out, leaving only the angle
+      between them. It answers "do these point the same way?" while ignoring "how big are
+      they?"
+    see_also:
+    - dot-product
+    - norm
+    - unit-vector
+    - embedding
+    term: cosine similarity
+  counterfactual:
+    formal: The potential outcome corresponding to a treatment assignment other than the one
+      actually received.
+    introduced_in: ds-causation
+    intuitive: What would have happened to this same unit under the other treatment. It is
+      never observed, which is the fundamental problem of causal inference.
+    see_also:
+    - causal-effect
+    - randomisation
+    term: counterfactual
+  covariance:
+    formal: Cov(X, Y) = E[(X − E[X])(Y − E[Y])].
+    introduced_in: math-covariance
+    intuitive: Whether two quantities tend to move together. Positive means they rise together;
+      negative means one rises as the other falls; zero means no linear tendency either way.
+    see_also:
+    - correlation
+    - covariance-matrix
+    - variance
+    term: covariance
+  covariance-matrix:
+    formal: Σ with Σ_ij = Cov(X_i, X_j); symmetric and positive semi-definite.
+    introduced_in: math-covariance
+    intuitive: A table holding the covariance of every pair of variables, with the variances
+      down the diagonal. Its eigenvectors are the directions the data actually varies along,
+      which is what PCA exploits.
+    see_also:
+    - covariance
+    - eigenvector
+    - singular-value-decomposition
+    term: covariance matrix
+  covariate-shift:
+    formal: p(x) changes while p(y|x) is unchanged. The fitted conditional remains valid,
+      but the model is now being evaluated in a region it saw less of.
+    introduced_in: mle-drift
+    intuitive: The inputs change but the relationship between inputs and outcome does not.
+      Your customers got older; older customers still behave the same way.
+    see_also:
+    - concept-drift-term
+    - label-shift
+    - drift-detection
+    term: covariate shift
+  cross-attention:
+    formal: Attention where Q is projected from one representation and K, V from a different
+      one.
+    introduced_in: tf-scaled-dot-product
+    intuitive: Attention in which the queries come from one sequence and the keys and values
+      from another — how a decoder reads an encoder, or how a vision-language model reads
+      image patches while writing text.
+    see_also:
+    - attention
+    - self-attention
+    term: cross-attention
+  cross-entropy-term:
+    formal: H(p, q) = −Σ_x p(x) log q(x) = H(p) + KL(p ‖ q).
+    introduced_in: math-optimization
+    intuitive: A measure of how badly one distribution predicts outcomes drawn from another.
+      Minimising it is equivalent to maximising the likelihood of the observed data, which
+      is why it is the standard classification loss.
+    see_also:
+    - logarithm
+    - categorical-distribution
+    - likelihood-term
+    term: cross-entropy
+  cross-validation:
+    formal: Partitioning into k folds, fitting on k-1 and evaluating on the held-out fold,
+      averaged over folds.
+    introduced_in: ml-metrics
+    intuitive: Splitting the data several ways and averaging the results, so the estimate
+      does not depend on which rows happened to land in the test set.
+    see_also:
+    - generalisation
+    - data-leakage-term
+    - overfitting
+    term: cross-validation
+  curse-of-dimensionality:
+    formal: The concentration of pairwise distances and the exponential growth of volume with
+      dimension, which makes local density estimation infeasible.
+    introduced_in: ml-knn-nb
+    intuitive: In high dimensions everything is far from everything else and roughly equidistant,
+      so methods that rely on distance or on local neighbourhoods stop working.
+    see_also:
+    - k-nearest-neighbours
+    - dimensionality-reduction
+    - cosine-similarity
+    term: curse of dimensionality
+  data-augmentation:
+    formal: Applying label-preserving transformations to inputs, which encodes an invariance
+      into the training distribution rather than into the architecture.
+    introduced_in: dl-regularization
+    intuitive: Make more training examples by transforming the ones you have in ways that
+      should not change the label.
+    see_also:
+    - regularisation-dl
+    - translation-equivariance
+    term: data augmentation
+  data-contract:
+    formal: A versioned schema plus validity constraints, checked at the boundary between
+      producer and consumer.
+    introduced_in: ds-collection
+    intuitive: 'An explicit, enforced agreement about what a data source will provide: fields,
+      types, ranges, nullability, and what counts as a breaking change.'
+    see_also:
+    - schema-drift
+    - provenance
+    term: data contract
+  data-drift-term:
+    formal: A change over time in the distribution of model inputs, p(x), relative to the
+      training distribution.
+    introduced_in: ds-what-it-is
+    intuitive: The world changes and the input distribution moves away from what the model
+      was trained on. Nothing in the code changed; the model just gets worse.
+    see_also:
+    - concept-drift-term
+    - stationarity
+    - training-serving-skew
+    term: data drift
+  data-generating-process:
+    acronym: DGP
+    aliases:
+    - DGP
+    formal: The joint distribution and sampling mechanism from which the observed dataset
+      was drawn, including selection and measurement processes.
+    introduced_in: ds-what-it-is
+    intuitive: 'The real-world mechanism that produced your rows: who was measured, when,
+      by what instrument, and who was left out. It is not in the data, and almost every serious
+      analysis error comes from not knowing it.'
+    see_also:
+    - selection-bias
+    - confounding
+    - survivorship-bias
+    term: data-generating process
+  data-leakage-term:
+    aliases:
+    - leakage
+    formal: Use, during model fitting or selection, of information not available at prediction
+      time for the corresponding instance.
+    introduced_in: ds-leakage
+    intuitive: Information reaching the model during training that will not be available when
+      it makes a real prediction. It produces excellent validation scores and a model that
+      fails in production.
+    see_also:
+    - target-leakage
+    - temporal-leakage
+    - group-leakage
+    - training-serving-skew
+    term: data leakage
+  dataclass:
+    formal: A class decorated with @dataclass, whose __init__, __repr__ and __eq__ are synthesised
+      from its annotated fields.
+    introduced_in: py-functions-classes
+    intuitive: 'A decorator that generates the boilerplate for a class that mainly holds data:
+      the constructor, the repr, and equality comparison.'
+    see_also:
+    - type-hint
+    - python-object-model
+    term: dataclass
+  dataframe:
+    formal: A two-dimensional labelled structure whose columns are Series sharing a common
+      index.
+    introduced_in: py-pandas
+    intuitive: A table with labelled columns of potentially different types and a labelled
+      index. Where an array is a homogeneous grid, a DataFrame is a heterogeneous spreadsheet
+      that knows its own row and column names.
+    see_also:
+    - series-term
+    - index-alignment
+    - split-apply-combine
+    term: DataFrame
+  dbscan:
+    formal: Density-based clustering using a neighbourhood radius and a minimum point count,
+      distinguishing core, border and noise points.
+    introduced_in: ml-clustering
+    intuitive: Grow clusters from dense regions, and label points in sparse regions as noise.
+      It finds clusters of any shape and does not need the number of clusters in advance.
+    see_also:
+    - clustering-term
+    - k-means
+    - anomaly-detection
+    term: DBSCAN
+  dead-relu:
+    formal: A rectified unit whose pre-activation is negative across the whole data distribution;
+      it contributes nothing to the forward pass and receives no gradient, permanently.
+    introduced_in: dl-activations
+    intuitive: A ReLU that outputs zero for every input it ever sees. Its gradient is then
+      always zero, so it can never recover.
+    see_also:
+    - relu
+    - activation-function
+    term: dead unit
+  decision-boundary:
+    formal: The set of points where the predicted class probabilities are equal, or where
+      the score crosses the decision threshold.
+    introduced_in: ml-logistic
+    intuitive: The surface in feature space where a classifier switches its prediction. Its
+      shape is the clearest summary of what a model family can express.
+    see_also:
+    - logistic-regression-term
+    - margin
+    - inductive-bias-ml
+    term: decision boundary
+  decision-tree:
+    formal: A recursive axis-aligned partition of the feature space, with a constant prediction
+      in each region.
+    introduced_in: ml-trees
+    intuitive: A sequence of yes/no questions on individual features, ending in a prediction.
+      Easy to read, and unstable — a small change to the data can produce a completely different
+      tree.
+    see_also:
+    - impurity
+    - pruning
+    - bagging
+    - non-parametric
+    term: decision tree
+  decorator:
+    formal: A callable applied with @ syntax that takes a function and returns a replacement,
+      bound to the original name.
+    introduced_in: py-functions-classes
+    intuitive: A function that wraps another function to add behaviour — timing, caching,
+      logging, retries — without editing the wrapped function itself.
+    see_also:
+    - memoisation
+    - pure-function
+    term: decorator
+  denoising-autoencoder:
+    autolink: false
+    formal: An autoencoder trained on (corrupted input, clean target) pairs, forcing the code
+      to capture structure robust to the corruption process.
+    introduced_in: dl-autoencoders
+    intuitive: Corrupt the input, then train the network to reconstruct the clean version
+      — which stops it learning the identity function.
+    see_also:
+    - autoencoder
+    - representation-learning
+    term: denoising autoencoder
+  dependency-resolution:
+    formal: Finding an assignment of versions satisfying the transitive constraint set; the
+      general problem is NP-complete.
+    introduced_in: py-environments
+    intuitive: Working out one set of package versions that satisfies everything your project
+      and its dependencies require simultaneously. Harder than it sounds, and sometimes impossible.
+    see_also:
+    - lock-file
+    - semantic-versioning
+    - virtual-environment
+    term: dependency resolution
+  depth-vs-width:
+    autolink: false
+    formal: Some function families require exponentially many units at fixed depth and only
+      polynomially many when depth is allowed to grow — a depth-separation result. The theorem
+      bounds neither the required width nor the optimisation difficulty.
+    introduced_in: dl-neural-networks
+    intuitive: Universal approximation says one wide layer suffices in principle; in practice
+      deep-and-narrow beats shallow-and-wide by a wide margin.
+    see_also:
+    - universal-approximation
+    - hidden-layer
+    term: depth versus width
+  derivative:
+    formal: f'(x) = lim_{h→0} (f(x + h) − f(x)) / h, when the limit exists.
+    introduced_in: math-derivatives
+    intuitive: The rate at which a function's output changes as you nudge its input — the
+      slope of the tangent line at a point.
+    see_also:
+    - partial-derivative
+    - gradient
+    - chain-rule
+    term: derivative
+  determinism:
+    formal: Absence of uncontrolled nondeterminism, including unseeded RNGs, hash ordering,
+      parallel reduction order, and nondeterministic kernels.
+    introduced_in: mle-reproducibility
+    intuitive: The same inputs always give the same outputs — no hidden randomness, no dependence
+      on thread scheduling or hardware.
+    see_also:
+    - reproducibility-term
+    - run-lineage
+    term: determinism
+  diagonalisation:
+    formal: A = QΛQ⁻¹ with Λ diagonal; for symmetric A, Q is orthogonal and A = QΛQᵀ.
+    introduced_in: math-eigen
+    intuitive: Rewriting a transformation in the coordinate system of its own eigenvectors,
+      where it does nothing but scale each axis independently.
+    see_also:
+    - eigenvector
+    - eigenvalue
+    - singular-value-decomposition
+    term: diagonalisation
+  dimensionality-reduction:
+    formal: A mapping to a lower-dimensional space chosen to preserve a stated criterion such
+      as variance or pairwise distance.
+    introduced_in: ml-pca
+    intuitive: Representing data in fewer dimensions while keeping what matters. It buys speed,
+      less overfitting, and the ability to plot — at the cost of information.
+    see_also:
+    - principal-component-analysis
+    - curse-of-dimensionality
+    - low-rank-approximation
+    term: dimensionality reduction
+  directional-derivative:
+    formal: D_u f(x) = ∇f(x)·u for a unit vector u; maximised when u aligns with the gradient.
+    introduced_in: math-derivatives
+    intuitive: How fast a function changes if you move in one particular direction, rather
+      than along an axis.
+    see_also:
+    - gradient
+    - dot-product
+    term: directional derivative
+  dot-product:
+    aliases:
+    - inner product
+    - scalar product
+    formal: x·y = Σ_i x_i y_i = ‖x‖‖y‖cos θ, where θ is the angle between them.
+    introduced_in: math-vectors
+    intuitive: Multiply two vectors component by component and add the results. It is large
+      and positive when the vectors point the same way, zero when they are perpendicular,
+      and negative when they oppose — which makes it the cheapest available measure of agreement.
+    see_also:
+    - cosine-similarity
+    - orthogonality
+    - norm
+    - scaled-dot-product-attention
+    term: dot product
+  drift-detection:
+    formal: Statistical testing for change between a reference distribution and a current
+      window, either unsupervised over inputs and predictions or supervised over the error
+      rate.
+    introduced_in: mle-drift
+    intuitive: Noticing that today's data no longer looks like the data the model was trained
+      on — or that the model has stopped being right.
+    see_also:
+    - covariate-shift
+    - concept-drift-term
+    - population-stability-index
+    - label-delay
+    term: drift detection
+  dropout:
+    formal: Multiplying activations by independent Bernoulli(1-p) masks during training and
+      rescaling so the expectation is unchanged; interpretable as training an exponentially
+      large weight-sharing ensemble.
+    introduced_in: dl-regularization
+    intuitive: Randomly switch off a fraction of units during training, so no unit can rely
+      on any particular other one being present.
+    see_also:
+    - regularisation-dl
+    - weight-decay
+    - early-stopping
+    term: dropout
+  dtype:
+    formal: A NumPy data-type object specifying element size, byte order and interpretation.
+    introduced_in: py-numpy
+    intuitive: The element type of an array — float32, int64, bool. It fixes memory use and
+      precision, and choosing it badly is a common cause of both silent overflow and wasted
+      memory.
+    see_also:
+    - ndarray
+    - numeric-precision
+    term: dtype
+  duck-typing:
+    formal: Dynamic dispatch on the presence of methods rather than on nominal type membership.
+    introduced_in: py-functions-classes
+    intuitive: Caring about what an object can do rather than what it is. If it supports the
+      operations you need, it works — no declared interface required.
+    see_also:
+    - type-hint
+    - protocol-term
+    term: duck typing
+  dynamic-graph:
+    formal: 'Define-by-run execution: the graph is recorded during evaluation, so control
+      flow is host-language control flow and the tape is discarded and rebuilt each step.'
+    introduced_in: dl-forward
+    intuitive: Build the plan as the code runs, by recording each operation on a tape. Ordinary
+      Python control flow and debugging work; the graph is rebuilt every iteration.
+    term: dynamic computational graph
+  early-stopping:
+    formal: Halting an iterative fitting procedure at the iteration minimising held-out loss.
+    introduced_in: ml-boosting
+    intuitive: Stop adding capacity when validation performance stops improving. In boosting
+      it is the primary defence against overfitting.
+    see_also:
+    - gradient-boosting
+    - overfitting
+    - regularisation-term
+    term: early stopping
+  eigenvalue:
+    formal: The scalar λ in Av = λv; the roots of det(A − λI) = 0.
+    introduced_in: math-eigen
+    intuitive: The factor by which a transformation stretches its corresponding eigenvector.
+      Greater than one means growth along that direction; less than one, decay.
+    see_also:
+    - eigenvector
+    - spectral-norm
+    - condition-number
+    term: eigenvalue
+  eigenvector:
+    formal: A nonzero v with Av = λv for some scalar λ.
+    introduced_in: math-eigen
+    intuitive: A direction that a transformation does not rotate — it only stretches or shrinks
+      whatever lies along it.
+    see_also:
+    - eigenvalue
+    - diagonalisation
+    - orthogonality
+    term: eigenvector
+  embedding:
+    formal: A learned map from a discrete or high-dimensional input space into ℝ^d, trained
+      so that a chosen similarity in ℝ^d approximates a target relation.
+    introduced_in: tf-scaled-dot-product
+    intuitive: A vector of numbers standing in for a discrete thing — a token, a sentence,
+      an image — arranged so that geometric closeness corresponds to some notion of similarity.
+    see_also:
+    - token
+    term: embedding
+  epoch:
+    formal: A unit of training duration equal to N/B optimisation steps for N examples and
+      batch size B. A poor unit for comparing runs at different batch sizes; steps or tokens
+      are usually better.
+    introduced_in: dl-forward
+    intuitive: One complete pass over the training set.
+    see_also:
+    - mini-batch
+    - optimizer
+    term: epoch
+  estimator:
+    formal: A function of the sample used to estimate a population quantity; its bias is E[θ̂]
+      − θ.
+    introduced_in: math-inference
+    intuitive: A recipe for guessing something unknown from data. Since the data are random,
+      the guess is random too — which is why an estimator has a distribution of its own.
+    see_also:
+    - sampling-distribution
+    - confidence-interval
+    term: estimator
+  euclidean-distance:
+    aliases:
+    - L2 distance
+    formal: d(x, y) = ‖x − y‖₂ = sqrt(Σ_i (x_i − y_i)²).
+    introduced_in: math-norms
+    intuitive: Straight-line distance — the length of the arrow from one point to the other.
+    see_also:
+    - norm
+    - manhattan-distance
+    - cosine-similarity
+    term: Euclidean distance
+  event-loop:
+    formal: A single-threaded scheduler multiplexing coroutine execution over readiness notifications
+      from the operating system.
+    introduced_in: py-engineering
+    intuitive: 'The scheduler that runs coroutines: it picks a ready task, runs it until it
+      awaits, then picks another. One thread, many tasks in flight.'
+    see_also:
+    - coroutine
+    - concurrency
+    term: event loop
+  expectation:
+    aliases:
+    - expected value
+    autolink: false
+    formal: E[X] = Σ_x x p(x) for discrete X, or ∫ x p(x) dx for continuous X, when the sum
+      or integral converges absolutely.
+    introduced_in: math-random-vars
+    intuitive: The long-run average of a random quantity, weighting each possible value by
+      how likely it is. It need not be a value the variable can actually take.
+    see_also:
+    - random-variable
+    - variance
+    - law-of-large-numbers
+    term: expectation
+  experiment-tracking:
+    formal: Systematic capture of the parameters, metrics, artefacts and environment of each
+      training run, keyed so that runs are comparable across time and across people.
+    introduced_in: mle-reproducibility
+    intuitive: Recording what you ran and what happened, so runs can be compared later by
+      someone who was not watching.
+    see_also:
+    - reproducibility-term
+    - model-registry
+    - run-lineage
+    term: experiment tracking
+  explained-variance:
+    formal: The ratio of retained eigenvalues to their total sum.
+    introduced_in: ml-pca
+    intuitive: The share of total variability captured by the components you kept. It is how
+      the number of components is usually chosen.
+    see_also:
+    - principal-component-analysis
+    - low-rank-approximation
+    term: explained variance
+  exploding-gradient:
+    formal: Exponential growth of the backpropagated signal when the product of layer Jacobians
+      has spectral norm consistently above one; mitigated by gradient clipping.
+    introduced_in: dl-backprop
+    intuitive: 'The same product running the other way: gradients grow without bound and the
+      update destroys the weights.'
+    see_also:
+    - vanishing-gradient
+    - gradient-clipping
+    term: exploding gradient
+  exploratory-data-analysis:
+    acronym: EDA
+    aliases:
+    - EDA
+    formal: Systematic examination of a dataset's structure and quality, using summaries and
+      visualisation, prior to formal inference or modelling.
+    introduced_in: ds-eda
+    intuitive: 'Looking at the data before modelling it: distributions, relationships, missingness,
+      and anything that contradicts what you were told about it.'
+    see_also:
+    - data-generating-process
+    - outlier
+    - missing-data
+    term: exploratory data analysis
+  exponential-backoff:
+    formal: A retry schedule with delay growing geometrically in the attempt number, plus
+      jitter to decorrelate concurrent clients.
+    introduced_in: py-io-apis-sql
+    intuitive: Waiting longer after each successive failure — one second, then two, then four
+      — with a little randomness added so that many clients do not all retry in unison.
+    see_also:
+    - rate-limiting
+    - idempotency
+    - rest-api
+    term: exponential backoff
+  exponential-function:
+    formal: exp(x) = e^x, the unique function satisfying f'(x) = f(x) and f(0) = 1.
+    introduced_in: math-functions
+    intuitive: Repeated multiplication extended to all real inputs. Its defining property
+      is that its rate of growth equals its current value, which is why it appears wherever
+      something compounds.
+    see_also:
+    - logarithm
+    - logistic-function
+    - softmax
+    term: exponential function
+  feature-engineering:
+    formal: Construction of a representation of the input intended to make the target function
+      easier to learn.
+    introduced_in: ds-feature-eng
+    intuitive: Turning raw fields into inputs a model can use — ratios, aggregates, time differences,
+      encoded categories. Frequently worth more than model choice.
+    see_also:
+    - one-hot-encoding
+    - target-encoding
+    - feature-selection
+    - feature-store
+    term: feature engineering
+  feature-importance:
+    formal: A ranking derived from impurity reduction, permutation effect, or attribution
+      methods such as Shapley values.
+    introduced_in: ml-forests
+    intuitive: A score for how much each feature contributed. Useful for exploration, and
+      routinely over-interpreted — importance is not a causal effect and is distorted by correlated
+      features.
+    see_also:
+    - random-forest
+    - confounding
+    - multicollinearity
+    term: feature importance
+  feature-selection:
+    formal: Choosing a subset of available features to optimise a criterion, by filter, wrapper
+      or embedded methods.
+    introduced_in: ds-feature-eng
+    intuitive: Choosing which features to keep. Fewer features can mean less overfitting,
+      faster training and easier debugging — and the selection itself can leak if it sees
+      the test set.
+    see_also:
+    - feature-engineering
+    - data-leakage-term
+    - correlation
+    term: feature selection
+  feature-store:
+    autolink: false
+    formal: A system providing a single definition of each feature, an offline store supporting
+      point-in-time joins for training, and a low-latency online store for inference.
+    introduced_in: mle-pipelines
+    intuitive: A shared place where feature definitions live once and are read by both training
+      and serving, so the two cannot drift apart.
+    see_also:
+    - training-serving-skew
+    - point-in-time-correctness
+    term: feature store
+  feedback-loop:
+    formal: A closed loop in which model outputs influence the data-generating process for
+      subsequent training, violating the i.i.d. assumption.
+    introduced_in: ds-recsys
+    intuitive: The model's recommendations determine what users see, which determines the
+      next training data. The system ends up learning from its own past behaviour rather than
+      from preferences.
+    see_also:
+    - implicit-feedback
+    - selection-bias
+    - data-drift-term
+    term: feedback loop
+  figure-axes:
+    formal: Figure is the top-level container; Axes is a single coordinate system within it,
+      holding the artists that render data.
+    introduced_in: py-visualization
+    intuitive: In Matplotlib, the figure is the whole canvas and an axes is one plot on it.
+      Working with these objects directly, rather than through global pyplot state, is what
+      makes plotting code composable.
+    see_also:
+    - dataframe
+    term: figure and axes
+  focal-loss:
+    formal: $-(1-\hat p_y)^{\gamma}\log \hat p_y$; at $\gamma = 0$ it is cross-entropy, and
+      at $\gamma = 2$ an example at $\hat p_y = 0.9$ contributes one hundredth of its usual
+      gradient.
+    introduced_in: dl-losses
+    intuitive: Cross-entropy with a dial that turns down the contribution of examples the
+      model already gets right, so a flood of easy negatives cannot drown out the rare positives.
+    term: focal loss
+  forward-pass:
+    formal: Evaluation of the computational graph from inputs to loss, storing the intermediate
+      activations required by the backward pass.
+    introduced_in: dl-forward
+    intuitive: Running the network on an input to get a prediction, recording what you will
+      need to compute gradients later.
+    see_also:
+    - computational-graph
+    - backpropagation
+    - activation-memory
+    term: forward pass
+  function-composition:
+    formal: (g ∘ f)(x) = g(f(x)), defined when the codomain of f is contained in the domain
+      of g.
+    introduced_in: math-functions
+    intuitive: Applying one function to the output of another. A neural network is composition
+      carried to an extreme — a hundred simple functions chained together.
+    see_also:
+    - chain-rule
+    - function-term
+    term: function composition
+  function-term:
+    autolink: false
+    formal: 'A mapping f: X → Y assigning to every element of the domain X exactly one element
+      of the codomain Y.'
+    introduced_in: math-functions
+    intuitive: 'A rule that turns each input into exactly one output. The "exactly one" is
+      the whole content of the definition: a rule that could return two different answers
+      for the same input is not a function.'
+    see_also:
+    - function-composition
+    - monotonic-function
+    term: function
+  gaussian-distribution:
+    aliases:
+    - normal distribution
+    formal: N(μ, σ²) with density (1/sqrt(2πσ²)) exp(−(x−μ)²/(2σ²)).
+    introduced_in: math-random-vars
+    intuitive: The bell curve. It shows up everywhere not because nature prefers it but because
+      sums of many independent influences tend toward it, which is a theorem rather than a
+      coincidence.
+    see_also:
+    - probability-distribution
+    - central-limit-theorem
+    - variance
+    term: Gaussian distribution
+  generalisation:
+    formal: Expected loss on the data distribution, as distinct from the empirical loss on
+      the training sample.
+    introduced_in: ml-what-it-is
+    intuitive: Performing well on data the model has never seen. It is the only thing that
+      matters, and training performance is nearly uninformative about it.
+    see_also:
+    - overfitting
+    - underfitting
+    - bias-variance-tradeoff
+    term: generalisation
+  generator:
+    formal: A function containing yield, which returns a generator object implementing the
+      iterator protocol; execution resumes at the yield on each next() call.
+    introduced_in: py-fundamentals
+    intuitive: A function that produces a sequence lazily using yield, suspending its state
+      between values. It lets you process a dataset larger than memory.
+    see_also:
+    - iterator
+    - lazy-evaluation
+    - comprehension
+    term: generator
+  global-interpreter-lock:
+    acronym: GIL
+    aliases:
+    - GIL
+    formal: A mutex serialising bytecode execution in default CPython builds; PEP 703 defines
+      an optional free-threaded build without it.
+    introduced_in: py-engineering
+    intuitive: A lock in CPython allowing only one thread to execute Python bytecode at a
+      time. It is why threads help with waiting but not with computing — a constraint now
+      being removed, but not yet in the build most readers have.
+    see_also:
+    - concurrency
+    - parallelism
+    - coroutine
+    term: global interpreter lock
+  global-minimum:
+    formal: x* with f(x*) ≤ f(x) for all x in the domain.
+    introduced_in: math-optimization
+    intuitive: The lowest point of the whole function. For convex functions every local minimum
+      is global; for neural networks, essentially never provably so.
+    see_also:
+    - local-minimum
+    - convex-function
+    term: global minimum
+  gradient:
+    formal: ∇f(x) = (∂f/∂x_1, ..., ∂f/∂x_n)ᵀ, with the same shape as x.
+    introduced_in: math-derivatives
+    intuitive: The vector of all partial derivatives, pointing in the direction of steepest
+      increase. Its negative is the direction to move to reduce a loss, which is the entire
+      basis of training.
+    see_also:
+    - partial-derivative
+    - gradient-descent
+    - directional-derivative
+    term: gradient
+  gradient-boosting:
+    acronym: GBDT
+    formal: F_m(x) = F_{m-1}(x) + ν·h_m(x), with h_m fitted to the negative gradient of the
+      loss at F_{m-1} and ν a shrinkage rate.
+    introduced_in: ml-boosting
+    intuitive: Boosting where each new tree is fitted to the gradient of the loss — gradient
+      descent performed in the space of functions rather than parameters.
+    see_also:
+    - boosting
+    - decision-tree
+    - learning-rate
+    - early-stopping
+    term: gradient boosting
+  gradient-checkpointing:
+    autolink: false
+    formal: Recomputation strategy reducing activation memory from O(L) to O(sqrt(L)) for
+      L layers, at the cost of roughly one extra forward pass.
+    introduced_in: dl-backprop
+    intuitive: Store only some activations and recompute the rest during the backward pass,
+      trading extra compute for much less memory.
+    see_also:
+    - activation-memory
+    - backpropagation
+    term: gradient checkpointing
+  gradient-clipping:
+    formal: Rescaling g <- g * min(1, c/||g||), which bounds the step size without changing
+      the direction. Standard in recurrent and transformer training.
+    introduced_in: dl-backprop
+    intuitive: If the gradient's norm exceeds a threshold, scale it down before stepping.
+    see_also:
+    - exploding-gradient
+    - optimizer
+    term: gradient clipping
+  gradient-descent:
+    formal: x_{t+1} = x_t − η ∇f(x_t) for a step size η > 0.
+    introduced_in: math-optimization
+    intuitive: 'Repeatedly step downhill: compute the gradient, move a small distance against
+      it, repeat. Nearly every model in this book is trained by some refinement of this one
+      idea.'
+    see_also:
+    - gradient
+    - learning-rate
+    - stochastic-gradient-descent
+    - convex-function
+    term: gradient descent
+  group-leakage:
+    formal: Violation of independence between splits caused by correlated observations sharing
+      a grouping variable.
+    introduced_in: ds-leakage
+    intuitive: Rows from the same entity — the same patient, user, or document — split across
+      train and test, so the model recognises the entity rather than learning the pattern.
+    see_also:
+    - data-leakage-term
+    - randomisation-unit
+    term: group leakage
+  gru:
+    autolink: false
+    formal: A gated recurrent unit merging the forget and input gates into a single update
+      gate and exposing the state directly; fewer parameters than an LSTM with broadly comparable
+      performance.
+    introduced_in: dl-rnns
+    intuitive: 'A simpler gated cell: one gate decides how much to update and one how much
+      of the past to use, with no separate memory cell.'
+    see_also:
+    - lstm
+    - recurrent-network
+    term: GRU
+  guardrail-metric:
+    formal: A monitored metric with a pre-specified degradation threshold that vetoes a launch
+      regardless of the primary metric's movement.
+    introduced_in: ds-experiments
+    intuitive: A metric you are not trying to improve but refuse to damage — latency, error
+      rate, unsubscribes. It catches wins that were bought at a cost nobody measured.
+    see_also:
+    - ab-test
+    - novelty-effect
+    term: guardrail metric
+  he-initialization:
+    autolink: false
+    formal: Sampling weights with variance 2/fan_in, the factor of two compensating for the
+      halving of variance by the rectifier.
+    introduced_in: dl-initialization
+    intuitive: Xavier's calculation redone for ReLU, which zeroes half the activations — so
+      the variance needs to be twice as large.
+    see_also:
+    - xavier-initialization
+    - relu
+    - signal-propagation
+    term: He initialisation
+  hessian:
+    formal: H_ij = ∂²f/∂x_i∂x_j; symmetric when f is twice continuously differentiable.
+    introduced_in: math-derivatives
+    intuitive: The matrix of second derivatives, describing curvature. Its eigenvalues say
+      whether a stationary point is a minimum, a maximum, or a saddle.
+    see_also:
+    - jacobian
+    - convex-function
+    - saddle-point
+    term: Hessian
+  hidden-layer:
+    formal: An intermediate layer of units; the presence of at least one is what lifts a network
+      out of the linear hypothesis space.
+    introduced_in: dl-neural-networks
+    intuitive: A layer whose outputs are neither the network's input nor its output — an internal
+      representation the network invents for itself.
+    see_also:
+    - neuron-unit
+    - universal-approximation
+    - representation-learning
+    term: hidden layer
+  homoscedasticity:
+    aliases:
+    - constant variance
+    formal: 'Constant conditional variance of the errors: Var(ε | x) = σ² for all x.'
+    introduced_in: ml-linear-regression
+    intuitive: Residual spread that stays the same across the range of predictions. When it
+      fans out instead, the standard errors are wrong even if the fit is not.
+    see_also:
+    - residual
+    - ordinary-least-squares
+    term: homoscedasticity
+  huber-loss:
+    formal: $\frac12 r^2$ for $|r| \le \delta$ and $\delta(|r| - \frac12\delta)$ otherwise,
+      with $r = \hat y - y$; continuously differentiable at $|r| = \delta$.
+    introduced_in: dl-losses
+    intuitive: Squared error near zero and absolute error far from it. You get the smooth
+      gradient of squared error where it matters and the bounded gradient of absolute error
+      where outliers live.
+    term: Huber loss
+  hyperband:
+    autolink: false
+    formal: Repeated successive halving over a range of bracket configurations, hedging the
+      exploration/exploitation trade-off in resource allocation without a model of the objective.
+    introduced_in: mle-hpo
+    intuitive: Successive halving run at several different starting aggressivenesses, so you
+      do not have to guess how early it is safe to kill a run.
+    see_also:
+    - successive-halving
+    - hyperparameter-optimisation
+    term: Hyperband
+  hyperparameter-optimisation:
+    formal: Optimisation of a validation objective over configuration space, where each evaluation
+      requires fitting a model and the objective is noisy, expensive, and has no usable gradient.
+    introduced_in: mle-hpo
+    intuitive: Searching over the settings that are not learned by fitting — depth, learning
+      rate, regularisation strength.
+    see_also:
+    - sampler
+    - pruner
+    - cross-validation
+    term: hyperparameter optimisation
+  hypothesis-test:
+    formal: A decision rule comparing a test statistic against a null distribution, rejecting
+      H₀ when the statistic falls in a region of probability α.
+    introduced_in: math-inference
+    intuitive: A procedure asking whether the data are surprising enough, under a specific
+      "nothing is happening" assumption, to justify abandoning it.
+    see_also:
+    - p-value
+    - statistical-power
+    - confidence-interval
+    term: hypothesis test
+  idempotency:
+    formal: f(f(x)) = f(x); an idempotent request applied twice leaves the same server state
+      as applying it once.
+    introduced_in: py-io-apis-sql
+    intuitive: An operation you can safely repeat without changing the result beyond the first
+      application. It is what makes retrying a failed request safe.
+    see_also:
+    - rest-api
+    - exponential-backoff
+    term: idempotency
+  identity-matrix:
+    formal: I_n, with ones on the diagonal and zeros elsewhere; AI = IA = A.
+    introduced_in: math-matrices
+    intuitive: The matrix that changes nothing — the number 1 of matrix multiplication.
+    see_also:
+    - matrix
+    - matrix-inverse
+    term: identity matrix
+  implicit-feedback:
+    formal: Interaction data indicating preference indirectly, with unobserved entries conflating
+      absence of preference with absence of exposure.
+    introduced_in: ds-recsys
+    intuitive: 'Clicks, plays and purchases rather than star ratings. Far more plentiful,
+      and ambiguous: not clicking may mean dislike, or may mean never seeing it.'
+    see_also:
+    - collaborative-filtering
+    - feedback-loop
+    - cold-start
+    term: implicit feedback
+  impurity:
+    aliases:
+    - Gini impurity
+    - information gain
+    formal: A measure such as Gini 1 − Σp², or entropy −Σp log p, minimised over candidate
+      splits weighted by child size.
+    introduced_in: ml-trees
+    intuitive: How mixed the classes are in a node. A split is chosen to reduce it as much
+      as possible, which is what makes the tree greedy.
+    see_also:
+    - decision-tree
+    - pruning
+    - cross-entropy-term
+    term: impurity
+  index-alignment:
+    formal: Binary operations between labelled objects take the union of their indexes, inserting
+      missing values where a label is absent from either.
+    introduced_in: py-pandas
+    intuitive: Pandas matches rows by index label, not by position, before combining them.
+      It prevents a whole class of silent mismatches — and produces surprising NaNs when two
+      objects' indexes differ.
+    see_also:
+    - dataframe
+    - series-term
+    - missing-data
+    term: index alignment
+  indicator-function:
+    formal: 1[P] equals 1 when the predicate P holds and 0 otherwise. Its expectation is the
+      probability that P holds.
+    introduced_in: math-notation
+    intuitive: A switch that outputs 1 when a condition is true and 0 when it is false. It
+      lets you write "count the cases where..." as an ordinary sum.
+    see_also:
+    - expectation
+    - probability-term
+    term: indicator function
+  inductive-bias:
+    formal: The set of constraints, expressed through architecture or objective, that make
+      a learner prefer some hypotheses over others independently of the training data.
+    introduced_in: tf-scaled-dot-product
+    intuitive: The assumptions an architecture builds in about what patterns are likely, which
+      let it generalise from limited data — and which cost it accuracy when the assumptions
+      do not hold.
+    see_also:
+    - self-attention
+    - permutation-equivariance
+    term: inductive bias
+  inductive-bias-ml:
+    formal: The set of candidate functions over which a learning algorithm searches.
+    introduced_in: ml-what-it-is
+    intuitive: The set of functions a model family can express. Choosing a model is choosing
+      which answers are reachable at all, before any data is seen.
+    see_also:
+    - inductive-bias
+    - generalisation
+    - no-free-lunch
+    term: hypothesis space
+  internal-covariate-shift:
+    autolink: false
+    formal: Drift in the distribution of a layer's pre-activations during training. Injecting
+      such drift after a normalisation layer does not remove the training benefit, which is
+      evidence against this as the mechanism.
+    introduced_in: dl-normalization
+    intuitive: The changing distribution of a layer's inputs as the layers below it learn.
+      The original explanation for why batch normalisation helps — and subsequently shown
+      not to be the operative mechanism.
+    see_also:
+    - batch-normalization
+    - loss-landscape-smoothing
+    term: internal covariate shift
+  irreducible-error:
+    aliases:
+    - Bayes error
+    formal: The variance of the target conditional on the features, which no estimator can
+      remove.
+    introduced_in: ml-metrics
+    intuitive: The floor no model can beat, caused by genuine randomness or by information
+      absent from the features. A loss that plateaus above zero is often correct behaviour.
+    see_also:
+    - bias-variance-tradeoff
+    - generalisation
+    term: irreducible error
+  isolation-forest:
+    formal: Scores points by expected path length to isolation under random axis-aligned partitions,
+      normalised by the expected depth for the sample size.
+    introduced_in: ml-anomaly
+    intuitive: Split the data randomly and see how quickly a point ends up alone. Anomalies
+      isolate in few splits, so no model of normality is needed.
+    see_also:
+    - anomaly-detection
+    - novelty-detection
+    - curse-of-dimensionality
+    term: isolation forest
+  iterator:
+    formal: An object implementing __iter__ and __next__, raising StopIteration when exhausted.
+      Iterators are consumed once.
+    introduced_in: py-fundamentals
+    intuitive: An object that produces values one at a time on request, rather than holding
+      them all at once. Iterating a file line by line rather than reading it whole is the
+      canonical case.
+    see_also:
+    - generator
+    - comprehension
+    - lazy-evaluation
+    term: iterator
+  jacobian:
+    formal: 'J_ij = ∂f_i/∂x_j for f: ℝⁿ → ℝᵐ, giving an m×n matrix.'
+    introduced_in: math-derivatives
+    intuitive: 'The gradient generalised to functions with several outputs: a matrix whose
+      rows are the gradients of each output.'
+    see_also:
+    - gradient
+    - chain-rule
+    - hessian
+    term: Jacobian
+  join-cardinality:
+    formal: The relationship between key multiplicities on each side of a join; validating
+      it turns a silent row explosion into an error.
+    introduced_in: py-pandas
+    intuitive: Whether a join matches one row to one, one to many, or many to many. A many-to-many
+      join you believed was one-to-one silently multiplies your row count and quietly corrupts
+      every downstream aggregate.
+    see_also:
+    - split-apply-combine
+    - dataframe
+    term: join cardinality
+  json-term:
+    acronym: JSON
+    formal: 'JavaScript Object Notation: a text encoding supporting objects, arrays, strings,
+      numbers, booleans and null.'
+    introduced_in: py-io-apis-sql
+    intuitive: A text format for nested data, universally supported. Its type system is small
+      — no dates, no distinction between int and float, no binary — so information is routinely
+      lost on the way through it.
+    see_also:
+    - serialisation
+    - rest-api
+    term: JSON
+  k-means:
+    formal: Minimises within-cluster sum of squares by alternating minimisation over assignments
+      and centroids; converges to a local optimum.
+    introduced_in: ml-clustering
+    intuitive: Alternate between assigning points to the nearest centre and moving each centre
+      to the mean of its points. Fast, and it finds spherical clusters whether or not any
+      exist.
+    see_also:
+    - clustering-term
+    - dbscan
+    - silhouette-score
+    - k-means-plus-plus
+    term: k-means
+  k-means-plus-plus:
+    formal: Seeds centres by sampling each new centre with probability proportional to squared
+      distance from the nearest existing centre.
+    introduced_in: ml-clustering
+    intuitive: A smarter initialisation that spreads the starting centres out. It makes k-means
+      dramatically more reliable at almost no cost.
+    see_also:
+    - k-means
+    - clustering-term
+    term: k-means++
+  k-nearest-neighbours:
+    acronym: kNN
+    formal: A non-parametric estimator predicting from the k closest training points under
+      a chosen metric.
+    introduced_in: ml-knn-nb
+    intuitive: Predict by looking up the most similar training examples and averaging their
+      answers. There is no training step; all the cost is at prediction time.
+    see_also:
+    - curse-of-dimensionality
+    - non-parametric
+    - euclidean-distance
+    term: k-nearest neighbours
+  kernel-trick:
+    formal: Replacing xᵀx' with K(x, x') = φ(x)ᵀφ(x') for a positive semi-definite kernel,
+      valid wherever an algorithm depends on inputs only through inner products.
+    introduced_in: ml-svm
+    intuitive: Compute inner products in a high-dimensional feature space without ever constructing
+      the coordinates. It buys nonlinearity at the price of one similarity function.
+    see_also:
+    - margin
+    - support-vector
+    - dot-product
+    term: kernel trick
+  key:
+    autolink: false
+    formal: A row of K = XW^K, living in the same d_k-dimensional space as queries so that
+      a dot product between them is meaningful.
+    introduced_in: tf-scaled-dot-product
+    intuitive: The vector a position emits to advertise what it has to offer. Queries are
+      matched against keys; keys are never returned.
+    see_also:
+    - query
+    - value
+    - attention
+    term: key
+  kv-cache:
+    acronym: KV cache
+    formal: A per-layer, per-head buffer of K and V rows for all previous positions, grown
+      by one row per decoding step; its size is what bounds practical context length in serving.
+    introduced_in: tf-scaled-dot-product
+    intuitive: The stored keys and values for every token generated so far, kept so that producing
+      the next token does not require recomputing the whole prefix.
+    see_also:
+    - causal-masking
+    - attention
+    term: KV cache
+  label-delay:
+    formal: The lag between a prediction and the availability of its ground-truth outcome,
+      which determines whether supervised drift detection is usable at all.
+    introduced_in: mle-drift
+    intuitive: You find out whether the prediction was right long after you made it — months,
+      for a loan or a claim.
+    see_also:
+    - concept-drift-term
+    - drift-detection
+    - proxy-metric
+    term: label delay
+  label-shift:
+    formal: p(y) changes while p(x|y) is unchanged — the anticausal counterpart of covariate
+      shift, and correctable by reweighting when the new prior can be estimated.
+    introduced_in: mle-drift
+    intuitive: The mix of outcomes changes while each class still looks the same.
+    see_also:
+    - covariate-shift
+    - concept-drift-term
+    term: label shift
+  label-smoothing:
+    formal: Replacing the one-hot target with $(1-\epsilon)\vec y + \epsilon/C$, making the
+      cross-entropy optimum attainable at a finite logit gap $\log\frac{(1-\epsilon)+\epsilon/C}{\epsilon/C}$.
+    introduced_in: dl-losses
+    intuitive: Replacing a target of 'definitely this class' with 'almost certainly this class'.
+      Since a probability of exactly one needs an infinite logit, softening the target gives
+      the optimiser somewhere finite to stop.
+    term: label smoothing
+  lasso:
+    aliases:
+    - L1 regularised regression
+    formal: Minimises ‖y − Xw‖² + λ‖w‖₁; the non-differentiable corner at zero is what produces
+      exact zeros.
+    introduced_in: ml-linear-regression
+    intuitive: Least squares with a penalty on the absolute size of the coefficients. It drives
+      some to exactly zero, performing selection as part of fitting.
+    see_also:
+    - ridge-regression
+    - feature-selection
+    - regularisation-term
+    term: lasso
+  latent-space:
+    formal: The range of the encoder; a lower-dimensional representation in which nearby points
+      correspond to similar inputs under the learned metric.
+    introduced_in: dl-autoencoders
+    intuitive: The space of learned codes — a compressed coordinate system the model invented
+      for the data.
+    see_also:
+    - autoencoder
+    - bottleneck-layer
+    - representation-learning
+    term: latent space
+  law-of-large-numbers:
+    formal: For iid X_i with finite mean μ, the sample mean converges to μ in probability
+      (weak) and almost surely (strong).
+    introduced_in: math-inference
+    intuitive: Averages settle down as you collect more data — the sample mean approaches
+      the true mean.
+    see_also:
+    - expectation
+    - central-limit-theorem
+    term: law of large numbers
+  layer-normalization:
+    autolink: false
+    formal: Per-example normalisation over the feature dimension with learnable scale and
+      shift; identical at training and inference and independent of batch composition.
+    introduced_in: dl-normalization
+    intuitive: Standardise across the features of one example instead of across the batch,
+      so batch size stops mattering.
+    see_also:
+    - batch-normalization
+    - rmsnorm
+    term: layer normalisation
+  lazy-evaluation:
+    formal: Deferred evaluation of an expression until its result is demanded, as generators
+      and iterators do.
+    introduced_in: py-fundamentals
+    intuitive: Computing a value only when it is actually needed, rather than up front. It
+      saves memory and can save work entirely when the result is never used.
+    see_also:
+    - generator
+    - iterator
+    term: lazy evaluation
+  learning-rate:
+    aliases:
+    - step size
+    formal: The scalar η in the update x_{t+1} = x_t − η ∇f(x_t).
+    introduced_in: math-optimization
+    intuitive: How far to move on each step. Too small and training crawls; too large and
+      it diverges. It is the single most consequential hyperparameter in deep learning.
+    see_also:
+    - gradient-descent
+    - stochastic-gradient-descent
+    - condition-number
+    term: learning rate
+  learning-rate-schedule:
+    formal: A function from step index to learning rate; common forms are linear or cosine
+      decay, optionally preceded by a warmup ramp.
+    introduced_in: dl-lr-schedules
+    intuitive: A plan for changing the step size over training — usually warm up, then decay.
+    see_also:
+    - warmup
+    - learning-rate
+    - optimizer
+    term: learning-rate schedule
+  likelihood-term:
+    autolink: false
+    formal: L(θ) = p(data | θ), viewed as a function of θ. It is not a probability distribution
+      over θ and does not integrate to 1.
+    introduced_in: math-probability
+    intuitive: How well a hypothesis explains the data you actually observed. Read as a function
+      of the hypothesis with the data held fixed — which is the opposite of how a probability
+      distribution is read.
+    see_also:
+    - bayes-theorem
+    - prior-term
+    - posterior
+    term: likelihood
+  linear-combination:
+    formal: Σ_i c_i v_i for scalars c_i and vectors v_i.
+    introduced_in: math-vectors
+    intuitive: A weighted sum of vectors. Almost every operation in this book — an attention
+      output, a layer's activations, a PCA projection — is one.
+    see_also:
+    - vector
+    - dot-product
+    - attention
+    term: linear combination
+  linear-map:
+    aliases:
+    - linear transformation
+    formal: f(ax + by) = a f(x) + b f(y) for all vectors x, y and scalars a, b. Every such
+      map between finite-dimensional spaces is a matrix.
+    introduced_in: math-matrices
+    intuitive: A transformation that respects addition and scaling — straight lines stay straight,
+      the origin stays put, and grid spacing stays even.
+    see_also:
+    - matrix
+    - matrix-multiplication
+    - vector-space
+    term: linear map
+  local-minimum:
+    formal: x* with f(x*) ≤ f(x) for all x in some neighbourhood of x*.
+    introduced_in: math-optimization
+    intuitive: A point lower than everything nearby, but not necessarily the lowest point
+      overall.
+    see_also:
+    - global-minimum
+    - saddle-point
+    - convex-function
+    term: local minimum
+  lock-file:
+    formal: A fully-resolved, usually hash-pinned manifest of the complete dependency graph,
+      distinct from the loose constraints declared in the project manifest.
+    introduced_in: py-environments
+    intuitive: A record of the exact version of every package actually installed, including
+      transitive dependencies, so the environment can be recreated identically later.
+    see_also:
+    - dependency-resolution
+    - reproducibility-term
+    - semantic-versioning
+    term: lock file
+  logarithm:
+    formal: log_b(x) is the unique y with b^y = x, for x > 0 and b > 0, b ≠ 1. This book writes
+      log for the natural logarithm, base e.
+    introduced_in: math-functions
+    intuitive: 'The inverse of exponentiation: it answers "what power do I raise the base
+      to, to get this number?" Its practical value is turning multiplication into addition
+      and compressing enormous ranges into manageable ones.'
+    see_also:
+    - exponential-function
+    - cross-entropy-term
+    term: logarithm
+  logistic-function:
+    aliases:
+    - sigmoid
+    - sigmoid function
+    formal: σ(x) = 1 / (1 + e^{−x}), with σ'(x) = σ(x)(1 − σ(x)) and σ(−x) = 1 − σ(x).
+    introduced_in: math-functions
+    intuitive: An S-shaped squashing function that maps any real number into the open interval
+      between 0 and 1, so an unbounded score can be read as a probability.
+    see_also:
+    - exponential-function
+    - logit
+    - softmax
+    term: logistic function
+  logistic-regression-term:
+    formal: Models P(y = 1 | x) = σ(wᵀx + b), fitted by minimising cross-entropy; convex,
+      so the optimum is global.
+    introduced_in: ml-logistic
+    intuitive: A linear model whose output is squashed through a logistic function to give
+      a probability. Despite the name it is a classifier, and its decision boundary is a straight
+      line.
+    see_also:
+    - logistic-function
+    - decision-boundary
+    - cross-entropy-term
+    - odds-ratio
+    term: logistic regression
+  logit:
+    formal: The pre-softmax argument z; equivalently, log-probabilities up to an additive
+      constant.
+    introduced_in: tf-scaled-dot-product
+    intuitive: A raw, unnormalised score produced before a softmax turns it into a probability.
+      Logits may be any real number, positive or negative.
+    see_also:
+    - softmax
+    - temperature
+    term: logit
+  logits:
+    autolink: false
+    formal: Unnormalised pre-softmax outputs, defined only up to an additive constant per
+      example because the softmax is shift-invariant.
+    introduced_in: dl-losses
+    intuitive: The raw scores a classifier produces before they are turned into probabilities.
+    see_also:
+    - softmax
+    - cross-entropy-term
+    - logit
+    term: logits
+  logsumexp-trick:
+    formal: $\log\sum_c e^{z_c} = m + \log\sum_c e^{z_c - m}$ with $m = \max_c z_c$; every
+      exponent is then non-positive, so no term overflows and the largest is exactly one.
+    introduced_in: dl-losses
+    intuitive: Subtract the largest number before exponentiating. It changes nothing mathematically
+      and it is the difference between a working softmax and an overflow.
+    term: logsumexp trick
+  loss-function:
+    formal: A function $\ell(\hat y, y) \to \R$, differentiable almost everywhere, whose expectation
+      under the data distribution is the objective minimised during training.
+    introduced_in: dl-losses
+    intuitive: The number that says how bad a single prediction was. Training is nothing but
+      making the average of this number smaller, so it is the only place you get to say what
+      you actually want.
+    term: loss function
+  loss-landscape-smoothing:
+    autolink: false
+    formal: Improvement in the Lipschitz constants of the loss and of its gradient, proposed
+      as the mechanism by which normalisation permits larger stable learning rates.
+    introduced_in: dl-normalization
+    intuitive: Making the loss surface less jagged, so larger steps remain stable.
+    see_also:
+    - internal-covariate-shift
+    - batch-normalization
+    term: loss-landscape smoothing
+  loss-reduction:
+    formal: The aggregation applied to per-example losses — mean, sum, or none — before the
+      backward pass; under sum, $\|\nabla\|$ scales with $B$, coupling the effective step
+      size to the batch size.
+    introduced_in: dl-losses
+    intuitive: How the per-example losses in a batch are combined into one number. Averaging
+      keeps the gradient size independent of the batch; summing does not, so switching silently
+      rescales your learning rate.
+    term: loss reduction
+  low-rank-approximation:
+    formal: The rank-k truncation of the SVD, which minimises ‖A − A_k‖ in both the spectral
+      and Frobenius norms (Eckart–Young).
+    introduced_in: math-eigen
+    intuitive: Keeping only the strongest few directions of a matrix and discarding the rest
+      — the best possible compression for a given budget of directions.
+    see_also:
+    - singular-value-decomposition
+    - rank
+    term: low-rank approximation
+  lstm:
+    autolink: false
+    formal: A gated recurrent unit with an additive cell state c_t = f_t*c_{t-1} + i_t*g_t,
+      giving the gradient a near-identity path across time steps.
+    introduced_in: dl-rnns
+    intuitive: A recurrent cell with a memory that is added to rather than multiplied through,
+      plus gates that decide what to keep, add and expose.
+    see_also:
+    - recurrent-network
+    - gru
+    - vanishing-gradient
+    - residual-connection
+    term: LSTM
+  manhattan-distance:
+    aliases:
+    - L1 distance
+    - taxicab distance
+    formal: d(x, y) = ‖x − y‖₁ = Σ_i |x_i − y_i|.
+    introduced_in: math-norms
+    intuitive: Distance measured by travelling along the axes rather than diagonally, as if
+      constrained to a street grid.
+    see_also:
+    - norm
+    - euclidean-distance
+    term: Manhattan distance
+  margin:
+    formal: The perpendicular distance from the separating hyperplane to the nearest training
+      point; the SVM maximises twice this quantity.
+    introduced_in: ml-svm
+    intuitive: The gap between the decision boundary and the closest training points. Maximising
+      it is a specific, defensible answer to which of many separating boundaries to prefer.
+    see_also:
+    - support-vector
+    - kernel-trick
+    - decision-boundary
+    term: margin
+  matrix:
+    formal: An element of ℝ^{m×n}, representing a linear map from ℝ^n to ℝ^m in a chosen pair
+      of bases.
+    introduced_in: math-matrices
+    intuitive: 'A rectangular grid of numbers, best understood not as a table but as a function:
+      it takes a vector in and returns a transformed vector out.'
+    see_also:
+    - matrix-multiplication
+    - linear-map
+    - transpose
+    - rank
+    term: matrix
+  matrix-factorisation:
+    formal: Approximating an observed sparse matrix R by a low-rank product UVᵀ fitted on
+      observed entries only, with regularisation.
+    introduced_in: ds-recsys
+    intuitive: 'Explaining a large, mostly-empty ratings table by a small number of latent
+      factors: each user and each item becomes a short vector, and a rating is their inner
+      product.'
+    see_also:
+    - collaborative-filtering
+    - low-rank-approximation
+    - singular-value-decomposition
+    - embedding
+    term: matrix factorisation
+  matrix-inverse:
+    formal: A⁻¹ with AA⁻¹ = A⁻¹A = I; it exists exactly when A is square and full rank.
+    introduced_in: math-matrices
+    intuitive: 'The transformation that undoes another one. Not every matrix has one: a transformation
+      that collapses two directions onto one cannot be undone, because the information is
+      gone.'
+    see_also:
+    - matrix
+    - identity-matrix
+    - rank
+    - condition-number
+    term: matrix inverse
+  matrix-multiplication:
+    formal: (AB)_{ij} = Σ_k A_{ik} B_{kj}, defined when A's column count equals B's row count.
+      Associative, distributive, and not commutative.
+    introduced_in: math-matrices
+    intuitive: 'Every entry of the result is a dot product: row i of the left matrix against
+      column j of the right one. It is also composition — multiplying two matrices builds
+      the single transformation that applies both in turn.'
+    see_also:
+    - matrix
+    - dot-product
+    - linear-map
+    term: matrix multiplication
+  mean-squared-error:
+    formal: $\frac{1}{N}\sum_i (\hat y_i - y_i)^2$; the maximum-likelihood objective under
+      additive Gaussian noise of constant variance, minimised by the conditional mean.
+    introduced_in: dl-losses
+    intuitive: The average of the squared gaps between prediction and truth. Squaring means
+      a gap twice as large is penalised four times as much, so this loss chases outliers.
+    term: mean squared error
+  memoisation:
+    aliases:
+    - caching results
+    formal: Caching a function's results keyed by its arguments; requires referential transparency
+      for correctness.
+    introduced_in: py-engineering
+    intuitive: Remembering what a function returned for a given input so the work is not repeated.
+      Only safe for pure functions.
+    see_also:
+    - pure-function
+    - decorator
+    term: memoisation
+  mini-batch:
+    formal: A subsample of size B used to form a stochastic gradient estimate whose variance
+      falls as 1/B, trading gradient noise against hardware utilisation.
+    introduced_in: dl-forward
+    intuitive: A small group of examples whose gradients are averaged into one update.
+    see_also:
+    - epoch
+    - stochastic-gradient-descent
+    - optimizer
+    term: mini-batch
+  missing-data:
+    aliases:
+    - NaN
+    - null value
+    formal: A sentinel — NaN, None or pd.NA — marking absence; NaN propagates through arithmetic
+      and is not equal to itself.
+    introduced_in: py-pandas
+    intuitive: An absent value. Distinguishing "we did not measure it", "it does not apply"
+      and "it is genuinely zero" matters enormously, and a single NaN marker collapses all
+      three.
+    see_also:
+    - index-alignment
+    - dataframe
+    term: missing data
+  ml-test-score:
+    autolink: false
+    formal: The rubric of Breck et al., scoring twenty-eight production-readiness tests in
+      four categories, where the final score is the minimum across categories rather than
+      the sum.
+    introduced_in: mle-registry
+    intuitive: A checklist that scores how ready an ML system is for production, across data,
+      model, infrastructure and monitoring.
+    see_also:
+    - promotion-gate
+    - technical-debt-ml
+    term: ML test score
+  model-card:
+    autolink: false
+    formal: Structured documentation of a model's intended use, training data, evaluation
+      results disaggregated by relevant slices, and known limitations.
+    introduced_in: mle-registry
+    intuitive: A short document saying what a model is for, what it was measured on, and where
+      it should not be used.
+    see_also:
+    - model-registry
+    - promotion-gate
+    term: model card
+  model-registry:
+    formal: A versioned store of model artefacts with metadata, stage transitions and an audit
+      trail, serving as the interface between training and deployment.
+    introduced_in: mle-registry
+    intuitive: The catalogue of models that exist, which version is live, and what each one
+      was approved for.
+    see_also:
+    - run-lineage
+    - promotion-gate
+    - model-card
+    term: model registry
+  module-term:
+    autolink: false
+    formal: An object created by importing a .py file, with its own namespace; a package is
+      a directory containing modules and usually an __init__.py.
+    introduced_in: py-functions-classes
+    intuitive: A single Python file, importable as a unit. A package is a directory of them.
+    see_also:
+    - namespace
+    - virtual-environment
+    term: module
+  momentum-term:
+    autolink: false
+    formal: v_{t+1} = βv_t + ∇f(x_t); x_{t+1} = x_t − ηv_{t+1}, with β typically near 0.9.
+    introduced_in: math-optimization
+    intuitive: Averaging recent gradients so that steps accumulate in consistent directions
+      and cancel in oscillating ones — like giving the optimiser inertia.
+    see_also:
+    - stochastic-gradient-descent
+    - gradient-descent
+    term: momentum
+  monotonic-function:
+    aliases:
+    - monotonicity
+    formal: f is monotonically increasing if x ≤ y implies f(x) ≤ f(y); strictly increasing
+      if the second inequality is strict.
+    introduced_in: math-functions
+    intuitive: A function that only ever goes up, or only ever goes down. Monotone transformations
+      preserve orderings, which is why they can be applied to a score without changing which
+      option ranks first.
+    see_also:
+    - logarithm
+    - logistic-function
+    term: monotonic function
+  multi-head-attention:
+    acronym: MHA
+    formal: MultiHead(X) = Concat(head₁, …, head_h) W^O, where each headᵢ is scaled dot-product
+      attention over its own projections of X.
+    introduced_in: tf-multi-head
+    intuitive: Running several attention heads in parallel over different learned subspaces
+      and combining their results, so one layer can attend to several kinds of relationship
+      at once.
+    see_also:
+    - attention-head
+    - scaled-dot-product-attention
+    term: multi-head attention
+  multicollinearity:
+    formal: Near-linear dependence among design-matrix columns, producing a large condition
+      number and inflated coefficient variance.
+    introduced_in: ml-linear-regression
+    intuitive: Features that are nearly linear combinations of each other. The fit is fine;
+      the individual coefficients become unstable and uninterpretable.
+    see_also:
+    - ordinary-least-squares
+    - condition-number
+    - ridge-regression
+    term: multicollinearity
+  mutability:
+    aliases:
+    - mutable
+    formal: An object is mutable if its state can be modified in place without changing its
+      identity, as reported by id().
+    introduced_in: py-fundamentals
+    intuitive: Whether an object can be changed after it is created. Lists and dictionaries
+      can; strings, numbers and tuples cannot. The distinction decides whether passing an
+      object to a function can alter the caller's copy.
+    see_also:
+    - aliasing
+    - python-object-model
+    term: mutability
+  n-plus-one-query:
+    formal: A pattern where a single query is followed by one query per returned row, replacing
+      a join or batched fetch.
+    introduced_in: py-io-apis-sql
+    intuitive: Fetching a list, then issuing one more query per item in it. A hundred rows
+      becomes a hundred and one round trips, and the code looks perfectly reasonable.
+    see_also:
+    - parameterised-query
+    term: N+1 query problem
+  naive-bayes:
+    formal: Classifies by argmax over classes of P(y)∏ⱼP(xⱼ | y), assuming conditional independence
+      of features given the class.
+    introduced_in: ml-knn-nb
+    intuitive: Apply Bayes' theorem while pretending the features are independent given the
+      class. The assumption is nearly always false and the classifier often works anyway,
+      because ranking survives errors in the probabilities.
+    see_also:
+    - bayes-theorem
+    - conditional-probability
+    - calibration
+    term: naive Bayes
+  namespace:
+    formal: A dictionary of name bindings; resolution follows the local, enclosing, global,
+      built-in order.
+    introduced_in: py-functions-classes
+    intuitive: A mapping from names to objects. Every module, function and class has one,
+      and name lookup searches them in a fixed order.
+    see_also:
+    - python-object-model
+    - module-term
+    term: namespace
+  ndarray:
+    aliases:
+    - NumPy array
+    - n-dimensional array
+    formal: A homogeneously-typed n-dimensional array described by a dtype, a shape and a
+      stride tuple over a single memory buffer.
+    introduced_in: py-numpy
+    intuitive: 'NumPy''s core object: a grid of numbers of one type, stored in a single contiguous
+      block of memory. That uniformity is what makes it fast, and what distinguishes it from
+      a Python list.'
+    see_also:
+    - dtype
+    - vectorisation
+    - array-view
+    - strides
+    term: ndarray
+  negative-log-likelihood:
+    formal: $-\log p(y \mid \vec x; \vecgreek{\theta})$ summed over the data; maximising the
+      likelihood and minimising this are the same optimisation.
+    introduced_in: dl-losses
+    intuitive: The loss you get by writing down how probable your model says the observed
+      data is, taking a logarithm, and flipping the sign so that minimising it maximises the
+      probability.
+    term: negative log-likelihood
+  neuron-unit:
+    autolink: false
+    formal: A map x -> phi(w'x + b), where phi is the activation function. The building block
+      from which every architecture in Part VI is composed.
+    introduced_in: dl-neural-networks
+    intuitive: 'One element of a layer: an affine function of its inputs followed by a nonlinearity.'
+    see_also:
+    - perceptron
+    - activation-function
+    - hidden-layer
+    term: unit
+  no-free-lunch:
+    formal: Averaged uniformly over all target functions, the off-training-set error of any
+      two algorithms is identical.
+    introduced_in: ml-what-it-is
+    intuitive: Averaged over all possible problems, no learning algorithm beats any other.
+      Real algorithms work because real problems are not arbitrary, and each embeds assumptions
+      about which ones you will meet.
+    see_also:
+    - inductive-bias
+    - inductive-bias-ml
+    - generalisation
+    term: no free lunch theorem
+  non-parametric:
+    formal: A model family whose effective number of parameters is not fixed independently
+      of the sample size.
+    introduced_in: ml-knn-nb
+    intuitive: A model whose complexity grows with the data rather than being fixed in advance.
+      It makes fewer assumptions and needs more data.
+    see_also:
+    - k-nearest-neighbours
+    - decision-tree
+    - bias-variance-tradeoff
+    term: non-parametric
+  norm:
+    formal: A function ‖·‖ that is non-negative, zero only at the zero vector, absolutely
+      homogeneous, and satisfies the triangle inequality.
+    introduced_in: math-norms
+    intuitive: A measure of a vector's size. Different norms disagree about what "size" means,
+      and the disagreement is exactly why the choice matters.
+    see_also:
+    - euclidean-distance
+    - unit-vector
+    - regularisation-term
+    term: norm
+  novelty-detection:
+    formal: Semi-supervised detection in which the model is fitted on data assumed clean and
+      scores unseen points for membership.
+    introduced_in: ml-anomaly
+    intuitive: Deciding whether a new point resembles the training data at all. Distinct from
+      outlier detection, which looks for oddities inside a fixed dataset.
+    see_also:
+    - anomaly-detection
+    - outlier
+    - isolation-forest
+    term: novelty detection
+  novelty-effect:
+    formal: A transient treatment effect driven by unfamiliarity, decaying as users habituate.
+    introduced_in: ds-experiments
+    intuitive: Users respond to a change because it is new, not because it is better. The
+      lift is real for two weeks and then gone.
+    see_also:
+    - ab-test
+    - guardrail-metric
+    term: novelty effect
+  numeric-precision:
+    formal: The mantissa width of a floating-point format, bounding relative representation
+      error.
+    introduced_in: py-numpy
+    intuitive: How many significant digits a number type can carry. float32 gives about seven;
+      float64 about sixteen. Deep learning routinely trades precision for speed and memory.
+    see_also:
+    - dtype
+    term: numeric precision
+  observability-term:
+    formal: The degree to which internal state can be inferred from external outputs.
+    introduced_in: py-engineering
+    intuitive: Being able to work out what a running system is doing from what it emits —
+      logs, metrics and traces — without attaching a debugger.
+    see_also:
+    - structured-logging
+    - profiling
+    term: observability
+  odds-ratio:
+    formal: exp(w_j), the multiplicative change in odds per unit increase in feature j, holding
+      others fixed.
+    introduced_in: ml-logistic
+    intuitive: How much the odds of the outcome multiply for a one-unit change in a feature.
+      It is what a logistic coefficient means once exponentiated.
+    see_also:
+    - logistic-regression-term
+    - logistic-function
+    term: odds ratio
+  one-hot-encoding:
+    formal: A mapping from a k-level categorical to a k-dimensional binary vector with exactly
+      one nonzero entry.
+    introduced_in: ds-feature-eng
+    intuitive: Turning a categorical column into one indicator column per category. Safe and
+      interpretable, and it explodes in width when cardinality is high.
+    see_also:
+    - cardinality
+    - target-encoding
+    - feature-engineering
+    term: one-hot encoding
+  operator-fusion:
+    formal: Combining consecutive elementwise operations, or an elementwise operation with
+      a matmul epilogue, into a single kernel so intermediate tensors are never written to
+      global memory.
+    introduced_in: dl-forward
+    intuitive: Doing several cheap operations in one pass over the data instead of writing
+      an intermediate array to memory between each. It is where most of the gap between naive
+      and optimised implementations lives.
+    term: operator fusion
+  optimizer:
+    formal: A mapping from the gradient history to a step, ranging from plain SGD to adaptive
+      methods maintaining per-parameter statistics.
+    introduced_in: dl-optimizers
+    intuitive: The rule that turns a gradient into a parameter update.
+    see_also:
+    - adam
+    - weight-decay
+    - learning-rate
+    term: optimizer
+  ordinary-least-squares:
+    acronym: OLS
+    formal: The minimiser of ‖y − Xw‖² , satisfying the normal equations XᵀXw = Xᵀy.
+    introduced_in: ml-linear-regression
+    intuitive: Fitting a line by minimising the sum of squared vertical distances to the data.
+      The solution is the projection of the target onto the space the features can span.
+    see_also:
+    - residual
+    - ridge-regression
+    - lasso
+    - multicollinearity
+    term: ordinary least squares
+  orthogonality:
+    aliases:
+    - orthogonal
+    formal: Two vectors are orthogonal when their dot product is zero.
+    introduced_in: math-vectors
+    intuitive: 'Perpendicularity, generalised to any number of dimensions. Orthogonal directions
+      carry independent information: moving along one does not change your position along
+      the other.'
+    see_also:
+    - dot-product
+    - cosine-similarity
+    - eigenvector
+    term: orthogonality
+  out-of-bag-error:
+    acronym: OOB
+    formal: The average error of each observation predicted only by ensemble members whose
+      bootstrap sample excluded it.
+    introduced_in: ml-forests
+    intuitive: 'A free validation estimate: each bootstrap sample omits about a third of the
+      rows, so each row can be scored by the trees that never saw it.'
+    see_also:
+    - bagging
+    - random-forest
+    - cross-validation
+    term: out-of-bag error
+  outlier:
+    formal: An observation with low probability under the assumed model for the data.
+    introduced_in: ds-cleaning
+    intuitive: 'A value far from the rest. The important question is never how far, but why:
+      a typo, a unit error, a rare genuine event, or a different population mixed in — and
+      each demands a different response.'
+    see_also:
+    - robust-statistic
+    - anomaly-detection
+    - missing-data
+    term: outlier
+  overfitting:
+    formal: A gap between empirical and expected loss caused by excess model capacity relative
+      to the information in the sample.
+    introduced_in: ml-metrics
+    intuitive: Learning the training data's noise as though it were signal. Training error
+      keeps falling while test error rises.
+    see_also:
+    - underfitting
+    - bias-variance-tradeoff
+    - regularisation-term
+    - generalisation
+    term: overfitting
+  p-value:
+    formal: P(T ≥ t_observed | H₀) for a one-sided test with test statistic T.
+    introduced_in: math-inference
+    intuitive: The probability of seeing data at least this extreme if the null hypothesis
+      were true. It is not the probability that the null hypothesis is true, and treating
+      it as such is the most consequential misunderstanding in applied statistics.
+    see_also:
+    - hypothesis-test
+    - statistical-power
+    - confidence-interval
+    term: p-value
+  parallelism:
+    formal: Simultaneous execution of multiple computations on distinct processing units.
+    introduced_in: py-engineering
+    intuitive: Actually doing several things at the same instant, on different cores. Concurrency
+      is about structure; parallelism is about execution.
+    see_also:
+    - concurrency
+    - global-interpreter-lock
+    term: parallelism
+  parameter-sharing:
+    formal: Tying parameters across positions or time steps, which reduces parameter count
+      and imposes an invariance; the mechanism behind both convolution and recurrence.
+    introduced_in: dl-cnns
+    intuitive: Use the same weights in many places, so the number of parameters does not grow
+      with the size of the input.
+    see_also:
+    - convolution-layer
+    - recurrent-network
+    - translation-equivariance
+    term: parameter sharing
+  parameterised-query:
+    formal: A prepared statement with placeholders bound to values by the driver, so that
+      values are never concatenated into the statement text.
+    introduced_in: py-io-apis-sql
+    intuitive: Sending SQL and its values separately, so user input can never be parsed as
+      SQL. It is the fix for injection, and it is also faster.
+    see_also:
+    - sql-injection
+    - rest-api
+    term: parameterised query
+  parquet-term:
+    formal: A columnar storage format with per-column encoding, compression and statistics
+      enabling predicate and projection pushdown.
+    introduced_in: py-io-apis-sql
+    intuitive: A columnar binary file format for tabular data. It preserves types, compresses
+      well, and lets you read a few columns of a large file without touching the rest.
+    see_also:
+    - serialisation
+    - dataframe
+    term: Parquet
+  partial-derivative:
+    formal: ∂f/∂x_i, the derivative of f treating all x_j for j ≠ i as constants.
+    introduced_in: math-derivatives
+    intuitive: The derivative with respect to one input while every other input is held fixed
+      — the slope along one axis only.
+    see_also:
+    - derivative
+    - gradient
+    - jacobian
+    term: partial derivative
+  peeking:
+    formal: Optional stopping based on repeated significance testing of accumulating data,
+      invalidating fixed-sample error guarantees.
+    introduced_in: ds-experiments
+    intuitive: Repeatedly checking an experiment and stopping as soon as it looks significant.
+      It inflates the false-positive rate far above the nominal level, because you took many
+      chances to be fooled.
+    see_also:
+    - ab-test
+    - p-value
+    - statistical-power
+    term: peeking
+  perceptron:
+    formal: A linear threshold unit with the update rule w <- w + eta*(y - yhat)*x, guaranteed
+      to converge when the classes are linearly separable.
+    introduced_in: dl-neural-networks
+    intuitive: 'A single artificial neuron: weight the inputs, add them up, and fire if the
+      total crosses a threshold.'
+    see_also:
+    - neuron-unit
+    - hidden-layer
+    - linear-map
+    term: perceptron
+  permutation-equivariance:
+    formal: f(PX) = P f(X) for every permutation matrix P. Self-attention has this property,
+      which is why position must be injected separately.
+    introduced_in: tf-scaled-dot-product
+    intuitive: A property of an operation whose output reorders in exactly the same way its
+      input does — meaning the operation itself has no notion of order.
+    see_also:
+    - self-attention
+    term: permutation equivariance
+  point-in-time-correctness:
+    formal: A join in which every feature value is taken as of a timestamp no later than the
+      decision time for that row, so no training example contains information unavailable
+      at inference.
+    introduced_in: mle-pipelines
+    intuitive: Building a training row using only what was actually known at the moment the
+      prediction would have been made.
+    see_also:
+    - training-serving-skew
+    - data-leakage-term
+    - walk-forward-validation
+    term: point-in-time correctness
+  pooling:
+    formal: A fixed downsampling aggregation, typically max or mean over a window, trading
+      spatial resolution for a larger receptive field and approximate local invariance.
+    introduced_in: dl-cnns
+    intuitive: Summarise a small neighbourhood to one value, shrinking the map and making
+      it slightly insensitive to exactly where a feature was.
+    see_also:
+    - convolution-layer
+    - receptive-field
+    term: pooling
+  population-stability-index:
+    autolink: false
+    formal: The symmetrised discrete Kullback-Leibler divergence between binned reference
+      and current distributions; conventional thresholds are 0.1 for moderate and 0.25 for
+      significant shift.
+    introduced_in: mle-drift
+    intuitive: A single number summarising how much a feature's distribution has moved since
+      the reference period.
+    see_also:
+    - drift-detection
+    - covariate-shift
+    term: population stability index
+  posterior:
+    autolink: false
+    formal: The distribution P(H | E) obtained from Bayes' theorem.
+    introduced_in: math-probability
+    intuitive: What you believe after seeing the evidence — the prior, updated.
+    see_also:
+    - bayes-theorem
+    - prior-term
+    - likelihood-term
+    term: posterior
+  principal-component-analysis:
+    acronym: PCA
+    formal: Projection onto the leading eigenvectors of the covariance matrix, equivalently
+      the leading right singular vectors of the centred data.
+    introduced_in: ml-pca
+    intuitive: Rotate the data so the first axis captures as much variance as possible, the
+      second as much of what remains, and so on — then keep the first few axes.
+    see_also:
+    - dimensionality-reduction
+    - singular-value-decomposition
+    - covariance-matrix
+    - explained-variance
+    term: principal component analysis
+  prior-term:
+    autolink: false
+    formal: The distribution P(H) over hypotheses before conditioning on data.
+    introduced_in: math-probability
+    intuitive: What you believed before seeing the evidence. Every inference has one, including
+      inferences that do not admit to having one.
+    see_also:
+    - bayes-theorem
+    - posterior
+    - likelihood-term
+    term: prior
+  probability-distribution:
+    formal: For discrete variables, a probability mass function p(x) = P(X = x) summing to
+      1; for continuous ones, a density p(x) ≥ 0 integrating to 1.
+    introduced_in: math-random-vars
+    intuitive: The complete description of how likely each value of a random variable is.
+    see_also:
+    - random-variable
+    - gaussian-distribution
+    - expectation
+    term: probability distribution
+  probability-term:
+    autolink: false
+    formal: A function P on events satisfying P(A) ≥ 0, P(Ω) = 1, and countable additivity
+      over disjoint events.
+    introduced_in: math-probability
+    intuitive: A number between 0 and 1 quantifying how strongly an outcome is expected. Whether
+      it means a long-run frequency or a degree of belief is a genuine philosophical dispute;
+      both readings are used in this book, and the text says which is meant when it matters.
+    see_also:
+    - conditional-probability
+    - random-variable
+    - bayes-theorem
+    term: probability
+  profiling:
+    formal: Instrumented or sampled measurement of per-function time or memory attribution
+      during execution.
+    introduced_in: py-engineering
+    intuitive: Measuring where a program actually spends its time, rather than guessing. Intuitions
+      about performance are wrong often enough that measuring first is the only defensible
+      order.
+    see_also:
+    - vectorisation
+    - observability-term
+    term: profiling
+  promotion-gate:
+    formal: An automated policy evaluated against a candidate model version — performance
+      floors, fairness slices, latency budgets, schema conformance — whose outcome is recorded
+      with the promotion decision.
+    introduced_in: mle-registry
+    intuitive: The set of checks a model must pass before it is allowed to serve traffic.
+    see_also:
+    - model-registry
+    - ml-test-score
+    - shadow-deployment
+    term: promotion gate
+  proper-scoring-rule:
+    formal: A scoring rule $S(q, y)$ whose expectation $\E_{y \sim p}[S(q,y)]$ is minimised
+      at $q = p$; log loss and the Brier score qualify, accuracy does not.
+    introduced_in: dl-losses
+    intuitive: A scoring function that is optimised by telling the truth. Under an improper
+      rule, a model can score better by reporting probabilities it does not believe.
+    term: proper scoring rule
+  property-based-testing:
+    formal: Automated generation of inputs from a specification, checking an invariant and
+      shrinking any failing case to a minimal example.
+    introduced_in: py-engineering
+    intuitive: Instead of checking one example, state a property that should hold for all
+      inputs and let the framework search for a counterexample. It finds edge cases you would
+      not have thought to write.
+    see_also:
+    - unit-test
+    - regression-test
+    term: property-based testing
+  protocol-term:
+    autolink: false
+    formal: A typing.Protocol class defining a structural interface; conformance is by matching
+      signatures, not by subclassing.
+    introduced_in: py-functions-classes
+    intuitive: A described set of methods an object must have, checked structurally rather
+      than by inheritance — duck typing that a static checker can verify.
+    see_also:
+    - duck-typing
+    - type-hint
+    term: protocol
+  provenance:
+    aliases:
+    - lineage
+    formal: Metadata describing the origin, transformations and version history of a dataset
+      or derived artefact.
+    introduced_in: ds-collection
+    intuitive: 'The recorded history of a dataset: where each field came from, what transformed
+      it, and when. Without it, a number in a report cannot be traced back to anything.'
+    see_also:
+    - data-generating-process
+    - reproducibility-term
+    - schema-drift
+    term: data provenance
+  proxy-metric:
+    formal: An immediately observable quantity correlated with the delayed target metric,
+      used for early detection under label delay and validated against the target once labels
+      arrive.
+    introduced_in: mle-drift
+    intuitive: Something you can measure immediately that moves when the thing you care about
+      moves, used while waiting for the real outcome.
+    see_also:
+    - label-delay
+    - drift-detection
+    term: proxy metric
+  pruner:
+    formal: An early-stopping policy over intermediate trial values, orthogonal to the sampler
+      that proposes configurations.
+    introduced_in: mle-hpo
+    intuitive: The component that decides to abandon a trial partway through, based on how
+      it is doing relative to others at the same point.
+    see_also:
+    - successive-halving
+    - sampler
+    - hyperparameter-optimisation
+    term: pruner
+  pruning:
+    formal: Removing subtrees to minimise a cost-complexity criterion trading training error
+      against the number of leaves.
+    introduced_in: ml-trees
+    intuitive: Cutting back a grown tree to stop it memorising. A tree grown to purity fits
+      the training data exactly and generalises badly.
+    see_also:
+    - decision-tree
+    - overfitting
+    - regularisation-term
+    term: pruning
+  pure-function:
+    formal: 'A function with no side effects and referential transparency: replacing a call
+      with its result never changes program behaviour.'
+    introduced_in: py-functions-classes
+    intuitive: A function whose output depends only on its inputs and which changes nothing
+      outside itself. Pure functions are trivially testable and safely cacheable, which is
+      why data pipelines aim for them.
+    see_also:
+    - side-effect
+    - memoisation
+    term: pure function
+  python-object-model:
+    autolink: false
+    formal: Names are bindings in a namespace mapping to object references; objects carry
+      identity, type and value.
+    introduced_in: py-fundamentals
+    intuitive: Python's rule that every value is an object, every name is a reference to one,
+      and assignment binds names rather than copying values.
+    see_also:
+    - mutability
+    - aliasing
+    - namespace
+    term: object model
+  query:
+    autolink: false
+    formal: A row of Q = XW^Q, the learned projection of a token representation into the d_k-dimensional
+      matching space.
+    introduced_in: tf-scaled-dot-product
+    intuitive: The vector a position emits to describe what information it is looking for.
+      It is compared against every key.
+    see_also:
+    - key
+    - value
+    - attention
+    term: query
+  random-forest:
+    formal: An ensemble of trees grown on bootstrap samples with random feature subsampling
+      at each node, aggregated by vote or average.
+    introduced_in: ml-forests
+    intuitive: Bagged decision trees that also choose from a random subset of features at
+      each split. The extra randomness makes the trees disagree more, and disagreement is
+      what averaging exploits.
+    see_also:
+    - bagging
+    - decision-tree
+    - out-of-bag-error
+    - feature-importance
+    term: random forest
+  random-seed:
+    formal: The initial state of a deterministic pseudorandom sequence; identical seeds with
+      identical generators produce identical streams.
+    introduced_in: py-environments
+    intuitive: The starting state of a pseudorandom generator. Fixing it makes a run repeatable;
+      forgetting to fix it makes results impossible to compare.
+    see_also:
+    - reproducibility-term
+    term: random seed
+  random-variable:
+    formal: 'A measurable function X: Ω → ℝ.'
+    introduced_in: math-random-vars
+    intuitive: A quantity whose value depends on the outcome of a random process. It is not
+      a variable in the algebraic sense — it is a function from outcomes to numbers.
+    see_also:
+    - probability-term
+    - expectation
+    - probability-distribution
+    term: random variable
+  randomisation:
+    formal: Independent assignment of treatment, making treatment independent of all pre-treatment
+      covariates and hence of potential outcomes.
+    introduced_in: ds-causation
+    intuitive: Assigning treatment by chance. Because the assignment is independent of everything
+      else — known and unknown — the groups are comparable in expectation, which is what licenses
+      a causal claim.
+    see_also:
+    - causal-effect
+    - confounding
+    - ab-test
+    term: randomisation
+  randomisation-unit:
+    formal: The entity to which treatment is independently assigned; the unit over which independence
+      may be assumed in the analysis.
+    introduced_in: ds-experiments
+    intuitive: What you actually randomise — a user, a session, a request. Get it wrong and
+      the same person sees both variants, or your observations are not independent and every
+      interval is too narrow.
+    see_also:
+    - ab-test
+    - randomisation
+    - sample-ratio-mismatch
+    term: randomisation unit
+  rank:
+    autolink: false
+    formal: The dimension of the column space of A, equal to the number of nonzero singular
+      values.
+    introduced_in: math-matrices
+    intuitive: How many genuinely independent directions a matrix's output can span. A low-rank
+      matrix squashes its input into a thin slice of the output space.
+    see_also:
+    - matrix
+    - low-rank-approximation
+    - singular-value-decomposition
+    term: rank
+  rate-limiting:
+    formal: A server-side policy bounding request frequency per client, typically signalled
+      by HTTP 429 and a retry-after header.
+    introduced_in: py-io-apis-sql
+    intuitive: A cap on how many requests you may make in a period. Exceeding it gets you
+      refused rather than served, so a client has to pace itself.
+    see_also:
+    - rest-api
+    - exponential-backoff
+    term: rate limiting
+  receptive-field:
+    formal: The set of input positions on which a given unit's activation depends; grows with
+      depth, kernel size, stride and dilation.
+    introduced_in: dl-cnns
+    intuitive: The region of the input that can influence one output value.
+    see_also:
+    - convolution-layer
+    - pooling
+    term: receptive field
+  recurrent-network:
+    formal: h_t = phi(W_h h_{t-1} + W_x x_t + b), applied with shared parameters across time
+      steps; equivalent to a deep network whose depth is the sequence length.
+    introduced_in: dl-rnns
+    intuitive: Process a sequence one step at a time, carrying a hidden state that summarises
+      everything seen so far.
+    see_also:
+    - lstm
+    - vanishing-gradient
+    - parameter-sharing
+    - bptt
+    term: recurrent network
+  regression-test:
+    formal: A test encoding previously-observed incorrect behaviour as an assertion against
+      its recurrence.
+    introduced_in: py-engineering
+    intuitive: A test written when a bug is fixed, whose job is to fail if the bug ever returns.
+    see_also:
+    - unit-test
+    - property-based-testing
+    term: regression test
+  regularisation-dl:
+    autolink: false
+    formal: Explicit penalties, stochastic perturbations, early stopping and data augmentation.
+      In deep networks these improve generalisation without being necessary for it, which
+      is the open problem of this part.
+    introduced_in: dl-regularization
+    intuitive: Anything that discourages the network from fitting the training data exactly.
+    see_also:
+    - dropout
+    - weight-decay
+    - data-augmentation
+    - benign-overfitting
+    term: regularisation in deep networks
+  regularisation-term:
+    formal: Minimising f(x) + λR(x), where R penalises some measure of complexity — commonly
+      ‖x‖₂² or ‖x‖₁ — and λ controls the strength.
+    introduced_in: math-optimization
+    intuitive: Adding a penalty for complexity so that a model prefers simpler explanations,
+      trading a little accuracy on the training data for better behaviour on new data.
+    see_also:
+    - norm
+    - convex-function
+    term: regularisation
+  relu:
+    autolink: false
+    formal: The rectified linear unit. Non-saturating for positive inputs, which is what makes
+      deep rectified networks trainable, and identically zero for negative inputs, which is
+      the origin of the dead-unit failure mode.
+    introduced_in: dl-activations
+    intuitive: max(0, z). Passes positives through unchanged and zeroes negatives, so its
+      derivative is exactly 1 wherever it is active.
+    see_also:
+    - activation-function
+    - dead-relu
+    - he-initialization
+    term: ReLU
+  reparameterisation-trick:
+    autolink: false
+    formal: Expressing z ~ q(z|x) as z = mu(x) + sigma(x)*eps with eps ~ N(0, I), moving the
+      stochasticity off the differentiation path.
+    introduced_in: dl-autoencoders
+    intuitive: Write a random sample as a deterministic function of the parameters and an
+      independent noise draw, so the gradient can flow through it.
+    see_also:
+    - variational-autoencoder
+    - latent-space
+    term: reparameterisation trick
+  representation-learning:
+    formal: Learning a mapping from raw inputs to a space in which downstream tasks become
+      easier, typically by optimising an objective that does not require task labels.
+    introduced_in: dl-autoencoders
+    intuitive: Letting the model discover useful features instead of engineering them by hand.
+    see_also:
+    - latent-space
+    - autoencoder
+    - self-supervised-learning
+    term: representation learning
+  reproducibility-term:
+    formal: The property that a computation re-executed under recorded conditions yields identical
+      or statistically equivalent output.
+    introduced_in: py-environments
+    intuitive: Being able to obtain the same result again — same code, same data, same environment,
+      same seed. In machine learning it requires deliberate effort, because so many defaults
+      are nondeterministic.
+    see_also:
+    - lock-file
+    - virtual-environment
+    - random-seed
+    term: reproducibility
+  resampling:
+    aliases:
+    - oversampling
+    - undersampling
+    formal: Modification of the empirical class distribution prior to fitting, by replication,
+      synthesis or subsampling.
+    introduced_in: ds-leakage
+    intuitive: Rebalancing the classes by duplicating or synthesising minority examples, or
+      discarding majority ones. Must happen inside the training fold only.
+    see_also:
+    - class-imbalance
+    - class-weighting
+    - data-leakage-term
+    term: resampling
+  residual:
+    formal: e_i = y_i − ŷ_i. Under least squares the residuals are orthogonal to every column
+      of the design matrix.
+    introduced_in: ml-linear-regression
+    intuitive: 'What the model got wrong on each row: observed minus predicted. Plotting residuals
+      reveals structure the model missed.'
+    see_also:
+    - ordinary-least-squares
+    - homoscedasticity
+    term: residual
+  residual-connection:
+    formal: y = x + F(x), which makes the identity the default mapping and gives the Jacobian
+      an additive identity term, so gradient reaches earlier layers unattenuated.
+    introduced_in: dl-normalization
+    intuitive: Add a layer's input to its output, so the layer only has to learn the difference
+      and the gradient has a direct path backwards.
+    see_also:
+    - signal-propagation
+    - vanishing-gradient
+    - lstm
+    term: residual connection
+  residual-stream:
+    formal: The value of the skip-connection path, x_{ℓ+1} = x_ℓ + f_ℓ(x_ℓ), viewed as a shared
+      communication channel between layers.
+    introduced_in: tf-scaled-dot-product
+    intuitive: The running d_model-dimensional vector carried alongside each token through
+      the network, which every layer reads from and writes back into additively rather than
+      replacing.
+    see_also:
+    - attention
+    term: residual stream
+  rest-api:
+    formal: An HTTP interface following resource-oriented conventions, typically with JSON
+      payloads and status codes carrying outcome semantics.
+    introduced_in: py-io-apis-sql
+    intuitive: A web interface where resources have URLs and HTTP verbs say what to do with
+      them. Most external services this book calls expose one.
+    see_also:
+    - json-term
+    - idempotency
+    - rate-limiting
+    - exponential-backoff
+    term: REST API
+  reverse-mode-ad:
+    autolink: false
+    formal: Accumulation of vector-Jacobian products from the output backwards, at a cost
+      proportional to the forward pass and independent of the number of parameters.
+    introduced_in: dl-backprop
+    intuitive: Differentiate by walking the recorded graph backwards. Cheap when there are
+      many inputs and one output — which is exactly a loss function.
+    see_also:
+    - backpropagation
+    - computational-graph
+    term: reverse-mode automatic differentiation
+  ridge-regression:
+    aliases:
+    - L2 regularised regression
+    formal: Minimises ‖y − Xw‖² + λ‖w‖²; the solution is (XᵀX + λI)⁻¹Xᵀy, which is always
+      invertible for λ > 0.
+    introduced_in: ml-linear-regression
+    intuitive: Least squares with a penalty on the squared size of the coefficients. It shrinks
+      them toward zero, stabilising estimates when features are correlated.
+    see_also:
+    - lasso
+    - regularisation-term
+    - multicollinearity
+    term: ridge regression
+  rmsnorm:
+    autolink: false
+    formal: x -> g * x / sqrt(mean(x^2) + eps). Drops the re-centring of LayerNorm at little
+      quality cost and meaningful compute saving; the standard normalisation in current large
+      language models.
+    introduced_in: dl-normalization
+    intuitive: Layer normalisation with the mean-subtraction removed — divide by the root
+      mean square and nothing else.
+    see_also:
+    - layer-normalization
+    - batch-normalization
+    term: RMSNorm
+  robust-statistic:
+    formal: An estimator with a high breakdown point — the fraction of arbitrarily corrupted
+      observations it tolerates before becoming unbounded.
+    introduced_in: ds-cleaning
+    intuitive: A summary that does not move much when a few points are extreme. The median
+      is robust; the mean is not, and one bad value can move it arbitrarily far.
+    see_also:
+    - outlier
+    - standardisation
+    term: robust statistic
+  roc-curve:
+    acronym: ROC
+    formal: The parametric curve of sensitivity against 1 − specificity over all thresholds;
+      AUC equals P(score of a positive > score of a negative).
+    introduced_in: ml-metrics
+    intuitive: True-positive rate against false-positive rate as the decision threshold moves.
+      The area underneath is the probability the model ranks a random positive above a random
+      negative.
+    see_also:
+    - confusion-matrix
+    - class-imbalance
+    - calibration
+    term: ROC curve
+  run-lineage:
+    formal: 'The recorded provenance graph linking an artefact to its inputs: dataset version,
+      code commit, environment specification, configuration and parent runs.'
+    introduced_in: mle-reproducibility
+    intuitive: The chain from a deployed model back to the exact code, data and settings that
+      produced it.
+    see_also:
+    - reproducibility-term
+    - model-registry
+    - provenance
+    term: run lineage
+  saddle-point:
+    formal: A stationary point whose Hessian has both positive and negative eigenvalues.
+    introduced_in: math-optimization
+    intuitive: A flat point that goes up in some directions and down in others. In high dimensions
+      these vastly outnumber local minima, and they are what optimisation actually spends
+      its time escaping.
+    see_also:
+    - hessian
+    - local-minimum
+    - gradient-descent
+    term: saddle point
+  sample-ratio-mismatch:
+    acronym: SRM
+    formal: A statistically significant deviation of observed allocation proportions from
+      the intended ones, tested with a chi-squared goodness-of-fit test.
+    introduced_in: ds-experiments
+    intuitive: The split between variants is not the ratio you configured. It almost always
+      means the experiment is broken, and the results should be discarded rather than interpreted.
+    see_also:
+    - ab-test
+    - randomisation-unit
+    term: sample ratio mismatch
+  sample-space:
+    formal: The set Ω of all elementary outcomes; an event is a subset of Ω.
+    introduced_in: math-probability
+    intuitive: The set of every outcome that could possibly occur. Getting this wrong is the
+      most common source of probability errors, because a forgotten outcome silently changes
+      every answer.
+    see_also:
+    - probability-term
+    term: sample space
+  sampler:
+    formal: The proposal mechanism in a hyperparameter search — grid, random, evolutionary,
+      or model-based such as TPE or a Gaussian process.
+    introduced_in: mle-hpo
+    intuitive: The component that decides which configuration to try next.
+    see_also:
+    - pruner
+    - tpe
+    - hyperparameter-optimisation
+    term: sampler
+  sampling-distribution:
+    formal: The distribution of a statistic computed from repeated samples of fixed size from
+      a population.
+    introduced_in: math-inference
+    intuitive: The distribution of an estimate across all the samples you might have drawn.
+      It is the single idea that makes statistical inference possible, and the one beginners
+      most often skip.
+    see_also:
+    - estimator
+    - central-limit-theorem
+    - confidence-interval
+    term: sampling distribution
+  saturation:
+    formal: A regime in which |phi'(z)| is small, attenuating the gradient passing through
+      the unit. Sigmoid and tanh saturate at both extremes; ReLU saturates only below zero.
+    introduced_in: dl-activations
+    intuitive: The flat part of an activation function, where the output barely changes and
+      the derivative is nearly zero, so learning stops.
+    see_also:
+    - activation-function
+    - vanishing-gradient
+    - relu
+    term: saturation
+  scaled-dot-product-attention:
+    acronym: SDPA
+    aliases:
+    - SDPA
+    formal: Attention(Q, K, V) = softmax(QKᵀ / √d_k) V, with the softmax taken row-wise.
+    introduced_in: tf-scaled-dot-product
+    intuitive: 'The specific attention formula used by Transformers: score every query-key
+      pair with a dot product, divide by the square root of the key dimension to keep the
+      scores from growing with dimension, softmax the result, and use it to average the values.'
+    see_also:
+    - attention
+    - softmax
+    - attention-head
+    - multi-head-attention
+    term: scaled dot-product attention
+  schema-drift:
+    formal: Unannounced change to the structure or semantics of an input data source over
+      time.
+    introduced_in: ds-collection
+    intuitive: An upstream system quietly changes a column's name, type, units or encoding.
+      Nothing errors; downstream numbers just start being wrong.
+    see_also:
+    - provenance
+    - data-drift-term
+    - data-contract
+    term: schema drift
+  seasonality:
+    formal: A periodic component of a series with a known, fixed period.
+    introduced_in: ds-timeseries
+    intuitive: A pattern that repeats on a fixed cycle — hourly, weekly, annually. It is not
+      noise, and a model that ignores it will be systematically wrong at predictable times.
+    see_also:
+    - stationarity
+    - autocorrelation
+    term: seasonality
+  selection-bias:
+    formal: Bias arising when the probability of inclusion in the sample depends on variables
+      related to the outcome.
+    introduced_in: ds-collection
+    intuitive: The sample you have is not the population you care about, because something
+      systematic decided who got in. Every conclusion then applies to the sample's population,
+      not yours.
+    see_also:
+    - survivorship-bias
+    - data-generating-process
+    - confounding
+    term: selection bias
+  self-attention:
+    aliases:
+    - intra-attention
+    formal: Attention where Q, K and V are all linear projections of a single input representation
+      matrix X.
+    introduced_in: tf-scaled-dot-product
+    intuitive: Attention in which the queries, keys and values all come from the same sequence,
+      so every position reads from every other position of that same sequence rather than
+      from a separate one.
+    see_also:
+    - attention
+    - cross-attention
+    - causal-masking
+    term: self-attention
+  self-supervised-learning:
+    formal: Supervised learning on labels derived automatically from the input's own structure,
+      such as predicting a masked or subsequent element.
+    introduced_in: ml-what-it-is
+    intuitive: Creating a supervised task out of unlabelled data by hiding part of the input
+      and predicting it. It is how language models are trained.
+    see_also:
+    - supervised-learning
+    - unsupervised-learning
+    term: self-supervised learning
+  semantic-versioning:
+    acronym: SemVer
+    formal: Increment MAJOR for incompatible API changes, MINOR for backward-compatible additions,
+      PATCH for backward-compatible fixes.
+    introduced_in: py-environments
+    intuitive: A version-numbering convention, MAJOR.MINOR.PATCH, where a major bump signals
+      a breaking change. It is a promise made by maintainers, not a guarantee enforced by
+      anything.
+    see_also:
+    - dependency-resolution
+    - lock-file
+    term: semantic versioning
+  serialisation:
+    formal: Encoding structured data into a byte sequence, and the inverse decoding.
+    introduced_in: py-io-apis-sql
+    intuitive: Turning an in-memory object into bytes that can be stored or sent, and back
+      again. The format chosen determines what survives the round trip.
+    see_also:
+    - json-term
+    - parquet-term
+    term: serialisation
+  series-term:
+    formal: A one-dimensional labelled array with a homogeneous dtype and an associated index.
+    introduced_in: py-pandas
+    intuitive: 'A single labelled column: one-dimensional data plus an index. Every DataFrame
+      column is one.'
+    see_also:
+    - dataframe
+    - index-alignment
+    term: Series
+  shadow-deployment:
+    formal: Serving a candidate model on production inputs without using its outputs, to compare
+      prediction distributions and latency against the incumbent before any traffic is switched.
+    introduced_in: mle-registry
+    intuitive: Run the new model alongside the live one on real traffic, but throw its answers
+      away. You learn how it behaves without anyone depending on it.
+    see_also:
+    - canary-release
+    - promotion-gate
+    - model-registry
+    term: shadow deployment
+  shallow-copy:
+    formal: A copy that duplicates the container but binds the same element objects; contrast
+      a deep copy, which recursively duplicates them.
+    introduced_in: py-fundamentals
+    intuitive: A copy of a container that shares the objects inside it. The outer list is
+      new; the items are the originals, so mutating an item is still visible through both
+      copies.
+    see_also:
+    - aliasing
+    - mutability
+    term: shallow copy
+  side-effect:
+    formal: A modification of state observable outside the function's own scope.
+    introduced_in: py-functions-classes
+    intuitive: Anything a function does besides returning a value — writing a file, mutating
+      an argument, printing, changing a global. Side effects are what make code hard to test
+      and hard to reason about.
+    see_also:
+    - pure-function
+    - mutability
+    term: side effect
+  signal-propagation:
+    formal: The layer-to-layer evolution of activation and gradient variance; trainability
+      requires it to be approximately preserved, which is what initialisation, normalisation
+      and residual connections each arrange.
+    introduced_in: dl-initialization
+    intuitive: How the scale of activations, and of gradients, changes as they pass through
+      many layers.
+    see_also:
+    - xavier-initialization
+    - he-initialization
+    - vanishing-gradient
+    term: signal propagation
+  silhouette-score:
+    formal: For each point, (b − a)/max(a, b) where a is mean within-cluster distance and
+      b is mean distance to the nearest other cluster.
+    introduced_in: ml-clustering
+    intuitive: How much closer a point is to its own cluster than to the nearest other one,
+      averaged. A rough internal measure of whether a clustering is cohesive.
+    see_also:
+    - clustering-term
+    - k-means
+    term: silhouette score
+  simpsons-paradox:
+    formal: A reversal of the direction of association between marginal and conditional analyses,
+      arising from an unequal distribution of a confounder across groups.
+    introduced_in: ds-causation
+    intuitive: An association that holds in every subgroup reverses when the subgroups are
+      combined. Both numbers are arithmetically correct, and no statistical rule tells you
+      which one answers your question.
+    see_also:
+    - confounding
+    - causal-effect
+    - randomisation
+    term: Simpson's paradox
+  singular-value-decomposition:
+    acronym: SVD
+    aliases:
+    - SVD
+    formal: A = UΣVᵀ with U, V orthogonal and Σ diagonal with non-negative entries ordered
+      descending. Defined for every real matrix, square or not.
+    introduced_in: math-eigen
+    intuitive: A factorisation saying that every linear map, without exception, is a rotation,
+      then an axis-wise stretch, then another rotation. It is the most generally useful matrix
+      factorisation in machine learning.
+    see_also:
+    - low-rank-approximation
+    - rank
+    - spectral-norm
+    - diagonalisation
+    term: singular value decomposition
+  softmax:
+    formal: softmax(z)ᵢ = exp(zᵢ) / Σⱼ exp(zⱼ), mapping ℝᵏ onto the interior of the probability
+      simplex.
+    introduced_in: tf-scaled-dot-product
+    intuitive: A function turning any list of scores into positive numbers that sum to one,
+      where larger scores get exponentially larger shares.
+    see_also:
+    - logit
+    - temperature
+    - attention-weights
+    term: softmax
+  softmax-regression:
+    aliases:
+    - multinomial logistic regression
+    formal: Models P(y = k | x) = softmax(Wx + b)_k, fitted by categorical cross-entropy.
+    introduced_in: ml-logistic
+    intuitive: Logistic regression extended to more than two classes, using a softmax instead
+      of a sigmoid.
+    see_also:
+    - logistic-regression-term
+    - softmax
+    - categorical-distribution
+    term: softmax regression
+  spectral-norm:
+    formal: ‖A‖₂ = max_{‖x‖₂=1} ‖Ax‖₂, equal to the largest singular value.
+    introduced_in: math-eigen
+    intuitive: The largest factor by which a matrix can stretch any vector — its worst-case
+      amplification.
+    see_also:
+    - norm
+    - singular-value-decomposition
+    - condition-number
+    term: spectral norm
+  split-apply-combine:
+    aliases:
+    - groupby
+    formal: Partition rows by a key, evaluate a function per partition, and concatenate the
+      per-group results into a new labelled object.
+    introduced_in: py-pandas
+    intuitive: Split the data into groups, apply a computation to each, and combine the results.
+      Most aggregation questions have this shape.
+    see_also:
+    - dataframe
+    - join-cardinality
+    term: split-apply-combine
+  sql-injection:
+    formal: Injection of attacker-controlled syntax into a dynamically constructed query,
+      altering its parse tree.
+    introduced_in: py-io-apis-sql
+    intuitive: An attack where input is crafted so that it is interpreted as SQL code rather
+      than as data. Caused entirely by building queries with string concatenation.
+    see_also:
+    - parameterised-query
+    term: SQL injection
+  standard-deviation:
+    formal: σ = sqrt(Var(X)).
+    introduced_in: math-covariance
+    intuitive: The square root of the variance, which puts the spread back into the same units
+      as the data and therefore makes it interpretable.
+    see_also:
+    - variance
+    - standardisation
+    - gaussian-distribution
+    term: standard deviation
+  standardisation:
+    aliases:
+    - z-scoring
+    formal: z = (x − μ) / σ, giving mean 0 and variance 1.
+    introduced_in: math-covariance
+    intuitive: Subtracting the mean and dividing by the standard deviation, so that a quantity
+      is expressed in units of its own spread and becomes comparable with others.
+    see_also:
+    - standard-deviation
+    - variance
+    term: standardisation
+  static-analysis:
+    formal: Analysis of source or intermediate representation without execution, including
+      type checking and lint rules.
+    introduced_in: py-engineering
+    intuitive: Checking code without running it — catching type errors, unused variables,
+      and suspicious patterns before they reach a test.
+    see_also:
+    - type-hint
+    - unit-test
+    term: static analysis
+  static-graph:
+    formal: 'Define-and-run execution: the graph is constructed as a data structure before
+      execution, enabling whole-graph optimisation at the cost of expressing data-dependent
+      control flow.'
+    introduced_in: dl-forward
+    intuitive: Build the whole plan first, then run it many times. The compiler can see everything
+      and optimise across the whole thing; you cannot use an ordinary if-statement on a tensor
+      value.
+    term: static computational graph
+  stationarity:
+    formal: A series is weakly stationary if its mean, variance and autocovariance structure
+      are invariant to time shifts.
+    introduced_in: ds-timeseries
+    intuitive: Whether the statistical behaviour of a series stays the same over time. If
+      it does not, a model fitted on the past is describing a world that no longer exists.
+    see_also:
+    - autocorrelation
+    - seasonality
+    - data-drift-term
+    term: stationarity
+  statistical-independence:
+    formal: A and B are independent iff P(A ∩ B) = P(A)P(B), equivalently P(A | B) = P(A).
+    introduced_in: math-probability
+    intuitive: Knowing one thing tells you nothing about the other. Independence is assumed
+      constantly in machine learning and is very often false, which is where a surprising
+      number of failures begin.
+    see_also:
+    - conditional-probability
+    - correlation
+    term: statistical independence
+  statistical-power:
+    formal: 1 − β, where β is the probability of failing to reject a false null.
+    introduced_in: math-inference
+    intuitive: The chance that a test detects a real effect of a given size. Low power means
+      that a negative result tells you almost nothing.
+    see_also:
+    - hypothesis-test
+    - p-value
+    term: statistical power
+  stochastic-gradient-descent:
+    acronym: SGD
+    aliases:
+    - SGD
+    formal: x_{t+1} = x_t − η ∇f_B(x_t), where f_B is the loss on a minibatch B drawn at random;
+      E[∇f_B] = ∇f.
+    introduced_in: math-optimization
+    intuitive: Gradient descent using a small random sample of the data at each step instead
+      of all of it. The gradient is noisier but arrives far sooner, and on large datasets
+      that trade is overwhelmingly worth making.
+    see_also:
+    - gradient-descent
+    - learning-rate
+    - momentum-term
+    term: stochastic gradient descent
+  strides:
+    formal: The per-axis byte offsets between consecutive elements; a transpose permutes the
+      stride tuple and leaves the buffer untouched.
+    introduced_in: py-numpy
+    intuitive: How many bytes to step in memory to move one position along each axis. Strides
+      are what let NumPy transpose or slice an array without copying anything.
+    see_also:
+    - ndarray
+    - array-view
+    - contiguity
+    term: strides
+  structured-logging:
+    formal: Log emission as key-value records, typically JSON, with severity and contextual
+      fields attached.
+    introduced_in: py-engineering
+    intuitive: Emitting logs as machine-readable records with named fields, instead of formatted
+      sentences. It is what makes logs queryable rather than merely readable.
+    see_also:
+    - observability-term
+    - side-effect
+    term: structured logging
+  successive-halving:
+    formal: A bandit allocation scheme that evaluates n configurations at a small resource
+      level, promotes the top fraction to a larger level, and iterates, spending logarithmically
+      more on survivors.
+    introduced_in: mle-hpo
+    intuitive: Start many configurations cheaply, keep the best half, give them more budget,
+      and repeat. Bad configurations are killed early instead of run to completion.
+    see_also:
+    - hyperband
+    - hyperparameter-optimisation
+    - pruner
+    term: successive halving
+  summation-notation:
+    formal: Σ_{i=a}^{b} f(i) denotes f(a) + f(a+1) + ... + f(b), and is empty (equal to 0)
+      when b < a.
+    introduced_in: math-notation
+    intuitive: Shorthand for "add these up". The big sigma says what to add, the symbol underneath
+      says what to count with, and the numbers above and below say where to start and stop.
+    see_also:
+    - dot-product
+    term: summation notation
+  supervised-learning:
+    formal: Estimating a mapping from inputs to outputs given labelled pairs drawn from a
+      joint distribution.
+    introduced_in: ml-what-it-is
+    intuitive: Learning from examples that come with the right answer attached, so the model
+      can be scored against a known target during training.
+    see_also:
+    - unsupervised-learning
+    - self-supervised-learning
+    - generalisation
+    term: supervised learning
+  support-vector:
+    formal: A training point with a nonzero dual coefficient in the SVM solution.
+    introduced_in: ml-svm
+    intuitive: A training point that touches or violates the margin. Only these points determine
+      the boundary; deleting any other changes nothing.
+    see_also:
+    - margin
+    - kernel-trick
+    term: support vector
+  surrogate-loss:
+    formal: A differentiable function optimised in place of a non-differentiable or non-decomposable
+      evaluation metric, chosen so that decreasing it tends to improve the metric.
+    introduced_in: dl-losses
+    intuitive: The differentiable stand-in you actually optimise because the thing you care
+      about — accuracy, F1, revenue — has no usable gradient.
+    term: surrogate loss
+  survivorship-bias:
+    formal: A selection bias in which observations are conditioned on surviving a process
+      correlated with the outcome under study.
+    introduced_in: ds-collection
+    intuitive: Analysing only the things that made it through some filter, and drawing conclusions
+      about the filter as if the failures had never existed.
+    see_also:
+    - selection-bias
+    - data-generating-process
+    term: survivorship bias
+  target-encoding:
+    aliases:
+    - mean encoding
+    formal: Encoding a category by an aggregate of the target over rows sharing it, computed
+      out-of-fold to avoid leakage.
+    introduced_in: ds-feature-eng
+    intuitive: Replacing a category with the average target value for that category. Compact
+      and powerful for high-cardinality columns, and one of the easiest ways to leak the target
+      into your features.
+    see_also:
+    - cardinality
+    - target-leakage
+    - feature-engineering
+    term: target encoding
+  target-leakage:
+    formal: Inclusion of a feature whose value is determined, wholly or partly, by the target.
+    introduced_in: ds-leakage
+    intuitive: A feature that is a consequence of the outcome rather than a cause of it —
+      a field only populated after the event you are predicting.
+    see_also:
+    - data-leakage-term
+    - target-encoding
+    term: target leakage
+  teacher-forcing:
+    formal: Conditioning each step on ground-truth history during training while inference
+      conditions on generated history, producing a train/inference mismatch known as exposure
+      bias.
+    introduced_in: dl-rnns
+    intuitive: During training, feed the true previous token rather than the model's own prediction
+      — faster to train, and different from how it will be used.
+    see_also:
+    - recurrent-network
+    - bptt
+    term: teacher forcing
+  technical-debt-ml:
+    autolink: false
+    formal: The system-level debt characterised by Sculley et al., including entanglement
+      (CACE), correction cascades, undeclared consumers, data dependency debt, glue code,
+      pipeline jungles and configuration debt.
+    introduced_in: part-05-intro
+    intuitive: The maintenance cost that accumulates around a model rather than in it — glue
+      code, undeclared consumers, configuration sprawl.
+    see_also:
+    - ml-test-score
+    - model-registry
+    - training-serving-skew
+    term: hidden technical debt
+  temperature:
+    autolink: false
+    formal: The parameter τ in softmax(z/τ); as τ → 0 the softmax approaches an argmax, and
+      as τ → ∞ it approaches the uniform distribution.
+    introduced_in: tf-scaled-dot-product
+    intuitive: A divisor applied to logits before the softmax. Below one it sharpens the distribution
+      toward the top choice; above one it flattens it.
+    see_also:
+    - softmax
+    - logit
+    term: temperature
+  temporal-leakage:
+    formal: Use of information generated later than the prediction timestamp of the instance
+      being predicted.
+    introduced_in: ds-leakage
+    intuitive: Training on data from after the prediction point. Random shuffling of time-ordered
+      data does this automatically.
+    see_also:
+    - data-leakage-term
+    - walk-forward-validation
+    - stationarity
+    term: temporal leakage
+  tensor:
+    formal: An $n$-dimensional array of numeric elements with a shape, a dtype and (during
+      training) a reference to the graph node that produced it.
+    introduced_in: dl-forward
+    intuitive: A multidimensional array, plus the framework machinery that lets it record
+      how it was computed. In deep learning the word means the data structure, not the geometric
+      object.
+    term: tensor
+  test-fixture:
+    autolink: false
+    formal: A declared dependency providing test state, with setup and teardown managed by
+      the test framework.
+    introduced_in: py-engineering
+    intuitive: Reusable setup shared by several tests — a temporary database, a sample dataset,
+      a configured client — created before and cleaned up after.
+    see_also:
+    - unit-test
+    term: fixture
+  tidy-data:
+    aliases:
+    - long format
+    formal: A normalised tabular form in which each variable is a column, each observation
+      a row, and each type of observational unit a table.
+    introduced_in: py-pandas
+    intuitive: One row per observation, one column per variable. Most analysis tools expect
+      this shape, and most raw data does not arrive in it.
+    see_also:
+    - dataframe
+    - split-apply-combine
+    term: tidy data
+  token:
+    autolink: false
+    formal: An element of a finite vocabulary of size V, produced by a tokeniser that maps
+      a byte or character string to a sequence of vocabulary indices.
+    introduced_in: tf-scaled-dot-product
+    intuitive: The unit a language model actually reads and writes — usually a common word,
+      a word fragment, or a piece of punctuation, not a character and not always a whole word.
+    see_also:
+    - embedding
+    - vocabulary
+    term: token
+  tpe:
+    autolink: false
+    formal: A model-based sampler that fits densities l(x) over well-performing trials and
+      g(x) over the rest, and maximises the ratio l(x)/g(x), which is monotone in expected
+      improvement.
+    introduced_in: mle-hpo
+    intuitive: Model what good configurations look like and what bad ones look like, then
+      propose points that are much more likely under the good model.
+    see_also:
+    - sampler
+    - bayesian-optimisation
+    - hyperparameter-optimisation
+    term: tree-structured Parzen estimator
+  training-serving-skew:
+    formal: A systematic difference between the feature distribution at training time and
+      at inference time arising from the pipeline rather than from the world. Causes include
+      divergent code paths, point-in-time join errors, freshness gaps, and features unavailable
+      within the serving budget.
+    introduced_in: mle-pipelines
+    intuitive: The model sees a different number in production from the one it was trained
+      on, for the same conceptual feature. Nothing errors; the model is simply answering a
+      question it was never asked.
+    see_also:
+    - point-in-time-correctness
+    - feature-store
+    - data-leakage-term
+    term: training/serving skew
+  translation-equivariance:
+    autolink: false
+    formal: f(T_v x) = T_v f(x) for a translation T_v; a property of convolution that encodes
+      a prior about images directly in the architecture.
+    introduced_in: dl-cnns
+    intuitive: Shift the input and the output shifts the same way — the network does not have
+      to relearn a pattern at every position.
+    see_also:
+    - convolution-layer
+    - parameter-sharing
+    - inductive-bias-ml
+    term: translation equivariance
+  transpose:
+    formal: (Aᵀ)_{ij} = A_{ji}; (AB)ᵀ = BᵀAᵀ.
+    introduced_in: math-matrices
+    intuitive: Flipping a matrix over its diagonal, so rows become columns.
+    see_also:
+    - matrix
+    - matrix-multiplication
+    term: transpose
+  truthiness:
+    formal: The value returned by __bool__, or by __len__ being nonzero when __bool__ is absent;
+      objects defining neither are always truthy.
+    introduced_in: py-fundamentals
+    intuitive: Python's rule for what counts as true in a condition. Empty containers, zero,
+      None and empty strings are false; almost everything else is true. Convenient, and a
+      reliable source of bugs where an empty result and a missing result must be distinguished.
+    see_also:
+    - python-object-model
+    term: truthiness
+  type-hint:
+    aliases:
+    - type annotation
+    formal: An annotation as specified by PEP 484, stored in __annotations__ and ignored by
+      the interpreter except where a library chooses to inspect it.
+    introduced_in: py-functions-classes
+    intuitive: A note in the source saying what type a variable or parameter is expected to
+      be. Python does not enforce it at runtime; static checkers and humans read it.
+    see_also:
+    - duck-typing
+    - protocol-term
+    - static-analysis
+    term: type hint
+  ufunc:
+    aliases:
+    - ufunc
+    formal: A vectorised function operating element-wise on ndarrays with broadcasting and
+      type-promotion rules, implemented in compiled code.
+    introduced_in: py-numpy
+    intuitive: A NumPy function that applies element-wise across arrays and broadcasts automatically
+      — np.exp, np.maximum, and the arithmetic operators.
+    see_also:
+    - vectorisation
+    - broadcasting
+    - ndarray
+    term: universal function
+  underfitting:
+    formal: High approximation error caused by a hypothesis space that cannot express the
+      target function.
+    introduced_in: ml-metrics
+    intuitive: The model is too simple to represent the pattern, so it is wrong on both training
+      and test data in the same way.
+    see_also:
+    - overfitting
+    - bias-variance-tradeoff
+    - inductive-bias-ml
+    term: underfitting
+  unit-test:
+    formal: An executable assertion over the behaviour of a single unit in isolation from
+      its collaborators.
+    introduced_in: py-engineering
+    intuitive: An automated check that one small piece of code does what it should. Its value
+      is not in catching bugs today but in catching them when the code changes next year.
+    see_also:
+    - test-fixture
+    - property-based-testing
+    - regression-test
+    term: unit test
+  unit-vector:
+    formal: A vector v with ‖v‖₂ = 1; any nonzero v can be normalised to v/‖v‖₂.
+    introduced_in: math-norms
+    intuitive: A vector of length one — pure direction with the magnitude stripped out.
+    see_also:
+    - norm
+    - cosine-similarity
+    term: unit vector
+  universal-approximation:
+    formal: Finite superpositions of a sigmoidal function composed with affine maps are dense
+      in the continuous functions on a compact subset of R^n.
+    introduced_in: dl-neural-networks
+    intuitive: A single hidden layer, made wide enough, can approximate any continuous function
+      as closely as you like.
+    see_also:
+    - hidden-layer
+    - depth-vs-width
+    term: universal approximation
+  unsupervised-learning:
+    formal: Estimating structure in the marginal distribution of the inputs without target
+      values.
+    introduced_in: ml-what-it-is
+    intuitive: Finding structure in data with no labels — groups, directions of variation,
+      or unusual points. There is no ground truth, which is what makes evaluating it genuinely
+      hard.
+    see_also:
+    - supervised-learning
+    - clustering-term
+    - dimensionality-reduction
+    term: unsupervised learning
+  value:
+    autolink: false
+    formal: A row of V = XW^V, in a d_v-dimensional space that need not equal d_k.
+    introduced_in: tf-scaled-dot-product
+    intuitive: The vector a position actually contributes when it is attended to. What gets
+      returned is decoupled from what gets matched.
+    see_also:
+    - query
+    - key
+    - attention
+    term: value
+  vanishing-gradient:
+    formal: Exponential decay of the backpropagated signal when the product of layer Jacobians
+      has spectral norm consistently below one.
+    introduced_in: dl-activations
+    intuitive: The gradient shrinks as it travels back through layers, so early layers barely
+      learn.
+    see_also:
+    - exploding-gradient
+    - saturation
+    - residual-connection
+    - lstm
+    term: vanishing gradient
+  variance:
+    formal: Var(X) = E[(X − E[X])²] = E[X²] − E[X]².
+    introduced_in: math-covariance
+    intuitive: How spread out a random quantity is around its mean, measured in squared units.
+    see_also:
+    - standard-deviation
+    - covariance
+    - expectation
+    term: variance
+  variational-autoencoder:
+    autolink: false
+    formal: A latent-variable model trained by maximising the evidence lower bound, with gradients
+      passed through the sampling step by reparameterisation.
+    introduced_in: dl-autoencoders
+    intuitive: An autoencoder whose code is a distribution rather than a point, so you can
+      sample new data from it.
+    see_also:
+    - autoencoder
+    - latent-space
+    - reparameterisation-trick
+    term: variational autoencoder
+  vector:
+    formal: An element of ℝ^n. In this book vectors are column vectors unless transposed.
+    introduced_in: math-vectors
+    intuitive: An ordered list of numbers, which can equally be read as a point in space or
+      as an arrow with direction and length. Both readings are used constantly and it is worth
+      being able to switch between them freely.
+    see_also:
+    - dot-product
+    - vector-space
+    - norm
+    - embedding
+    term: vector
+  vector-space:
+    formal: A set closed under vector addition and scalar multiplication, satisfying the eight
+      vector-space axioms.
+    introduced_in: math-vectors
+    intuitive: A collection of vectors closed under addition and scaling — add any two members
+      or stretch one, and you are still inside.
+    see_also:
+    - vector
+    - linear-combination
+    - linear-map
+    term: vector space
+  vectorisation:
+    aliases:
+    - vectorized
+    - vectorised
+    formal: Replacing element-wise interpreted iteration with a single call into a compiled
+      kernel operating over a contiguous buffer.
+    introduced_in: py-numpy
+    intuitive: Expressing a computation as an operation over whole arrays rather than as a
+      Python loop, so the work happens in compiled code. Typically one to two orders of magnitude
+      faster.
+    see_also:
+    - ndarray
+    - ufunc
+    - broadcasting
+    term: vectorisation
+  virtual-environment:
+    aliases:
+    - venv
+    formal: A directory containing an isolated interpreter and site-packages, activated by
+      placing its bin directory first on PATH.
+    introduced_in: py-environments
+    intuitive: A private, per-project installation of Python packages, so that two projects
+      needing incompatible versions of the same library can coexist.
+    see_also:
+    - dependency-resolution
+    - lock-file
+    - reproducibility-term
+    term: virtual environment
+  vocabulary:
+    autolink: false
+    formal: The finite set of V symbols over which the model's output distribution is defined.
+    introduced_in: tf-scaled-dot-product
+    intuitive: The fixed inventory of tokens a model can read or produce.
+    see_also:
+    - token
+    term: vocabulary
+  walk-forward-validation:
+    aliases:
+    - rolling-origin validation
+    formal: Repeated evaluation over successive time-ordered splits in which the training
+      window always precedes the test window.
+    introduced_in: ds-timeseries
+    intuitive: Always train on the past and test on the future, sliding the boundary forward.
+      It is the only honest way to validate a time-ordered model.
+    see_also:
+    - temporal-leakage
+    - stationarity
+    term: walk-forward validation
+  warmup:
+    formal: A schedule prefix that avoids large early steps while adaptive second-moment estimates
+      are still poorly conditioned and the loss surface near initialisation is sharpest.
+    introduced_in: dl-lr-schedules
+    intuitive: Start with a tiny learning rate and ramp it up over the first few hundred or
+      thousand steps.
+    see_also:
+    - learning-rate-schedule
+    - adam
+    term: warmup
+  weight-decay:
+    formal: The update w <- (1 - eta*lambda) w applied alongside the gradient step. Equivalent
+      to an L2 penalty under plain SGD and NOT equivalent under an adaptive optimiser.
+    introduced_in: dl-optimizers
+    intuitive: Shrink every weight slightly towards zero at each step.
+    see_also:
+    - adamw
+    - regularisation-dl
+    - ridge-regression
+    term: weight decay
+  whitening:
+    formal: Transforming data to have identity covariance, by dividing each principal component
+      by its standard deviation.
+    introduced_in: ml-pca
+    intuitive: Rescaling the principal components to equal variance, so no direction dominates
+      by scale alone.
+    see_also:
+    - principal-component-analysis
+    - standardisation
+    - condition-number
+    term: whitening
+  winsorisation:
+    aliases:
+    - clipping
+    formal: Replacing values beyond chosen quantiles with the quantile values themselves.
+    introduced_in: ds-cleaning
+    intuitive: Capping extreme values at a chosen percentile instead of deleting the rows.
+      Keeps the observation and limits its influence.
+    see_also:
+    - outlier
+    - robust-statistic
+    term: winsorisation
+  xavier-initialization:
+    autolink: false
+    formal: Sampling weights with variance 2/(fan_in + fan_out), derived by requiring the
+      activation variance and the gradient variance to be preserved across a layer with a
+      symmetric, near-linear activation.
+    introduced_in: dl-initialization
+    intuitive: Scale the initial weights so that a signal neither grows nor shrinks as it
+      passes through a layer.
+    see_also:
+    - he-initialization
+    - signal-propagation
+    term: Xavier initialisation

@@ -1,0 +1,20 @@
+# ---- build pipeline ----
+markdown-it-py==3.0.0
+mdit-py-plugins==0.4.2
+linkify-it-py==2.0.3
+Pygments==2.19.1
+Jinja2==3.1.5
+PyYAML==6.0.2
+pypdf==5.3.0
+lxml==5.3.1
+
+# ---- code-verification harness (Tier A execution) ----
+numpy==2.2.3
+pandas==2.2.3
+scikit-learn==1.6.1
+matplotlib==3.10.0
+scipy==1.15.2
+
+# Installed from the CPU-only index:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+torch==2.13.0
