@@ -2821,3 +2821,399 @@ entries:
       Tokenizer replacement and vocabulary adaptation became recognised
       interventions for adapting a model to a new language.
     descendants: ["vocabulary adaptation", "tokenizer transplant methods"]
+
+  # --- Part IX — Foundation Models ---------------------------------------------
+
+  bommasani2021:
+    title: "On the Opportunities and Risks of Foundation Models"
+    authors: ["Rishi Bommasani", "Drew A. Hudson", "Ehsan Adeli", "Russ Altman",
+              "Simran Arora", "and 123 others"]
+    year: 2021
+    venue: "Stanford CRFM report (arXiv preprint, not peer-reviewed)"
+    arxiv: "2108.07258"
+    url: "https://arxiv.org/abs/2108.07258"
+    verified: true
+    verified_on: "2026-08-25"
+    verified_via: "arXiv abstract page arxiv.org/abs/2108.07258 — title and v1 date of 16 August 2021 confirmed; the page lists 114 authors individually plus 14 not shown, 128 in total, from Stanford's Center for Research on Foundation Models. NOTE: a report, not a peer-reviewed paper, and the term it coins is its own."
+    contribution: >
+      Named the category — a model trained on broad data at scale and adaptable
+      to many downstream tasks — and catalogued the capabilities, risks, and
+      the homogenisation that follows from many applications sharing one base.
+    why_it_mattered: >
+      It gave the field a word for what had happened, and its central
+      observation is the uncomfortable one: when everything is built on a few
+      bases, every defect of a base is inherited by everything above it.
+    what_changed_after: >
+      "Foundation model" replaced "large pretrained model" as the term of art,
+      and the homogenisation argument became the standard framing for systemic
+      risk in AI deployment.
+    descendants: ["the term itself", "systemic-risk framings", "model-provenance work"]
+
+  brown2020:
+    title: "Language Models are Few-Shot Learners"
+    authors: ["Tom B. Brown", "Benjamin Mann", "Nick Ryder", "Melanie Subbiah",
+              "Jared Kaplan", "Prafulla Dhariwal", "and 25 others"]
+    year: 2020
+    venue: "NeurIPS 2020 (arXiv preprint May 2020)"
+    arxiv: "2005.14165"
+    url: "https://arxiv.org/abs/2005.14165"
+    verified: true
+    verified_on: "2026-08-25"
+    verified_via: "arXiv abstract page arxiv.org/abs/2005.14165 — title, 31 authors, v1 dated 28 May 2020 confirmed; abstract confirms GPT-3 at 175B parameters and the claim that scaling improves task-agnostic few-shot performance. The page itself lists no venue; NeurIPS 2020 is from the proceedings."
+    contribution: >
+      Showed that a sufficiently large language model performs many tasks from
+      a prompt containing a few examples, with no gradient updates at all —
+      turning task adaptation from a training problem into an inference one.
+    why_it_mattered: >
+      In-context learning is the interface every subsequent product is built
+      on. It also made model scale, rather than task-specific engineering, the
+      obvious lever, which set the field's direction for years.
+    what_changed_after: >
+      Prompting became a discipline, fine-tuning became optional for many
+      tasks, and the API-served general model became the dominant deployment
+      shape.
+    descendants: ["prompting", "in-context learning research", "instruction tuning"]
+
+  wei2022emergent:
+    title: "Emergent Abilities of Large Language Models"
+    authors: ["Jason Wei", "Yi Tay", "Rishi Bommasani", "Colin Raffel",
+              "Barret Zoph", "Sebastian Borgeaud", "Dani Yogatama",
+              "Maarten Bosma", "Denny Zhou", "Donald Metzler", "Ed H. Chi",
+              "Tatsunori Hashimoto", "Oriol Vinyals", "Percy Liang",
+              "Jeff Dean", "William Fedus"]
+    year: 2022
+    venue: "TMLR 2022 (arXiv preprint June 2022)"
+    arxiv: "2206.07682"
+    url: "https://arxiv.org/abs/2206.07682"
+    verified: true
+    verified_on: "2026-08-25"
+    verified_via: "arXiv abstract page arxiv.org/abs/2206.07682 — title, all sixteen authors, v1 dated 15 June 2022, and the TMLR 2022 venue confirmed on the page."
+    contribution: >
+      Documented tasks on which performance is near chance for smaller models
+      and rises sharply past some scale, and defined an emergent ability as one
+      not present in smaller models and not predictable by extrapolating from
+      them.
+    why_it_mattered: >
+      It made unpredictability a named property of scaling, which mattered far
+      beyond the technical result — it became a central premise in arguments
+      about AI risk and about why capability forecasting is hard.
+    what_changed_after: >
+      A large literature on emergence, and then a direct challenge in
+      schaeffer2023 arguing the phenomenon is an artefact of metric choice.
+    descendants: ["schaeffer2023", "capability forecasting", "scaling-law critiques"]
+
+  schaeffer2023:
+    title: "Are Emergent Abilities of Large Language Models a Mirage?"
+    authors: ["Rylan Schaeffer", "Brando Miranda", "Sanmi Koyejo"]
+    year: 2023
+    venue: "NeurIPS 2023 (arXiv preprint April 2023)"
+    arxiv: "2304.15004"
+    url: "https://arxiv.org/abs/2304.15004"
+    verified: true
+    verified_on: "2026-08-25"
+    verified_via: "arXiv abstract page arxiv.org/abs/2304.15004 — title, three authors, v1 dated 28 April 2023 confirmed; abstract confirms the claim that apparent emergence follows from the researcher's choice of metric rather than from a change in model behaviour. The page lists no venue; NeurIPS 2023 is from the proceedings."
+    contribution: >
+      Argued that emergent abilities appear when a discontinuous metric —
+      exact-match accuracy on a multi-step task — is applied to a smoothly
+      improving underlying quantity, and showed the sharp curves disappear
+      under continuous metrics.
+    why_it_mattered: >
+      It is the cleanest available demonstration that a measurement choice can
+      manufacture a qualitative phenomenon, and it forces any emergence claim
+      to state its metric before it can be evaluated.
+    what_changed_after: >
+      Emergence claims are now expected to report a continuous metric alongside
+      the discontinuous one; the debate is not fully settled.
+    descendants: ["metric-sensitivity analyses", "continuous evaluation metrics"]
+
+  wei2022flan:
+    title: "Finetuned Language Models Are Zero-Shot Learners"
+    authors: ["Jason Wei", "Maarten Bosma", "Vincent Y. Zhao", "Kelvin Guu",
+              "Adams Wei Yu", "Brian Lester", "Nan Du", "Andrew M. Dai",
+              "Quoc V. Le"]
+    year: 2022
+    venue: "ICLR 2022 (arXiv preprint September 2021)"
+    arxiv: "2109.01652"
+    url: "https://arxiv.org/abs/2109.01652"
+    verified: true
+    verified_on: "2026-08-25"
+    verified_via: "arXiv abstract page arxiv.org/abs/2109.01652 — title, nine authors, v1 dated 3 September 2021 confirmed. The page lists no venue; ICLR 2022 acceptance is from the conference proceedings."
+    contribution: >
+      Introduced instruction tuning: fine-tune on many tasks phrased as natural
+      language instructions, and zero-shot performance on held-out task types
+      improves substantially.
+    why_it_mattered: >
+      It separated the capability from the interface. The base model already
+      could do the tasks; instruction tuning taught it to recognise a request
+      as a request, which is most of what makes a model feel usable.
+    what_changed_after: >
+      Instruction tuning became a mandatory stage between pretraining and
+      deployment, and instruction datasets became their own research area.
+    descendants: ["FLAN collection", "instruction datasets", "chat models"]
+
+  ouyang2022:
+    title: "Training language models to follow instructions with human feedback"
+    authors: ["Long Ouyang", "Jeff Wu", "Xu Jiang", "Diogo Almeida",
+              "Carroll L. Wainwright", "Pamela Mishkin", "and 14 others"]
+    year: 2022
+    venue: "NeurIPS 2022 (arXiv preprint March 2022)"
+    arxiv: "2203.02155"
+    url: "https://arxiv.org/abs/2203.02155"
+    verified: true
+    verified_on: "2026-08-25"
+    verified_via: "arXiv abstract page arxiv.org/abs/2203.02155 — title, 20 authors, v1 dated 4 March 2022 confirmed. The page lists no venue; NeurIPS 2022 is from the proceedings."
+    contribution: >
+      The InstructGPT pipeline: supervised fine-tuning on demonstrations, a
+      reward model fitted to human preference comparisons, then policy
+      optimisation against that reward with PPO.
+    why_it_mattered: >
+      Its headline result is the one to remember — a 1.3B aligned model was
+      preferred by human raters to the 175B base model. Alignment bought more
+      perceived quality than two orders of magnitude of scale.
+    what_changed_after: >
+      Three-stage alignment became the standard recipe, and "helpfulness" became
+      something optimised directly rather than hoped for.
+    descendants: ["ChatGPT", "RLHF as standard practice", "rafailov2023"]
+
+  christiano2017:
+    title: "Deep reinforcement learning from human preferences"
+    authors: ["Paul Christiano", "Jan Leike", "Tom B. Brown", "Miljan Martic",
+              "Shane Legg", "Dario Amodei"]
+    year: 2017
+    venue: "NIPS 2017 (arXiv preprint June 2017)"
+    arxiv: "1706.03741"
+    url: "https://arxiv.org/abs/1706.03741"
+    verified: true
+    verified_on: "2026-08-25"
+    verified_via: "arXiv abstract page arxiv.org/abs/1706.03741 — title, six authors, v1 dated 12 June 2017 confirmed; abstract confirms learning from preferences between trajectory pairs on under 1% of interactions. The page lists no venue; NIPS 2017 is from the proceedings."
+    contribution: >
+      Established that a reward function can be learned from human comparisons
+      between pairs of trajectories, rather than specified by hand, and that
+      this works on tasks nobody can write a reward for.
+    why_it_mattered: >
+      It is the origin of the preference-comparison paradigm underneath all of
+      RLHF, and it predates language-model alignment by five years — the method
+      was developed on Atari and simulated robotics.
+    what_changed_after: >
+      Preference learning became the standard answer to "the objective cannot be
+      written down", which is the situation every alignment problem is in.
+    descendants: ["stiennon2020", "ouyang2022", "all of RLHF"]
+
+  stiennon2020:
+    title: "Learning to summarize from human feedback"
+    authors: ["Nisan Stiennon", "Long Ouyang", "Jeff Wu", "Daniel M. Ziegler",
+              "Ryan Lowe", "Chelsea Voss", "Alec Radford", "Dario Amodei",
+              "Paul Christiano"]
+    year: 2020
+    venue: "NeurIPS 2020 (arXiv preprint September 2020)"
+    arxiv: "2009.01325"
+    url: "https://arxiv.org/abs/2009.01325"
+    verified: true
+    verified_on: "2026-08-25"
+    verified_via: "arXiv abstract page arxiv.org/abs/2009.01325 — title, nine authors, v1 dated 2 September 2020, NeurIPS 2020 venue confirmed on the page."
+    contribution: >
+      Carried preference learning to language, training a reward model on human
+      comparisons of summaries and optimising against it — with the result that
+      the optimised model beat the human reference summaries.
+    why_it_mattered: >
+      It is the bridge between christiano2017 and ouyang2022, and it is where
+      reward over-optimisation was first documented carefully in the language
+      setting: push too hard on the learned reward and true quality falls.
+    what_changed_after: >
+      The KL penalty against the reference policy became standard, precisely to
+      limit that over-optimisation.
+    descendants: ["ouyang2022", "reward-hacking literature", "KL-regularised RLHF"]
+
+  schulman2017ppo:
+    title: "Proximal Policy Optimization Algorithms"
+    authors: ["John Schulman", "Filip Wolski", "Prafulla Dhariwal",
+              "Alec Radford", "Oleg Klimov"]
+    year: 2017
+    venue: "arXiv preprint (July 2017), no peer-reviewed venue"
+    arxiv: "1707.06347"
+    url: "https://arxiv.org/abs/1707.06347"
+    verified: true
+    verified_on: "2026-08-25"
+    verified_via: "arXiv abstract page arxiv.org/abs/1707.06347 — title, five authors, v1 dated 20 July 2017 confirmed; the page states no venue. NOTE: among the most-cited papers in machine learning and never formally published."
+    contribution: >
+      A policy-gradient method that constrains each update with a clipped
+      surrogate objective, giving most of the stability of trust-region methods
+      at a fraction of the implementation cost.
+    why_it_mattered: >
+      It is the optimiser inside the RL stage of RLHF, and its clipping is why
+      that stage is trainable at all — an unconstrained policy gradient on a
+      language model diverges.
+    what_changed_after: >
+      PPO became the default RL algorithm across domains, and its role in RLHF
+      is what rafailov2023 later argued could be removed entirely.
+    descendants: ["RLHF", "rafailov2023", "RL fine-tuning of reasoning models"]
+
+  rafailov2023:
+    title: "Direct Preference Optimization: Your Language Model is Secretly a Reward Model"
+    authors: ["Rafael Rafailov", "Archit Sharma", "Eric Mitchell",
+              "Stefano Ermon", "Christopher D. Manning", "Chelsea Finn"]
+    year: 2023
+    venue: "NeurIPS 2023 (arXiv preprint May 2023)"
+    arxiv: "2305.18290"
+    url: "https://arxiv.org/abs/2305.18290"
+    verified: true
+    verified_on: "2026-08-25"
+    verified_via: "arXiv abstract page arxiv.org/abs/2305.18290 — title, six authors, v1 dated 29 May 2023 confirmed; abstract confirms the reparameterisation that yields the optimal policy in closed form. The page lists no venue; NeurIPS 2023 is from the proceedings."
+    contribution: >
+      Showed that the RLHF objective has a closed-form solution relating the
+      optimal policy to the reward, which lets preference data train the policy
+      directly with a simple classification loss — no reward model, no RL loop.
+    why_it_mattered: >
+      It removed the most operationally painful stage of alignment. A method
+      that needs one training run instead of three, with no sampling loop, gets
+      adopted regardless of small quality differences.
+    what_changed_after: >
+      DPO and its variants became the default for open-weight alignment, and a
+      family of descendants followed adjusting its implicit assumptions.
+    descendants: ["IPO", "KTO", "ORPO", "open-model alignment practice"]
+
+  bai2022:
+    title: "Constitutional AI: Harmlessness from AI Feedback"
+    authors: ["Yuntao Bai", "Saurav Kadavath", "Sandipan Kundu",
+              "Amanda Askell", "Jackson Kernion", "and 46 others"]
+    year: 2022
+    venue: "arXiv preprint (December 2022), no peer-reviewed venue"
+    arxiv: "2212.08073"
+    url: "https://arxiv.org/abs/2212.08073"
+    verified: true
+    verified_on: "2026-08-25"
+    verified_via: "arXiv abstract page arxiv.org/abs/2212.08073 — title, 51 authors, v1 dated 15 December 2022 confirmed; abstract confirms training via AI feedback against a written list of principles rather than human harmfulness labels. The page states no venue."
+    contribution: >
+      Replaced human harmfulness labels with model-generated critiques against
+      an explicit written constitution, producing the preference data for the
+      alignment stage without human annotation of harmful content.
+    why_it_mattered: >
+      It makes the normative content of alignment an artefact you can read.
+      With human preference labels the values are implicit in the annotations;
+      with a constitution they are a document that can be argued about.
+    what_changed_after: >
+      AI-generated feedback became a standard component, and explicit written
+      principles became a recognised alternative to purely learned preferences.
+    descendants: ["RLAIF", "explicit model specifications", "self-critique methods"]
+
+  hinton2015:
+    title: "Distilling the Knowledge in a Neural Network"
+    authors: ["Geoffrey Hinton", "Oriol Vinyals", "Jeff Dean"]
+    year: 2015
+    venue: "NIPS 2014 Deep Learning Workshop (arXiv preprint March 2015)"
+    arxiv: "1503.02531"
+    url: "https://arxiv.org/abs/1503.02531"
+    verified: true
+    verified_on: "2026-08-25"
+    verified_via: "arXiv abstract page arxiv.org/abs/1503.02531 — title, three authors, v1 dated 9 March 2015, and the NIPS 2014 Deep Learning Workshop venue confirmed on the page."
+    contribution: >
+      Train a small student on the large teacher's full output distribution
+      rather than on hard labels, softened by a temperature — so the student
+      learns the teacher's relative confidences, not just its answers.
+    why_it_mattered: >
+      The insight is that the teacher's wrong answers carry information: which
+      classes it confused tells the student about the structure of the problem
+      in a way a one-hot label cannot.
+    what_changed_after: >
+      Distillation became the standard route from a research-scale model to a
+      deployable one, and it is how most small production models are made.
+    descendants: ["DistilBERT", "distilled LLMs", "synthetic-data training"]
+
+  gao2020pile:
+    title: "The Pile: An 800GB Dataset of Diverse Text for Language Modeling"
+    authors: ["Leo Gao", "Stella Biderman", "Sid Black", "Laurence Golding",
+              "Travis Hoppe", "and 7 others"]
+    year: 2020
+    venue: "arXiv preprint (December 2020), no peer-reviewed venue"
+    arxiv: "2101.00027"
+    url: "https://arxiv.org/abs/2101.00027"
+    verified: true
+    verified_on: "2026-08-25"
+    verified_via: "arXiv abstract page arxiv.org/abs/2101.00027 — title, 12 authors, v1 dated 31 December 2020 confirmed; the page states no venue."
+    contribution: >
+      An 800GB corpus assembled from 22 documented sources, published with the
+      composition stated rather than described — which was unusual then and is
+      unusual now.
+    why_it_mattered: >
+      It made pretraining data a subject that could be studied. Before it, the
+      corpora behind the leading models were described in a paragraph and
+      released to nobody.
+    what_changed_after: >
+      Open pretraining corpora became normal, and dataset composition became a
+      reported variable rather than a footnote.
+    descendants: ["RedPajama", "Dolma", "open-corpus research"]
+
+  lee2022dedup:
+    title: "Deduplicating Training Data Makes Language Models Better"
+    authors: ["Katherine Lee", "Daphne Ippolito", "Andrew Nystrom",
+              "Chiyuan Zhang", "Douglas Eck", "Chris Callison-Burch",
+              "Nicholas Carlini"]
+    year: 2022
+    venue: "ACL 2022 (arXiv preprint July 2021)"
+    arxiv: "2107.06499"
+    url: "https://arxiv.org/abs/2107.06499"
+    verified: true
+    verified_on: "2026-08-25"
+    verified_via: "arXiv abstract page arxiv.org/abs/2107.06499 — title, seven authors, v1 dated 14 July 2021, ACL 2022 venue confirmed on the page; abstract confirms that deduplication reduces memorisation while matching or improving performance."
+    contribution: >
+      Showed that standard corpora contain large numbers of near-duplicates,
+      and that removing them yields models that memorise less training data at
+      equal or better quality — plus a train/test overlap problem that inflates
+      reported results.
+    why_it_mattered: >
+      It is the clearest evidence that data curation is a quality lever rather
+      than housekeeping, and its train/test overlap finding calls a share of the
+      benchmark literature into question.
+    what_changed_after: >
+      Deduplication became a mandatory pipeline stage, and contamination
+      checking became an expected part of evaluation.
+    descendants: ["contamination audits", "curation pipelines", "memorisation research"]
+
+  touvron2023llama:
+    title: "LLaMA: Open and Efficient Foundation Language Models"
+    authors: ["Hugo Touvron", "Thibaut Lavril", "Gautier Izacard",
+              "Xavier Martinet", "Marie-Anne Lachaux", "Timothee Lacroix",
+              "Baptiste Roziere", "and 7 others"]
+    year: 2023
+    venue: "arXiv preprint (February 2023), no peer-reviewed venue"
+    arxiv: "2302.13971"
+    url: "https://arxiv.org/abs/2302.13971"
+    verified: true
+    verified_on: "2026-08-25"
+    verified_via: "arXiv abstract page arxiv.org/abs/2302.13971 — title, 14 authors, v1 dated 27 February 2023 confirmed; the page states no venue."
+    contribution: >
+      Trained a family of models far past the Chinchilla-optimal token count on
+      publicly available data alone, on the argument that the training budget is
+      paid once and the inference budget is paid forever.
+    why_it_mattered: >
+      It made the inference-aware correction to scaling laws concrete, and it
+      put competitive weights in public hands, which is what created the
+      open-model ecosystem that Parts XIV and XV depend on.
+    what_changed_after: >
+      Over-training small models became standard practice, and open weights
+      became a competitive category rather than a research curiosity.
+    descendants: ["open-weight model families", "inference-aware scaling", "local inference"]
+
+  gunasekar2023:
+    title: "Textbooks Are All You Need"
+    authors: ["Suriya Gunasekar", "Yi Zhang", "Jyoti Aneja",
+              "Caio Cesar Teodoro Mendes", "Allie Del Giorno", "and 14 others"]
+    year: 2023
+    venue: "arXiv preprint (June 2023), no peer-reviewed venue"
+    arxiv: "2306.11644"
+    url: "https://arxiv.org/abs/2306.11644"
+    verified: true
+    verified_on: "2026-08-25"
+    verified_via: "arXiv abstract page arxiv.org/abs/2306.11644 — title, 19 authors, v1 dated 20 June 2023 confirmed; the page states no venue."
+    contribution: >
+      Trained a small code model on a curated and synthetically generated
+      corpus selected for pedagogical quality, reaching results that
+      scaling-law extrapolations from web data would not predict at that size.
+    why_it_mattered: >
+      It is the strongest published argument that data quality is a term the
+      scaling laws do not contain — kaplan2020scaling and
+      hoffmann2022chinchilla both hold data quality fixed and implicit.
+    what_changed_after: >
+      Synthetic and curated pretraining data became a mainstream strategy, along
+      with a live contamination concern that the paper's benchmarks attracted.
+    descendants: ["synthetic pretraining corpora", "small capable models", "data-quality research"]
