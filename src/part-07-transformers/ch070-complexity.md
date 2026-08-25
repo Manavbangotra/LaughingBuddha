@@ -992,7 +992,12 @@ the training tokens, inference dominates, and inference scales with $N$ alone.
 **Saying "attention is quadratic" without saying in what.** Measured: memory
 always, FLOPs only past $T = 6d$.
 
-**Using $6ND$ at long context.** Measured error.
+**Using $6ND$ at long context.** The correction factor is $T/6d$
+({{eq:6nd-with-attention}}), which is 8% at $T=2048$, $d=4096$ and **5.2x** at
+$T=128\,000$ — so the plain rule under-quotes a long-context run by more than
+a factor of five. The failure is asymmetric and that is what makes it
+dangerous: it never over-estimates, so the budget is always short and never
+long.
 
 **Sizing a training job by parameter count.** Measured: state is $16N$, eight
 times the serving footprint.
@@ -1005,6 +1010,17 @@ phases differ by three orders of magnitude in arithmetic intensity.
 
 **Treating a 45% MFU as 55% waste.** Measured: most of it is bandwidth-bound
 work the FLOP count does not see.
+
+**Sizing the KV cache from the model's parameter count.** The cache scales with
+$BLgd_kT$ and has no term in $N$ at all ({{tbl:transformer-complexity}}), so two
+models of identical size can differ by an order of magnitude in serving capacity
+purely through $g$ — which is the entire point of grouped-query attention
+({{ch:tf-multi-head}}).
+
+**Comparing MFU across models with different $T$.** MFU is a ratio against peak
+FLOPs, and the attention term's share of total FLOPs grows with $T$. A model at
+long context can post a lower MFU while doing strictly more useful work per
+second, so the comparison is only meaningful at matched sequence length.
 
 ## 12. Failure Modes
 
@@ -1022,6 +1038,24 @@ fine ({{ch:tf-masking-kv}}).
 
 **MFU dropping after a change** that added elementwise work — a new
 normalisation, an unfused activation — with no change in the FLOP count.
+
+Each of these has a detection that costs minutes and is almost never run in
+advance:
+
+- For the memory failures, compute {{eq:total-activation-memory}} and
+  {{eq:training-memory}} at the target $T$ *before* launching, and compare
+  against the device. An out-of-memory error at hour six of a run is the same
+  information arriving expensively.
+- For the throughput failures, sweep $T$ over a short run and plot tokens per
+  second. The knee sits near $T = 6d$ and its position is a property of your
+  architecture, not of the framework.
+- For the MFU failures, profile the elementwise fraction rather than the FLOP
+  count. The FLOP count is what did not change, which is precisely why it
+  cannot explain the regression.
+
+**The pattern across all five is that the accounting predicted them and nobody
+did the accounting.** None of these is a subtle systems failure; each is an
+arithmetic result that was available before the job was submitted.
 
 ## 13. Alternatives
 
@@ -1042,6 +1076,15 @@ effective peak FLOPs ({{part:15}}).
 replicates the state, tensor parallelism splits it, pipeline parallelism splits
 the layers ({{ch:inf-parallelism}}).
 
+**Which of these change the answer and which change the cost.** Gradient
+checkpointing, lower precision below the point where it affects quality, and
+distributed training all compute the same function — they move a term between
+memory, compute, and bandwidth without altering what the model represents.
+Sparse and linear attention *approximate* a different function, and mixture of
+experts computes a genuinely different one. That line is worth keeping visible,
+because the first group can be adopted on arithmetic alone while the second
+requires a quality evaluation as well.
+
 ## 14. Evaluation
 
 **Compute all four numbers before running anything**: FLOPs, bandwidth,
@@ -1058,6 +1101,24 @@ and $h$ and the derived formulae give the right order.
 **Check the memory estimate against actual peak usage.** A large discrepancy
 means something is being retained that should not be
 ({{ch:dl-forward}}).
+
+As elsewhere in this book, keep two questions apart.
+
+**Is my accounting correct?** Predict peak memory and step time from the
+formulae, then measure both on a short run. Agreement within about 20% means the
+model of the system is right and can be trusted for planning. A larger gap is
+itself the finding — it means a term is missing, and the usual culprits are
+retained activations, an optimiser state you forgot was fp32, or communication
+that is not in the arithmetic at all.
+
+**Is the system healthy?** MFU against the 40–55% band, the elementwise
+fraction, and arithmetic intensity against the device's ridge point. These are
+properties of the implementation rather than of the design, and they are the
+ones that regress silently when somebody changes a kernel.
+
+The distinction matters because the two failures look identical from a
+throughput graph and have completely different fixes: a wrong estimate is
+corrected on paper, a sick system is corrected in code.
 
 ## 15. Advanced Concepts
 
