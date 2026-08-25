@@ -37,6 +37,12 @@ from build import Builder
 
 VENV_PY = ROOT / ".venv" / "bin" / "python"
 
+# Wall-clock budget for a single Tier A listing. A listing that exceeds this is
+# reported as a failure rather than being allowed to stall the whole run: the
+# gates exist to report, and a harness that dies on one slow listing reports
+# nothing at all about the 190 listings behind it.
+CODE_TIMEOUT_S = 1200
+
 # --- chapter templates --------------------------------------------------------
 
 SECTIONS_FULL = [
@@ -90,9 +96,11 @@ class Report:
 class Context:
     """Shared state so gates parse and render the book only once."""
 
-    def __init__(self, parts: list[int] | None):
+    def __init__(self, parts: list[int] | None,
+                 code_timeout: int = CODE_TIMEOUT_S):
         self.book = Book()
         self.parts = parts
+        self.code_timeout = code_timeout
         self._builder: Builder | None = None
 
     def in_scope(self, d: Doc) -> bool:
@@ -382,8 +390,17 @@ def gate_code(ctx: Context) -> Report:
         if not path.exists():
             r.error(f"{d.slug} [{blk['name']}]: extracted file missing")
             continue
-        proc = subprocess.run([str(VENV_PY), str(path)], capture_output=True,
-                              text=True, cwd=path.parent, timeout=1200)
+        try:
+            proc = subprocess.run([str(VENV_PY), str(path)], capture_output=True,
+                                  text=True, cwd=path.parent,
+                                  timeout=ctx.code_timeout)
+        except subprocess.TimeoutExpired:
+            r.error(f"{d.slug} [{blk['name']}] tier A exceeded "
+                    f"{ctx.code_timeout}s and was killed:\n        "
+                    f"{path.relative_to(ROOT)}\n        "
+                    f"A Tier A listing is meant to be runnable by a reader; "
+                    f"reduce its budget or retier it.")
+            continue
         if proc.returncode != 0:
             tail = (proc.stderr or proc.stdout).strip().split("\n")[-4:]
             r.error(f"{d.slug} [{blk['name']}] tier A failed:\n        "
@@ -467,6 +484,10 @@ def main() -> int:
     ap.add_argument("--part", type=int, action="append", dest="parts")
     ap.add_argument("--gate", action="append", dest="gates")
     ap.add_argument("--list", action="store_true")
+    ap.add_argument("--code-timeout", type=int, default=CODE_TIMEOUT_S,
+                    metavar="SECONDS",
+                    help=f"per-listing wall-clock budget for the code gate "
+                         f"(default {CODE_TIMEOUT_S})")
     ap.add_argument("-v", "--verbose", action="store_true",
                     help="also print informational notes")
     args = ap.parse_args()
@@ -482,7 +503,7 @@ def main() -> int:
         print(f"unknown gate(s): {', '.join(unknown)}")
         return 2
 
-    ctx = Context(args.parts)
+    ctx = Context(args.parts, code_timeout=args.code_timeout)
     scope = f"part {', '.join(map(str, args.parts))}" if args.parts else "whole book"
     print(f"Checking {scope} — {len(ctx.docs())} written documents\n")
 
