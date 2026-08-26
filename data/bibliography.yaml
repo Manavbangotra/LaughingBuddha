@@ -3465,3 +3465,31 @@ entries:
       systems, and "ask the model if it is sure" moved from folklore to a
       measured technique.
     descendants: ["self-consistency checks", "LLM-as-judge on own outputs", "abstention systems"]
+
+  schick2023:
+    title: "Toolformer: Language Models Can Teach Themselves to Use Tools"
+    authors: ["Timo Schick", "Jane Dwivedi-Yu", "Roberto Dessi",
+              "Roberta Raileanu", "Maria Lomeli", "Luke Zettlemoyer",
+              "Nicola Cancedda", "Thomas Scialom"]
+    year: 2023
+    venue: "NeurIPS 2023 (arXiv preprint February 2023)"
+    arxiv: "2302.04761"
+    url: "https://arxiv.org/abs/2302.04761"
+    verified: true
+    verified_on: "2026-08-26"
+    verified_via: "arXiv abstract page arxiv.org/abs/2302.04761 — title, eight authors, v1 dated 9 February 2023 confirmed; the page lists no venue, NeurIPS 2023 acceptance is from the proceedings listing."
+    contribution: >
+      Trained a model to decide WHEN an API call is useful, using a
+      self-supervised criterion: insert candidate calls into text, keep the ones
+      whose results reduce perplexity on the following tokens, and fine-tune on
+      what survives.
+    why_it_mattered: >
+      It is the only serious attack on the call/no-call decision, which no
+      standard training objective optimises. Every other approach to tool use
+      teaches the model to emit well-formed calls and leaves the question of
+      whether a call is worth making to the prompt.
+    what_changed_after: >
+      Learned tool use became a recognised problem separate from tool-call
+      formatting, though production systems still mostly rely on instructions
+      rather than on a trained policy.
+    descendants: ["learned tool selection", "agent training", "tool-use benchmarks"]
