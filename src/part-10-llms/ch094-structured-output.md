@@ -900,7 +900,19 @@ entirely, which is a common and quiet mistake.
 
 **Speculative decoding under constraints.** {{maturity:EMERGING}} A draft model
 must respect the same grammar or its proposals are rejected, which erodes the
-speedup. The two optimisations interact badly and this is under-documented.
+speedup. The two optimisations interact badly and this is under-documented — and
+note the interaction is not symmetric: the constraint costs the draft model
+acceptance rate, while the draft model costs the constraint nothing, so the loss
+falls entirely on the speedup.
+
+**Constrained decoding as a safety mechanism.** {{maturity:EMERGING}} If a
+grammar can make invalid JSON unreachable, it can make other things unreachable
+too — a refusal format, an allowed set of actions, a fixed vocabulary of
+classifications. This is a genuinely different use from formatting, and it has a
+property {{part:26}} cares about: unlike a prompt instruction, a grammar cannot
+be talked out of. It is also badly limited, because the interesting unsafe
+outputs are semantic rather than structural, and
+{{tbl:constraint-scope}}'s division applies unchanged.
 
 ## 16. Connection to Previous Chapters
 
