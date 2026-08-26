@@ -3413,3 +3413,55 @@ entries:
       catch-all complaint, which is what made grounded-generation evaluation
       possible.
     descendants: ["faithfulness metrics", "RAG groundedness evaluation", "citation checking"]
+
+  guo2017calibration:
+    title: "On Calibration of Modern Neural Networks"
+    authors: ["Chuan Guo", "Geoff Pleiss", "Yu Sun", "Kilian Q. Weinberger"]
+    year: 2017
+    venue: "ICML 2017 (arXiv preprint June 2017)"
+    arxiv: "1706.04599"
+    url: "https://arxiv.org/abs/1706.04599"
+    verified: true
+    verified_on: "2026-08-26"
+    verified_via: "arXiv abstract page arxiv.org/abs/1706.04599 — title, four authors, v1 dated 14 June 2017, ICML 2017 venue confirmed on the page."
+    contribution: >
+      Showed that modern deep networks are systematically overconfident despite
+      being more accurate than their predecessors, and introduced temperature
+      scaling — a single scalar fitted on held-out data — as a cheap and
+      effective post-hoc correction.
+    why_it_mattered: >
+      It separated accuracy from calibration as independent axes and gave a
+      correction that costs one parameter and no retraining. The finding
+      predates language models and is a property of cross-entropy-trained
+      networks generally, which is why it transfers.
+    what_changed_after: >
+      Calibration became a reported property rather than an assumed one, and
+      temperature scaling became the default baseline any new method is
+      measured against.
+    descendants: ["vector and matrix scaling", "LLM calibration work", "conformal methods"]
+
+  kadavath2022:
+    title: "Language Models (Mostly) Know What They Know"
+    authors: ["Saurav Kadavath", "Tom Conerly", "Amanda Askell",
+              "Tom Henighan", "Dawn Drain", "and 31 others"]
+    year: 2022
+    venue: "arXiv preprint (July 2022), no peer-reviewed venue"
+    arxiv: "2207.05221"
+    url: "https://arxiv.org/abs/2207.05221"
+    verified: true
+    verified_on: "2026-08-26"
+    verified_via: "arXiv abstract page arxiv.org/abs/2207.05221 — title, 36 authors, v1 dated 11 July 2022 confirmed; the page states no venue. NOTE: a lab reporting on its own models."
+    contribution: >
+      Found that large models can be asked whether their own answers are
+      correct and give calibrated-ish responses, and that this
+      self-evaluation improves with scale.
+    why_it_mattered: >
+      It establishes a SECOND channel for uncertainty, separate from the output
+      distribution — which matters because a single softmax provably cannot
+      separate a task's inherent unpredictability from the model's own
+      ignorance.
+    what_changed_after: >
+      Self-evaluation became a standard component of abstention and routing
+      systems, and "ask the model if it is sure" moved from folklore to a
+      measured technique.
+    descendants: ["self-consistency checks", "LLM-as-judge on own outputs", "abstention systems"]
