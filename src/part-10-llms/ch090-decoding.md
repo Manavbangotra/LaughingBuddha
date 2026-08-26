@@ -989,7 +989,18 @@ feature rather than a cost.
 
 **Watermarking.** {{maturity:EMERGING}} Biasing the sampler on a secret key so
 generated text is statistically detectable. It is a decoding-time intervention,
-which is why it survives paraphrase poorly and cannot be applied retroactively.
+which is why it survives paraphrase poorly and cannot be applied retroactively —
+and why it degrades exactly when the distribution is sharp, since a sharp
+distribution leaves no room to encode a signal without changing the output.
+
+**Structured sampling for reasoning.** {{maturity:EMERGING}} Sampling several
+chains and selecting among them ({{ch:llm-prompting}}'s self-consistency) turns
+the diversity this chapter treats as a cost into the mechanism. Note what that
+implies about temperature: a self-consistency system wants $T$ high enough that
+the chains genuinely differ, which is the opposite of the setting the same task
+would use for a single generation. **The optimal temperature depends on how many
+samples you intend to take**, which is a coupling that is rarely made explicit
+and which {{ch:llm-routing}}'s cost model has to account for.
 
 ## 16. Connection to Previous Chapters
 
