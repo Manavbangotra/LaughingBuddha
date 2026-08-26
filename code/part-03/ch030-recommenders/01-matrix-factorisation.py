@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 30 — Recommendation Systems
 # Source: src/.../ch030-recommenders.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

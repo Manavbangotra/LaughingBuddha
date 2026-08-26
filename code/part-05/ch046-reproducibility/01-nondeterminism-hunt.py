@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 46 — Reproducibility, Experiment Tracking, and Versioning
 # Source: src/.../ch046-reproducibility.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 17 — Pandas: DataFrames, Joins, and Data Wrangling
 # Source: src/.../ch017-pandas.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

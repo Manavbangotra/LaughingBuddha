@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 24 — Exploratory Data Analysis and Visualization
 # Source: src/.../ch024-eda.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

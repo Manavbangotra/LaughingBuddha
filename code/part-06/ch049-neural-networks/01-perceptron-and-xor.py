@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 49 — Neural Networks and the Perceptron
 # Source: src/.../ch049-neural-networks.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

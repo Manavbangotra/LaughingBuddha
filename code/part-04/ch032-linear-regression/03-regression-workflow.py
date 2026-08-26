@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 32 — Linear Regression from First Principles
 # Source: src/.../ch032-linear-regression.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

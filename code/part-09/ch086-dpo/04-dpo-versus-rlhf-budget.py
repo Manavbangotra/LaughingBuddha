@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 86 — Preference Optimization: DPO and Its Descendants
 # Source: src/.../ch086-dpo.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

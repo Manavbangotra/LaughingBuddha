@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 5 — Norms, Distances, and Similarity Measures
 # Source: src/.../ch005-norms.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

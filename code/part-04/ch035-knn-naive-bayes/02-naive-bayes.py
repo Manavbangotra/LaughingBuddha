@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 35 — k-Nearest Neighbors and Naive Bayes
 # Source: src/.../ch035-knn-naive-bayes.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

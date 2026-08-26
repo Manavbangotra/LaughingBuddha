@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 84 — Instruction Tuning
 # Source: src/.../ch084-instruction-tuning.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

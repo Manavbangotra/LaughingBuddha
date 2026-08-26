@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 85 — Alignment and RLHF
 # Source: src/.../ch085-rlhf.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

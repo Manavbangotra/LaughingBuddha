@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 44 — Hyperparameter Optimization: Grid, Random, and Bayesian
 # Source: src/.../ch044-hpo.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

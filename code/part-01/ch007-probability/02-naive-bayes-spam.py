@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 7 — Probability, Conditional Probability, and Bayes' Theorem
 # Source: src/.../ch007-probability.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 27 — Feature Engineering and Feature Selection
 # Source: src/.../ch027-feature-engineering.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

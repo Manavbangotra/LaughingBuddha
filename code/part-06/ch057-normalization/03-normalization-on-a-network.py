@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 57 — Normalization: Batch, Layer, and RMSNorm
 # Source: src/.../ch057-normalization.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

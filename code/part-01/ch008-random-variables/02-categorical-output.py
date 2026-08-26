@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 8 — Random Variables, Distributions, and Expectation
 # Source: src/.../ch008-random-variables.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

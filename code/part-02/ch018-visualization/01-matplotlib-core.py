@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 18 — Visualization with Matplotlib
 # Source: src/.../ch018-visualization.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

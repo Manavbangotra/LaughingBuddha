@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 77 — Classification, Named Entity Recognition, and Information Extraction
 # Source: src/.../ch077-extraction.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

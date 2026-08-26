@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 53 — Backpropagation Derived from Scratch
 # Source: src/.../ch053-backpropagation.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

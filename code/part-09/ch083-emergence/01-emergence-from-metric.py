@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 83 — Emergent Capabilities and What Emergence Means
 # Source: src/.../ch083-emergence.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 50 — Activation Functions
 # Source: src/.../ch050-activations.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

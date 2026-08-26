@@ -767,7 +767,13 @@ than its base, by {{eq:rlhf-optimal-policy}}.
 subject to the same pressures as any other output.
 
 *Aggregating calibration across heterogeneous traffic.* The compromise
-temperature is wrong for every subset.
+temperature is wrong for every subset — `temperature-scaling` shows the fitted
+value making the easy half's calibration seven times worse while improving the
+hard half's, which is a trade nobody chose.
+
+*Fitting calibration against an endpoint that applies temperature.* You are then
+calibrating the model and the serving configuration jointly, and the result
+silently breaks when a default changes.
 
 ## 12. Failure Modes
 
@@ -845,7 +851,14 @@ is true".
 
 **Conformal prediction.** {{maturity:EMERGING}} Producing prediction sets with a
 distribution-free coverage guarantee, which sidesteps calibration entirely by
-targeting coverage rather than probability accuracy.
+targeting coverage rather than probability accuracy. The trade is worth stating:
+you give up a per-item probability and receive, in exchange, a set that provably
+contains the right answer at your chosen rate — a guarantee no amount of
+temperature fitting provides, at the cost of the set sometimes being large
+enough to be useless. For a system that must abstain at a stated error rate,
+that is frequently the better bargain, and it is the one method in
+{{tbl:uncertainty-methods}} whose guarantee survives distribution shift by
+construction rather than by assumption.
 
 **Calibration under distribution shift.** {{maturity:RESEARCH FRONTIER}}
 Temperature fitted on one distribution does not transfer to another, and

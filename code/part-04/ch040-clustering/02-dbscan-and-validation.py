@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 40 — Clustering: K-Means, DBSCAN, and Hierarchical Methods
 # Source: src/.../ch040-clustering.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

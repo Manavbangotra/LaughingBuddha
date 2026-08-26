@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 21 — What Data Science Actually Is
 # Source: src/.../ch021-what-data-science-is.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

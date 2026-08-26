@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 66 — Token Embeddings and the Unembedding Matrix
 # Source: src/.../ch066-embeddings.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 82 — Scaling Laws: Parameters, Data, and Compute
 # Source: src/.../ch082-scaling-laws.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

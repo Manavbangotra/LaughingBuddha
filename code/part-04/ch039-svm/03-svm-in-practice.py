@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 39 — Support Vector Machines and Kernels
 # Source: src/.../ch039-svm.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

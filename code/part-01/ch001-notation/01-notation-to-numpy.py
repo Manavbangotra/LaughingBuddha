@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 1 — Mathematical Notation and the Language of Machine Learning
 # Source: src/.../ch001-notation.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

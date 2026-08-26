@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 28 — Data Leakage, Imbalanced Data, and Dataset Pathologies
 # Source: src/.../ch028-leakage.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

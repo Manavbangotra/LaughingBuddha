@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 62 — Why Recurrence Failed: The Road to Attention
 # Source: src/.../ch062-why-attention.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

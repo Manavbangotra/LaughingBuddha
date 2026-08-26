@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 76 — BERT, RoBERTa, and Masked Language Modeling
 # Source: src/.../ch076-bert.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

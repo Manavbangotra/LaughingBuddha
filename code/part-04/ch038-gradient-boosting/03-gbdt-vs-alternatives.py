@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 38 — Gradient Boosting: Theory, XGBoost, LightGBM, CatBoost
 # Source: src/.../ch038-gradient-boosting.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

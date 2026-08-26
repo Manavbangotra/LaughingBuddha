@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 64 — Multi-Head Attention
 # Source: src/.../ch064-multi-head-attention.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

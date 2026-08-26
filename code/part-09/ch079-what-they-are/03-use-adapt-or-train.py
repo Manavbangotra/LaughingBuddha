@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 79 — What Foundation Models Are
 # Source: src/.../ch079-what-they-are.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

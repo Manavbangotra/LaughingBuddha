@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 51 — Forward Propagation and Computational Graphs
 # Source: src/.../ch051-forward.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

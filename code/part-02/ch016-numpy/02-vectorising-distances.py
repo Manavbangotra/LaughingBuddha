@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 16 — NumPy: Arrays, Broadcasting, and Vectorized Computation
 # Source: src/.../ch016-numpy.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

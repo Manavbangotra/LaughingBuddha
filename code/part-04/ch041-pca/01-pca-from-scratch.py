@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 41 — PCA and Dimensionality Reduction
 # Source: src/.../ch041-pca.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

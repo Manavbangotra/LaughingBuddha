@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 63 — Scaled Dot-Product Attention
 # Source: src/.../ch063-scaled-dot-product-attention.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

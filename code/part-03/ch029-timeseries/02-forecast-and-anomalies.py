@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 29 — Time Series, Forecasting, and Anomaly Detection
 # Source: src/.../ch029-timeseries.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

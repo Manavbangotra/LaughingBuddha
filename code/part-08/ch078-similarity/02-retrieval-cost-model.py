@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 78 — Semantic Similarity and Sentence Embeddings
 # Source: src/.../ch078-similarity.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 60 — Recurrent Networks: RNN, LSTM, and GRU
 # Source: src/.../ch060-rnns.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 33 — Logistic Regression and Classification
 # Source: src/.../ch033-logistic.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

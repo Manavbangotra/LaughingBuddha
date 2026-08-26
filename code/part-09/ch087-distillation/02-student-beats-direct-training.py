@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 87 — Distillation and Model Specialization
 # Source: src/.../ch087-distillation.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

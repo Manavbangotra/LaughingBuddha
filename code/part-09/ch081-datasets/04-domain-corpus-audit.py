@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 81 — Pretraining Dataset Construction and Curation
 # Source: src/.../ch081-datasets.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

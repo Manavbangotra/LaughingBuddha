@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 13 — Python Fundamentals for AI Work
 # Source: src/.../ch013-fundamentals.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

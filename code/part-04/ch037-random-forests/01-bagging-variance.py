@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 37 — Random Forests and Bagging
 # Source: src/.../ch037-random-forests.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

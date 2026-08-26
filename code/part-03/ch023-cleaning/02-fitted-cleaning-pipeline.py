@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 23 — Data Cleaning: Missing Values, Outliers, and Feature Types
 # Source: src/.../ch023-cleaning.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 58 — Regularization, Dropout, Overfitting, and Underfitting
 # Source: src/.../ch058-regularization.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

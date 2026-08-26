@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 9 — Variance, Covariance, and Correlation
 # Source: src/.../ch009-covariance.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

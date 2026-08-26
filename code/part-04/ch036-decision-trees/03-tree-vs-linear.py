@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 36 — Decision Trees
 # Source: src/.../ch036-decision-trees.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

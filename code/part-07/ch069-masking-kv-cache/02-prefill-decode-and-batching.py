@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 69 — Causal Masking and the KV Cache
 # Source: src/.../ch069-masking-kv-cache.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

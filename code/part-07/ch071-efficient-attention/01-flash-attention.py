@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 71 — Efficient Attention: FlashAttention, GQA/MQA, Sparse and Linear Variants
 # Source: src/.../ch071-efficient-attention.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

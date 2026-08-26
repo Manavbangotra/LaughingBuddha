@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 74 — Static Word Embeddings: Word2Vec and GloVe
 # Source: src/.../ch074-word2vec-glove.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 72 — Text Preprocessing and the Tokenization Problem
 # Source: src/.../ch072-preprocessing.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

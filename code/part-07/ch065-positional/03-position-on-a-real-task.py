@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 65 — Positional Encoding, RoPE, and ALiBi
 # Source: src/.../ch065-positional.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

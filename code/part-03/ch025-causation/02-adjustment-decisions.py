@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 25 — Correlation, Causation, and Confounding
 # Source: src/.../ch025-causation.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 61 — Autoencoders and Representation Learning
 # Source: src/.../ch061-autoencoders.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

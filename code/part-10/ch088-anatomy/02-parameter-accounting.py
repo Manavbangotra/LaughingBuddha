@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 88 — Anatomy of an LLM: From Tokens to Logits
 # Source: src/.../ch088-anatomy.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

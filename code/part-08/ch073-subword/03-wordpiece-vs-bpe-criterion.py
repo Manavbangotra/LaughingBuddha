@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 73 — Subword Tokenization: BPE, WordPiece, and SentencePiece
 # Source: src/.../ch073-subword.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

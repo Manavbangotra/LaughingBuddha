@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 6 — Eigenvalues, Eigenvectors, and the Singular Value Decomposition
 # Source: src/.../ch006-eigen.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

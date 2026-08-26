@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 4 — Matrices, Matrix Multiplication, and Linear Maps
 # Source: src/.../ch004-matrices.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

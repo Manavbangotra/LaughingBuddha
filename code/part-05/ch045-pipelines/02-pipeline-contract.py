@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 45 — Data and Feature Pipelines
 # Source: src/.../ch045-pipelines.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

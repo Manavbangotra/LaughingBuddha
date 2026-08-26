@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 11 — Derivatives, Partial Derivatives, Gradients, and the Chain Rule
 # Source: src/.../ch011-derivatives.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 80 — Pretraining and Self-Supervised Objectives
 # Source: src/.../ch080-pretraining.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

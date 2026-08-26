@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 67 — Feed-Forward Networks, Residuals, and Normalization Placement
 # Source: src/.../ch067-ffn-residual.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

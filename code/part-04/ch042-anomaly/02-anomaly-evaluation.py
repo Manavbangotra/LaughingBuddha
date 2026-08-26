@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 42 — Anomaly Detection Methods
 # Source: src/.../ch042-anomaly.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

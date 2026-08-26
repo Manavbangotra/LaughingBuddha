@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 68 — Encoder, Decoder, and Encoder–Decoder Transformers
 # Source: src/.../ch068-architectures.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

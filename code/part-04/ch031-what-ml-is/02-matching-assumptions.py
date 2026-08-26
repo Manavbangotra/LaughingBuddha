@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 31 — What Machine Learning Is: Learning Paradigms
 # Source: src/.../ch031-what-ml-is.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

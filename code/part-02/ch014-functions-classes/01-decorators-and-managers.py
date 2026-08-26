@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 14 — Functions, Classes, and Modules
 # Source: src/.../ch014-functions-classes.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

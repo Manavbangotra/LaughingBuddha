@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 2 — Functions, Exponents, and Logarithms
 # Source: src/.../ch002-functions.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

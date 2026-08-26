@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 55 — Learning-Rate Schedules and Warmup
 # Source: src/.../ch055-lr-schedules.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

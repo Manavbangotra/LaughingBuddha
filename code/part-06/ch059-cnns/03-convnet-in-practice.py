@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 59 — Convolutional Neural Networks
 # Source: src/.../ch059-cnns.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

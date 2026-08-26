@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 75 — Contextual Embeddings and the Encoder Revolution
 # Source: src/.../ch075-contextual.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

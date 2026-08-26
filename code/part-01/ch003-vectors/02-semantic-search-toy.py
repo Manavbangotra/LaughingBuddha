@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 3 — Vectors, Dot Products, and Geometric Intuition
 # Source: src/.../ch003-vectors.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

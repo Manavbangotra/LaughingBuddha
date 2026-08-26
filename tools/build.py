@@ -323,7 +323,14 @@ class Builder:
             for blk in r.code_blocks:
                 path = ROOT / blk["path"]
                 path.parent.mkdir(parents=True, exist_ok=True)
-                header = (f"# Extracted from: {r.doc.label} — {r.doc.title}\n"
+                # PEP 263: Python scans the FIRST TWO LINES for an encoding
+                # cookie matching `coding[:=]\s*([-\w.]+)`. A chapter titled
+                # "Decoding: Softmax, ..." puts the substring "coding: Softmax"
+                # on line 1 and the interpreter refuses the file. Declaring the
+                # encoding explicitly on line 1 claims the cookie slot, so no
+                # chapter title can break its own listings.
+                header = (f"# -*- coding: utf-8 -*-\n"
+                          f"# Extracted from: {r.doc.label} — {r.doc.title}\n"
                           f"# Source: src/.../{r.doc.slug}.md   Tier: {blk['tier']}\n"
                           f"# Regenerate with: make code  (do not edit by hand)\n\n")
                 path.write_text(header + blk["source"], encoding="utf-8")

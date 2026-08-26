@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 22 — Data Collection, Ingestion, and Storage
 # Source: src/.../ch022-collection.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

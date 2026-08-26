@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 12 — Convexity, Gradient Descent, and Numerical Optimization
 # Source: src/.../ch012-optimization.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 47 — Model Registry and the Deployment Handoff
 # Source: src/.../ch047-registry.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 15 — Environments, Packaging, and Project Structure
 # Source: src/.../ch015-environments.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

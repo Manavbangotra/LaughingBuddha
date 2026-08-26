@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 54 — Optimizers: SGD, Momentum, RMSProp, and Adam
 # Source: src/.../ch054-optimizers.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)

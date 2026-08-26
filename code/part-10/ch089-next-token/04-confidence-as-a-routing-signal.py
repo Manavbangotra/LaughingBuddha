@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Extracted from: Chapter 89 — Next-Token Prediction and Cross-Entropy Loss
 # Source: src/.../ch089-next-token.md   Tier: A
 # Regenerate with: make code  (do not edit by hand)
