@@ -46,7 +46,16 @@ class TinyCausalLM(nn.Module):
         self.pos = nn.Embedding(T, D)
         self.attn = nn.MultiheadAttention(D, HEADS, batch_first=True)
         self.n1, self.n2 = nn.LayerNorm(D), nn.LayerNorm(D)
+        # The final norm before the tied unembedding is not decoration: without
+        # it the residual stream's scale sets the logit scale, and the loss at
+        # initialisation is whatever that happens to be rather than log|V|.
+        self.nf = nn.LayerNorm(D)
         self.ff = nn.Sequential(nn.Linear(D, 4 * D), nn.GELU(), nn.Linear(4 * D, D))
+        # nn.Embedding defaults to N(0,1), which is far too large for a TIED
+        # unembedding: the logits inherit that scale and the loss at
+        # initialisation is ~15 instead of log|V|. See ch:dl-initialization.
+        nn.init.normal_(self.tok.weight, std=0.02)
+        nn.init.normal_(self.pos.weight, std=0.02)
 
     def forward(self, x, causal=True):
         h = self.tok(x) + self.pos(torch.arange(x.shape[1]))
@@ -59,7 +68,7 @@ class TinyCausalLM(nn.Module):
                          attn_mask=mask, need_weights=False)
         h = h + a
         h = h + self.ff(self.n2(h))
-        return h @ self.tok.weight.T          # weight tying, ch:tf-embeddings
+        return self.nf(h) @ self.tok.weight.T   # weight tying, ch:tf-embeddings
 
 
 def batches(bs=16):

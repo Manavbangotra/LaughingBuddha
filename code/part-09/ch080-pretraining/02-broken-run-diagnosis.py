@@ -36,7 +36,10 @@ class M(nn.Module):
         self.pos = nn.Embedding(T, D)
         self.attn = nn.MultiheadAttention(D, 4, batch_first=True)
         self.n1, self.n2 = nn.LayerNorm(D), nn.LayerNorm(D)
+        self.nf = nn.LayerNorm(D)
         self.ff = nn.Sequential(nn.Linear(D, 4 * D), nn.GELU(), nn.Linear(4 * D, D))
+        nn.init.normal_(self.tok.weight, std=0.02)
+        nn.init.normal_(self.pos.weight, std=0.02)
 
     def forward(self, x, shuffle_labels=False):
         h = self.tok(x) + self.pos(torch.arange(x.shape[1]))
@@ -45,7 +48,7 @@ class M(nn.Module):
                          attn_mask=mask, need_weights=False)
         h = h + a
         h = h + self.ff(self.n2(h))
-        return h @ self.tok.weight.T
+        return self.nf(h) @ self.tok.weight.T
 
 
 def run(scramble, steps=400):
@@ -72,13 +75,24 @@ def run(scramble, steps=400):
 healthy = run(scramble=False)
 broken = run(scramble=True)
 
-print(f"unigram entropy H(X)          : {unigram_entropy:.4f}")
-print(f"healthy run, final loss       : {healthy:.4f}  "
-      f"({'below' if healthy < unigram_entropy else 'above'} H(X))")
-print(f"scrambled labels, final loss  : {broken:.4f}  "
-      f"({'below' if broken < unigram_entropy else 'at/above'} H(X))")
+def verdict(loss):
+    """Report the GAP to H(X), not a binary — a broken run lands ON it, and
+    may sit a hair either side because the batch marginal is not exactly the
+    corpus marginal. What identifies it is the distance, not the sign."""
+    gap = unigram_entropy - loss
+    if gap > 0.5:
+        return f"{gap:+.4f} below H(X) — using context"
+    if abs(gap) <= 0.5:
+        return f"{gap:+.4f} from H(X) — AT the unigram floor"
+    return f"{gap:+.4f} — worse than frequencies alone"
 
-assert healthy < unigram_entropy < broken + 0.35
+
+print(f"unigram entropy H(X)          : {unigram_entropy:.4f}")
+print(f"healthy run, final loss       : {healthy:.4f}   {verdict(healthy)}")
+print(f"scrambled labels, final loss  : {broken:.4f}   {verdict(broken)}")
+
+assert unigram_entropy - healthy > 0.5, "healthy run must clear H(X) decisively"
+assert abs(unigram_entropy - broken) <= 0.5, "scrambled run must sit at H(X)"
 print("""
 The broken run does not crash, does not spike, and produces a loss curve that
 falls convincingly — it simply stops at the unigram entropy, because token

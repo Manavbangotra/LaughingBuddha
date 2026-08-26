@@ -7,7 +7,7 @@ status: draft
 requires: [fm-what-they-are, nlp-bert, tf-architectures, tf-complexity,
            dl-optimizers, dl-lr-schedules, dl-normalization, mle-reproducibility]
 provides: [causal-language-modelling, pretraining-run, loss-spike, checkpoint-restart,
-           data-order, token-budget, gradient-accumulation, unigram-baseline,
+           data-order, token-budget, unigram-baseline,
            training-instability, curriculum, packing]
 citations: [brown2020, radford2019, touvron2023llama, hoffmann2022chinchilla,
             gao2020pile, devlin2019bert, clark2020electra, kingma2015adam,
@@ -435,7 +435,16 @@ class TinyCausalLM(nn.Module):
         self.pos = nn.Embedding(T, D)
         self.attn = nn.MultiheadAttention(D, HEADS, batch_first=True)
         self.n1, self.n2 = nn.LayerNorm(D), nn.LayerNorm(D)
+        # The final norm before the tied unembedding is not decoration: without
+        # it the residual stream's scale sets the logit scale, and the loss at
+        # initialisation is whatever that happens to be rather than log|V|.
+        self.nf = nn.LayerNorm(D)
         self.ff = nn.Sequential(nn.Linear(D, 4 * D), nn.GELU(), nn.Linear(4 * D, D))
+        # nn.Embedding defaults to N(0,1), which is far too large for a TIED
+        # unembedding: the logits inherit that scale and the loss at
+        # initialisation is ~15 instead of log|V|. See ch:dl-initialization.
+        nn.init.normal_(self.tok.weight, std=0.02)
+        nn.init.normal_(self.pos.weight, std=0.02)
 
     def forward(self, x, causal=True):
         h = self.tok(x) + self.pos(torch.arange(x.shape[1]))
@@ -448,7 +457,7 @@ class TinyCausalLM(nn.Module):
                          attn_mask=mask, need_weights=False)
         h = h + a
         h = h + self.ff(self.n2(h))
-        return h @ self.tok.weight.T          # weight tying, ch:tf-embeddings
+        return self.nf(h) @ self.tok.weight.T   # weight tying, ch:tf-embeddings
 
 
 def batches(bs=16):
@@ -502,7 +511,21 @@ print(f"\nfinal loss {hist[-1]:.4f} < unigram entropy {unigram_entropy:.4f} "
 
 The two assertions are the whole diagnostic value of the listing: the first
 catches a vocabulary or label-shift bug, the second catches a model that is not
-using context at all. Now the demonstration that the second assertion has teeth:
+using context at all.
+
+**The first assertion earned its place while this chapter was being written.**
+The model above originally used PyTorch's default `nn.Embedding`
+initialisation, which is $\mathcal{N}(0,1)$. With a *tied* unembedding
+({{ch:tf-embeddings}}) that scale passes straight into the logits: a
+LayerNorm'd residual of width $d$ dotted with unit-variance rows gives logits
+with standard deviation $\approx\sqrt{d}$, and a cross-entropy of about 15
+rather than $\log|V| = 2.83$. Nothing else was wrong — the model trained
+perfectly well and converged to a low loss.
+
+That is the failure mode worth internalising: **the run looked healthy in every
+respect except the one number that is checkable in advance.** Tied embeddings
+need a small initialisation, conventionally $\sigma = 0.02$, and
+{{eq:init-loss}} is what tells you whether yours does. Now the demonstration that the second assertion has teeth:
 
 ```python {tier=A name=broken-run-diagnosis}
 """A run with no causal structure available plateaus at the unigram entropy."""
@@ -539,7 +562,10 @@ class M(nn.Module):
         self.pos = nn.Embedding(T, D)
         self.attn = nn.MultiheadAttention(D, 4, batch_first=True)
         self.n1, self.n2 = nn.LayerNorm(D), nn.LayerNorm(D)
+        self.nf = nn.LayerNorm(D)
         self.ff = nn.Sequential(nn.Linear(D, 4 * D), nn.GELU(), nn.Linear(4 * D, D))
+        nn.init.normal_(self.tok.weight, std=0.02)
+        nn.init.normal_(self.pos.weight, std=0.02)
 
     def forward(self, x, shuffle_labels=False):
         h = self.tok(x) + self.pos(torch.arange(x.shape[1]))
@@ -548,7 +574,7 @@ class M(nn.Module):
                          attn_mask=mask, need_weights=False)
         h = h + a
         h = h + self.ff(self.n2(h))
-        return h @ self.tok.weight.T
+        return self.nf(h) @ self.tok.weight.T
 
 
 def run(scramble, steps=400):
@@ -575,13 +601,24 @@ def run(scramble, steps=400):
 healthy = run(scramble=False)
 broken = run(scramble=True)
 
-print(f"unigram entropy H(X)          : {unigram_entropy:.4f}")
-print(f"healthy run, final loss       : {healthy:.4f}  "
-      f"({'below' if healthy < unigram_entropy else 'above'} H(X))")
-print(f"scrambled labels, final loss  : {broken:.4f}  "
-      f"({'below' if broken < unigram_entropy else 'at/above'} H(X))")
+def verdict(loss):
+    """Report the GAP to H(X), not a binary — a broken run lands ON it, and
+    may sit a hair either side because the batch marginal is not exactly the
+    corpus marginal. What identifies it is the distance, not the sign."""
+    gap = unigram_entropy - loss
+    if gap > 0.5:
+        return f"{gap:+.4f} below H(X) — using context"
+    if abs(gap) <= 0.5:
+        return f"{gap:+.4f} from H(X) — AT the unigram floor"
+    return f"{gap:+.4f} — worse than frequencies alone"
 
-assert healthy < unigram_entropy < broken + 0.35
+
+print(f"unigram entropy H(X)          : {unigram_entropy:.4f}")
+print(f"healthy run, final loss       : {healthy:.4f}   {verdict(healthy)}")
+print(f"scrambled labels, final loss  : {broken:.4f}   {verdict(broken)}")
+
+assert unigram_entropy - healthy > 0.5, "healthy run must clear H(X) decisively"
+assert abs(unigram_entropy - broken) <= 0.5, "scrambled run must sit at H(X)"
 print("""
 The broken run does not crash, does not spike, and produces a loss curve that
 falls convincingly — it simply stops at the unigram entropy, because token
