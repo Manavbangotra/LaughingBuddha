@@ -780,7 +780,8 @@ logarithmically and confusability costing a great deal.
 *Omitting the iteration limit.* A confused model loops until the budget is gone.
 
 *Trusting tool output.* It enters the context on equal terms with your
-instructions.
+instructions, and no amount of prompt instruction changes that
+({{part:26}}).
 
 *Measuring per-step accuracy and inferring task reliability.*
 {{eq:tool-chain-success}} — 95% per round is 60% over ten.
