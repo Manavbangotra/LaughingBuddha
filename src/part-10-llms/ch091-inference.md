@@ -692,7 +692,10 @@ context and the failure is rejection rather than slowdown.
 **Enable continuous batching and paged attention.** Both are scheduling and
 allocation changes rather than model changes, and together they are the
 difference between the concurrency {{eq:max-concurrency}} predicts and what a
-naive implementation achieves.
+naive implementation achieves. Without paged allocation, a request that *might*
+reach the context limit reserves memory for that maximum from the start, so a
+server sized by {{eq:max-concurrency}} achieves a small fraction of it — the
+equation describes the ceiling, and the allocator decides how close you get.
 
 **Use prefix caching for any fixed system prompt.** It requires byte-identical
 prefixes, which is another reason the chat template must be stable.
@@ -755,7 +758,10 @@ correlated with input length. *Detection:* log the truncation rate — this is
 
 **Quality degradation at long context.** Not a capacity failure —
 {{cite:liu2023lost}}'s position effect, treated in {{ch:llm-long-context}}.
-Worth naming here because it is frequently misdiagnosed as a serving problem.
+Worth naming here because it is frequently misdiagnosed as a serving problem:
+the symptom (long requests give worse answers) is identical to what a truncation
+bug produces, and the two are distinguished only by checking whether the input
+actually fit.
 
 **Throughput tuning that ruins interactivity.** Large batches raise throughput
 and lengthen the queue. *Detection:* p99 TTFT, which is where it shows first.
