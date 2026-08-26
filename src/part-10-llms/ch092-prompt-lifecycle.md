@@ -321,6 +321,15 @@ behaviour-determining part of the input. A better policy drops the *oldest
 user/assistant turns* while pinning the system prompt, and the best policy
 refuses and tells the caller. Almost nobody does the third.
 
+The reason the third is best is worth stating: truncation is the only stage in
+{{eq:request-stages}} that **silently changes what was asked**. Every other
+stage either succeeds or fails visibly. A truncated request returns a confident
+answer to a question the user did not ask, and nothing in the response indicates
+it. That asymmetry — silent corruption versus loud failure — is why an explicit
+error is the right default even though it is the least convenient one, and it is
+the same argument {{ch:nlp-preprocessing}} made about silent truncation at the
+tokenizer.
+
 **Streaming's chunking is not token-aligned.** Because of
 {{eq:incremental-detokenization}} and the stop-string holdback, a chunk may
 contain zero, one, or several tokens' worth of text. Clients that assume one
