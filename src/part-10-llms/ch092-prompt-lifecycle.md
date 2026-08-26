@@ -819,7 +819,24 @@ slow failure.
 
 **Request coalescing.** {{maturity:EMERGING}} Detecting identical in-flight
 requests and serving one result to several callers. Effective where prompts
-repeat, and interacts with prefix caching.
+repeat, and interacts with prefix caching — note it is only sound for
+deterministic decoding, since two callers sampling at $T>0$ have not asked for
+the same answer and should not receive one.
+
+**Backpressure and load shedding.** {{maturity:ESTABLISHED}} Signalling upstream
+to slow down rather than accepting work that will time out. The distinction from
+admission control is where the decision is made: admission control rejects at
+the server, backpressure asks the client not to send. Both beat the default
+behaviour, which is to accept everything and fail slowly — and
+{{eq:queue-wait}} is why the default is so bad, since accepting one more request
+past saturation degrades every request already queued.
+
+**Latency-aware routing.** {{maturity:EMERGING}} Sending a request to whichever
+replica has the shortest queue rather than round-robin. The gain is largest
+exactly where {{eq:queue-wait}} is steepest, which means it helps most when the
+system is already in trouble — and least during the testing that would have
+justified building it. That mismatch between where a technique helps and where
+it is easy to evaluate recurs throughout serving work.
 
 ## 16. Connection to Previous Chapters
 
