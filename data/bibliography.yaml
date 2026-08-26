@@ -3217,3 +3217,199 @@ entries:
       Synthetic and curated pretraining data became a mainstream strategy, along
       with a live contamination concern that the paper's benchmarks attracted.
     descendants: ["synthetic pretraining corpora", "small capable models", "data-quality research"]
+
+  # --- Part X — Large Language Models -------------------------------------------
+
+  holtzman2020:
+    title: "The Curious Case of Neural Text Degeneration"
+    authors: ["Ari Holtzman", "Jan Buys", "Li Du", "Maxwell Forbes", "Yejin Choi"]
+    year: 2020
+    venue: "ICLR 2020 (arXiv preprint April 2019)"
+    arxiv: "1904.09751"
+    url: "https://arxiv.org/abs/1904.09751"
+    verified: true
+    verified_on: "2026-08-26"
+    verified_via: "arXiv abstract page arxiv.org/abs/1904.09751 — title, five authors, v1 dated 22 April 2019, ICLR 2020 venue confirmed on the page."
+    contribution: >
+      Diagnosed why maximum-likelihood decoding produces degenerate repetitive
+      text despite the model assigning it low probability, and introduced
+      nucleus (top-p) sampling — truncating to the smallest set of tokens whose
+      cumulative probability exceeds p.
+    why_it_mattered: >
+      It established that the decoding strategy is a separate design decision
+      from the model, and that the highest-probability sequence is not the one
+      anyone wants. Every production sampler descends from this paper.
+    what_changed_after: >
+      Top-p became the default sampling method, and "likelihood is not quality"
+      became a standard caveat in generation work.
+    descendants: ["nucleus sampling", "typical sampling", "min-p", "every modern sampler"]
+
+  fan2018:
+    title: "Hierarchical Neural Story Generation"
+    authors: ["Angela Fan", "Mike Lewis", "Yann Dauphin"]
+    year: 2018
+    venue: "ACL 2018 (arXiv preprint May 2018)"
+    arxiv: "1805.04833"
+    url: "https://arxiv.org/abs/1805.04833"
+    verified: true
+    verified_on: "2026-08-26"
+    verified_via: "arXiv abstract page arxiv.org/abs/1805.04833 — title, three authors, v1 dated 13 May 2018 confirmed; the page states no venue, ACL 2018 acceptance is from the proceedings listing."
+    contribution: >
+      Introduced top-k sampling — restricting each step to the k most probable
+      tokens and renormalising — as part of a story-generation system.
+    why_it_mattered: >
+      It is the first of the truncated samplers and the direct predecessor of
+      nucleus sampling, which fixed its central weakness: a fixed k is wrong
+      whenever the distribution's sharpness varies between steps.
+    what_changed_after: >
+      Truncated sampling replaced pure sampling and beam search for open-ended
+      generation.
+    descendants: ["top-p sampling", "combined top-k/top-p", "sampler chains"]
+
+  wei2022cot:
+    title: "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models"
+    authors: ["Jason Wei", "Xuezhi Wang", "Dale Schuurmans", "Maarten Bosma",
+              "Brian Ichter", "Fei Xia", "Ed Chi", "Quoc Le", "Denny Zhou"]
+    year: 2022
+    venue: "NeurIPS 2022 (arXiv preprint January 2022)"
+    arxiv: "2201.11903"
+    url: "https://arxiv.org/abs/2201.11903"
+    verified: true
+    verified_on: "2026-08-26"
+    verified_via: "arXiv abstract page arxiv.org/abs/2201.11903 — title, nine authors, v1 dated 28 January 2022 confirmed; the page lists no venue, NeurIPS 2022 is from the proceedings."
+    contribution: >
+      Showed that prompting a model to produce intermediate reasoning steps
+      before its answer substantially improves performance on arithmetic and
+      multi-step reasoning tasks.
+    why_it_mattered: >
+      It demonstrated that a capability can be latent in a model and unlocked by
+      the prompt alone, with no weight change — which reframed prompting from a
+      convenience into a way of accessing capability.
+    what_changed_after: >
+      Intermediate reasoning became a standard technique, and eventually a
+      training target in its own right for the reasoning models of Part XVI.
+    descendants: ["zero-shot CoT", "self-consistency", "reasoning models"]
+
+  kojima2022:
+    title: "Large Language Models are Zero-Shot Reasoners"
+    authors: ["Takeshi Kojima", "Shixiang Shane Gu", "Machel Reid",
+              "Yutaka Matsuo", "Yusuke Iwasawa"]
+    year: 2022
+    venue: "NeurIPS 2022 (arXiv preprint May 2022)"
+    arxiv: "2205.11916"
+    url: "https://arxiv.org/abs/2205.11916"
+    verified: true
+    verified_on: "2026-08-26"
+    verified_via: "arXiv abstract page arxiv.org/abs/2205.11916 — title, five authors, v1 dated 24 May 2022, page states 'Accepted to NeurIPS2022'."
+    contribution: >
+      Showed that appending a single instruction — "Let's think step by step" —
+      elicits multi-step reasoning with no exemplars at all, recovering much of
+      the few-shot chain-of-thought benefit.
+    why_it_mattered: >
+      A one-line prompt change producing large capability gains is the strongest
+      available evidence that prompting accesses existing capability rather than
+      teaching anything, and it made the effect trivially reproducible.
+    what_changed_after: >
+      Zero-shot reasoning prompts became ubiquitous, and the fragility of
+      capability to surface phrasing became a recognised problem.
+    descendants: ["zero-shot CoT variants", "prompt-sensitivity research"]
+
+  min2022:
+    title: "Rethinking the Role of Demonstrations: What Makes In-Context Learning Work?"
+    authors: ["Sewon Min", "Xinxi Lyu", "Ari Holtzman", "Mikel Artetxe",
+              "Mike Lewis", "Hannaneh Hajishirzi", "Luke Zettlemoyer"]
+    year: 2022
+    venue: "EMNLP 2022 (arXiv preprint February 2022)"
+    arxiv: "2202.12837"
+    url: "https://arxiv.org/abs/2202.12837"
+    verified: true
+    verified_on: "2026-08-26"
+    verified_via: "arXiv abstract page arxiv.org/abs/2202.12837 — title, seven authors, v1 dated 25 February 2022, EMNLP 2022 long paper confirmed; abstract confirms that randomly replacing labels in demonstrations barely hurts performance."
+    contribution: >
+      Found that replacing the labels in few-shot demonstrations with random
+      ones barely degrades classification performance, and that what
+      demonstrations actually supply is the label space, the input
+      distribution, and the sequence format.
+    why_it_mattered: >
+      It undercuts the natural reading of in-context learning as learning from
+      examples. The demonstrations specify the task's SHAPE rather than teaching
+      its content, which changes how few-shot prompts should be designed.
+    what_changed_after: >
+      Prompt design shifted toward format and label-space coverage rather than
+      example correctness, and in-context learning became a live research
+      question rather than a settled capability.
+    descendants: ["in-context learning mechanism research", "prompt-format studies"]
+
+  liu2023lost:
+    title: "Lost in the Middle: How Language Models Use Long Contexts"
+    authors: ["Nelson F. Liu", "Kevin Lin", "John Hewitt", "Ashwin Paranjape",
+              "Michele Bevilacqua", "Fabio Petroni", "Percy Liang"]
+    year: 2023
+    venue: "TACL 2023 (arXiv preprint July 2023)"
+    arxiv: "2307.03172"
+    url: "https://arxiv.org/abs/2307.03172"
+    verified: true
+    verified_on: "2026-08-26"
+    verified_via: "arXiv abstract page arxiv.org/abs/2307.03172 — title, seven authors, v1 dated 6 July 2023, TACL 2023 venue confirmed on the page."
+    contribution: >
+      Measured retrieval accuracy as a function of where the relevant
+      information sits in a long context, and found a U-shaped curve —
+      performance is high at the beginning and end and degrades substantially
+      in the middle.
+    why_it_mattered: >
+      It showed that a supported context length is not a usable context length,
+      and turned "how long is the context window" into "where in the window did
+      you put the evidence" — which is a direct constraint on RAG design.
+    what_changed_after: >
+      Position within the context became a design variable, and reranking to
+      place the best evidence at the edges became standard practice.
+    descendants: ["position-aware RAG", "needle-in-a-haystack evaluation", "context reordering"]
+
+  willard2023:
+    title: "Efficient Guided Generation for Large Language Models"
+    authors: ["Brandon T. Willard", "Remi Louf"]
+    year: 2023
+    venue: "arXiv preprint (July 2023), no peer-reviewed venue"
+    arxiv: "2307.09702"
+    url: "https://arxiv.org/abs/2307.09702"
+    verified: true
+    verified_on: "2026-08-26"
+    verified_via: "arXiv abstract page arxiv.org/abs/2307.09702 — title, two authors, v1 dated 19 July 2023 confirmed; the page states no venue. Abstract confirms the finite-state-machine reformulation and the vocabulary index that makes the overhead negligible."
+    contribution: >
+      Reformulated constrained generation as transitions in a finite-state
+      machine, precomputing for each state the set of vocabulary tokens that
+      keep the output valid — which makes regular-expression and grammar
+      constraints nearly free at generation time.
+    why_it_mattered: >
+      It converts "please output JSON" from a request the model may decline into
+      a structural guarantee, by masking invalid tokens rather than hoping. That
+      turns an all-or-nothing product requirement into an invariant.
+    what_changed_after: >
+      Grammar-constrained decoding became a standard serving feature, and
+      structured output stopped being a prompt-engineering problem.
+    descendants: ["JSON-mode APIs", "grammar-constrained serving", "typed tool calls"]
+
+  ji2023survey:
+    title: "Survey of Hallucination in Natural Language Generation"
+    authors: ["Ziwei Ji", "Nayeon Lee", "Rita Frieske", "Tiezheng Yu",
+              "and 9 others"]
+    year: 2023
+    venue: "ACM Computing Surveys 55(12)"
+    arxiv: "2202.03629"
+    url: "https://arxiv.org/abs/2202.03629"
+    verified: true
+    verified_on: "2026-08-26"
+    verified_via: "arXiv abstract page arxiv.org/abs/2202.03629 — title, 13 authors, v1 dated 8 February 2022, ACM Computing Surveys venue confirmed on the page."
+    contribution: >
+      Systematised hallucination across generation tasks, distinguishing
+      intrinsic hallucination (contradicting the source) from extrinsic
+      (unverifiable against it), and catalogued causes and mitigations.
+    why_it_mattered: >
+      The intrinsic/extrinsic distinction is the one that matters operationally,
+      because the two have different detection methods and different fixes —
+      and conflating them is why many mitigation efforts target the wrong thing.
+    what_changed_after: >
+      Hallucination became a measurable category with a taxonomy rather than a
+      catch-all complaint, which is what made grounded-generation evaluation
+      possible.
+    descendants: ["faithfulness metrics", "RAG groundedness evaluation", "citation checking"]
