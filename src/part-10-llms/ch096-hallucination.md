@@ -847,7 +847,18 @@ pass and catches extrinsic fabrication that generation-time retrieval missed.
 **Training for calibrated refusal.** {{maturity:EMERGING}} Including "I don't
 know" as a *rewarded* response in alignment data, directly countering
 {{eq:alignment-confidence-shift}}. It works and it trades away helpfulness on
-questions the model could have answered, which is why it is applied cautiously.
+questions the model could have answered, which is why it is applied cautiously —
+and note the trade is not symmetric, because a spurious refusal is visible to
+the user while a confident fabrication is not, so the *perceived* cost of
+refusal exceeds its actual cost.
+
+**Knowledge cutoffs and temporal fabrication.** {{maturity:ESTABLISHED}} A model
+asked about events after its training cutoff has no grounds by construction, so
+{{eq:corpus-optimum}} guarantees fabrication rather than merely permitting it.
+This is the one case where the failure is perfectly predictable in advance from
+the question's date, and it is therefore the easiest to route around — which is
+why time-sensitive queries are the canonical retrieval trigger in
+{{part:12}}.
 
 ## 16. Connection to Previous Chapters
 
