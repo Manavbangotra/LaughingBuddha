@@ -4025,3 +4025,26 @@ entries:
       Reporting a recall/QPS curve became the expected form of an ANN result,
       and ann-benchmarks.com became the de facto scoreboard.
     descendants: ["ann-benchmarks.com", "the recall/QPS frontier as a standard plot"]
+
+  radovanovic2010hubs:
+    title: "Hubs in Space: Popular Nearest Neighbors in High-Dimensional Data"
+    authors: ["Milos Radovanovic", "Alexandros Nanopoulos", "Mirjana Ivanovic"]
+    year: 2010
+    venue: "Journal of Machine Learning Research 11:2487-2531"
+    url: "https://jmlr.org/papers/v11/radovanovic10a.html"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "JMLR volume 11 listing at jmlr.org/papers/v11/radovanovic10a.html — title, three authors, pages 2487-2531, 2010 confirmed."
+    contribution: >
+      Identified hubness: in high dimension the distribution of k-occurrence —
+      how often a point appears in others' nearest-neighbour lists — becomes
+      severely skewed, so a few "hub" points are returned for almost every query
+      and many points are returned for none.
+    why_it_mattered: >
+      It is a distinct high-dimensional pathology from distance concentration,
+      it is the mechanism behind the "same document keeps coming back" complaint
+      in vector search, and it is measurable on any index for free.
+    what_changed_after: >
+      Hubness-aware similarity corrections and score normalisations entered the
+      retrieval and recommendation literature.
+    descendants: ["hubness reduction", "mutual proximity", "score normalisation in retrieval"]
