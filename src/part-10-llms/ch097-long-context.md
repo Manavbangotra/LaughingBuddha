@@ -768,7 +768,10 @@ ceiling. A useful evaluation includes:
    notably poor at this and it is almost never measured.
 
 **Reporting.** State the accuracy floor, the task, and the number of facts. A
-context-length claim without those three is not comparable to any other.
+context-length claim without those three is not comparable to any other — and
+note that this makes most published context-length comparisons incomparable,
+since they report a supported length and a needle result and neither is a
+function of the other.
 
 ## 15. Advanced Concepts
 
