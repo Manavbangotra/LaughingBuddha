@@ -796,7 +796,12 @@ under-used, it is also the cheapest region to evict
 **Constant-state architectures.** {{maturity:EMERGING}} State-space models
 ({{ch:tf-efficient}}) have no growing cache and no quadratic term, which removes
 {{eq:long-context-cost}} entirely — and they have their own recency bias, so the
-position problem changes shape rather than disappearing.
+position problem changes shape rather than disappearing. A fixed-size state must
+forget something as the sequence grows, which is a *harder* constraint than
+diluted attention: the transformer can in principle attend anywhere, and the
+recurrent model has provably discarded some of it. Which failure is preferable
+depends on whether your evidence is recent, and that is a property of the task
+rather than of the architecture.
 
 ## 16. Connection to Previous Chapters
 
