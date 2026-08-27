@@ -696,6 +696,13 @@ it.
 *Filling the window because it is available.* {{eq:long-context-cost}} — the
 quadratic term is paid on everything you put there, used or not.
 
+*Testing with unrelated filler.* Real haystacks contain near-misses on the same
+topic, which compete for attention in a way filler does not
+({{sec:7-internal-mechanics}}).
+
+*Never testing absence.* A confident denial is worse than a miss, and needle
+tests cannot produce one because they always insert the needle.
+
 ## 12. Failure Modes
 
 **Lost in the middle.** Evidence present, unused. *Detection:* evidence position
@@ -762,7 +769,10 @@ explanation for the U's left arm.
 
 **Context compression.** {{maturity:EMERGING}} Summarising or pruning context
 before the model sees it, attacking both terms of
-{{eq:long-context-cost}} and the position problem at once.
+{{eq:long-context-cost}} and the position problem at once. Note the compressor
+faces the same U it is trying to relieve, so compressing a very long context is
+itself a long-context task — which bounds how much the technique can help
+without a fundamentally different mechanism.
 
 **Position interpolation and extension.** {{maturity:ESTABLISHED}} Extending a
 model's context beyond its trained length by rescaling position encodings
