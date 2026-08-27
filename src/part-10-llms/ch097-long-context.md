@@ -301,6 +301,15 @@ any individual position falls, so a passage competing against more distractors
 receives less attention for the same relevance — which predicts the U deepening
 with $T$, as observed.
 
+This also explains why the *ends* are exempt. Whatever mechanism privileges the
+first and last positions — sink behaviour, recency, or a learned prior — operates
+on position rather than on content, so it does not dilute as $T$ grows. The
+middle has no such protection and competes on relevance alone against an
+ever-larger field. **The U is not the ends improving; it is the middle being
+diluted**, and that framing predicts correctly that the edge columns of
+`needle-in-a-haystack` stay flat across a sixty-fold increase in context
+length.
+
 **Distinguishing this from truncation.** A truncation bug removes tokens; a
 position failure leaves them present and unused. **The test is trivial and
 almost nobody runs it**: log the token count actually sent and compare against
