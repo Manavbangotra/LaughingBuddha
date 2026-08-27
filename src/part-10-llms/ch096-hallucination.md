@@ -757,6 +757,10 @@ Confidence survives alignment as a rank, not a probability
 {{eq:self-consistency-condition}} — it detects instability, and a consistent
 confabulation is stable.
 
+*Evaluating only on questions with true premises.* Sycophancy is invisible to
+such a set, and it is the same mechanism as confident fabrication
+({{sec:7-internal-mechanics}}).
+
 ## 12. Failure Modes
 
 **Confident fabrication.** High confidence, wrong content. *Cause:*
