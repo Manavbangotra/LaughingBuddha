@@ -3493,3 +3493,535 @@ entries:
       formatting, though production systems still mostly rely on instructions
       rather than on a trained policy.
     descendants: ["learned tool selection", "agent training", "tool-use benchmarks"]
+
+  # ── Part XI: Embeddings and Vector Search ──────────────────────────────────
+
+  oord2018cpc:
+    title: "Representation Learning with Contrastive Predictive Coding"
+    authors: ["Aaron van den Oord", "Yazhe Li", "Oriol Vinyals"]
+    year: 2018
+    venue: "arXiv preprint (never formally published)"
+    arxiv: "1807.03748"
+    url: "https://arxiv.org/abs/1807.03748"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/1807.03748 — title, three authors, v1 dated 10 July 2018 confirmed; the page lists no venue."
+    contribution: >
+      Introduced InfoNCE, the contrastive loss that scores one positive against
+      a batch of negatives and is a lower bound on mutual information between
+      the paired views.
+    why_it_mattered: >
+      Nearly every modern embedding model is trained with InfoNCE or a close
+      variant. The loss is what makes "similar things should be near each other"
+      into something differentiable, and its in-batch negative construction is
+      why embedding training is dominated by batch size rather than data volume.
+    what_changed_after: >
+      Contrastive learning became the default objective for representation
+      learning across text, vision, and audio, displacing reconstruction-based
+      autoencoding for retrieval purposes.
+    descendants: ["SimCLR", "SimCSE", "CLIP", "E5", "every dual-encoder retriever"]
+
+  gao2021simcse:
+    title: "SimCSE: Simple Contrastive Learning of Sentence Embeddings"
+    authors: ["Tianyu Gao", "Xingcheng Yao", "Danqi Chen"]
+    year: 2021
+    venue: "EMNLP 2021"
+    arxiv: "2104.08821"
+    url: "https://arxiv.org/abs/2104.08821"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/2104.08821 — title, three authors, v1 dated 18 April 2021, EMNLP 2021 acceptance stated on the page."
+    contribution: >
+      Showed that passing the same sentence through an encoder twice with
+      dropout active produces a positive pair good enough to train competitive
+      sentence embeddings with no labelled data at all.
+    why_it_mattered: >
+      It reduced the cost of a positive pair to zero and made the alignment /
+      uniformity framing of embedding quality concrete and measurable.
+    what_changed_after: >
+      Dropout-as-augmentation became a standard baseline; the paper's diagnosis
+      of anisotropy in raw BERT embeddings is now the standard explanation for
+      why mean-pooled BERT is a poor retriever.
+    descendants: ["unsupervised embedding training", "alignment/uniformity metrics"]
+
+  karpukhin2020dpr:
+    title: "Dense Passage Retrieval for Open-Domain Question Answering"
+    authors: ["Vladimir Karpukhin", "Barlas Oguz", "Sewon Min", "Patrick Lewis",
+              "Ledell Wu", "Sergey Edunov", "Danqi Chen", "Wen-tau Yih"]
+    year: 2020
+    venue: "EMNLP 2020"
+    arxiv: "2004.04906"
+    url: "https://arxiv.org/abs/2004.04906"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/2004.04906 — title, eight authors, v1 dated 10 April 2020, EMNLP 2020 reference on the page."
+    contribution: >
+      Demonstrated that a dual encoder trained on a modest number of
+      question-passage pairs beats BM25 on open-domain QA retrieval — the first
+      convincing case that dense retrieval could displace lexical search.
+    why_it_mattered: >
+      It established the two-tower architecture as the default retrieval
+      component, and its hard-negative mining recipe is still the thing that
+      most affects dense retriever quality.
+    what_changed_after: >
+      Dense retrieval became the assumed first stage of RAG systems. The
+      subsequent literature is largely about the negatives, not the architecture.
+    descendants: ["RAG", "Contriever", "E5", "every production dual encoder"]
+
+  khattab2020colbert:
+    title: "ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT"
+    authors: ["Omar Khattab", "Matei Zaharia"]
+    year: 2020
+    venue: "SIGIR 2020"
+    arxiv: "2004.12832"
+    url: "https://arxiv.org/abs/2004.12832"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/2004.12832 — title, two authors, v1 dated 27 April 2020, SIGIR 2020 acceptance stated on the page."
+    contribution: >
+      Late interaction: keep one vector per token rather than one per document,
+      and score with a MaxSim over token pairs, recovering much of a cross
+      encoder's quality while keeping documents pre-encodable.
+    why_it_mattered: >
+      It is the clearest demonstration that the single-vector bottleneck, not
+      the encoder, is what dense retrieval gives up — and the only widely used
+      point between bi-encoder and cross-encoder on the quality/cost curve.
+    what_changed_after: >
+      Multi-vector retrieval became a recognised third category, with storage
+      cost as its defining constraint.
+    descendants: ["ColBERTv2", "PLAID", "multi-vector indexes"]
+
+  santhanam2022colbertv2:
+    title: "ColBERTv2: Effective and Efficient Retrieval via Lightweight Late Interaction"
+    authors: ["Keshav Santhanam", "Omar Khattab", "Jon Saad-Falcon",
+              "Christopher Potts", "Matei Zaharia"]
+    year: 2022
+    venue: "NAACL 2022"
+    arxiv: "2112.01488"
+    url: "https://arxiv.org/abs/2112.01488"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/2112.01488 — title, five authors, v1 dated 2 December 2021, NAACL 2022 reference on the page."
+    contribution: >
+      Cut ColBERT's storage by an order of magnitude with residual compression
+      of the token vectors, and improved quality with denoised supervision.
+    why_it_mattered: >
+      It made late interaction arguably deployable. The storage argument against
+      multi-vector retrieval is the whole argument, and this halved it twice.
+    what_changed_after: >
+      Multi-vector systems started appearing in production rather than only in
+      papers.
+    descendants: ["PLAID", "compressed multi-vector indexes"]
+
+  formal2021splade:
+    title: "SPLADE: Sparse Lexical and Expansion Model for First Stage Ranking"
+    authors: ["Thibault Formal", "Benjamin Piwowarski", "Stephane Clinchant"]
+    year: 2021
+    venue: "SIGIR 2021 (short paper)"
+    arxiv: "2107.05720"
+    url: "https://arxiv.org/abs/2107.05720"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/2107.05720 — title, three authors, v1 dated 12 July 2021, described on the page as a SIGIR'21 short paper."
+    contribution: >
+      Learned sparse representations over the vocabulary with explicit sparsity
+      regularisation, producing vectors that an inverted index can serve while
+      still doing neural term expansion.
+    why_it_mattered: >
+      It broke the assumption that "neural" implies "dense". Learned sparse
+      retrieval keeps the exact-match behaviour and the mature inverted-index
+      infrastructure that dense retrieval throws away.
+    what_changed_after: >
+      Learned sparse retrieval became the standard third option alongside BM25
+      and dense, and the main argument for hybrid search became weaker where
+      SPLADE-style models are available.
+    descendants: ["SPLADE++", "learned sparse retrieval", "hybrid search design"]
+
+  wang2022e5:
+    title: "Text Embeddings by Weakly-Supervised Contrastive Pre-training"
+    authors: ["Liang Wang", "Nan Yang", "Xiaolong Huang", "Binxing Jiao",
+              "Linjun Yang", "Daxin Jiang", "Rangan Majumder", "Furu Wei"]
+    year: 2022
+    venue: "arXiv preprint"
+    arxiv: "2212.03533"
+    url: "https://arxiv.org/abs/2212.03533"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/2212.03533 — title, eight authors, v1 dated 7 December 2022 confirmed; the page lists no venue."
+    contribution: >
+      The E5 family: contrastive pre-training on CCPairs, a large curated set of
+      weakly-related text pairs, producing the first model to beat BM25 on BEIR
+      zero-shot without labelled data.
+    why_it_mattered: >
+      It settled the practical question of where embedding training data comes
+      from — mined pairs at scale, filtered aggressively — and introduced the
+      query/passage prefix convention that most open embedding models now use.
+    what_changed_after: >
+      Open embedding models became competitive with commercial APIs, and the
+      asymmetric-prefix convention became a compatibility requirement.
+    descendants: ["E5-Mistral", "multilingual-E5", "BGE", "GTE"]
+
+  izacard2022contriever:
+    title: "Unsupervised Dense Information Retrieval with Contrastive Learning"
+    authors: ["Gautier Izacard", "Mathilde Caron", "Lucas Hosseini",
+              "Sebastian Riedel", "Piotr Bojanowski", "Armand Joulin",
+              "Edouard Grave"]
+    year: 2022
+    venue: "TMLR 2022 (arXiv preprint December 2021)"
+    arxiv: "2112.09118"
+    url: "https://arxiv.org/abs/2112.09118"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/2112.09118 — title, seven authors, v1 dated 16 December 2021; the page lists no venue, TMLR publication is from the journal listing."
+    contribution: >
+      Contriever: dense retrieval trained with no supervision at all, using
+      independent cropping for positives and momentum-queue negatives, matching
+      or beating BM25 on most of BEIR.
+    why_it_mattered: >
+      It removed the labelled-data requirement that made dense retrieval hard to
+      adopt in new domains, and it is the standard starting point for retrieval
+      in a domain with no relevance judgements.
+    what_changed_after: >
+      Unsupervised initialisation followed by light supervised fine-tuning
+      became the default recipe.
+    descendants: ["domain-adapted retrievers", "unsupervised RAG pipelines"]
+
+  ni2021gtr:
+    title: "Large Dual Encoders Are Generalizable Retrievers"
+    authors: ["Jianmo Ni", "Chen Qu", "Jing Lu", "Zhuyun Dai",
+              "Gustavo Hernandez Abrego", "Ji Ma", "Vincent Y. Zhao",
+              "Yi Luan", "Keith B. Hall", "Ming-Wei Chang", "Yinfei Yang"]
+    year: 2021
+    venue: "arXiv preprint"
+    arxiv: "2112.07899"
+    url: "https://arxiv.org/abs/2112.07899"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/2112.07899 — title, eleven authors, v1 dated 15 December 2021 confirmed; the page lists no venue."
+    contribution: >
+      GTR: showed that scaling the dual encoder while HOLDING the embedding
+      dimension fixed improves out-of-domain retrieval substantially.
+    why_it_mattered: >
+      It separates two things practitioners routinely conflate — model capacity
+      and vector width — and shows the generalisation gain comes from the first.
+      Index cost depends only on the second.
+    what_changed_after: >
+      Embedding dimension stopped being treated as the quality knob, which is
+      what makes dimension reduction and Matryoshka training reasonable.
+    descendants: ["Matryoshka representation learning", "large embedding models"]
+
+  kusupati2022matryoshka:
+    title: "Matryoshka Representation Learning"
+    authors: ["Aditya Kusupati", "Gantavya Bhatt", "Aniket Rege",
+              "Matthew Wallingford", "Aditya Sinha", "Vivek Ramanujan",
+              "William Howard-Snyder", "Kaifeng Chen", "Sham Kakade",
+              "Prateek Jain", "Ali Farhadi"]
+    year: 2022
+    venue: "NeurIPS 2022"
+    arxiv: "2205.13147"
+    url: "https://arxiv.org/abs/2205.13147"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/2205.13147 — title, eleven authors, v1 dated 26 May 2022; NeurIPS 2022 main-track publication confirmed via proceedings.neurips.cc listing."
+    contribution: >
+      Trained one embedding whose leading prefixes are themselves usable
+      embeddings, by summing the contrastive loss over nested dimensionalities.
+    why_it_mattered: >
+      It converts the dimension choice from a training-time commitment into a
+      serving-time knob, which is what makes adaptive retrieval — search cheap
+      at 64 dimensions, rerank at 768 — possible with one index.
+    what_changed_after: >
+      Commercial embedding APIs began shipping truncatable dimensions as a
+      documented feature.
+    descendants: ["adaptive retrieval", "truncatable embedding APIs"]
+
+  malkov2014nsw:
+    title: "Approximate nearest neighbor algorithm based on navigable small world graphs"
+    authors: ["Yury Malkov", "Alexander Ponomarenko", "Andrey Logvinov",
+              "Vladimir Krylov"]
+    year: 2014
+    venue: "Information Systems 45:61-68"
+    url: "https://www.sciencedirect.com/science/article/abs/pii/S0306437913001300"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "ScienceDirect listing and Semantic Scholar record — Information Systems volume 45, pages 61-68, 2014, four authors confirmed."
+    contribution: >
+      Proximity graph search over a navigable small-world graph: long-range
+      links created early in insertion give logarithmic hops, short-range links
+      give accuracy.
+    why_it_mattered: >
+      It is the direct ancestor of HNSW and the origin of the insight that
+      insertion order alone can produce the long links a small-world graph needs.
+    what_changed_after: >
+      Graph-based ANN displaced tree- and hash-based methods for in-memory
+      vector search.
+    descendants: ["HNSW", "NGT", "Vamana/DiskANN"]
+
+  malkov2020hnsw:
+    title: "Efficient and Robust Approximate Nearest Neighbor Search Using Hierarchical Navigable Small World Graphs"
+    authors: ["Yury A. Malkov", "Dmitry A. Yashunin"]
+    year: 2020
+    venue: "IEEE TPAMI 42(4):824-836 (arXiv preprint March 2016)"
+    arxiv: "1603.09320"
+    url: "https://arxiv.org/abs/1603.09320"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/1603.09320 — title, two authors, v1 dated 30 March 2016, v4 August 2018; TPAMI 42(4):824-836 with DOI 10.1109/TPAMI.2018.2889473 confirmed via the journal record."
+    contribution: >
+      HNSW: a hierarchy of proximity graphs with exponentially decaying
+      connectivity, searched coarse-to-fine, giving logarithmic search
+      complexity with controllable recall via a single ef parameter.
+    why_it_mattered: >
+      It is the index in essentially every vector database shipped since 2019.
+      No competitor has displaced it for in-memory search at moderate scale.
+    what_changed_after: >
+      Vector search became an infrastructure category rather than a research
+      topic, and its parameters (M, efConstruction, efSearch) became things
+      application engineers tune.
+    descendants: ["FAISS HNSW", "hnswlib", "pgvector", "every vector database"]
+
+  jegou2011pq:
+    title: "Product Quantization for Nearest Neighbor Search"
+    authors: ["Herve Jegou", "Matthijs Douze", "Cordelia Schmid"]
+    year: 2011
+    venue: "IEEE TPAMI 33(1):117-128"
+    url: "https://dl.acm.org/doi/10.1109/TPAMI.2010.57"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "ACM DL and PubMed records for DOI 10.1109/TPAMI.2010.57 — TPAMI volume 33, issue 1, pages 117-128, 2011, three authors confirmed."
+    contribution: >
+      Split a vector into subvectors, quantize each with its own small codebook,
+      and represent the whole vector by the tuple of centroid ids — making the
+      effective codebook size the product of the parts.
+    why_it_mattered: >
+      It is the compression scheme that makes billion-scale vector search fit in
+      memory, and the asymmetric distance computation it introduced is why the
+      compression costs less accuracy than it should.
+    what_changed_after: >
+      Every large-scale ANN system uses PQ or a descendant; the residual
+      compression in ColBERTv2 and the quantization in ScaNN are both variants.
+    descendants: ["OPQ", "IVFPQ", "ScaNN", "ColBERTv2 residual compression"]
+
+  johnson2019faiss:
+    title: "Billion-scale similarity search with GPUs"
+    authors: ["Jeff Johnson", "Matthijs Douze", "Herve Jegou"]
+    year: 2019
+    venue: "IEEE Transactions on Big Data (arXiv preprint February 2017)"
+    arxiv: "1702.08734"
+    url: "https://arxiv.org/abs/1702.08734"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/1702.08734 — title, three authors, v1 dated 28 February 2017 confirmed; the page lists no venue."
+    contribution: >
+      The FAISS design: GPU k-selection, IVF partitioning, and PQ compression
+      combined into a library that made billion-vector search routine.
+    why_it_mattered: >
+      FAISS is the reference implementation almost everything else is compared
+      against, and the paper is where the IVF+PQ composition is described as an
+      engineering system rather than an algorithm.
+    what_changed_after: >
+      Vector search became something a small team could deploy, which is a
+      precondition for RAG existing as a common architecture.
+    descendants: ["FAISS", "Milvus", "most vector database internals"]
+
+  guo2020scann:
+    title: "Accelerating Large-Scale Inference with Anisotropic Vector Quantization"
+    authors: ["Ruiqi Guo", "Philip Sun", "Erik Lindgren", "Quan Geng",
+              "David Simcha", "Felix Chern", "Sanjiv Kumar"]
+    year: 2020
+    venue: "ICML 2020, pages 3887-3896"
+    arxiv: "1908.10396"
+    url: "https://proceedings.mlr.press/v119/guo20h.html"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/1908.10396 (v1 dated 27 August 2019, seven authors) and PMLR v119 proceedings listing for ICML 2020, pages 3887-3896."
+    contribution: >
+      Showed that quantization for maximum inner product search should penalise
+      the error component PARALLEL to the datapoint more than the orthogonal
+      one, because only the parallel part changes the inner product.
+    why_it_mattered: >
+      It is the clearest statement that reconstruction error is the wrong
+      objective when the downstream operation is a dot product — a general
+      lesson that applies well beyond ANN.
+    what_changed_after: >
+      Score-aware quantization loss became standard; ScaNN held the top of the
+      ANN benchmarks for years.
+    descendants: ["ScaNN", "score-aware quantization", "MIPS-specific indexes"]
+
+  indyk1998lsh:
+    title: "Approximate Nearest Neighbors: Towards Removing the Curse of Dimensionality"
+    authors: ["Piotr Indyk", "Rajeev Motwani"]
+    year: 1998
+    venue: "STOC 1998, pages 604-613"
+    url: "https://dblp.org/rec/conf/stoc/IndykM98.html"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "dblp record conf/stoc/IndykM98 — STOC 1998, pages 604-613, two authors confirmed."
+    contribution: >
+      Locality-sensitive hashing, with the first sublinear-time approximate
+      nearest neighbour guarantees in high dimension.
+    why_it_mattered: >
+      It established that approximation is what buys tractability in high
+      dimension — the framing every practical ANN index still operates inside.
+    what_changed_after: >
+      LSH dominated ANN for a decade before graph methods overtook it
+      empirically; the theoretical framing outlasted the algorithm.
+    descendants: ["MinHash/SimHash pipelines", "the recall/latency framing of ANN"]
+
+  beyer1999nn:
+    title: "When Is Nearest Neighbor Meaningful?"
+    authors: ["Kevin Beyer", "Jonathan Goldstein", "Raghu Ramakrishnan",
+              "Uri Shaft"]
+    year: 1999
+    venue: "ICDT 1999, LNCS 1540, pages 217-235"
+    url: "https://link.springer.com/chapter/10.1007/3-540-49257-7_15"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "ICDT 1999 proceedings record, LNCS volume 1540, pages 217-235, four authors confirmed."
+    contribution: >
+      Proved that under broad conditions the distance to the nearest and
+      farthest points converges as dimension grows, so nearest-neighbour queries
+      become unstable.
+    why_it_mattered: >
+      It is the precise statement of the curse of dimensionality for retrieval,
+      and the reason the concentration result does NOT kill vector search is
+      that learned embeddings violate its independence assumptions — a point
+      worth making explicitly rather than ignoring the theorem.
+    what_changed_after: >
+      The field moved to intrinsic rather than ambient dimension as the quantity
+      that governs ANN difficulty.
+    descendants: ["intrinsic dimension analysis", "ANN hardness characterisation"]
+
+  robertson2009bm25:
+    title: "The Probabilistic Relevance Framework: BM25 and Beyond"
+    authors: ["Stephen Robertson", "Hugo Zaragoza"]
+    year: 2009
+    venue: "Foundations and Trends in Information Retrieval 3(4):333-389"
+    url: "https://www.staff.city.ac.uk/~sbrp622/papers/foundations_bm25_review.pdf"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "IR Anthology record and the authors' hosted PDF — FnTIR volume 3, issue 4, pages 333-389, 2009, DOI 10.1561/1500000019, two authors confirmed."
+    contribution: >
+      The definitive derivation of BM25 from the probabilistic relevance
+      framework, including why term-frequency saturation and length
+      normalisation take the forms they do.
+    why_it_mattered: >
+      BM25 remains the baseline every dense retriever is measured against, and
+      it still wins on exact-match, rare-term, and out-of-domain queries. The
+      monograph is where its parameters stop being magic numbers.
+    what_changed_after: >
+      Nothing displaced BM25 as the lexical baseline; hybrid search exists
+      precisely because it did not go away.
+    descendants: ["hybrid search", "BM25F", "every IR baseline table"]
+
+  cormack2009rrf:
+    title: "Reciprocal Rank Fusion outperforms Condorcet and individual Rank Learning Methods"
+    authors: ["Gordon V. Cormack", "Charles L. A. Clarke", "Stefan Buettcher"]
+    year: 2009
+    venue: "SIGIR 2009, pages 758-759"
+    url: "https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "dblp record conf/sigir/CormackCB09 and the author-hosted PDF — SIGIR 2009, pages 758-759, three authors confirmed."
+    contribution: >
+      Reciprocal rank fusion: combine ranked lists by summing 1/(k + rank), a
+      one-line method that beat learned rank fusion.
+    why_it_mattered: >
+      It is what makes hybrid search practical, because it fuses RANKS and so
+      needs no score calibration between a BM25 score and a cosine similarity —
+      the problem that makes score-based fusion fragile.
+    what_changed_after: >
+      RRF became the default hybrid fusion method in vector databases and search
+      engines, usually with the paper's k=60 unexamined.
+    descendants: ["hybrid search in every vector database", "ensemble retrieval"]
+
+  nogueira2019monobert:
+    title: "Passage Re-ranking with BERT"
+    authors: ["Rodrigo Nogueira", "Kyunghyun Cho"]
+    year: 2019
+    venue: "arXiv preprint (never formally published)"
+    arxiv: "1901.04085"
+    url: "https://arxiv.org/abs/1901.04085"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/1901.04085 — title, two authors, v1 dated 13 January 2019 confirmed; the page lists no venue."
+    contribution: >
+      Fed query and passage jointly to BERT and used the classification head as
+      a relevance score, jumping the MS MARCO leaderboard by a wide margin.
+    why_it_mattered: >
+      It is the origin of the retrieve-then-rerank architecture: the cross
+      encoder is far too slow to score a corpus, so a cheap retriever must go in
+      front of it. That constraint, not the model, defines the pattern.
+    what_changed_after: >
+      Two-stage retrieval became the standard architecture for any system that
+      cares about precision.
+    descendants: ["monoT5", "cross-encoder rerankers", "retrieve-then-rerank"]
+
+  nogueira2020monot5:
+    title: "Document Ranking with a Pretrained Sequence-to-Sequence Model"
+    authors: ["Rodrigo Nogueira", "Zhiying Jiang", "Ronak Pradeep", "Jimmy Lin"]
+    year: 2020
+    venue: "Findings of EMNLP 2020, pages 708-718"
+    arxiv: "2003.06713"
+    url: "https://aclanthology.org/2020.findings-emnlp.63/"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "ACL Anthology record 2020.findings-emnlp.63 — Findings of EMNLP 2020, pages 708-718, four authors; arXiv 2003.06713 v1 dated 14 March 2020."
+    contribution: >
+      monoT5: cast reranking as generating the token "true" or "false" and use
+      the logit difference as the score, which transfers zero-shot far better
+      than a classification head.
+    why_it_mattered: >
+      It showed relevance can be expressed in the pretraining vocabulary rather
+      than in a randomly initialised head, which is why the zero-shot behaviour
+      is so much better.
+    what_changed_after: >
+      Generative reranking became standard, and the technique generalises
+      directly to LLM-based rerankers and LLM-as-judge scoring.
+    descendants: ["RankT5", "LLM rerankers", "LLM-as-judge relevance scoring"]
+
+  thakur2021beir:
+    title: "BEIR: A Heterogenous Benchmark for Zero-shot Evaluation of Information Retrieval Models"
+    authors: ["Nandan Thakur", "Nils Reimers", "Andreas Ruckle",
+              "Abhishek Srivastava", "Iryna Gurevych"]
+    year: 2021
+    venue: "NeurIPS 2021 Datasets and Benchmarks Track"
+    arxiv: "2104.08663"
+    url: "https://arxiv.org/abs/2104.08663"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/2104.08663 — title, five authors, v1 dated 17 April 2021, NeurIPS 2021 Datasets and Benchmarks acceptance stated on the page."
+    contribution: >
+      Eighteen retrieval datasets across domains and task types, evaluated
+      zero-shot, which exposed that dense retrievers trained on MS MARCO
+      frequently lose to BM25 out of domain.
+    why_it_mattered: >
+      It is the benchmark that made out-of-domain generalisation the central
+      question in retrieval, and the reason "beats BM25" now means "beats BM25
+      on BEIR" rather than on one in-domain test set.
+    what_changed_after: >
+      Zero-shot robustness became a headline metric; Contriever, E5, and GTR are
+      all responses to BEIR's finding.
+    descendants: ["MTEB", "zero-shot retrieval evaluation"]
+
+  aumuller2020annbench:
+    title: "ANN-Benchmarks: A Benchmarking Tool for Approximate Nearest Neighbor Algorithms"
+    authors: ["Martin Aumuller", "Erik Bernhardsson", "Alexander Faithfull"]
+    year: 2020
+    venue: "Information Systems 87 (arXiv preprint July 2018; full version of the SISAP 2017 paper)"
+    arxiv: "1807.05614"
+    url: "https://arxiv.org/abs/1807.05614"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/1807.05614 — title, three authors, v1 dated 15 July 2018, described on the page as the full version of the SISAP 2017 conference paper."
+    contribution: >
+      A standard harness and set of datasets for ANN evaluation, reporting the
+      recall/queries-per-second frontier rather than single operating points.
+    why_it_mattered: >
+      It made ANN claims comparable. Before it, every index paper reported its
+      own datasets at its own operating point, which made the literature
+      effectively unreadable.
+    what_changed_after: >
+      Reporting a recall/QPS curve became the expected form of an ANN result,
+      and ann-benchmarks.com became the de facto scoreboard.
+    descendants: ["ann-benchmarks.com", "the recall/QPS frontier as a standard plot"]
