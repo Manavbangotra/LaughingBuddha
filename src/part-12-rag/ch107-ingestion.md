@@ -750,6 +750,12 @@ page furniture.
 
 **Duplicate rate** at the section level.
 
+**Extraction agreement across two parsers.** Run a second extractor over a
+sample and measure where the two disagree. You will not know which is right, but
+disagreement localises the hard documents precisely — and the documents two
+parsers disagree about are, almost without exception, the ones worth reading by
+hand.
+
 **And a human read of fifty random chunks.** No metric in this list substitutes
 for it, because the failures are diverse and most of them are obvious on sight.
 
