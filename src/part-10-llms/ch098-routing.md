@@ -751,6 +751,30 @@ shows the AUC-0.5 row flat, which is what "no signal" looks like.
 monitoring: the failure that matters is drift, it is invisible in cost metrics,
 and the probe set is the only instrument that sees it.
 
+**The measurement that most teams skip is the counterfactual.** A deployed
+router reports the quality of the requests it sent to each model, which is
+exactly the number that cannot answer the question being asked. What you need is
+the quality the *other* model would have achieved on those same requests, and
+routing by construction does not produce it. **Reserve a small holdout — one to
+five percent of traffic — that bypasses the router and goes to a fixed model,
+and a second holdout that goes to the other one.** Without those two streams the
+router's value is not estimable at all: every apparent improvement is confounded
+with whatever the router chose to send where.
+
+> **PRODUCTION TIP:** Log the routing *decision and its inputs*, not just the
+> destination. Six months later, the question will be "would the current router
+> have made a different call on last quarter's traffic?", and answering it
+> requires replaying the features. A destination log cannot be replayed against
+> a new router; a feature log can.
+
+**Report the escalation rate as a distribution, not a mean.** A cascade running
+at 30% overall may be running at 4% on one product surface and 71% on another,
+and the mean hides exactly the slice where the small model has stopped being
+adequate. {{eq:cascade-breakeven}} applies per slice, and a slice above its own
+break-even is paying cascade overhead to arrive at always-large — the correct
+action there is to route that surface directly to the large model and take the
+router cost off it entirely.
+
 ## 15. Advanced Concepts
 
 **Learned routers.** {{maturity:EMERGING}} Training a classifier on
