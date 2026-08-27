@@ -4048,3 +4048,339 @@ entries:
       Hubness-aware similarity corrections and score normalisations entered the
       retrieval and recommendation literature.
     descendants: ["hubness reduction", "mutual proximity", "score normalisation in retrieval"]
+
+  # ── Part XII: Retrieval-Augmented Generation ───────────────────────────────
+
+  lewis2020rag:
+    title: "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks"
+    authors: ["Patrick Lewis", "Ethan Perez", "Aleksandra Piktus",
+              "Fabio Petroni", "Vladimir Karpukhin", "Naman Goyal",
+              "Heinrich Kuttler", "Mike Lewis", "Wen-tau Yih",
+              "Tim Rocktaschel", "Sebastian Riedel", "Douwe Kiela"]
+    year: 2020
+    venue: "NeurIPS 2020"
+    arxiv: "2005.11401"
+    url: "https://arxiv.org/abs/2005.11401"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/2005.11401 — title, twelve authors, v1 dated 22 May 2020, NeurIPS 2020 acceptance stated on the page."
+    contribution: >
+      Named and formalised retrieval-augmented generation: a parametric
+      seq2seq model conditioned on documents retrieved by a dense retriever,
+      trained end to end with the retriever's output marginalised over.
+    why_it_mattered: >
+      It established that knowledge could live outside the weights and be
+      swapped without retraining — the single architectural idea that most
+      production LLM systems are built on.
+    what_changed_after: >
+      RAG became the default architecture for grounding an LLM in private or
+      current data, and the term detached from this paper's specific
+      end-to-end-trained method to mean the general pattern.
+    descendants: ["every production RAG system", "Self-RAG", "CRAG", "GraphRAG"]
+
+  guu2020realm:
+    title: "REALM: Retrieval-Augmented Language Model Pre-Training"
+    authors: ["Kelvin Guu", "Kenton Lee", "Zora Tung", "Panupong Pasupat",
+              "Ming-Wei Chang"]
+    year: 2020
+    venue: "arXiv preprint (ICML 2020)"
+    arxiv: "2002.08909"
+    url: "https://arxiv.org/abs/2002.08909"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/2002.08909 — title, five authors, v1 dated 10 February 2020 confirmed; the page lists no venue."
+    contribution: >
+      Trained a retriever jointly with a masked language model during
+      PRETRAINING, backpropagating through retrieval by treating the retrieved
+      document as a latent variable.
+    why_it_mattered: >
+      It is the strongest evidence that retrieval can be learned rather than
+      bolted on, and it predates and anticipates RAG.
+    what_changed_after: >
+      End-to-end retrieval training became a recognised, and recognised as
+      expensive, alternative to frozen retrieval.
+    descendants: ["RAG", "Atlas", "retrieval pretraining"]
+
+  izacard2022atlas:
+    title: "Atlas: Few-shot Learning with Retrieval Augmented Language Models"
+    authors: ["Gautier Izacard", "Patrick Lewis", "Maria Lomeli",
+              "Lucas Hosseini", "Fabio Petroni", "Timo Schick",
+              "Jane Dwivedi-Yu", "Armand Joulin", "Sebastian Riedel",
+              "Edouard Grave"]
+    year: 2022
+    venue: "arXiv preprint"
+    arxiv: "2208.03299"
+    url: "https://arxiv.org/abs/2208.03299"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/2208.03299 — title, ten authors, v3 dated 16 November 2022 confirmed; the page lists no venue."
+    contribution: >
+      Showed a retrieval-augmented model with far fewer parameters matching or
+      beating much larger closed-book models on knowledge-intensive tasks in
+      the few-shot regime.
+    why_it_mattered: >
+      It is the clearest quantitative statement of RAG's central economic
+      claim: retrieval substitutes for parameters, and the exchange rate is
+      favourable.
+    what_changed_after: >
+      "Small model plus retrieval" became a credible architecture rather than a
+      compromise.
+    descendants: ["retrieval-augmented small models", "RAG cost arguments"]
+
+  gao2023hyde:
+    title: "Precise Zero-Shot Dense Retrieval without Relevance Labels"
+    authors: ["Luyu Gao", "Xueguang Ma", "Jimmy Lin", "Jamie Callan"]
+    year: 2022
+    venue: "arXiv preprint (ACL 2023)"
+    arxiv: "2212.10496"
+    url: "https://arxiv.org/abs/2212.10496"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/2212.10496 — title, four authors, v1 dated 20 December 2022 confirmed; the page lists no venue."
+    contribution: >
+      HyDE: generate a HYPOTHETICAL answer document with an LLM, embed that
+      instead of the query, and retrieve with it.
+    why_it_mattered: >
+      It attacks the query/document asymmetry directly — a question and its
+      answer look nothing alike, and a fabricated answer looks like the real
+      one. The hypothetical document being factually wrong does not matter,
+      which is the counterintuitive and important part.
+    what_changed_after: >
+      Query transformation became a standard RAG stage rather than a research
+      curiosity.
+    descendants: ["query rewriting pipelines", "generative query expansion"]
+
+  ma2023rewrite:
+    title: "Query Rewriting for Retrieval-Augmented Large Language Models"
+    authors: ["Xinbei Ma", "Yeyun Gong", "Pengcheng He", "Hai Zhao",
+              "Nan Duan"]
+    year: 2023
+    venue: "EMNLP 2023"
+    arxiv: "2305.14283"
+    url: "https://arxiv.org/abs/2305.14283"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/2305.14283 — title, five authors, EMNLP 2023 stated on the page."
+    contribution: >
+      Rewrite-Retrieve-Read: a small trainable rewriter placed in front of a
+      frozen retriever and a frozen reader, optimised by reinforcement learning
+      against the reader's output.
+    why_it_mattered: >
+      It established the query as a tunable component in its own right, and
+      showed the cheapest place to intervene in a RAG pipeline is often before
+      retrieval rather than inside it.
+    what_changed_after: >
+      Query understanding became a named stage with its own literature.
+    descendants: ["multi-query retrieval", "learned query rewriters"]
+
+  jiang2023flare:
+    title: "Active Retrieval Augmented Generation"
+    authors: ["Zhengbao Jiang", "Frank F. Xu", "Luyu Gao", "Zhiqing Sun",
+              "Qian Liu", "Jane Dwivedi-Yu", "Yiming Yang", "Jamie Callan",
+              "Graham Neubig"]
+    year: 2023
+    venue: "EMNLP 2023"
+    arxiv: "2305.06983"
+    url: "https://arxiv.org/abs/2305.06983"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/2305.06983 — title, nine authors, v1 dated 11 May 2023, EMNLP 2023 stated on the page."
+    contribution: >
+      FLARE: retrieve DURING generation rather than once at the start, using
+      the model's own low-confidence upcoming sentence as the trigger and the
+      query.
+    why_it_mattered: >
+      It reframed retrieval from a preprocessing step into a control-flow
+      decision made repeatedly, which is the conceptual bridge from RAG to
+      agentic retrieval.
+    what_changed_after: >
+      Iterative and confidence-triggered retrieval became standard for
+      long-form generation.
+    descendants: ["Self-RAG", "agentic RAG", "iterative retrieval"]
+
+  asai2023selfrag:
+    title: "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection"
+    authors: ["Akari Asai", "Zeqiu Wu", "Yizhong Wang", "Avirup Sil",
+              "Hannaneh Hajishirzi"]
+    year: 2023
+    venue: "arXiv preprint (ICLR 2024)"
+    arxiv: "2310.11511"
+    url: "https://arxiv.org/abs/2310.11511"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/2310.11511 — title, five authors, v1 dated 17 October 2023 confirmed; the page lists no venue."
+    contribution: >
+      Trained a model to emit REFLECTION TOKENS deciding whether to retrieve,
+      whether a passage is relevant, and whether its own output is supported —
+      making the retrieval decision part of generation rather than external.
+    why_it_mattered: >
+      It is the cleanest demonstration that "should I retrieve" is a learnable
+      decision, and that always retrieving is a real cost rather than a free
+      default.
+    what_changed_after: >
+      Adaptive retrieval and self-critique became standard components; the
+      reflection-token idea reappears throughout agent design.
+    descendants: ["CRAG", "adaptive RAG", "self-critique agents"]
+
+  yan2024crag:
+    title: "Corrective Retrieval Augmented Generation"
+    authors: ["Shi-Qi Yan", "Jia-Chen Gu", "Yun Zhu", "Zhen-Hua Ling"]
+    year: 2024
+    venue: "arXiv preprint"
+    arxiv: "2401.15884"
+    url: "https://arxiv.org/abs/2401.15884"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/2401.15884 — title, four authors, 2024, cs.CL; the page lists no venue."
+    contribution: >
+      A lightweight retrieval evaluator grades retrieved documents and triggers
+      one of three actions — use, discard and search the web, or a mixture —
+      plus a decompose-then-recompose step that strips irrelevant passages.
+    why_it_mattered: >
+      It treats bad retrieval as an expected condition with a defined handler
+      rather than as an error, which is the difference between a demo and a
+      system.
+    what_changed_after: >
+      Retrieval grading became a standard pipeline stage.
+    descendants: ["adaptive RAG", "retrieval quality gating"]
+
+  edge2024graphrag:
+    title: "From Local to Global: A Graph RAG Approach to Query-Focused Summarization"
+    authors: ["Darren Edge", "Ha Trinh", "Newman Cheng", "Joshua Bradley",
+              "Alex Chao", "Apurva Mody", "Steven Truitt",
+              "Dasha Metropolitansky", "Robert Osazuwa Ness",
+              "Jonathan Larson"]
+    year: 2024
+    venue: "arXiv preprint"
+    arxiv: "2404.16130"
+    url: "https://arxiv.org/abs/2404.16130"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/2404.16130 — title, ten authors, v1 dated 24 April 2024 confirmed; the page lists no venue."
+    contribution: >
+      Built an entity knowledge graph from a corpus, detected communities, and
+      pre-summarised each — so that GLOBAL questions about a whole corpus can be
+      answered by map-reduce over community summaries.
+    why_it_mattered: >
+      It identifies a query class chunk retrieval structurally cannot serve:
+      questions whose answer is not in any chunk because it is a property of the
+      corpus. That is a real gap, and naming it is the contribution.
+    what_changed_after: >
+      Graph construction became a recognised, and expensive, RAG indexing
+      option.
+    descendants: ["knowledge-graph RAG", "hierarchical summarisation indexes"]
+
+  sarthi2024raptor:
+    title: "RAPTOR: Recursive Abstractive Processing for Tree-Organized Retrieval"
+    authors: ["Parth Sarthi", "Salman Abdullah", "Aditi Tuli", "Shubh Khanna",
+              "Anna Goldie", "Christopher D. Manning"]
+    year: 2024
+    venue: "arXiv preprint (ICLR 2024)"
+    arxiv: "2401.18059"
+    url: "https://arxiv.org/abs/2401.18059"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/2401.18059 — title, six authors, v1 dated 31 January 2024 confirmed; the page lists no venue."
+    contribution: >
+      Recursively cluster and summarise chunks into a tree, and retrieve from
+      every level — so a query can match a detail, a section summary, or a
+      document summary as appropriate.
+    why_it_mattered: >
+      It is the cheapest good answer to the chunk-size dilemma: instead of
+      choosing one granularity, index several and let retrieval pick.
+    what_changed_after: >
+      Hierarchical indexing became a standard alternative to flat chunking.
+    descendants: ["hierarchical RAG", "multi-granularity indexes"]
+
+  es2023ragas:
+    title: "Ragas: Automated Evaluation of Retrieval Augmented Generation"
+    authors: ["Shahul Es", "Jithin James", "Luis Espinosa-Anke",
+              "Steven Schockaert"]
+    year: 2023
+    venue: "arXiv preprint (EACL 2024 demo)"
+    arxiv: "2309.15217"
+    url: "https://arxiv.org/abs/2309.15217"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/2309.15217 — title, four authors, v1 dated 26 September 2023 confirmed; the page lists no venue."
+    contribution: >
+      Reference-free RAG evaluation: faithfulness, answer relevance, and
+      context relevance scored by an LLM without ground-truth answers.
+    why_it_mattered: >
+      It made RAG evaluation cheap enough to run continuously, which is the
+      precondition for treating retrieval quality as a monitored property
+      rather than a launch-time one.
+    what_changed_after: >
+      Reference-free RAG metrics became the default in tooling, along with all
+      the LLM-as-judge caveats that come with them.
+    descendants: ["RAG observability tooling", "reference-free evaluation"]
+
+  li2024ragvslongcontext:
+    title: "Retrieval Augmented Generation or Long-Context LLMs? A Comprehensive Study and Hybrid Approach"
+    authors: ["Zhuowan Li", "Cheng Li", "Mingyang Zhang", "Qiaozhu Mei",
+              "Michael Bendersky"]
+    year: 2024
+    venue: "EMNLP 2024 (industry track)"
+    arxiv: "2407.16833"
+    url: "https://arxiv.org/abs/2407.16833"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/2407.16833 — title, five authors, v1 dated 23 July 2024, EMNLP 2024 industry track acceptance stated on the page."
+    contribution: >
+      A systematic comparison of RAG against feeding everything to a
+      long-context model, plus a router that sends each query to whichever is
+      better.
+    why_it_mattered: >
+      It is the empirical answer to the question every team asks once context
+      windows grow — and the answer is a cost trade-off with a routing
+      solution, not a winner.
+    what_changed_after: >
+      "Long context kills RAG" stopped being a defensible position without
+      reference to cost.
+    descendants: ["RAG/long-context routers", "context-cost analyses"]
+
+  gao2023ragsurvey:
+    title: "Retrieval-Augmented Generation for Large Language Models: A Survey"
+    authors: ["Yunfan Gao", "Yun Xiong", "Xinyu Gao", "Kangxiang Jia",
+              "Jinliu Pan", "Yuxi Bi", "Yi Dai", "Jiawei Sun", "Meng Wang",
+              "Haofen Wang"]
+    year: 2023
+    venue: "arXiv preprint (ongoing work)"
+    arxiv: "2312.10997"
+    url: "https://arxiv.org/abs/2312.10997"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/2312.10997 — title, ten authors, v1 dated 18 December 2023, marked 'Ongoing Work' with no venue."
+    contribution: >
+      The standard survey, and the source of the naive / advanced / modular RAG
+      taxonomy that most practitioners now use.
+    why_it_mattered: >
+      It organised a literature that had grown faster than anyone could read,
+      and its vocabulary became the field's.
+    what_changed_after: >
+      The naive/advanced/modular framing is now the default way RAG
+      architectures are described.
+    descendants: ["RAG taxonomies", "practitioner vocabulary"]
+
+  yao2023react:
+    title: "ReAct: Synergizing Reasoning and Acting in Language Models"
+    authors: ["Shunyu Yao", "Jeffrey Zhao", "Dian Yu", "Nan Du",
+              "Izhak Shafran", "Karthik Narasimhan", "Yuan Cao"]
+    year: 2023
+    venue: "ICLR 2023 (arXiv preprint October 2022)"
+    arxiv: "2210.03629"
+    url: "https://arxiv.org/abs/2210.03629"
+    verified: true
+    verified_on: "2026-08-27"
+    verified_via: "arXiv abstract page arxiv.org/abs/2210.03629 — title, seven authors, v1 dated 6 October 2022; v3 described as the ICLR camera-ready."
+    contribution: >
+      Interleaved reasoning traces with actions, so a model can plan, act,
+      observe the result, and revise — the loop most agent frameworks implement.
+    why_it_mattered: >
+      For RAG it is the step from "retrieve once, then generate" to "decide
+      whether and what to retrieve, repeatedly", which is what makes agentic
+      retrieval possible.
+    what_changed_after: >
+      ReAct became the default agent loop and the reference point every
+      alternative is described against.
+    descendants: ["agentic RAG", "tool-using agents", "every agent framework"]
