@@ -300,3 +300,87 @@ which stage lost it — with the stage-attribution logic made explicit.
 - Reuse, do not restate: {{eq:cascade-cost}}, {{eq:risk-coverage}},
   {{eq:groundedness}}, {{eq:u-shape}}, {{eq:tool-chain-success}},
   {{eq:recall-ceiling}}.
+
+## Second research pass — 2026-08-28, before chapters 113–117
+
+Fourteen further entries, each verified against an arXiv abstract page on the
+date above. 195 entries total, none unverified. What the pass changed, chapter by
+chapter — recorded because in three cases it changed the chapter's conclusion
+rather than only its citations.
+
+### 113 — GraphRAG
+
+{{cite:xiang2025whengraphs}} is the entry that mattered. Its abstract states
+plainly that GraphRAG frequently underperforms vanilla RAG on real-world tasks,
+which is the corrective the 2024 coverage lacked, and the chapter is written
+around it rather than despite it. {{cite:guo2024lightrag}} supplies the
+incremental-construction argument that {{eq:community-instability}} makes
+central; {{cite:gutierrez2025hipporag2}} supplies the query-time alternative.
+
+**What the listings changed.** The plan was to show community summaries beating
+top-$k$ on global questions. They do — and the measurement also showed similarity
+top-$k$ losing to a *uniform random sample* at every budget, which is a sharper
+statement of the same fact and is not in the literature. The second listing was
+meant to show graphs winning on multi-hop; it showed the variable is entity
+degree rather than hop count, with the same graph decisively right at degree 50
+and decisively wrong at degree 4. Both findings are stronger than the plan and
+neither was the plan.
+
+### 114 — Corrective and adaptive RAG
+
+{{cite:jeong2024adaptiverag}} for query-complexity routing, alongside the
+existing {{cite:yan2024crag}} and {{cite:asai2023selfrag}}.
+
+**What changed.** Writing the grader as a decision problem with its own error
+rate as a term — rather than at the zero the papers evaluate at — moved the
+chapter's recommendation from *which handler* to *which ordering*, via the
+terminal/recoverable distinction. That is the part's most transferable result and
+it is not in any of the three sources.
+
+### 115 — Agentic RAG
+
+{{cite:trivedi2023ircot}} is the direct ancestor and belonged in the part from the
+start. {{cite:jin2025searchr1}} and {{cite:song2025r1searcher}} are cited
+together deliberately: two groups, two RL recipes, the same conclusion within a
+week of each other, which is worth more than either result. {{cite:yang2018hotpotqa}}
+and {{cite:trivedi2022musique}} for multi-hop evaluation, the latter because it
+measures how much apparent multi-hop performance is shortcut exploitation.
+
+**Terminology note:** arXiv 2503.05592 is *R1-Searcher* and arXiv 2503.09516 is
+*Search-R1*. They are different papers by different groups, published five days
+apart, and the names are near-anagrams. Both verified separately.
+
+### 116 — Structured and multimodal RAG
+
+{{cite:yu2018spider}}, {{cite:li2023bird}}, {{cite:lei2025spider2}} — cited as a
+*progression* rather than as three benchmarks, because the chapter's argument is
+that the gap between them measures schema retrieval rather than SQL ability, and
+{{eq:gap-attribution}} makes that testable. {{cite:faysse2025colpali}} for the
+argument that the parser is a choice.
+
+### 117 — Failure modes
+
+{{cite:barnett2024sevenfailures}} — an experience report over three deployed
+systems rather than a technique paper, and the source of the sentence the
+literature avoids: validation of a RAG system is only feasible during operation.
+
+**What changed.** The chapter was planned as a diagnostic procedure. Building the
+first listing surfaced that the standard localisation method — one-at-a-time
+oracle substitution — is biased against downstream stages, and that cumulative
+prefix substitution decomposes the gap exactly at the same cost. That is now the
+chapter's main analytical result and it was not in the plan.
+
+## Standing gaps after this pass
+
+- **LazyGraphRAG** is discussed in vendor material with striking cost claims and
+  has no primary paper this pass could verify. {{ch:rag-graph}} therefore makes
+  the incremental-cost argument through {{cite:guo2024lightrag}} and
+  {{cite:gutierrez2025hipporag2}}, which are citable, and does not repeat the
+  unverifiable figures.
+- **Table representation for embedding** remains the part's largest gap between
+  practical importance and citable literature, exactly as the first pass
+  predicted. {{ch:rag-structured}} handles it by deriving from
+  {{eq:contextual-augmentation}} rather than by citing.
+- **Ingestion loss rates** are still unpublished as far as this pass found. The
+  10–30% figure in {{ch:rag-ingestion}} remains an unsourced practitioner
+  estimate and is labelled as such.
