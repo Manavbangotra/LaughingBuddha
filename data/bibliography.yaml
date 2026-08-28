@@ -6002,3 +6002,305 @@ entries:
       Self-speculation became the common form; the draft-model variant is now
       the special case rather than the default.
     descendants: ["self-speculative decoding", "tree attention verification"]
+
+  wang2023selfconsistency:
+    title: "Self-Consistency Improves Chain of Thought Reasoning in Language Models"
+    authors: ["Xuezhi Wang", "Jason Wei", "Dale Schuurmans", "Quoc Le",
+              "Ed Chi", "Sharan Narang", "Aakanksha Chowdhery", "Denny Zhou"]
+    year: 2022
+    venue: "ICLR 2023 (arXiv preprint March 2022)"
+    arxiv: "2203.11171"
+    url: "https://arxiv.org/abs/2203.11171"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2203.11171 - title, eight authors, submitted March 2022, ICLR 2023; abstract confirms sampling a diverse set of reasoning paths instead of taking the greedy one and selecting the most consistent answer by marginalisation, with reported gains of +17.9% on GSM8K, +11.0% SVAMP, +12.2% AQuA, +6.4% StrategyQA and +3.9% ARC-challenge."
+    contribution: >
+      Sample many reasoning paths and take the majority answer rather than the
+      first one. A decoding change with no training, no verifier and no extra
+      machinery.
+    why_it_mattered: >
+      The first clean demonstration that inference-time compute buys accuracy,
+      and the baseline every later test-time method measures against. It also
+      makes the point that a chain of thought is a SAMPLE rather than a
+      derivation - if it were a derivation, resampling would not help.
+    what_changed_after: >
+      Best-of-N, verifier-guided search and the whole test-time compute
+      literature; majority voting became the default control condition.
+    descendants: ["best-of-N", "verifier-guided search", "test-time scaling"]
+
+  yao2023tot:
+    title: "Tree of Thoughts: Deliberate Problem Solving with Large Language Models"
+    authors: ["Shunyu Yao", "Dian Yu", "Jeffrey Zhao", "Izhak Shafran",
+              "Thomas L. Griffiths", "Yuan Cao", "Karthik Narasimhan"]
+    year: 2023
+    venue: "NeurIPS 2023 (arXiv preprint May 2023)"
+    arxiv: "2305.10601"
+    url: "https://arxiv.org/abs/2305.10601"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2305.10601 - title, seven authors, May 2023, NeurIPS 2023; abstract confirms generalising chain-of-thought to exploration over coherent units of text called thoughts, with deliberate search including self-evaluation and backtracking, and 74% success on Game of 24 against 4% for GPT-4 with chain-of-thought prompting."
+    contribution: >
+      Generalised a chain into a tree: propose several next thoughts, evaluate
+      them, search, and backtrack. Chain-of-thought becomes the depth-first,
+      no-backtracking special case.
+    why_it_mattered: >
+      Separated the two things chain-of-thought conflates - generating candidate
+      steps, and deciding which to keep - and showed that on problems needing
+      lookahead the second is where the gains are.
+    what_changed_after: >
+      Search over reasoning states became a design space rather than a single
+      technique; graph and beam variants followed, as did the recognition that
+      the evaluator is the expensive and fragile component.
+    descendants: ["graph of thoughts", "MCTS over reasoning", "verifier-guided search"]
+
+  lightman2023verify:
+    title: "Let's Verify Step by Step"
+    authors: ["Hunter Lightman", "Vineet Kosaraju", "Yura Burda",
+              "Harri Edwards", "Bowen Baker", "Teddy Lee", "Jan Leike",
+              "John Schulman", "Ilya Sutskever", "Karl Cobbe"]
+    year: 2023
+    venue: "ICLR 2024 (arXiv preprint May 2023)"
+    arxiv: "2305.20050"
+    url: "https://arxiv.org/abs/2305.20050"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2305.20050 - title, ten authors, May 2023; abstract confirms the comparison between outcome supervision (feedback on the final result) and process supervision (feedback on each intermediate step), process supervision substantially outperforming with 78% on a representative subset of MATH, and the release of PRM800K with 800,000 step-level human feedback labels."
+    contribution: >
+      Compared supervising the ANSWER against supervising each STEP, and found
+      the second substantially better - then released 800,000 step-level labels
+      so others could use it.
+    why_it_mattered: >
+      Outcome supervision rewards a correct answer reached by faulty reasoning,
+      which is exactly the failure mode that makes reasoning models unreliable.
+      Process supervision attacks it directly, at a large annotation cost.
+    what_changed_after: >
+      Process reward models became a standard component of search-based
+      reasoning systems, and the annotation cost became the field's binding
+      constraint rather than the modelling.
+    descendants: ["process reward models", "step-level verifiers", "PRM-guided search"]
+
+  turpin2023faithfulness:
+    title: "Language Models Don't Always Say What They Think: Unfaithful Explanations in Chain-of-Thought Prompting"
+    authors: ["Miles Turpin", "Julian Michael", "Ethan Perez",
+              "Samuel R. Bowman"]
+    year: 2023
+    venue: "NeurIPS 2023 (arXiv preprint May 2023)"
+    arxiv: "2305.04388"
+    url: "https://arxiv.org/abs/2305.04388"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2305.04388 - title, four authors, May 2023, NeurIPS 2023; abstract confirms that chain-of-thought explanations can systematically misrepresent the true reason for a prediction, that biasing features such as reordering multiple-choice options so the correct answer is always (A) are never mentioned in the explanation, and accuracy drops of up to 36% across 13 tasks when models are biased toward incorrect answers."
+    contribution: >
+      Showed that a chain of thought can be a plausible post-hoc story rather
+      than the cause of the answer: inject a bias the model responds to, and the
+      explanation confidently justifies the biased answer without mentioning the
+      bias.
+    why_it_mattered: >
+      This is the result that separates apparent reasoning from reliable
+      reasoning, and it means a readable chain of thought is not evidence that
+      the reasoning happened. Interpretability and safety arguments that rest on
+      reading the chain rest on nothing.
+    what_changed_after: >
+      Faithfulness became a measured property distinct from accuracy; later work
+      on monitoring reasoning traces has to contend with this result first.
+    descendants: ["CoT faithfulness metrics", "reasoning-trace monitoring"]
+
+  huang2024selfcorrect:
+    title: "Large Language Models Cannot Self-Correct Reasoning Yet"
+    authors: ["Jie Huang", "Xinyun Chen", "Swaroop Mishra",
+              "Huaixiu Steven Zheng", "Adams Wei Yu", "Xinying Song",
+              "Denny Zhou"]
+    year: 2023
+    venue: "ICLR 2024 (arXiv preprint October 2023)"
+    arxiv: "2310.01798"
+    url: "https://arxiv.org/abs/2310.01798"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2310.01798 - title, seven authors, October 2023; abstract confirms the distinction between intrinsic self-correction relying only on the model's own capabilities and correction supported by external feedback, the finding that LLMs struggle to self-correct without external feedback, and that performance can DEGRADE after self-correction attempts."
+    contribution: >
+      The controlled version of a widely reported result: when the oracle labels
+      are removed and the model must decide for itself whether to revise,
+      self-correction does not help and often hurts.
+    why_it_mattered: >
+      Most reported self-correction gains use the answer key to decide when to
+      revise, which is not available at inference time. This paper separates the
+      two conditions and shows the gain lives entirely in the oracle.
+    what_changed_after: >
+      Reflection and critic architectures moved toward EXTERNAL verification -
+      execution, tools, separate critic models - rather than asking the model to
+      grade itself.
+    descendants: ["external verifiers", "execution-grounded critique"]
+
+  snell2024testtime:
+    title: "Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters"
+    authors: ["Charlie Snell", "Jaehoon Lee", "Kelvin Xu", "Aviral Kumar"]
+    year: 2024
+    venue: "ICLR 2025 (arXiv preprint August 2024)"
+    arxiv: "2408.03314"
+    url: "https://arxiv.org/abs/2408.03314"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2408.03314 - title, four authors, August 2024; abstract confirms two mechanisms for scaling test-time compute (search against process-based verifier reward models, and adaptively updating the response distribution given the prompt), a compute-optimal allocation that adapts per prompt improving efficiency by more than 4x over best-of-N, and FLOPs-matched comparisons where test-time compute can outperform a 14x larger model on problems where the smaller model already partly succeeds."
+    contribution: >
+      Made test-time compute a budget to be ALLOCATED rather than a switch to be
+      turned on: how much to spend depends on the prompt's difficulty, and
+      allocating adaptively is worth more than 4x against uniform best-of-N.
+    why_it_mattered: >
+      Turned "think longer" into an economics question with a computable answer,
+      and established the FLOPs-matched comparison against pretraining that makes
+      the trade legible.
+    what_changed_after: >
+      Inference-compute budgets became a first-class deployment parameter, and
+      the difficulty-estimation step became a component people build rather than
+      assume.
+    descendants: ["adaptive inference budgets", "difficulty-aware routing"]
+
+  brown2024monkeys:
+    title: "Large Language Monkeys: Scaling Inference Compute with Repeated Sampling"
+    authors: ["Bradley Brown", "Jordan Juravsky", "Ryan Ehrlich",
+              "Ronald Clark", "Quoc V. Le", "Christopher Ré",
+              "Azalia Mirhoseini"]
+    year: 2024
+    venue: "arXiv preprint (July 2024)"
+    arxiv: "2407.21787"
+    url: "https://arxiv.org/abs/2407.21787"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2407.21787 - title, seven authors, July 2024; abstract confirms that coverage against number of samples is often log-linear and fits an exponentiated power law, that SWE-bench Lite goes from 15.9% with one sample to 56% with 250 samples using DeepSeek-Coder-V2-Instruct, and that in domains without automatic verification majority voting and reward models plateau beyond several hundred samples."
+    contribution: >
+      Separated COVERAGE - does any sample solve it - from SELECTION - can you
+      tell which one did. Coverage scales log-linearly and impressively;
+      selection is where the wall is.
+    why_it_mattered: >
+      The clearest statement of why test-time compute works spectacularly in
+      verifiable domains and modestly elsewhere. It is a verification problem,
+      not a generation problem, and the paper measures exactly that gap.
+    what_changed_after: >
+      Verifier quality became the reported bottleneck for repeated sampling, and
+      "coverage at k" entered the standard vocabulary alongside pass@1.
+    descendants: ["coverage-versus-selection analysis", "verifier scaling studies"]
+
+  cobbe2021gsm8k:
+    title: "Training Verifiers to Solve Math Word Problems"
+    authors: ["Karl Cobbe", "Vineet Kosaraju", "Mohammad Bavarian",
+              "Mark Chen", "Heewoo Jun", "Lukasz Kaiser",
+              "Matthias Plappert", "Jerry Tworek", "Jacob Hilton",
+              "Reiichiro Nakano", "Christopher Hesse", "John Schulman"]
+    year: 2021
+    venue: "arXiv preprint (October 2021)"
+    arxiv: "2110.14168"
+    url: "https://arxiv.org/abs/2110.14168"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2110.14168 - title, twelve authors, October 2021; abstract confirms the GSM8K dataset of 8.5K linguistically diverse grade school math word problems, training verifiers to judge the correctness of generated solutions and selecting the highest-ranked at test time, and the finding that verification improves performance and scales better with data than finetuning."
+    contribution: >
+      Introduced GSM8K, and with it the pattern of generate-many-then-verify that
+      the whole test-time compute literature is built on.
+    why_it_mattered: >
+      Both halves matter. The benchmark became the field's default reasoning
+      measure, and the verifier result predates the chain-of-thought excitement
+      by a year while being the more durable finding.
+    what_changed_after: >
+      GSM8K saturated and then had to be replaced by harder and contamination-
+      resistant variants; the verifier idea grew into process reward models.
+    descendants: ["GSM-Symbolic", "process reward models", "MATH benchmark work"]
+
+  sprague2024tocot:
+    title: "To CoT or not to CoT? Chain-of-thought helps mainly on math and symbolic reasoning"
+    authors: ["Zayne Sprague", "Fangcong Yin", "Juan Diego Rodriguez",
+              "Dongwei Jiang", "Manya Wadhwa", "Prasann Singhal", "Xinyu Zhao",
+              "Xi Ye", "Kyle Mahowald", "Greg Durrett"]
+    year: 2024
+    venue: "ICLR 2025 (arXiv preprint September 2024)"
+    arxiv: "2409.12183"
+    url: "https://arxiv.org/abs/2409.12183"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2409.12183 - title, ten authors, September 2024; abstract confirms a meta-analysis over 100 papers plus the authors' own evaluations on 20 datasets and 14 models, that gains are concentrated in maths and logic with much smaller gains elsewhere and almost none on MMLU without symbolic operations, and that much of the gain comes from improved symbolic execution while underperforming an actual symbolic solver."
+    contribution: >
+      The meta-analysis that bounded chain-of-thought's scope: it helps on maths
+      and symbolic tasks and barely anywhere else, and where it helps it is doing
+      execution that a real solver does better.
+    why_it_mattered: >
+      Corrects a widespread overgeneralisation. Chain-of-thought is deployed by
+      default across every task type, and this says most of those deployments are
+      paying tokens for nothing.
+    what_changed_after: >
+      Selective reasoning - deciding per prompt whether to think - became a real
+      technique rather than an optimisation, and tool use became the recommended
+      answer where CoT was doing arithmetic.
+    descendants: ["selective/adaptive reasoning", "tool-augmented reasoning"]
+
+  mirzadeh2024gsmsymbolic:
+    title: "GSM-Symbolic: Understanding the Limitations of Mathematical Reasoning in Large Language Models"
+    authors: ["Iman Mirzadeh", "Keivan Alizadeh", "Hooman Shahrokhi",
+              "Oncel Tuzel", "Samy Bengio", "Mehrdad Farajtabar"]
+    year: 2024
+    venue: "ICLR 2025 (arXiv preprint October 2024)"
+    arxiv: "2410.05229"
+    url: "https://arxiv.org/abs/2410.05229"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2410.05229 - title, six authors, October 2024; abstract confirms a benchmark generated from symbolic templates, that performance declines for all models when only numerical values change, that adding a single clause irrelevant to the answer causes drops of up to 65% across state-of-the-art models, and the authors' conclusion that models replicate reasoning steps from training data rather than performing logical reasoning."
+    contribution: >
+      Built the same problems with different names and numbers, and added one
+      irrelevant sentence. Performance moved when it should not have, by up to
+      65%.
+    why_it_mattered: >
+      The sharpest available evidence for the reliability gap: a benchmark score
+      is a measurement of performance on those exact surface forms, and the
+      variance under semantically-null perturbation is the number nobody reports.
+    what_changed_after: >
+      Perturbation robustness entered reasoning evaluation; template-generated
+      benchmarks became the way to measure it without contamination.
+    descendants: ["perturbation-robust benchmarks", "contamination-resistant evaluation"]
+
+  deepseek2025r1:
+    title: "DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning"
+    authors: ["DeepSeek-AI", "Daya Guo", "Dejian Yang", "and 197 others"]
+    year: 2025
+    venue: "arXiv preprint (January 2025)"
+    arxiv: "2501.12948"
+    url: "https://arxiv.org/abs/2501.12948"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2501.12948 - title, DeepSeek-AI with Daya Guo and Dejian Yang listed first among 200 authors, January 2025; abstract confirms reinforcement learning without supervised fine-tuning on human reasoning demonstrations, reasoning behaviours including self-reflection and verification emerging from the RL process itself, and distillation of the resulting behaviour into smaller models."
+    contribution: >
+      Trained reasoning behaviour with reinforcement learning against verifiable
+      rewards rather than by imitating human reasoning traces, and found
+      self-reflection and verification emerging rather than being taught.
+    why_it_mattered: >
+      Shifted reasoning from a prompting technique to a training objective, and
+      demonstrated it publicly at a scale that made the recipe reproducible.
+      The emergence of checking behaviour without demonstrations is the part
+      worth arguing about.
+    what_changed_after: >
+      Verifiable-reward RL became the standard route to reasoning models;
+      distilling reasoning behaviour into small models became routine.
+    descendants: ["verifiable-reward RL", "reasoning distillation"]
+
+  muennighoff2025s1:
+    title: "s1: Simple test-time scaling"
+    authors: ["Niklas Muennighoff", "Zitong Yang", "Weijia Shi",
+              "Xiang Lisa Li", "Li Fei-Fei", "Hannaneh Hajishirzi",
+              "Luke Zettlemoyer", "Percy Liang", "Emmanuel Candès",
+              "Tatsunori Hashimoto"]
+    year: 2025
+    venue: "arXiv preprint (January 2025)"
+    arxiv: "2501.19393"
+    url: "https://arxiv.org/abs/2501.19393"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2501.19393 - title, ten authors, January 2025; abstract confirms the s1K dataset of 1,000 questions paired with reasoning traces, budget forcing by either terminating the thinking process or lengthening it by appending 'Wait', and a Qwen2.5-32B model exceeding o1-preview on competition maths by up to 27%."
+    contribution: >
+      A thousand examples and a decoding trick - force the model to keep thinking
+      by appending "Wait", or stop it - reproduced much of the test-time scaling
+      behaviour.
+    why_it_mattered: >
+      Reframes reasoning length as something you CONTROL at inference rather than
+      something the model decides, and shows how little data is needed to install
+      the behaviour. Both halves lower the barrier considerably.
+    what_changed_after: >
+      Explicit thinking budgets became a serving parameter, and small
+      reasoning-trace datasets became a normal way to add the behaviour.
+    descendants: ["thinking budgets", "budget forcing", "reasoning distillation"]
