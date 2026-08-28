@@ -186,3 +186,50 @@ training.
   disambiguated on first use.
 - Reuse, do not restate: {{eq:cascade-cost}}, {{eq:risk-coverage}},
   {{eq:identity-embedding}}, {{eq:prior-as-data}}.
+
+## Post-writing note: five results that came out differently
+
+Recorded after the chapters were written, because in each case the measurement
+contradicted the plan in the section above and the chapter was rewritten to match.
+
+**1. Rehearsal, anchoring and learning rate are all small levers.**
+{{ch:ft-training-config}} was planned around forgetting mitigation. The measured
+spread at matched capability was 36.0% -> 27.9%, a factor of 1.29, while the
+stopping decision moved the same quantity by roughly 4.5x. The chapter was
+re-centred on the exchange rate and the stopping rule, with mitigation demoted to
+second place. The plan had the hierarchy inverted.
+
+**2. Pure recursive self-training did not collapse.** {{ch:ft-synthetic}} was
+planned around diversity collapse under self-training. At 4,000 examples per
+generation, eight rounds left all 8 modes intact. The collapse came entirely from
+the quality FILTER, which took it to 1 mode with the tail gone after a single
+generation. The chapter's thesis inverted: the dangerous component is not the
+recursion but the filter installed to make the recursion safe.
+
+**3. Annotator noise is a tax, not a ceiling.** {{ch:ft-preference}} was planned
+around agreement bounding what a reward model can learn. More data climbed past
+it -- 0.567 to 0.762 across a 64x budget -- because the noise is unbiased. What
+agreement DOES bound permanently is the measurement, which produced a better
+chapter: you can buy your way past noisy labels and you can never measure that you
+did.
+
+**4. Two hypotheses in {{ch:ft-preference}} were refuted and reported.**
+Per-annotator bar drift under random assignment does nothing (it is a monotone
+transform of quality); routing is what makes it bite. And topic-spanning
+comparisons made no difference (0.735 vs 0.734), because cross-topic offsets are
+identified implicitly through the reward model's smoothness. Both negatives are in
+the chapter with the conditions under which they would not hold.
+
+**5. TIES lost to a plain average.** {{ch:ft-merging}} was planned around
+{{cite:yadav2023ties}}'s two interference mechanisms. With two dense deltas from a
+small network, TIES lost at every conflict level even with a tuned scale
+coefficient. Reported as a statement about the regime rather than the method --
+the paper's setting has eight or more sparse task vectors. What the listing does
+establish is the diagnosis: merge quality degraded eightfold as tasks went from
+aligned to opposed while the specialists stayed flat, which is a floor no
+algorithm goes below.
+
+**The pattern worth carrying into {{part:15}}:** in four of the five cases the
+plan came from what the literature emphasises, and the measurement relocated the
+important variable. The listings are worth running before the prose is written,
+not after.
