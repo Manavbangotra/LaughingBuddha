@@ -268,3 +268,61 @@ run before the prose, and the prose reports what they found.** Two places in thi
 part are already flagged as likely to move: whether per-layer quantization errors
 really cancel ({{ch:q-theory}}), and whether the decode roofline is as linear as
 the folklore claims ({{ch:q-gguf}}).
+
+## Post-writing note: what the measurements changed
+
+Recorded after the chapters were written. Two places were flagged in advance as
+likely to move; both did, and three more moved that were not flagged.
+
+**1. Flagged, and confirmed: errors do cancel through depth.** Measured exponents
+of 0.52, 0.50 and 0.49 across three bit-widths -- clean quadrature. The
+prediction held and the chapter is stronger for having tested it rather than
+asserted it, because the same experiment then identified correlation as the
+threat and produced the 16.4x outlier result at fixed bit-width.
+
+**2. Flagged, and refuted: the decode roofline is not as linear as claimed.**
+{{ch:q-gguf}} computed a compute-bound crossover with the KV term set to zero.
+{{ch:q-throughput-latency}} restores it and finds the crossover never arrives --
+the cache read grows with batch while the weight read does not, so the machine
+stays memory-bound at every batch tested. The correction is left VISIBLE across
+the two chapters rather than back-propagated, because the simplification is
+genuinely useful at batch 1 and genuinely wrong at batch 64.
+
+**3. Unflagged: dequantization cost is free on GPUs and decisive on CPUs.** The
+plan assumed unpacking cost would explain why 3-bit has not displaced 4-bit. It
+does, but only on one hardware class: six operations per weight leaves both GPU
+columns completely unchanged and costs a laptop 61% of its speed. So the cost of
+quantization falls almost entirely on the machines quantization exists to serve,
+which is a better explanation of GGUF-style format design than the one planned.
+
+**4. Unflagged: the two most-cited outlier methods score worst.** Per-channel
+activation scaling beats SmoothQuant and AWQ on error, and is unusable, because a
+scale varying along the reduction axis cannot be factored out of an INT8 dot
+product. Ranking these methods by error inverts the answer. The chapter was
+restructured around that constraint rather than around the error table.
+
+**5. Unflagged: the KV axis asymmetry does not follow from a static comparison.**
+A static experiment says per-channel for both tensors, contradicting
+{{cite:liu2024kivi}}. The asymmetry emerges only from the streaming constraint: a
+per-channel scale needs a maximum over tokens that have not arrived, and with a
+32-token warmup the values recommendation flips while the keys' does not.
+
+**6. Unflagged: bit allocation fails at 3 bits.** The Lagrangian rule beat uniform
+by 1.67x at 4 bits and LOST at 3, because it funds sensitive layers by pushing
+others to 2 bits where the 4^-b error law it is derived from stops holding. The
+general lesson -- an optimiser over a modelled objective walks preferentially into
+the region where the model under-predicts cost -- is worth more than the
+technique.
+
+## The pattern this part produced, stated once
+
+In every chapter the number people quote turned out to be the less important half
+of a specification: bits per weight against group size, method error against
+kernel expressibility, bits saved against unpacking cost, cache precision against
+the allocator, parameter count against layers-times-KV-heads, tokens per second
+against the regime it was measured in.
+
+That is not a fact about quantization. It is what happens when a field develops a
+headline number early and optimises around it. The defence is the same each time
+and worth carrying into {{part:16}}: compute the budget, find the binding term,
+and report both.
