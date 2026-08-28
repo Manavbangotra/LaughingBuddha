@@ -6505,3 +6505,30 @@ entries:
       when a correct answer can be reached by faulty reasoning.
     descendants: ["rejection-sampling fine-tuning", "self-improvement loops",
                   "reasoning distillation"]
+
+  gao2023pal:
+    title: "PAL: Program-aided Language Models"
+    authors: ["Luyu Gao", "Aman Madaan", "Shuyan Zhou", "Uri Alon",
+              "Pengfei Liu", "Yiming Yang", "Jamie Callan", "Graham Neubig"]
+    year: 2022
+    venue: "ICML 2023 (arXiv preprint November 2022)"
+    arxiv: "2211.10435"
+    url: "https://arxiv.org/abs/2211.10435"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2211.10435 - title, eight authors, submitted 18 November 2022 with a revision January 2023; abstract confirms the central observation that models decompose problems correctly but make logical and arithmetic mistakes in the SOLUTION part even when the decomposition is right, the design of generating programs as intermediate reasoning steps and offloading solving to a Python interpreter, evaluation on 13 mathematical, symbolic and algorithmic tasks from BIG-Bench Hard and elsewhere, and the reported GSM8K result surpassing PaLM-540B with chain-of-thought by 15% absolute top-1."
+    contribution: >
+      Split reasoning into the part models are good at and the part they are not.
+      The model decomposes the problem into a program; an interpreter executes
+      it. Decomposition remains the only learning task.
+    why_it_mattered: >
+      It located the error precisely - the abstract says models decompose
+      correctly and then make arithmetic mistakes - which turns "use a tool"
+      from a slogan into a claim about WHICH sub-task to offload, and makes the
+      comparison against chain-of-thought a measurement rather than a preference.
+    what_changed_after: >
+      Program-of-thought became the default for arithmetic and symbolic tasks,
+      and the design question shifted to one program per problem versus
+      interleaved calls per step.
+    descendants: ["program-of-thought prompting", "code interpreters in agents",
+                  "tool-augmented reasoning"]
