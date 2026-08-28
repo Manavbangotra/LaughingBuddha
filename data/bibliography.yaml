@@ -4384,3 +4384,346 @@ entries:
       ReAct became the default agent loop and the reference point every
       alternative is described against.
     descendants: ["agentic RAG", "tool-using agents", "every agent framework"]
+
+  # --- Part XII second research pass, verified 2026-08-28 --------------------
+
+  guo2024lightrag:
+    title: "LightRAG: Simple and Fast Retrieval-Augmented Generation"
+    authors: ["Zirui Guo", "Lianghao Xia", "Yanhua Yu", "Tu Ao", "Chao Huang"]
+    year: 2024
+    venue: "arXiv preprint (cs.IR); v3 April 2025"
+    arxiv: "2410.05779"
+    url: "https://arxiv.org/abs/2410.05779"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2410.05779 — title, five authors, v1 dated 8 October 2024, latest version v3 dated 28 April 2025; listed under cs.IR/cs.AI with no venue stated."
+    contribution: >
+      A graph-plus-vector index with dual-level retrieval — entity-level for
+      specific questions, theme-level for broad ones — built so that adding a
+      document updates the graph incrementally instead of forcing a rebuild.
+    why_it_mattered: >
+      It attacked the cost objection to GraphRAG directly. The expensive part of
+      a knowledge-graph index is not the graph, it is the whole-corpus LLM pass
+      that builds it and the rebuild that every update triggers; incremental
+      insertion removes the second of those.
+    what_changed_after: >
+      Incremental update became a stated requirement rather than a footnote, and
+      the graph-RAG conversation moved from "does it work" to "what does it cost
+      per document per update".
+    descendants: ["incremental graph indexes", "dual-level retrieval", "hybrid graph/vector RAG"]
+
+  gutierrez2025hipporag2:
+    title: "From RAG to Memory: Non-Parametric Continual Learning for Large Language Models"
+    authors: ["Bernal Jimenez Gutierrez", "Yiheng Shu", "Weijian Qi",
+              "Sizhe Zhou", "Yu Su"]
+    year: 2025
+    venue: "ICML 2025"
+    arxiv: "2502.14802"
+    url: "https://arxiv.org/abs/2502.14802"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2502.14802 — title, five authors, v1 dated 20 February 2025, ICML 2025 stated on the page."
+    contribution: >
+      HippoRAG 2: Personalized PageRank over a passage-and-entity graph, with
+      the retrieval decision made online by an LLM rather than baked into an
+      offline summarisation pass.
+    why_it_mattered: >
+      It separates the two costs that GraphRAG conflates — building structure
+      and using it — and shows that much of the benefit comes from graph
+      traversal at query time rather than from expensive precomputed summaries.
+    what_changed_after: >
+      Graph retrieval began to be evaluated as a query-time algorithm competing
+      with reranking, not only as an indexing strategy.
+    descendants: ["PPR-based retrieval", "associative-memory framings of RAG"]
+
+  xiang2025whengraphs:
+    title: "When to use Graphs in RAG: A Comprehensive Analysis for Graph Retrieval-Augmented Generation"
+    authors: ["Zhishang Xiang", "Chuanjie Wu", "Qinggang Zhang",
+              "Shengyuan Chen", "Zijin Hong", "Xiao Huang", "Jinsong Su"]
+    year: 2025
+    venue: "arXiv preprint"
+    arxiv: "2506.05690"
+    url: "https://arxiv.org/abs/2506.05690"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2506.05690 — title, seven authors, v1 dated 6 June 2025; no venue stated. Abstract states that GraphRAG frequently underperforms vanilla RAG on real-world tasks."
+    contribution: >
+      GraphRAG-Bench, built to answer the question the enthusiasm skipped: on
+      which tasks does a graph index actually beat plain RAG? The paper's own
+      framing is that GraphRAG frequently underperforms vanilla RAG on
+      real-world tasks.
+    why_it_mattered: >
+      It is a systematic, negative-result-friendly evaluation of graph
+      retrieval, and it moves the decision from architecture preference to
+      query-distribution measurement.
+    what_changed_after: >
+      "Does my query distribution contain global questions?" became the first
+      question to ask before adopting a graph index.
+    descendants: ["GraphRAG-Bench", "query-distribution-first architecture choices"]
+
+  jeong2024adaptiverag:
+    title: "Adaptive-RAG: Learning to Adapt Retrieval-Augmented Large Language Models through Question Complexity"
+    authors: ["Soyeong Jeong", "Jinheon Baek", "Sukmin Cho", "Sung Ju Hwang",
+              "Jong C. Park"]
+    year: 2024
+    venue: "NAACL 2024"
+    arxiv: "2403.14403"
+    url: "https://arxiv.org/abs/2403.14403"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2403.14403 — title, five authors, v1 dated 21 March 2024, NAACL 2024 stated on the page."
+    contribution: >
+      A small classifier predicts a question's complexity and routes it to no
+      retrieval, single-step retrieval, or multi-step retrieval, with the
+      training labels induced automatically from which strategy actually
+      succeeded.
+    why_it_mattered: >
+      It makes "should we retrieve, and how hard" an explicit, cheap, learned
+      decision rather than a fixed pipeline setting — the same escalation
+      argument as model routing, applied to retrieval depth.
+    what_changed_after: >
+      Query-complexity routing became a standard component of adaptive RAG
+      pipelines and of the agentic systems that followed.
+    descendants: ["retrieval routers", "adaptive RAG pipelines", "agentic depth control"]
+
+  trivedi2023ircot:
+    title: "Interleaving Retrieval with Chain-of-Thought Reasoning for Knowledge-Intensive Multi-Step Questions"
+    authors: ["Harsh Trivedi", "Niranjan Balasubramanian", "Tushar Khot",
+              "Ashish Sabharwal"]
+    year: 2023
+    venue: "ACL 2023"
+    arxiv: "2212.10509"
+    url: "https://arxiv.org/abs/2212.10509"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2212.10509 — title, four authors, v1 dated 20 December 2022, marked ACL'23 camera-ready."
+    contribution: >
+      IRCoT: retrieve using the reasoning produced so far, reason using what was
+      just retrieved, and repeat — rather than retrieving once from the original
+      question.
+    why_it_mattered: >
+      It is the cleanest statement of why one-shot retrieval fails on multi-hop
+      questions: the second hop's search terms do not exist until the first hop
+      has been answered.
+    what_changed_after: >
+      Interleaved retrieve-reason loops became the default multi-hop
+      architecture, and the direct ancestor of agentic retrieval.
+    descendants: ["FLARE", "Self-RAG", "agentic RAG", "search-augmented reasoning models"]
+
+  jin2025searchr1:
+    title: "Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement Learning"
+    authors: ["Bowen Jin", "Hansi Zeng", "Zhenrui Yue", "Jinsung Yoon",
+              "Sercan Arik", "Dong Wang", "Hamed Zamani", "Jiawei Han"]
+    year: 2025
+    venue: "arXiv preprint"
+    arxiv: "2503.09516"
+    url: "https://arxiv.org/abs/2503.09516"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2503.09516 — title, eight authors, v1 dated 12 March 2025; abstract reports 41% (Qwen2.5-7B) and 20% (Qwen2.5-3B) relative gains over RAG baselines across seven QA datasets."
+    contribution: >
+      Trains the retrieval policy itself with outcome-based RL — when to search,
+      what to search for, when to stop — using retrieved-token masking to keep
+      training stable.
+    why_it_mattered: >
+      It moves the retrieval loop from a prompt-engineered scaffold to a learned
+      policy, which is the difference between tuning a chain of heuristics and
+      optimising the thing you actually care about.
+    what_changed_after: >
+      A wave of RL-trained search agents followed, and deep-research products
+      are built on this shape.
+    descendants: ["R1-Searcher", "RL-trained search agents", "deep-research systems"]
+
+  song2025r1searcher:
+    title: "R1-Searcher: Incentivizing the Search Capability in LLMs via Reinforcement Learning"
+    authors: ["Huatong Song", "Jinhao Jiang", "Yingqian Min", "Jie Chen",
+              "Zhipeng Chen", "Wayne Xin Zhao", "Lei Fang", "Ji-Rong Wen"]
+    year: 2025
+    venue: "arXiv preprint"
+    arxiv: "2503.05592"
+    url: "https://arxiv.org/abs/2503.05592"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2503.05592 — title, eight authors, v1 dated 7 March 2025; no venue stated."
+    contribution: >
+      A two-stage RL recipe that teaches a model to invoke an external search
+      system during reasoning, without supervised traces of correct search
+      behaviour.
+    why_it_mattered: >
+      Independent, contemporaneous confirmation that the retrieval policy is
+      learnable from outcome reward alone — two groups, two recipes, the same
+      conclusion within a week of each other.
+    what_changed_after: >
+      Learned retrieval policies stopped looking like one group's result.
+    descendants: ["RL-trained retrieval policies"]
+
+  yang2018hotpotqa:
+    title: "HotpotQA: A Dataset for Diverse, Explainable Multi-hop Question Answering"
+    authors: ["Zhilin Yang", "Peng Qi", "Saizheng Zhang", "Yoshua Bengio",
+              "William W. Cohen", "Ruslan Salakhutdinov", "Christopher D. Manning"]
+    year: 2018
+    venue: "EMNLP 2018"
+    arxiv: "1809.09600"
+    url: "https://arxiv.org/abs/1809.09600"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/1809.09600 — title, seven authors, v1 dated 25 September 2018, EMNLP 2018 long paper; 113k Wikipedia-based QA pairs with sentence-level supporting facts."
+    contribution: >
+      113,000 questions that require combining facts from two documents, with
+      sentence-level supporting facts labelled so the retrieval step can be
+      scored separately from the answer.
+    why_it_mattered: >
+      It made multi-hop retrieval measurable, and the supporting-fact labels are
+      why multi-hop papers can report retrieval quality at all.
+    what_changed_after: >
+      Multi-hop QA became a standard evaluation axis, and the dataset's
+      shortcut-solvable subset became a cautionary case study.
+    descendants: ["MuSiQue", "multi-hop RAG evaluation", "IRCoT and successors"]
+
+  trivedi2022musique:
+    title: "MuSiQue: Multihop Questions via Single-hop Question Composition"
+    authors: ["Harsh Trivedi", "Niranjan Balasubramanian", "Tushar Khot",
+              "Ashish Sabharwal"]
+    year: 2022
+    venue: "TACL 2022"
+    arxiv: "2108.00573"
+    url: "https://arxiv.org/abs/2108.00573"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2108.00573 — title, four authors, v1 dated 2 August 2021, TACL 2022; MuSiQue-Ans is 25K questions of 2-4 hops, abstract reports a 3x increase in the human-machine gap."
+    contribution: >
+      Builds multi-hop questions by composing single-hop ones, specifically so
+      that answering without doing every hop is hard — a 3x larger
+      human-machine gap than the datasets it replaces.
+    why_it_mattered: >
+      It showed that much reported multi-hop performance was shortcut
+      exploitation, which reframes how multi-hop retrieval results should be
+      read.
+    what_changed_after: >
+      Multi-hop claims began to be reported on shortcut-resistant data.
+    descendants: ["shortcut-resistant benchmark design", "multi-hop RAG evaluation"]
+
+  yu2018spider:
+    title: "Spider: A Large-Scale Human-Labeled Dataset for Complex and Cross-Domain Semantic Parsing and Text-to-SQL Task"
+    authors: ["Tao Yu", "Rui Zhang", "Kai Yang", "Michihiro Yasunaga",
+              "Dongxu Wang", "Zifan Li", "James Ma", "Irene Li", "Qingning Yao",
+              "Shanelle Roman", "Zilin Zhang", "Dragomir Radev"]
+    year: 2018
+    venue: "EMNLP 2018"
+    arxiv: "1809.08887"
+    url: "https://arxiv.org/abs/1809.08887"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/1809.08887 — title, twelve authors, v1 dated 24 September 2018, EMNLP 2018 long paper; 10,181 questions, 5,693 unique SQL queries, 200 databases across 138 domains."
+    contribution: >
+      The cross-database text-to-SQL benchmark: the test databases are unseen at
+      training time, so a model must generalise to a new schema rather than
+      memorise one.
+    why_it_mattered: >
+      Schema generalisation is the whole problem in practice, and Spider is what
+      made it the measured problem.
+    what_changed_after: >
+      Text-to-SQL systems began to be evaluated on unseen schemas as a matter of
+      course.
+    descendants: ["BIRD", "Spider 2.0", "schema-linking research"]
+
+  li2023bird:
+    title: "Can LLM Already Serve as A Database Interface? A BIg Bench for Large-Scale Database Grounded Text-to-SQLs"
+    authors: ["Jinyang Li", "Binyuan Hui", "Ge Qu", "Jiaxi Yang", "Binhua Li",
+              "Bowen Li", "Bailin Wang", "Bowen Qin", "Rongyu Cao",
+              "Ruiying Geng", "Nan Huo", "Xuanhe Zhou", "Chenhao Ma",
+              "Guoliang Li", "Kevin C.C. Chang", "Fei Huang", "Reynold Cheng",
+              "Yongbin Li"]
+    year: 2023
+    venue: "NeurIPS 2023"
+    arxiv: "2305.03111"
+    url: "https://arxiv.org/abs/2305.03111"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2305.03111 — title, eighteen authors, v1 dated 4 May 2023, NeurIPS 2023; 12,751 pairs over 95 databases totalling 33.4 GB; abstract reports ChatGPT at 40.08% execution accuracy against 92.96% for humans."
+    contribution: >
+      BIRD: text-to-SQL over large, dirty, real databases, where answering
+      correctly requires external knowledge and the values in the columns, not
+      just the schema.
+    why_it_mattered: >
+      It relocated the difficulty from parsing the question to understanding the
+      data — which is exactly the gap between a demo and a deployed
+      natural-language interface.
+    what_changed_after: >
+      Value-level grounding and schema retrieval became first-class components
+      of text-to-SQL systems.
+    descendants: ["Spider 2.0", "schema-retrieval pipelines", "SQL agents"]
+
+  lei2025spider2:
+    title: "Spider 2.0: Evaluating Language Models on Real-World Enterprise Text-to-SQL Workflows"
+    authors: ["Fangyu Lei", "Jixuan Chen", "Yuxiao Ye", "Ruisheng Cao",
+              "Dongchan Shin", "Hongjin Su", "Zhaoqing Suo", "Hongcheng Gao",
+              "Wenjing Hu", "Pengcheng Yin", "Victor Zhong", "Caiming Xiong",
+              "Ruoxi Sun", "Qian Liu", "Sida Wang", "Tao Yu"]
+    year: 2025
+    venue: "ICLR 2025 (Oral)"
+    arxiv: "2411.07763"
+    url: "https://arxiv.org/abs/2411.07763"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2411.07763 — title, sixteen authors, v1 dated 12 November 2024, ICLR 2025 Oral; abstract reports an o1-preview code-agent framework solving 21.3% of tasks against 91.2% on Spider 1.0 and 73.0% on BIRD."
+    contribution: >
+      Enterprise text-to-SQL as it actually occurs: thousands of columns,
+      dialect-specific SQL, multiple systems, and tasks that need a whole
+      workflow rather than one query.
+    why_it_mattered: >
+      The 21.3% against 91.2% gap is the clearest single measurement that
+      solved-looking text-to-SQL benchmarks were measuring something much easier
+      than the deployed problem.
+    what_changed_after: >
+      Enterprise natural-language-to-SQL claims began to be met with "on which
+      benchmark", and schema retrieval became the acknowledged bottleneck.
+    descendants: ["SQL agent frameworks", "schema-retrieval-first architectures"]
+
+  faysse2025colpali:
+    title: "ColPali: Efficient Document Retrieval with Vision Language Models"
+    authors: ["Manuel Faysse", "Hugues Sibille", "Tony Wu", "Bilel Omrani",
+              "Gautier Viaud", "Celine Hudelot", "Pierre Colombo"]
+    year: 2025
+    venue: "ICLR 2025"
+    arxiv: "2407.01449"
+    url: "https://arxiv.org/abs/2407.01449"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2407.01449 — title, seven authors, v1 dated 27 June 2024, stated on the page as published at ICLR 2025; introduces the ViDoRe visual document retrieval benchmark."
+    contribution: >
+      Retrieve document pages by embedding the page image with a vision-language
+      model and matching with late interaction — no text extraction, no layout
+      parsing, no table reconstruction.
+    why_it_mattered: >
+      It is the strongest evidence that the ingestion stage is a choice rather
+      than a necessity: if the parser is what loses the tables, one option is to
+      delete the parser.
+    what_changed_after: >
+      Visual document retrieval became a serious alternative to the
+      parse-then-chunk pipeline for PDF-heavy corpora.
+    descendants: ["ColQwen and successors", "ViDoRe benchmark", "visual RAG pipelines"]
+
+  barnett2024sevenfailures:
+    title: "Seven Failure Points When Engineering a Retrieval Augmented Generation System"
+    authors: ["Scott Barnett", "Stefanus Kurniawan", "Srikanth Thudumu",
+              "Zach Brannelly", "Mohamed Abdelrazek"]
+    year: 2024
+    venue: "CAIN 2024 (arXiv cs.SE)"
+    arxiv: "2401.05856"
+    url: "https://arxiv.org/abs/2401.05856"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2401.05856 — title, five authors, v1 dated 11 January 2024, listed under cs.SE; an experience report over three case studies presenting seven failure points, stating that validation of a RAG system is only feasible during operation."
+    contribution: >
+      An experience report over three deployed RAG systems, cataloguing where
+      they actually broke — and the observation that a RAG system's robustness
+      evolves through operation rather than being designed in.
+    why_it_mattered: >
+      It is one of very few sources about the failure surface rather than the
+      technique, and it says the thing the literature avoids: you cannot
+      validate a RAG system offline.
+    what_changed_after: >
+      Failure-point taxonomies entered practitioner vocabulary, and online
+      evaluation became an explicit requirement.
+    descendants: ["RAG failure taxonomies", "online RAG evaluation practice"]
