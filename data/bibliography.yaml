@@ -5308,3 +5308,298 @@ entries:
       High-ratio masking became standard for video pretraining, and temporal
       redundancy became an explicit design parameter.
     descendants: ["VideoMAE V2", "video token reduction in VLMs"]
+
+  # --- Part XIV research pass, verified 2026-08-29 ---------------------------
+
+  hu2021lora:
+    title: "LoRA: Low-Rank Adaptation of Large Language Models"
+    authors: ["Edward J. Hu", "Yelong Shen", "Phillip Wallis", "Zeyuan Allen-Zhu",
+              "Yuanzhi Li", "Shean Wang", "Lu Wang", "Weizhu Chen"]
+    year: 2021
+    venue: "ICLR 2022 (arXiv June 2021)"
+    arxiv: "2106.09685"
+    url: "https://arxiv.org/abs/2106.09685"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2106.09685 - title, eight authors, v1 dated 17 June 2021; abstract reports 10,000x fewer trainable parameters and 3x less GPU memory than full fine-tuning of GPT-3 175B with Adam."
+    contribution: >
+      Freeze the pretrained weights and train a low-rank update alongside them,
+      on the hypothesis that the weight CHANGE required by adaptation has low
+      intrinsic rank even when the weights do not.
+    why_it_mattered: >
+      It made adapting a large model a consumer-hardware operation, and because
+      the update is a separate small object, one base model can serve many
+      adaptations without duplicating it.
+    what_changed_after: >
+      Fine-tuning stopped meaning "make a copy of the model" and started meaning
+      "produce an adapter", which changed how models are served as much as how
+      they are trained.
+    descendants: ["QLoRA", "DoRA", "adapter-serving infrastructure", "task arithmetic on adapters"]
+
+  dettmers2023qlora:
+    title: "QLoRA: Efficient Finetuning of Quantized LLMs"
+    authors: ["Tim Dettmers", "Artidoro Pagnoni", "Ari Holtzman", "Luke Zettlemoyer"]
+    year: 2023
+    venue: "NeurIPS 2023"
+    arxiv: "2305.14314"
+    url: "https://arxiv.org/abs/2305.14314"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2305.14314 - title, four authors, v1 dated 23 May 2023; abstract states finetuning a 65B model on a single 48GB GPU while preserving 16-bit finetuning task performance, via 4-bit NormalFloat, double quantization and paged optimizers."
+    contribution: >
+      Backpropagate through a frozen 4-bit quantized base model into LoRA
+      adapters, with a quantization format matched to the normal distribution of
+      weights and paged optimizer states to survive memory spikes.
+    why_it_mattered: >
+      It moved the frontier of what can be fine-tuned on one GPU by an order of
+      magnitude, and it did so without a measurable quality cost, which made the
+      quantization-plus-adapter combination the default recipe.
+    what_changed_after: >
+      Single-GPU fine-tuning of 65B-class models became routine, and 4-bit became
+      a training-time format rather than only an inference one.
+    descendants: ["4-bit training recipes", "single-GPU fine-tuning tooling"]
+
+  biderman2024loralearnsless:
+    title: "LoRA Learns Less and Forgets Less"
+    authors: ["Dan Biderman", "Jacob Portes", "Jose Javier Gonzalez Ortiz",
+              "Mansheej Paul", "Philip Greengard", "Connor Jennings",
+              "Daniel King", "Sam Havens", "Vitaliy Chiley", "Jonathan Frankle",
+              "Cody Blakeney", "John P. Cunningham"]
+    year: 2024
+    venue: "TMLR 2024 (Featured Certification)"
+    arxiv: "2405.09673"
+    url: "https://arxiv.org/abs/2405.09673"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2405.09673 - title, twelve authors, v1 dated 15 May 2024, TMLR August 2024 with Featured Certification; reports LoRA underperforming full fine-tuning in standard low-rank settings while better preserving out-of-domain capability, and full fine-tuning learning perturbations of rank 10-100x greater than typical LoRA configurations."
+    contribution: >
+      A controlled comparison of LoRA against full fine-tuning on code and
+      mathematics, at both instruction-tuning and continued-pretraining scale,
+      with the rank of the learned update measured directly.
+    why_it_mattered: >
+      It is the corrective to "LoRA matches full fine-tuning". LoRA learns less
+      AND forgets less, and the measured rank gap - 10 to 100x - explains both
+      halves at once, turning a folklore dispute into a stated trade.
+    what_changed_after: >
+      The choice between LoRA and full fine-tuning became a question about how
+      much new capability is required versus how much old capability must
+      survive, rather than a question about budget alone.
+    descendants: ["rank-selection practice", "forgetting-aware adaptation"]
+
+  houlsby2019adapters:
+    title: "Parameter-Efficient Transfer Learning for NLP"
+    authors: ["Neil Houlsby", "Andrei Giurgiu", "Stanislaw Jastrzebski",
+              "Bruna Morrone", "Quentin de Laroussilhe", "Andrea Gesmundo",
+              "Mona Attariyan", "Sylvain Gelly"]
+    year: 2019
+    venue: "ICML 2019"
+    arxiv: "1902.00751"
+    url: "https://arxiv.org/abs/1902.00751"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/1902.00751 - title, eight authors, v1 dated 2 February 2019; reports near state-of-the-art GLUE results adding 3.6% parameters per task against 100% for full fine-tuning."
+    contribution: >
+      Small bottleneck modules inserted between frozen transformer layers,
+      trained per task - the first widely adopted parameter-efficient adaptation
+      method.
+    why_it_mattered: >
+      It established that adaptation does not require touching the pretrained
+      weights, which is the premise every later PEFT method builds on.
+    what_changed_after: >
+      Per-task adaptation modules became a standard alternative to per-task model
+      copies.
+    descendants: ["LoRA", "prefix tuning", "the whole PEFT family"]
+
+  li2021prefixtuning:
+    title: "Prefix-Tuning: Optimizing Continuous Prompts for Generation"
+    authors: ["Xiang Lisa Li", "Percy Liang"]
+    year: 2021
+    venue: "ACL 2021"
+    arxiv: "2101.00190"
+    url: "https://arxiv.org/abs/2101.00190"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2101.00190 - title, two authors, v1 dated 1 January 2021; reports competitive full-data performance and better low-data performance while training 0.1% of parameters."
+    contribution: >
+      Freeze the model entirely and learn a continuous prefix that is prepended
+      to the keys and values at every layer - prompting with vectors rather than
+      words.
+    why_it_mattered: >
+      It drew the line between what a prompt can do and what weights can do, and
+      showed a surprising amount of task adaptation lives on the prompt side of
+      it.
+    what_changed_after: >
+      Continuous prompts became a recognised adaptation mechanism, and the
+      distinction between prompting and tuning became a spectrum.
+    descendants: ["P-tuning", "prompt tuning", "soft-prompt serving"]
+
+  zhou2023lima:
+    title: "LIMA: Less Is More for Alignment"
+    authors: ["Chunting Zhou", "Pengfei Liu", "Puxin Xu", "Srini Iyer", "Jiao Sun",
+              "Yuning Mao", "Xuezhe Ma", "Avia Efrat", "Ping Yu", "Lili Yu",
+              "Susan Zhang", "Gargi Ghosh", "Mike Lewis", "Luke Zettlemoyer",
+              "Omer Levy"]
+    year: 2023
+    venue: "NeurIPS 2023"
+    arxiv: "2305.11206"
+    url: "https://arxiv.org/abs/2305.11206"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2305.11206 - title, fifteen authors, v1 dated 18 May 2023; reports a 65B model fine-tuned on 1,000 curated prompts and responses reaching performance competitive with far more heavily aligned models."
+    contribution: >
+      A 65B model instruction-tuned on 1,000 carefully curated examples, with no
+      RLHF, competing with models aligned at vastly greater expense.
+    why_it_mattered: >
+      It reframes what fine-tuning is FOR: the knowledge is already in the
+      pretrained weights, and alignment mostly selects a response format, so
+      data quality dominates data quantity by a wide margin.
+    what_changed_after: >
+      Instruction-dataset work shifted from scale to curation, and "how many
+      examples" stopped being the first question.
+    descendants: ["curated instruction sets", "data-quality-first fine-tuning"]
+
+  wang2023selfinstruct:
+    title: "Self-Instruct: Aligning Language Models with Self-Generated Instructions"
+    authors: ["Yizhong Wang", "Yeganeh Kordi", "Swaroop Mishra", "Alisa Liu",
+              "Noah A. Smith", "Daniel Khashabi", "Hannaneh Hajishirzi"]
+    year: 2023
+    venue: "ACL 2023"
+    arxiv: "2212.10560"
+    url: "https://arxiv.org/abs/2212.10560"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2212.10560 - title, seven authors, v1 dated 20 December 2022, ACL 2023; reports a 33% absolute improvement over the base GPT-3 on Super-NaturalInstructions via an almost annotation-free pipeline."
+    contribution: >
+      Bootstrap an instruction dataset from the model itself: generate
+      instructions, generate responses, filter, and fine-tune on the survivors.
+    why_it_mattered: >
+      It made instruction data a compute problem rather than an annotation
+      problem, which is why almost every open instruction set since is at least
+      partly synthetic.
+    what_changed_after: >
+      Synthetic instruction generation became standard, along with the filtering
+      and deduplication problems it creates.
+    descendants: ["Alpaca-style datasets", "Evol-Instruct", "synthetic data pipelines"]
+
+  ilharco2023taskarithmetic:
+    title: "Editing Models with Task Arithmetic"
+    authors: ["Gabriel Ilharco", "Marco Tulio Ribeiro", "Mitchell Wortsman",
+              "Suchin Gururangan", "Ludwig Schmidt", "Hannaneh Hajishirzi",
+              "Ali Farhadi"]
+    year: 2023
+    venue: "ICLR 2023"
+    arxiv: "2212.04089"
+    url: "https://arxiv.org/abs/2212.04089"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2212.04089 - title, seven authors, v1 dated 8 December 2022, ICLR 2023; introduces task vectors that can be negated and added to steer model behaviour."
+    contribution: >
+      The difference between a fine-tuned model's weights and its base is a
+      "task vector", and those vectors can be added, negated and combined
+      arithmetically to compose or remove capabilities.
+    why_it_mattered: >
+      It showed that fine-tuning produces an object with algebraic structure,
+      which makes capability composition a weight-space operation rather than a
+      retraining one.
+    what_changed_after: >
+      Model merging became a practical technique rather than a curiosity, and
+      "subtract a behaviour" became a real option.
+    descendants: ["TIES-Merging", "DARE", "the open-weights merging ecosystem"]
+
+  yadav2023ties:
+    title: "TIES-Merging: Resolving Interference When Merging Models"
+    authors: ["Prateek Yadav", "Derek Tam", "Leshem Choshen", "Colin Raffel",
+              "Mohit Bansal"]
+    year: 2023
+    venue: "NeurIPS 2023"
+    arxiv: "2306.01708"
+    url: "https://arxiv.org/abs/2306.01708"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2306.01708 - title, five authors, v1 dated 2 June 2023, NeurIPS 2023; identifies redundant parameter values and sign disagreement as the sources of merging interference."
+    contribution: >
+      Names the two mechanisms that make naive weight averaging fail -
+      redundant small changes diluting real ones, and sign disagreements
+      cancelling them - and fixes each with trimming and sign election.
+    why_it_mattered: >
+      It turned merging from something that sometimes worked into something with
+      a diagnosis, and the two failure modes are the right mental model even when
+      using a different merging method.
+    what_changed_after: >
+      Merging recipes became standard tooling in the open-weights community.
+    descendants: ["DARE", "model-merging toolkits"]
+
+  wortsman2022modelsoups:
+    title: "Model soups: averaging weights of multiple fine-tuned models improves accuracy without increasing inference time"
+    authors: ["Mitchell Wortsman", "Gabriel Ilharco", "Samir Yitzhak Gadre",
+              "Rebecca Roelofs", "Raphael Gontijo-Lopes", "Ari S. Morcos",
+              "Hongseok Namkoong", "Ali Farhadi", "Yair Carmon",
+              "Simon Kornblith", "Ludwig Schmidt"]
+    year: 2022
+    venue: "ICML 2022"
+    arxiv: "2203.05482"
+    url: "https://arxiv.org/abs/2203.05482"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2203.05482 - title, eleven authors, v1 dated 10 March 2022, ICML 2022; reports 90.94% ImageNet top-1 with a ViT-G soup and relates weight averaging to loss-landscape flatness."
+    contribution: >
+      Averaging the weights of several models fine-tuned from the same base with
+      different hyperparameters beats picking the best one, at no inference cost.
+    why_it_mattered: >
+      It is the simplest evidence that fine-tuned models from one base live in a
+      connected low-loss region, which is the geometric fact every merging method
+      depends on.
+    what_changed_after: >
+      Weight averaging became a default cheap improvement rather than an
+      ensemble alternative.
+    descendants: ["task arithmetic", "TIES", "checkpoint averaging as routine practice"]
+
+  kirkpatrick2017ewc:
+    title: "Overcoming catastrophic forgetting in neural networks"
+    authors: ["James Kirkpatrick", "Razvan Pascanu", "Neil Rabinowitz",
+              "Joel Veness", "Guillaume Desjardins", "Andrei A. Rusu",
+              "Kieran Milan", "John Quan", "Tiago Ramalho",
+              "Agnieszka Grabska-Barwinska", "Demis Hassabis", "Claudia Clopath",
+              "Dharshan Kumaran", "Raia Hadsell"]
+    year: 2017
+    venue: "PNAS 2017"
+    arxiv: "1612.00796"
+    url: "https://arxiv.org/abs/1612.00796"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/1612.00796 - title, fourteen authors, v1 dated 2 December 2016; published in PNAS (doi 10.1073/pnas.1611835114); elastic weight consolidation slows learning on weights important to previous tasks."
+    contribution: >
+      Elastic weight consolidation: estimate which weights matter for the old
+      task and penalise moving them, so a network can learn a new task without
+      overwriting the previous one.
+    why_it_mattered: >
+      It is the clearest statement that forgetting is a consequence of
+      unconstrained weight movement, which makes every parameter-efficient method
+      a forgetting-mitigation method whether or not it was designed as one.
+    what_changed_after: >
+      Continual learning became a defined problem with a baseline, and the
+      importance-weighted-regularisation idea recurs throughout adaptation.
+    descendants: ["continual learning methods", "the forgetting analysis in PEFT"]
+
+  ethayarajh2024kto:
+    title: "KTO: Model Alignment as Prospect Theoretic Optimization"
+    authors: ["Kawin Ethayarajh", "Winnie Xu", "Niklas Muennighoff",
+              "Dan Jurafsky", "Douwe Kiela"]
+    year: 2024
+    venue: "ICML 2024"
+    arxiv: "2402.01306"
+    url: "https://arxiv.org/abs/2402.01306"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2402.01306 - title, five authors, v1 dated 2 February 2024, ICML 2024; reports matching or exceeding preference-based methods at scales from 1B to 30B while using binary desirable/undesirable signals."
+    contribution: >
+      Aligns on a binary good/bad judgement per response rather than on pairwise
+      preferences, using a utility function borrowed from prospect theory.
+    why_it_mattered: >
+      Pairwise preference data is expensive and binary feedback is often already
+      being collected - a thumbs-up, a retry, an accepted completion - so this
+      changes what data an alignment step needs.
+    what_changed_after: >
+      Alignment from existing product telemetry became practical, without a
+      dedicated preference-collection programme.
+    descendants: ["binary-feedback alignment", "telemetry-driven preference tuning"]
