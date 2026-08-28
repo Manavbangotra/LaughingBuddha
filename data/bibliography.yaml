@@ -4727,3 +4727,584 @@ entries:
       Failure-point taxonomies entered practitioner vocabulary, and online
       evaluation became an explicit requirement.
     descendants: ["RAG failure taxonomies", "online RAG evaluation practice"]
+
+  # --- Part XIII research pass, verified 2026-08-28 --------------------------
+
+  simonyan2015vgg:
+    title: "Very Deep Convolutional Networks for Large-Scale Image Recognition"
+    authors: ["Karen Simonyan", "Andrew Zisserman"]
+    year: 2015
+    venue: "ICLR 2015"
+    arxiv: "1409.1556"
+    url: "https://arxiv.org/abs/1409.1556"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/1409.1556 - title, two authors, v1 dated 4 September 2014, ICLR 2015; 16-19 weight layers, ImageNet Challenge 2014."
+    contribution: >
+      Showed that depth is the variable that matters, by stacking many 3x3
+      convolutions instead of few large ones - two stacked 3x3 filters see what
+      one 5x5 sees, with fewer parameters and an extra nonlinearity.
+    why_it_mattered: >
+      It replaced architecture folklore with a controlled depth sweep, and the
+      3x3 stack became the default convolutional building block for a decade.
+    what_changed_after: >
+      Depth became the first thing to increase, which immediately exposed the
+      degradation problem that ResNet was built to solve.
+    descendants: ["ResNet", "VGG-based perceptual losses", "every 3x3 backbone"]
+
+  russakovsky2015ilsvrc:
+    title: "ImageNet Large Scale Visual Recognition Challenge"
+    authors: ["Olga Russakovsky", "Jia Deng", "Hao Su", "Jonathan Krause",
+              "Sanjeev Satheesh", "Sean Ma", "Zhiheng Huang", "Andrej Karpathy",
+              "Aditya Khosla", "Michael Bernstein", "Alexander C. Berg",
+              "Li Fei-Fei"]
+    year: 2015
+    venue: "IJCV 2015"
+    arxiv: "1409.0575"
+    url: "https://arxiv.org/abs/1409.0575"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/1409.0575 - title, twelve authors, v1 dated 1 September 2014; describes the benchmark and five years of annual competitions over hundreds of categories and millions of images."
+    contribution: >
+      The benchmark itself, and an analysis of what five years of competition on
+      it actually produced - including a comparison against human accuracy.
+    why_it_mattered: >
+      Computer vision's progress from 2012 onward is largely the history of one
+      dataset, and this is the paper that documents what the dataset was and
+      what it measured.
+    what_changed_after: >
+      "Pretrained on ImageNet" became the default starting point for every
+      vision task, which is a transfer-learning claim the challenge itself
+      never made.
+    descendants: ["ImageNet pretraining", "every vision benchmark since"]
+
+  lin2014coco:
+    title: "Microsoft COCO: Common Objects in Context"
+    authors: ["Tsung-Yi Lin", "Michael Maire", "Serge Belongie",
+              "Lubomir Bourdev", "Ross Girshick", "James Hays", "Pietro Perona",
+              "Deva Ramanan", "C. Lawrence Zitnick", "Piotr Dollar"]
+    year: 2014
+    venue: "ECCV 2014"
+    arxiv: "1405.0312"
+    url: "https://arxiv.org/abs/1405.0312"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/1405.0312 - title, ten authors, v1 dated 1 May 2014; 2.5 million labelled instances across 328,000 images and 91 object types, with per-instance segmentations."
+    contribution: >
+      Objects in scenes rather than objects centred in frames, labelled with
+      per-instance segmentation masks - which is what makes detection and
+      instance segmentation measurable at all.
+    why_it_mattered: >
+      Detection and segmentation results are quoted in COCO mAP by default, so
+      the dataset's choices - small objects, crowded scenes, its IoU thresholds -
+      are baked into how the field defines progress.
+    what_changed_after: >
+      mAP@[.5:.95] became the number, and optimising for it shaped a decade of
+      architecture design.
+    descendants: ["COCO mAP", "Mask R-CNN", "panoptic segmentation"]
+
+  ren2015fasterrcnn:
+    title: "Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks"
+    authors: ["Shaoqing Ren", "Kaiming He", "Ross Girshick", "Jian Sun"]
+    year: 2015
+    venue: "NeurIPS 2015"
+    arxiv: "1506.01497"
+    url: "https://arxiv.org/abs/1506.01497"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/1506.01497 - title, four authors, v1 dated 4 June 2015; Region Proposal Network shares full-image convolutional features, 5fps on GPU."
+    contribution: >
+      Made region proposal a learned network sharing the detector's own
+      features, removing the hand-engineered proposal stage that dominated
+      detection latency.
+    why_it_mattered: >
+      It completed the move of every detection component into one trainable
+      network, and defined the two-stage detector that accuracy-first systems
+      still use.
+    what_changed_after: >
+      Two-stage detection became the accuracy baseline, and anchors became the
+      standard parameterisation that DETR would later remove.
+    descendants: ["Mask R-CNN", "FPN", "every two-stage detector"]
+
+  redmon2016yolo:
+    title: "You Only Look Once: Unified, Real-Time Object Detection"
+    authors: ["Joseph Redmon", "Santosh Divvala", "Ross Girshick", "Ali Farhadi"]
+    year: 2016
+    venue: "CVPR 2016"
+    arxiv: "1506.02640"
+    url: "https://arxiv.org/abs/1506.02640"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/1506.02640 - title, four authors, v1 dated 8 June 2015; base model 45 fps, Fast YOLO 155 fps."
+    contribution: >
+      Detection as a single regression over a grid: one forward pass predicts
+      every box and class, with no proposal stage at all.
+    why_it_mattered: >
+      It made the accuracy-versus-latency trade explicit and moved detection
+      onto real-time and embedded hardware, which is where most deployed
+      detection runs.
+    what_changed_after: >
+      Single-stage detection became the deployment default, and the YOLO line
+      became the most-used detector family in industry.
+    descendants: ["SSD", "RetinaNet", "the whole YOLO series"]
+
+  he2017maskrcnn:
+    title: "Mask R-CNN"
+    authors: ["Kaiming He", "Georgia Gkioxari", "Piotr Dollar", "Ross Girshick"]
+    year: 2017
+    venue: "ICCV 2017"
+    arxiv: "1703.06870"
+    url: "https://arxiv.org/abs/1703.06870"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/1703.06870 - title, four authors, v1 dated 20 March 2017; adds a parallel mask branch to Faster R-CNN, state of the art across COCO tasks."
+    contribution: >
+      Added a parallel mask branch to Faster R-CNN, plus RoIAlign, which removed
+      the quantisation error that made earlier mask heads misalign with the
+      pixels they described.
+    why_it_mattered: >
+      Instance segmentation became a small addition to detection rather than a
+      separate research programme, and RoIAlign showed how much a rounding
+      operation can cost.
+    what_changed_after: >
+      Detect-then-segment became the standard instance segmentation recipe.
+    descendants: ["panoptic segmentation", "keypoint detection", "SOLO"]
+
+  carion2020detr:
+    title: "End-to-End Object Detection with Transformers"
+    authors: ["Nicolas Carion", "Francisco Massa", "Gabriel Synnaeve",
+              "Nicolas Usunier", "Alexander Kirillov", "Sergey Zagoruyko"]
+    year: 2020
+    venue: "ECCV 2020"
+    arxiv: "2005.12872"
+    url: "https://arxiv.org/abs/2005.12872"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2005.12872 - title, six authors, v1 dated 26 May 2020; direct set prediction with bipartite matching, removes NMS and anchor generation."
+    contribution: >
+      Detection as direct set prediction, trained with a bipartite matching loss
+      - which removes anchors and non-maximum suppression, the two hand-designed
+      components every prior detector needed.
+    why_it_mattered: >
+      It showed the post-processing everyone treated as intrinsic to detection
+      was an artefact of the parameterisation, and it made detection genuinely
+      end-to-end differentiable.
+    what_changed_after: >
+      Set-prediction detectors became a research line of their own, and the
+      matching loss spread to segmentation and tracking.
+    descendants: ["Deformable DETR", "DINO", "Mask2Former"]
+
+  ronneberger2015unet:
+    title: "U-Net: Convolutional Networks for Biomedical Image Segmentation"
+    authors: ["Olaf Ronneberger", "Philipp Fischer", "Thomas Brox"]
+    year: 2015
+    venue: "MICCAI 2015"
+    arxiv: "1505.04597"
+    url: "https://arxiv.org/abs/1505.04597"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/1505.04597 - title, three authors, v1 dated 18 May 2015, MICCAI 2015; contracting path for context and symmetric expanding path for localisation."
+    contribution: >
+      The encoder-decoder with skip connections: downsample for context,
+      upsample for resolution, and carry the high-resolution detail across so
+      the output is localised as well as informed.
+    why_it_mattered: >
+      It named the tension every dense-prediction task has - context wants
+      downsampling and localisation wants resolution - and gave the architecture
+      that resolves it.
+    what_changed_after: >
+      The U-shape became the default for segmentation, and later for diffusion
+      model denoisers.
+    descendants: ["nnU-Net", "diffusion UNets", "feature pyramid networks"]
+
+  kirillov2023sam:
+    title: "Segment Anything"
+    authors: ["Alexander Kirillov", "Eric Mintun", "Nikhila Ravi", "Hanzi Mao",
+              "Chloe Rolland", "Laura Gustafson", "Tete Xiao",
+              "Spencer Whitehead", "Alexander C. Berg", "Wan-Yen Lo",
+              "Piotr Dollar", "Ross Girshick"]
+    year: 2023
+    venue: "ICCV 2023"
+    arxiv: "2304.02643"
+    url: "https://arxiv.org/abs/2304.02643"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2304.02643 - title, twelve authors, v1 dated 5 April 2023; SA-1B is 1 billion masks over 11 million images, zero-shot performance often matching or exceeding supervised baselines."
+    contribution: >
+      A promptable segmentation model plus the data engine that built SA-1B -
+      1 billion masks over 11 million images - by bootstrapping annotation with
+      the model being trained.
+    why_it_mattered: >
+      It moved segmentation from a task you train per dataset to a capability
+      you prompt, and the data engine is arguably a bigger contribution than the
+      architecture.
+    what_changed_after: >
+      Promptable, class-agnostic segmentation became a component other systems
+      call rather than a model teams train.
+    descendants: ["SAM 2", "annotation tooling", "open-vocabulary segmentation"]
+
+  ravi2024sam2:
+    title: "SAM 2: Segment Anything in Images and Videos"
+    authors: ["Nikhila Ravi", "Valentin Gabeur", "Yuan-Ting Hu", "Ronghang Hu",
+              "Chaitanya Ryali", "Tengyu Ma", "Haitham Khedr",
+              "Roman Radle", "Chloe Rolland", "Laura Gustafson",
+              "Eric Mintun", "Junting Pan", "Kalyan Vasudev Alwala",
+              "Nicolas Carion", "Chao-Yuan Wu", "Ross Girshick",
+              "Piotr Dollar", "Christoph Feichtenhofer"]
+    year: 2024
+    venue: "arXiv preprint"
+    arxiv: "2408.00714"
+    url: "https://arxiv.org/abs/2408.00714"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2408.00714 - title, eighteen authors, v1 dated 1 August 2024; streaming memory transformer, 3x fewer interactions on video and 6x faster than SAM on images."
+    contribution: >
+      Extends promptable segmentation to video with a streaming memory, so a
+      mask prompted once is tracked forward - and, notably, is faster on single
+      images than SAM was.
+    why_it_mattered: >
+      Video segmentation had been a separate field with separate tooling; this
+      folded it into the same promptable interface.
+    what_changed_after: >
+      Object tracking became a segmentation prompt rather than a tracker.
+    descendants: ["video annotation tooling", "promptable tracking"]
+
+  liu2022convnext:
+    title: "A ConvNet for the 2020s"
+    authors: ["Zhuang Liu", "Hanzi Mao", "Chao-Yuan Wu", "Christoph Feichtenhofer",
+              "Trevor Darrell", "Saining Xie"]
+    year: 2022
+    venue: "CVPR 2022"
+    arxiv: "2201.03545"
+    url: "https://arxiv.org/abs/2201.03545"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2201.03545 - title, six authors, v1 dated 10 January 2022, CVPR 2022; ConvNeXt competes with Transformers on accuracy and scalability."
+    contribution: >
+      Modernised a ResNet one change at a time - patchify stem, depthwise
+      convolutions, fewer normalisations, GELU - until it matched Swin
+      Transformers, with the ablation table as the actual result.
+    why_it_mattered: >
+      It separated "transformers are better" from "the training recipe and
+      design choices that shipped with transformers are better", and found
+      mostly the latter.
+    what_changed_after: >
+      Architecture comparisons began controlling for training recipe, and
+      convolutions stopped being treated as superseded.
+    descendants: ["ConvNeXt V2", "recipe-controlled architecture comparisons"]
+
+  radford2021clip:
+    title: "Learning Transferable Visual Models From Natural Language Supervision"
+    authors: ["Alec Radford", "Jong Wook Kim", "Chris Hallacy", "Aditya Ramesh",
+              "Gabriel Goh", "Sandhini Agarwal", "Girish Sastry", "Amanda Askell",
+              "Pamela Mishkin", "Jack Clark", "Gretchen Krueger", "Ilya Sutskever"]
+    year: 2021
+    venue: "ICML 2021"
+    arxiv: "2103.00020"
+    url: "https://arxiv.org/abs/2103.00020"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2103.00020 - title, twelve authors, v1 dated 26 February 2021; 400 million image-text pairs, matches original ResNet-50 ImageNet accuracy zero-shot."
+    contribution: >
+      Contrastive training of an image encoder and a text encoder into one
+      shared space over 400 million web pairs, which makes classification a
+      retrieval problem against text prompts and therefore open-vocabulary.
+    why_it_mattered: >
+      It replaced the fixed label set - the assumption underneath every previous
+      vision model - with natural language, and made zero-shot transfer the
+      default expectation.
+    what_changed_after: >
+      CLIP's image encoder became the standard vision front-end for
+      vision-language models, and its shared space became the substrate for
+      text-to-image generation and multimodal retrieval.
+    descendants: ["SigLIP", "LLaVA and most VLMs", "Stable Diffusion's text conditioning", "multimodal retrieval"]
+
+  zhai2023siglip:
+    title: "Sigmoid Loss for Language Image Pre-Training"
+    authors: ["Xiaohua Zhai", "Basil Mustafa", "Alexander Kolesnikov", "Lucas Beyer"]
+    year: 2023
+    venue: "ICCV 2023 (Oral)"
+    arxiv: "2303.15343"
+    url: "https://arxiv.org/abs/2303.15343"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2303.15343 - title, four authors, v1 dated 27 March 2023, ICCV'23 Oral; pairwise sigmoid loss needs no global view of pairwise similarities, 84.5% ImageNet zero-shot."
+    contribution: >
+      Replaces CLIP's softmax over the batch with a pairwise sigmoid loss, so
+      the objective no longer needs a global view of all similarities and the
+      batch size stops being coupled to the loss.
+    why_it_mattered: >
+      CLIP's contrastive loss made batch size a scientific variable rather than
+      an engineering one; SigLIP decouples them, which is what makes small-scale
+      replication possible.
+    what_changed_after: >
+      SigLIP encoders largely displaced CLIP encoders as the vision front-end in
+      newer VLMs.
+    descendants: ["SigLIP 2", "VLM vision towers"]
+
+  oquab2023dinov2:
+    title: "DINOv2: Learning Robust Visual Features without Supervision"
+    authors: ["Maxime Oquab", "Timothee Darcet", "Theo Moutakanni", "Huy Vo",
+              "Marc Szafraniec", "Vasil Khalidov", "Pierre Fernandez",
+              "Daniel Haziza", "Francisco Massa", "Alaaeldin El-Nouby",
+              "Mahmoud Assran", "Nicolas Ballas", "Wojciech Galuba",
+              "Russell Howes", "Po-Yao Huang", "Shang-Wen Li",
+              "Ishan Misra", "Michael Rabbat", "Vasu Sharma",
+              "Gabriel Synnaeve", "Hu Xu", "Herve Jegou", "Julien Mairal",
+              "Patrick Labatut", "Armand Joulin", "Piotr Bojanowski"]
+    year: 2023
+    venue: "TMLR 2024 (arXiv 2023)"
+    arxiv: "2304.07193"
+    url: "https://arxiv.org/abs/2304.07193"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2304.07193 - title, twenty-six authors, v1 dated 14 April 2023; 1B-parameter ViT distilled into smaller models that outperform OpenCLIP at image and pixel level."
+    contribution: >
+      Self-supervised features good enough to use frozen, at both image and
+      pixel level, obtained by curating the pretraining data rather than by
+      changing the objective.
+    why_it_mattered: >
+      It is the counterweight to CLIP: language supervision is not required for
+      strong general visual features, and for dense tasks it is not even best.
+    what_changed_after: >
+      Frozen self-supervised backbones became a serious alternative to
+      language-supervised ones, particularly for segmentation and depth.
+    descendants: ["DINOv3", "frozen-backbone dense prediction"]
+
+  alayrac2022flamingo:
+    title: "Flamingo: a Visual Language Model for Few-Shot Learning"
+    authors: ["Jean-Baptiste Alayrac", "Jeff Donahue", "Pauline Luc",
+              "Antoine Miech", "Iain Barr", "Yana Hasson", "Karel Lenc",
+              "Arthur Mensch", "Katie Millican", "Malcolm Reynolds",
+              "Roman Ring", "Eliza Rutherford", "Serkan Cabi", "Tengda Han",
+              "Zhitao Gong", "Sina Samangooei", "Marianne Monteiro",
+              "Jacob Menick", "Sebastian Borgeaud", "Andrew Brock",
+              "Aida Nematzadeh", "Sahand Sharifzadeh", "Mikolaj Binkowski",
+              "Ricardo Barreira", "Oriol Vinyals", "Andrew Zisserman",
+              "Karen Simonyan"]
+    year: 2022
+    venue: "NeurIPS 2022"
+    arxiv: "2204.14198"
+    url: "https://arxiv.org/abs/2204.14198"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2204.14198 - title, twenty-seven authors, v1 dated 29 April 2022, NeurIPS 2022; few-shot state of the art, outperforming models fine-tuned on thousands of times more task-specific data."
+    contribution: >
+      Bridged a frozen vision encoder to a frozen language model with gated
+      cross-attention layers, and trained on interleaved image-text sequences so
+      the model could do in-context learning with images.
+    why_it_mattered: >
+      It established the architecture every VLM since has varied: freeze both
+      towers, train the bridge, and interleave modalities in the sequence.
+    what_changed_after: >
+      Few-shot multimodal prompting became possible, and the frozen-tower
+      recipe became standard.
+    descendants: ["BLIP-2", "LLaVA", "IDEFICS", "every modern VLM"]
+
+  li2023blip2:
+    title: "BLIP-2: Bootstrapping Language-Image Pre-training with Frozen Image Encoders and Large Language Models"
+    authors: ["Junnan Li", "Dongxu Li", "Silvio Savarese", "Steven Hoi"]
+    year: 2023
+    venue: "ICML 2023"
+    arxiv: "2301.12597"
+    url: "https://arxiv.org/abs/2301.12597"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2301.12597 - title, four authors, v1 dated 30 January 2023; lightweight Querying Transformer, outperforms Flamingo80B by 8.7% on zero-shot VQAv2 with 54x fewer trainable parameters."
+    contribution: >
+      The Q-Former: a small trainable module that queries a frozen image encoder
+      and emits a fixed number of tokens the frozen LLM can read, trained in two
+      stages.
+    why_it_mattered: >
+      It showed the bridge can be tiny - 54x fewer trainable parameters than
+      Flamingo 80B while beating it on zero-shot VQA - which put VLM training
+      within reach of ordinary budgets.
+    what_changed_after: >
+      Connector design became the active research question rather than
+      end-to-end multimodal training.
+    descendants: ["LLaVA's projector", "InstructBLIP", "connector ablations"]
+
+  liu2023llava:
+    title: "Visual Instruction Tuning"
+    authors: ["Haotian Liu", "Chunyuan Li", "Qingyang Wu", "Yong Jae Lee"]
+    year: 2023
+    venue: "NeurIPS 2023 (Oral)"
+    arxiv: "2304.08485"
+    url: "https://arxiv.org/abs/2304.08485"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2304.08485 - title, four authors, v1 dated 17 April 2023, NeurIPS 2023 Oral; GPT-4-generated instruction data, 92.53% on ScienceQA."
+    contribution: >
+      Instruction tuning for vision-language models, on data generated by
+      prompting a text-only model with image annotations - and a connector that
+      is a single linear projection.
+    why_it_mattered: >
+      It proved the expensive part of a VLM is the instruction data, not the
+      architecture: a linear layer plus good data beat far more elaborate
+      bridges.
+    what_changed_after: >
+      LLaVA's recipe became the open-source default, and synthetic instruction
+      data became the standard way to build multimodal training sets.
+    descendants: ["LLaVA-1.5/NeXT", "most open VLMs", "synthetic multimodal data pipelines"]
+
+  wang2024qwen2vl:
+    title: "Qwen2-VL: Enhancing Vision-Language Model's Perception of the World at Any Resolution"
+    authors: ["Peng Wang", "Shuai Bai", "Sinan Tan", "Shijie Wang", "Zhihao Fan",
+              "Jinze Bai", "Keqin Chen", "Xuejing Liu", "Jialin Wang",
+              "Wenbin Ge", "Yang Fan", "Kai Dang", "Mengfei Du", "Xuancheng Ren",
+              "Rui Men", "Dayiheng Liu", "Chang Zhou", "Jingren Zhou",
+              "Junyang Lin"]
+    year: 2024
+    venue: "arXiv preprint"
+    arxiv: "2409.12191"
+    url: "https://arxiv.org/abs/2409.12191"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2409.12191 - title, nineteen authors, v1 dated 18 September 2024; Naive Dynamic Resolution mechanism and Multimodal Rotary Position Embedding, models at 2B, 8B and 72B."
+    contribution: >
+      Dynamic resolution - an image becomes however many visual tokens its size
+      warrants, rather than being squashed to a fixed grid - plus multimodal
+      rotary position embeddings across text, image and video.
+    why_it_mattered: >
+      Fixed-resolution tiling is why earlier VLMs could not read dense documents;
+      making token count follow resolution is what made document understanding
+      work in a general VLM.
+    what_changed_after: >
+      Dynamic resolution became an expected feature, and document VQA moved from
+      specialist models into general VLMs.
+    descendants: ["Qwen2.5-VL", "dynamic-resolution vision towers"]
+
+  radford2022whisper:
+    title: "Robust Speech Recognition via Large-Scale Weak Supervision"
+    authors: ["Alec Radford", "Jong Wook Kim", "Tao Xu", "Greg Brockman",
+              "Christine McLeavey", "Ilya Sutskever"]
+    year: 2022
+    venue: "ICML 2023 (arXiv December 2022)"
+    arxiv: "2212.04356"
+    url: "https://arxiv.org/abs/2212.04356"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2212.04356 - title, six authors, v1 dated 6 December 2022; 680,000 hours of multilingual and multitask supervision, competitive zero-shot with prior fully supervised results."
+    contribution: >
+      680,000 hours of weakly supervised audio, trained as a plain
+      sequence-to-sequence task, giving zero-shot transcription that is robust
+      where benchmark-tuned systems are brittle.
+    why_it_mattered: >
+      It is the clearest demonstration that scale and diversity of weak
+      supervision beat clean supervision on a narrow distribution - the same
+      lesson as CLIP, in a different modality.
+    what_changed_after: >
+      Speech recognition became a solved-enough commodity component, and
+      audio joined the set of modalities that route into a text model.
+    descendants: ["distil-whisper", "audio front-ends for multimodal models"]
+
+  huang2022layoutlmv3:
+    title: "LayoutLMv3: Pre-training for Document AI with Unified Text and Image Masking"
+    authors: ["Yupan Huang", "Tengchao Lv", "Lei Cui", "Yutong Lu", "Furu Wei"]
+    year: 2022
+    venue: "ACM Multimedia 2022"
+    arxiv: "2204.08387"
+    url: "https://arxiv.org/abs/2204.08387"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2204.08387 - title, five authors, v1 dated 18 April 2022, ACM Multimedia 2022; unified text and image masking plus word-patch alignment."
+    contribution: >
+      Treats a document as text, layout coordinates, and image patches jointly,
+      pretrained with masking on both modalities and a word-patch alignment
+      objective.
+    why_it_mattered: >
+      It made 2D position a first-class input rather than a post-hoc heuristic,
+      which is the difference between reading a form and reading a string.
+    what_changed_after: >
+      Layout-aware pretraining became the standard approach for form and receipt
+      understanding.
+    descendants: ["document AI toolchains", "layout-aware encoders"]
+
+  kim2022donut:
+    title: "OCR-free Document Understanding Transformer"
+    authors: ["Geewook Kim", "Teakgyu Hong", "Moonbin Yim", "Jeongyeon Nam",
+              "Jinyoung Park", "Jinyeong Yim", "Wonseok Hwang", "Sangdoo Yun",
+              "Dongyoon Han", "Seunghyun Park"]
+    year: 2022
+    venue: "ECCV 2022"
+    arxiv: "2111.15664"
+    url: "https://arxiv.org/abs/2111.15664"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2111.15664 - title, ten authors, v1 dated 30 November 2021, ECCV 2022; Donut is OCR-free and reaches state of the art on visual document understanding tasks."
+    contribution: >
+      Donut: read the document image directly and emit structured output, with
+      no OCR stage at all.
+    why_it_mattered: >
+      It made the OCR stage optional rather than foundational - the same
+      argument ColPali later made for retrieval, and the reason document
+      pipelines stopped being assumed.
+    what_changed_after: >
+      OCR-free document understanding became a real branch, and end-to-end
+      image-to-JSON became a shipped product pattern.
+    descendants: ["Pix2Struct", "ColPali", "OCR-free document VQA"]
+
+  mathew2021docvqa:
+    title: "DocVQA: A Dataset for VQA on Document Images"
+    authors: ["Minesh Mathew", "Dimosthenis Karatzas", "C.V. Jawahar"]
+    year: 2021
+    venue: "WACV 2021"
+    arxiv: "2007.00398"
+    url: "https://arxiv.org/abs/2007.00398"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2007.00398 - title, three authors, v1 dated 1 July 2020, WACV 2021; 50,000 questions over 12,000+ document images, with a stated gap to human performance on structure-dependent questions."
+    contribution: >
+      50,000 questions over 12,000 document images, with the finding that the
+      hard questions are the ones requiring document STRUCTURE rather than text.
+    why_it_mattered: >
+      It gave document understanding a benchmark whose difficulty is layout, not
+      reading, which is what separates document AI from OCR.
+    what_changed_after: >
+      DocVQA became the standard document-understanding number quoted by VLMs.
+    descendants: ["InfographicVQA", "document benchmarks in VLM reports"]
+
+  masry2022chartqa:
+    title: "ChartQA: A Benchmark for Question Answering about Charts with Visual and Logical Reasoning"
+    authors: ["Ahmed Masry", "Do Xuan Long", "Jia Qing Tan", "Shafiq Joty",
+              "Enamul Hoque"]
+    year: 2022
+    venue: "ACL 2022 (Findings)"
+    arxiv: "2203.10244"
+    url: "https://arxiv.org/abs/2203.10244"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2203.10244 - title, five authors, v1 dated 19 March 2022, ACL 2022 Findings; 9.6K human-written questions plus 23.1K generated from human-written chart summaries."
+    contribution: >
+      A chart QA benchmark whose questions need arithmetic and comparison over
+      values that must first be read off the plot.
+    why_it_mattered: >
+      Charts are where perception and reasoning cannot be separated: a small
+      misreading of an axis produces a confidently wrong number, and that
+      failure mode is invisible in captioning benchmarks.
+    what_changed_after: >
+      Chart reasoning became a reported axis for VLMs, and chart-to-table
+      pipelines became a standard mitigation.
+    descendants: ["chart-to-table models", "VLM chart evaluations"]
+
+  tong2022videomae:
+    title: "VideoMAE: Masked Autoencoders are Data-Efficient Learners for Self-Supervised Video Pre-Training"
+    authors: ["Zhan Tong", "Yibing Song", "Jue Wang", "Limin Wang"]
+    year: 2022
+    venue: "NeurIPS 2022"
+    arxiv: "2203.12602"
+    url: "https://arxiv.org/abs/2203.12602"
+    verified: true
+    verified_on: "2026-08-28"
+    verified_via: "arXiv abstract page arxiv.org/abs/2203.12602 - title, four authors, v1 dated 23 March 2022, NeurIPS 2022; customised video tube masking with an extremely high ratio of 90-95%."
+    contribution: >
+      Tube masking at 90-95% for video self-supervision, justified by temporal
+      redundancy: adjacent frames are nearly identical, so a mask ratio that
+      would destroy an image still leaves a solvable video task.
+    why_it_mattered: >
+      It quantifies how little independent information a video frame adds, which
+      is the fact that governs every video architecture's cost model.
+    what_changed_after: >
+      High-ratio masking became standard for video pretraining, and temporal
+      redundancy became an explicit design parameter.
+    descendants: ["VideoMAE V2", "video token reduction in VLMs"]
