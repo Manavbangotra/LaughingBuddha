@@ -6449,3 +6449,59 @@ entries:
       judging itself - came to be drawn carefully.
     descendants: ["reflection loops", "critic-revise agent scaffolds",
                   "intrinsic self-correction critiques"]
+
+  uesato2022process:
+    title: "Solving math word problems with process- and outcome-based feedback"
+    authors: ["Jonathan Uesato", "Nate Kushman", "Ramana Kumar",
+              "Francis Song", "Noah Siegel", "Lisa Wang", "Antonia Creswell",
+              "Geoffrey Irving", "Irina Higgins"]
+    year: 2022
+    venue: "arXiv preprint (November 2022)"
+    arxiv: "2211.14275"
+    url: "https://arxiv.org/abs/2211.14275"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2211.14275 - title, nine authors, November 2022; abstract confirms it is the first comprehensive comparison of process- and outcome-based supervision on a natural language task (GSM8K), the finding that PURE OUTCOME-BASED supervision produces similar final-answer error rates with LESS label supervision, that process-based supervision or learned reward models emulating it are necessary for correct reasoning steps, and the reported improvements from 16.8% to 12.7% final-answer error and 14.0% to 3.4% reasoning error among final-answer-correct solutions."
+    contribution: >
+      The first careful head-to-head on the two supervision signals, and the
+      source of the distinction that matters: outcome supervision is competitive
+      on FINAL ANSWERS and cheaper, while process supervision is what buys
+      correct REASONING - a 14.0% to 3.4% reduction in reasoning errors among
+      solutions whose final answer was already right.
+    why_it_mattered: >
+      It separates two things usually reported as one. If you only care whether
+      the answer is right, outcome supervision is the better deal per label. If
+      you care whether the derivation is sound - education, audit, anything
+      where the working is the product - it is not close.
+    what_changed_after: >
+      "Reasoning error among correct answers" became a metric people reported,
+      and the annotation-cost argument for outcome supervision had to be made
+      against a stated criterion rather than in general.
+    descendants: ["process reward models", "step-level annotation",
+                  "reasoning-error metrics"]
+
+  zelikman2022star:
+    title: "STaR: Bootstrapping Reasoning With Reasoning"
+    authors: ["Eric Zelikman", "Yuhuai Wu", "Jesse Mu", "Noah D. Goodman"]
+    year: 2022
+    venue: "NeurIPS 2022 (arXiv preprint March 2022)"
+    arxiv: "2203.14465"
+    url: "https://arxiv.org/abs/2203.14465"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2203.14465 - title, four authors, March 2022; abstract confirms the loop of generating rationales from few-shot prompts, rationalising backwards from the correct answer when the generated answer is wrong, fine-tuning on rationales that yielded correct answers, and repeating; and the reported result of performing comparably to fine-tuning a 30x larger model on CommonsenseQA."
+    contribution: >
+      Turned outcome correctness into rationale supervision without any
+      step-level annotation: keep the reasoning that reached the right answer,
+      train on it, repeat. Rationalisation from the known answer is the trick
+      that keeps hard problems in the training set.
+    why_it_mattered: >
+      It made the annotation problem look tractable. Step-level labels are
+      expensive; STaR needs only answers, and the model supplies its own
+      reasoning - which is the template every later self-improvement loop uses.
+    what_changed_after: >
+      Rejection-sampling fine-tuning on self-generated correct solutions became
+      standard practice, and the question shifted to what the loop selects FOR
+      when a correct answer can be reached by faulty reasoning.
+    descendants: ["rejection-sampling fine-tuning", "self-improvement loops",
+                  "reasoning distillation"]
