@@ -6304,3 +6304,117 @@ entries:
       Explicit thinking budgets became a serving parameter, and small
       reasoning-trace datasets became a normal way to add the behaviour.
     descendants: ["thinking budgets", "budget forcing", "reasoning distillation"]
+
+  nye2021scratchpads:
+    title: "Show Your Work: Scratchpads for Intermediate Computation with Language Models"
+    authors: ["Maxwell Nye", "Anders Johan Andreassen", "Guy Gur-Ari",
+              "Henryk Michalewski", "Jacob Austin", "David Bieber",
+              "David Dohan", "Aitor Lewkowycz", "Maarten Bosma", "David Luan",
+              "Charles Sutton", "Augustus Odena"]
+    year: 2021
+    venue: "arXiv preprint (November 2021)"
+    arxiv: "2112.00114"
+    url: "https://arxiv.org/abs/2112.00114"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2112.00114 - title, twelve authors, submitted 30 November 2021; abstract confirms the framing that models do well on tasks doable in one pass but struggle with unbounded multi-step computation such as integer addition and program execution, and that emitting intermediate steps into a scratchpad dramatically improves multi-step computation across tasks from long addition to arbitrary program execution."
+    contribution: >
+      Named the mechanism before the prompting result made it famous. Emitting
+      intermediate computation into the sequence turns a one-pass problem into a
+      multi-pass one, and the paper demonstrates it on tasks where the required
+      number of steps is explicit rather than on benchmark deltas.
+    why_it_mattered: >
+      It is the correct framing of chain-of-thought - a working-memory and
+      serial-computation argument rather than a prompting trick - and it arrived
+      with tasks where the claim is checkable.
+    what_changed_after: >
+      Every later analysis of why intermediate tokens help traces back to this
+      formulation, and the theory papers that followed are formalisations of it.
+    descendants: ["chain-of-thought prompting", "expressivity results for CoT",
+                  "reasoning traces"]
+
+  merrill2024cotexpressive:
+    title: "The Expressive Power of Transformers with Chain of Thought"
+    authors: ["William Merrill", "Ashish Sabharwal"]
+    year: 2023
+    venue: "ICLR 2024 (arXiv preprint October 2023)"
+    arxiv: "2310.07923"
+    url: "https://arxiv.org/abs/2310.07923"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2310.07923 - title, two authors, submitted 11 October 2023 with a final version April 2024; abstract confirms that standard transformers answering immediately cannot solve problems such as graph connectivity or finite-state-machine simulation, that intermediate generation does extend computational power, and the specific scaling results - logarithmic decoding steps extend the class only slightly, linear steps with projected pre-norm add recognition of all regular languages and keep decoders within context-sensitive languages, and polynomial steps yield exactly the polynomial-time-solvable class."
+    contribution: >
+      The precise version of "intermediate tokens buy serial steps" - the
+      computational class a decoder can recognise is a function of HOW MANY
+      intermediate tokens it generates, with logarithmic, linear and polynomial
+      budgets landing in distinguishable places.
+    why_it_mattered: >
+      Turns an intuition into a theorem, and in doing so explains why the benefit
+      of chain-of-thought is bounded rather than open-ended - the number of
+      tokens, not the model, is the resource being spent.
+    what_changed_after: >
+      Reasoning length became something to reason about quantitatively, and
+      test-time compute scaling acquired a theoretical account of what it buys.
+    descendants: ["test-time compute scaling", "thinking budgets",
+                  "serial-computation analyses of reasoning"]
+
+  lanham2023faithfulness:
+    title: "Measuring Faithfulness in Chain-of-Thought Reasoning"
+    authors: ["Tamera Lanham", "Anna Chen", "Ansh Radhakrishnan",
+              "Benoit Steiner", "Carson Denison", "Danny Hernandez",
+              "Dustin Li", "Esin Durmus", "Evan Hubinger", "Jackson Kernion",
+              "Kamile Lukosiute", "Karina Nguyen", "Newton Cheng",
+              "Nicholas Joseph", "Nicholas Schiefer", "Oliver Rausch",
+              "Robin Larson", "Sam McCandlish", "Sandipan Kundu",
+              "Saurav Kadavath", "Shannon Yang", "Thomas Henighan",
+              "Timothy Maxwell", "Timothy Telleen-Lawton", "Tristan Hume",
+              "Zac Hatfield-Dodds", "Jared Kaplan", "Jan Brauner",
+              "Samuel R. Bowman", "Ethan Perez"]
+    year: 2023
+    venue: "arXiv preprint (July 2023)"
+    arxiv: "2307.13702"
+    url: "https://arxiv.org/abs/2307.13702"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2307.13702 - title, thirty authors, July 2023; abstract confirms the intervention methodology of adding mistakes to and paraphrasing the chain of thought, the finding of large across-task variation in how strongly models condition on their own CoT, that the performance boost comes neither from added test-time compute alone nor from the CoT's particular phrasing, and that larger and more capable models produce LESS faithful reasoning on most tasks studied."
+    contribution: >
+      The measurement method for faithfulness - intervene on the trace and see
+      whether the answer moves. Establishes that dependence on the trace varies
+      enormously by task, and that it DECREASES with capability.
+    why_it_mattered: >
+      The scaling direction is the alarming part. Every other quality improves
+      with model size; the relationship between the stated reasoning and the
+      actual computation gets worse, which breaks the assumption behind
+      trace-based oversight.
+    what_changed_after: >
+      Faithfulness became a measured axis with its own interventions rather than
+      an assumption, and monitoring proposals had to argue for it explicitly.
+    descendants: ["CoT faithfulness benchmarks", "trace-based monitoring",
+                  "reasoning-model oversight"]
+
+  kojima2022zeroshotcot:
+    title: "Large Language Models are Zero-Shot Reasoners"
+    authors: ["Takeshi Kojima", "Shixiang Shane Gu", "Machel Reid",
+              "Yutaka Matsuo", "Yusuke Iwasawa"]
+    year: 2022
+    venue: "NeurIPS 2022 (arXiv preprint May 2022)"
+    arxiv: "2205.11916"
+    url: "https://arxiv.org/abs/2205.11916"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2205.11916 - title, five authors, submitted 24 May 2022, accepted to NeurIPS 2022; abstract confirms that appending a single step-by-step instruction phrase before the answer elicits multi-step reasoning with no exemplars, and the reported numbers on text-davinci-002 - MultiArith 17.7% to 78.7% and GSM8K 10.4% to 40.7% - with similar magnitudes on 540B PaLM."
+    contribution: >
+      Showed the behaviour needs no exemplars - a single instruction phrase
+      elicits it - which separates the CAPABILITY from the demonstration format
+      that had been assumed to install it.
+    why_it_mattered: >
+      If exemplars were doing the work, chain-of-thought would be in-context
+      learning. The zero-shot result says the capability is already present and
+      the prompt only routes to it, which is a different claim about what
+      pretraining produced.
+    what_changed_after: >
+      Step-by-step instructions entered every system prompt, and the question
+      shifted from how to teach the behaviour to how to elicit and then train
+      it in.
+    descendants: ["zero-shot CoT", "reasoning system prompts",
+                  "instruction-elicited reasoning"]
