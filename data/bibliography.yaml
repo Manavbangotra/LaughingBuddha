@@ -5603,3 +5603,402 @@ entries:
       Alignment from existing product telemetry became practical, without a
       dedicated preference-collection programme.
     descendants: ["binary-feedback alignment", "telemetry-driven preference tuning"]
+
+  micikevicius2018mixed:
+    title: "Mixed Precision Training"
+    authors: ["Paulius Micikevicius", "Sharan Narang", "Jonah Alben",
+              "Gregory Diamos", "Erich Elsen", "David Garcia", "Boris Ginsburg",
+              "Michael Houston", "Oleksii Kuchaiev", "Ganesh Venkatesh",
+              "Hao Wu"]
+    year: 2017
+    venue: "ICLR 2018 (arXiv preprint October 2017)"
+    arxiv: "1710.03740"
+    url: "https://arxiv.org/abs/1710.03740"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/1710.03740 - title, eleven authors, October 2017 submission, ICLR 2018; abstract confirms the three techniques (fp32 master weights accumulating gradients, loss scaling to preserve small gradient values, half-precision storage of weights, activations and gradients) and the ~2x memory reduction with no accuracy loss on models above 100M parameters."
+    contribution: >
+      Established the pattern every training stack still uses: compute in half
+      precision, keep a single-precision master copy of the weights for the
+      optimiser step, and scale the loss so small gradients survive the format's
+      limited range.
+    why_it_mattered: >
+      Halved memory and roughly doubled arithmetic throughput without an
+      accuracy cost, which is why mixed precision stopped being a research
+      technique and became the default. The master-weight copy is also the term
+      that dominates fine-tuning memory.
+    what_changed_after: >
+      BF16 replaced FP16 for training because its wider exponent removes the
+      need for loss scaling; FP8 followed the same playbook with per-tensor
+      scaling factors.
+    descendants: ["bf16 training", "FP8 training", "automatic mixed precision"]
+
+  micikevicius2022fp8:
+    title: "FP8 Formats for Deep Learning"
+    authors: ["Paulius Micikevicius", "Dusan Stosic", "Neil Burgess",
+              "Marius Cornea", "Pradeep Dubey", "Richard Grisenthwaite",
+              "Sangwon Ha", "Alexander Heinecke", "Patrick Judd", "John Kamalu",
+              "Naveen Mellempudi", "Stuart Oberman", "Mohammad Shoeybi",
+              "Michael Siu", "Hao Wu"]
+    year: 2022
+    venue: "arXiv preprint (September 2022)"
+    arxiv: "2209.05433"
+    url: "https://arxiv.org/abs/2209.05433"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2209.05433 - title, fifteen authors, September 2022; abstract confirms the two encodings E4M3 (4-bit exponent, 3-bit mantissa) and E5M2 (5-bit exponent, 2-bit mantissa), that E5M2 follows IEEE 754 special-value conventions while E4M3 drops infinities to extend range, and the claim of matching 16-bit training quality up to 175B parameters."
+    contribution: >
+      Standardised two 8-bit float encodings with an explicit division of
+      labour: E4M3 for forward activations and weights where precision matters,
+      E5M2 for gradients where dynamic range matters.
+    why_it_mattered: >
+      Made the exponent-versus-mantissa trade-off a design choice rather than an
+      accident, and it is the clearest statement of the principle that a numeric
+      format is a budget split between range and resolution.
+    what_changed_after: >
+      Hardware FP8 support in Hopper and later accelerators; FP8 inference and
+      training became a production option rather than a research result.
+    descendants: ["FP8 inference", "FP8 training", "per-tensor scaling factors"]
+
+  dettmers2022int8:
+    title: "LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale"
+    authors: ["Tim Dettmers", "Mike Lewis", "Younes Belkada", "Luke Zettlemoyer"]
+    year: 2022
+    venue: "NeurIPS 2022 (arXiv preprint August 2022)"
+    arxiv: "2208.07339"
+    url: "https://arxiv.org/abs/2208.07339"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2208.07339 - title, four authors, August 2022; abstract confirms the emergent systematic outlier features that appear at scale and dominate attention and predictive performance, the vector-wise quantization plus mixed-precision decomposition isolating outlier dimensions into 16-bit, and that over 99.9% of multiplications proceed in 8-bit without degradation, validated to 175B."
+    contribution: >
+      Identified the emergent outlier features that break naive INT8
+      quantization above a scale threshold, and handled them by decomposition -
+      99.9% of the arithmetic in 8-bit, the outlier dimensions kept in 16-bit.
+    why_it_mattered: >
+      This is the paper that made quantization a scale-dependent question rather
+      than a fixed technique. A method validated on a small model can fail
+      outright on a large one, and the reason has a name.
+    what_changed_after: >
+      SmoothQuant and AWQ attack the same outliers differently - by migrating
+      the difficulty into the weights, and by protecting the salient channels -
+      rather than by keeping a separate precision path.
+    descendants: ["SmoothQuant", "AWQ", "outlier-aware quantization"]
+
+  frantar2023gptq:
+    title: "GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers"
+    authors: ["Elias Frantar", "Saleh Ashkboos", "Torsten Hoefler",
+              "Dan Alistarh"]
+    year: 2022
+    venue: "ICLR 2023 (arXiv preprint October 2022)"
+    arxiv: "2210.17323"
+    url: "https://arxiv.org/abs/2210.17323"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2210.17323 - title, four authors, submitted 31 October 2022, ICLR 2023; abstract confirms one-shot weight quantization using approximate second-order information, 175B models to 3-4 bits in roughly four GPU hours, around 3.25x inference speedup on A100, and more than doubling compression relative to prior one-shot methods."
+    contribution: >
+      Post-training weight quantization to 3-4 bits using approximate
+      second-order information, one layer at a time, with no retraining -
+      175B parameters in about four GPU hours.
+    why_it_mattered: >
+      Turned quantization from a training-time decision into a post-hoc
+      operation on a finished checkpoint, which is what made it a deployment
+      step rather than a research project.
+    what_changed_after: >
+      Became the default weight-only baseline; SpQR, AQLM and QuIP# all measure
+      themselves against it, and the calibration-set dependence it introduced is
+      still a live source of surprises.
+    descendants: ["SpQR", "AQLM", "QuIP#", "post-training quantization pipelines"]
+
+  lin2023awq:
+    title: "AWQ: Activation-aware Weight Quantization for LLM Compression and Acceleration"
+    authors: ["Ji Lin", "Jiaming Tang", "Haotian Tang", "Shang Yang",
+              "Wei-Ming Chen", "Wei-Chen Wang", "Guangxuan Xiao", "Xingyu Dang",
+              "Chuang Gan", "Song Han"]
+    year: 2023
+    venue: "MLSys 2024, Best Paper (arXiv preprint June 2023)"
+    arxiv: "2306.00978"
+    url: "https://arxiv.org/abs/2306.00978"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2306.00978 - title, ten authors, submitted 1 June 2023, MLSys 2024 Best Paper; abstract confirms that salient weight channels are identified from ACTIVATION statistics rather than weight magnitudes, that protecting roughly 1% of channels by equivalent scaling suffices, that no backpropagation is required, and more than 3x speedup over FP16 on desktop and mobile GPUs."
+    contribution: >
+      Found the weights that matter by looking at the ACTIVATIONS that flow
+      through them rather than at the weights themselves, then protected about
+      1% of channels with an equivalent scaling transformation.
+    why_it_mattered: >
+      The insight that weight importance is a property of the data distribution
+      rather than of the weight matrix, and the practical consequence that a
+      calibration set is doing more work than it appears to.
+    what_changed_after: >
+      Activation-aware selection became standard; the calibration-set choice
+      became a documented hyperparameter rather than an implementation detail.
+    descendants: ["activation-aware quantization", "salient-channel protection"]
+
+  xiao2023smoothquant:
+    title: "SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models"
+    authors: ["Guangxuan Xiao", "Ji Lin", "Mickael Seznec", "Hao Wu",
+              "Julien Demouth", "Song Han"]
+    year: 2022
+    venue: "ICML 2023 (arXiv preprint November 2022)"
+    arxiv: "2211.10438"
+    url: "https://arxiv.org/abs/2211.10438"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2211.10438 - title, six authors, submitted 18 November 2022, ICML 2023; abstract confirms offline migration of quantization difficulty from activations to weights via a mathematically equivalent transformation, enabling W8A8, with up to 1.56x speedup and 2x memory reduction and deployment of a 530B model on a single node."
+    contribution: >
+      Migrated quantization difficulty from activations, which have outliers and
+      are hard to quantize, into weights, which do not, using a mathematically
+      equivalent per-channel scaling that changes nothing about the function.
+    why_it_mattered: >
+      Made 8-bit ACTIVATIONS practical, not just 8-bit weights - which is the
+      difference between saving memory and saving compute, since INT8 tensor
+      cores need both operands quantized.
+    what_changed_after: >
+      W8A8 serving became routine; the same migration idea reappears in
+      KV-cache quantization and in FP8 per-tensor scaling.
+    descendants: ["W8A8 serving", "activation smoothing", "QoQ/QServe"]
+
+  dettmers2023case4bit:
+    title: "The case for 4-bit precision: k-bit Inference Scaling Laws"
+    authors: ["Tim Dettmers", "Luke Zettlemoyer"]
+    year: 2022
+    venue: "ICML 2023 (arXiv preprint December 2022)"
+    arxiv: "2212.09720"
+    url: "https://arxiv.org/abs/2212.09720"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2212.09720 - title, two authors, December 2022, ICML 2023; abstract confirms over 35,000 experiments across BLOOM, OPT, NeoX/Pythia and GPT-2 at 3-8 bits and 19M-176B parameters, the finding that 4-bit is almost universally optimal for total model bits versus zero-shot accuracy, and the caveat that scaling improvements are limited to small block sizes and particular data types."
+    contribution: >
+      Asked the right question - given a fixed memory budget, is it better to
+      run a bigger model at lower precision or a smaller one at higher
+      precision - and answered it with 35,000 experiments. The answer was 4 bits,
+      almost everywhere.
+    why_it_mattered: >
+      Reframed quantization as a model-selection problem rather than a
+      compression problem, and gave the field a default that has held up.
+    what_changed_after: >
+      4-bit became the standard local-inference target; later work on 2-3 bits
+      is explicitly arguing against this result's boundary.
+    descendants: ["4-bit as the default", "AQLM", "QuIP#"]
+
+  dettmers2023spqr:
+    title: "SpQR: A Sparse-Quantized Representation for Near-Lossless LLM Weight Compression"
+    authors: ["Tim Dettmers", "Ruslan Svirschevski", "Vage Egiazarian",
+              "Denis Kuznedelev", "Elias Frantar", "Saleh Ashkboos",
+              "Alexander Borzunov", "Torsten Hoefler", "Dan Alistarh"]
+    year: 2023
+    venue: "ICLR 2024 (arXiv preprint June 2023)"
+    arxiv: "2306.03078"
+    url: "https://arxiv.org/abs/2306.03078"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2306.03078 - title, nine authors, June 2023; abstract confirms identifying and isolating outlier weights that cause outsized quantization errors, storing them at higher precision while compressing the rest to 3-4 bits, with under 1% relative perplexity loss and more than 4x memory compression against 16-bit."
+    contribution: >
+      Made the outlier handling explicit and sparse: identify the small set of
+      weights whose quantization error dominates, store them separately at
+      higher precision, and compress everything else hard.
+    why_it_mattered: >
+      Shows that quantization error is extremely unevenly distributed, so the
+      average bit-width is the wrong summary statistic - a claim that
+      generalises well beyond this method.
+    what_changed_after: >
+      Mixed-precision-within-a-tensor representations became a normal design
+      point rather than an oddity.
+    descendants: ["sparse-quantized formats", "outlier-aware storage"]
+
+  egiazarian2024aqlm:
+    title: "Extreme Compression of Large Language Models via Additive Quantization"
+    authors: ["Vage Egiazarian", "Andrei Panferov", "Denis Kuznedelev",
+              "Elias Frantar", "Artem Babenko", "Dan Alistarh"]
+    year: 2024
+    venue: "ICML 2024 (arXiv preprint January 2024)"
+    arxiv: "2401.06118"
+    url: "https://arxiv.org/abs/2401.06118"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2401.06118 - title, six authors, January 2024; abstract confirms learned additive quantization of weight matrices in an input-adaptive fashion with joint optimisation across transformer blocks, a target of 2-3 bits per parameter, and the claim of being the first Pareto-optimal scheme below 3 bits per parameter."
+    contribution: >
+      Applied additive quantization - representing each weight vector as a sum
+      of codebook entries - to reach 2-3 bits per parameter with joint
+      optimisation across blocks rather than layer by layer.
+    why_it_mattered: >
+      Pushed the practical floor below the 4-bit result of the k-bit scaling
+      laws, and did so by changing the representation rather than by refining
+      the rounding.
+    what_changed_after: >
+      Sub-3-bit inference became a real option for memory-constrained
+      deployment, at a decode-speed cost that is still the binding constraint.
+    descendants: ["vector-quantized weights", "sub-3-bit inference"]
+
+  tseng2024quipsharp:
+    title: "QuIP#: Even Better LLM Quantization with Hadamard Incoherence and Lattice Codebooks"
+    authors: ["Albert Tseng", "Jerry Chee", "Qingyao Sun", "Volodymyr Kuleshov",
+              "Christopher De Sa"]
+    year: 2024
+    venue: "ICML 2024 (arXiv preprint February 2024)"
+    arxiv: "2402.04396"
+    url: "https://arxiv.org/abs/2402.04396"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2402.04396 - title, five authors, February 2024; abstract confirms the randomized Hadamard transform for incoherence processing described as faster and with better theoretical properties than prior approaches, lattice codebooks, a target of at most 4 bits per weight, and fine-tuning used to improve fidelity rather than a losslessness claim."
+    contribution: >
+      Used a randomized Hadamard transform to make weight matrices incoherent -
+      spreading outliers out so no coordinate dominates - before quantizing with
+      lattice codebooks.
+    why_it_mattered: >
+      Attacks the outlier problem by changing the basis rather than by
+      protecting particular entries, which is a genuinely different answer to
+      the question LLM.int8() posed.
+    what_changed_after: >
+      Rotation-based incoherence processing became a standard preprocessing step
+      in extreme quantization pipelines.
+    descendants: ["Hadamard/rotation preprocessing", "lattice codebook quantization"]
+
+  kumar2024precisionscaling:
+    title: "Scaling Laws for Precision"
+    authors: ["Tanishq Kumar", "Zachary Ankner", "Benjamin F. Spector",
+              "Blake Bordelon", "Niklas Muennighoff", "Mansheej Paul",
+              "Cengiz Pehlevan", "Christopher Ré", "Aditi Raghunathan"]
+    year: 2024
+    venue: "ICLR 2025 (arXiv preprint November 2024)"
+    arxiv: "2411.04330"
+    url: "https://arxiv.org/abs/2411.04330"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2411.04330 - title, nine authors, November 2024; abstract confirms precision-aware scaling laws in which lower-precision training reduces a model's effective parameter count, the finding that post-training quantization degradation INCREASES with the amount of pretraining data to the point where more data becomes actively harmful, and validation across 465 pretraining runs up to 1.7B parameters and 26B tokens."
+    contribution: >
+      Made precision a term in the scaling law rather than an implementation
+      detail, and found that post-training quantization damage grows with the
+      amount of pretraining data - so more training can make a model MORE
+      fragile to quantization.
+    why_it_mattered: >
+      Inverts the intuition that better-trained models are more robust, and it
+      means a quantization recipe validated on one checkpoint may not transfer
+      to a longer-trained successor of the same architecture.
+    what_changed_after: >
+      Quantization robustness became something to measure per checkpoint rather
+      than per architecture, and precision entered training-budget planning.
+    descendants: ["precision-aware scaling", "quantization-aware pretraining budgets"]
+
+  liu2024kivi:
+    title: "KIVI: A Tuning-Free Asymmetric 2bit Quantization for KV Cache"
+    authors: ["Zirui Liu", "Jiayi Yuan", "Hongye Jin", "Shaochen Zhong",
+              "Zhaozhuo Xu", "Vladimir Braverman", "Beidi Chen", "Xia Hu"]
+    year: 2024
+    venue: "ICML 2024 (arXiv preprint February 2024)"
+    arxiv: "2402.02750"
+    url: "https://arxiv.org/abs/2402.02750"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2402.02750 - title, eight authors, February 2024; abstract confirms the asymmetry finding that the key cache should be quantized per-channel and the value cache per-token, tuning-free 2-bit quantization, 2.6x less peak memory, up to 4x larger batch size, and 2.35x-3.47x throughput on Llama, Falcon and Mistral."
+    contribution: >
+      Found that keys and values need DIFFERENT quantization axes - keys
+      per-channel, values per-token - because their outlier structure differs,
+      and used that to reach 2 bits with no tuning.
+    why_it_mattered: >
+      The KV cache is the memory term that grows with traffic rather than with
+      the model, so compressing it converts directly into batch size and
+      throughput. And the asymmetry is a reminder that "the KV cache" is two
+      different tensors with different statistics.
+    what_changed_after: >
+      Per-tensor-role quantization axes became standard in serving stacks; KV
+      quantization moved from experimental to a normal throughput lever.
+    descendants: ["KV-cache quantization in serving stacks", "asymmetric quantization axes"]
+
+  kwon2023pagedattention:
+    title: "Efficient Memory Management for Large Language Model Serving with PagedAttention"
+    authors: ["Woosuk Kwon", "Zhuohan Li", "Siyuan Zhuang", "Ying Sheng",
+              "Lianmin Zheng", "Cody Hao Yu", "Joseph E. Gonzalez", "Hao Zhang",
+              "Ion Stoica"]
+    year: 2023
+    venue: "SOSP 2023 (arXiv preprint September 2023)"
+    arxiv: "2309.06180"
+    url: "https://arxiv.org/abs/2309.06180"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2309.06180 - title, nine authors, September 2023, SOSP 2023; abstract confirms that per-request KV cache memory is large and grows and shrinks dynamically, that fragmentation and redundant duplication waste it, the virtual-memory-inspired paging solution, and 2-4x throughput improvement at equal latency against FasterTransformer and Orca."
+    contribution: >
+      Applied operating-system paging to the KV cache: allocate it in
+      fixed-size blocks that need not be contiguous, so fragmentation
+      disappears and identical prefixes can share physical blocks.
+    why_it_mattered: >
+      Turned KV-cache memory from the binding constraint on batch size into a
+      managed resource, which is where most of the throughput improvement in
+      modern serving stacks came from - not from faster kernels.
+    what_changed_after: >
+      vLLM became the reference serving architecture; prefix sharing and
+      continuous batching became standard rather than advanced features.
+    descendants: ["vLLM", "prefix caching", "continuous batching"]
+
+  pope2022inference:
+    title: "Efficiently Scaling Transformer Inference"
+    authors: ["Reiner Pope", "Sholto Douglas", "Aakanksha Chowdhery",
+              "Jacob Devlin", "James Bradbury", "Anselm Levskaya",
+              "Jonathan Heek", "Kefan Xiao", "Shivani Agrawal", "Jeff Dean"]
+    year: 2022
+    venue: "MLSys 2023 (arXiv preprint November 2022)"
+    arxiv: "2211.05102"
+    url: "https://arxiv.org/abs/2211.05102"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2211.05102 - title, ten authors, November 2022, MLSys 2023; abstract confirms a simple analytical model for inference efficiency used to select multi-dimensional partitioning strategies, the distinction between latency-optimised and throughput-optimised regimes, and the reported 29ms per token with int8 weights and 76% MFU at large batch on PaLM 540B with 2048-token context."
+    contribution: >
+      Gave inference an analytical model rather than a benchmark: which
+      partitioning strategy wins is derivable from arithmetic intensity and
+      interconnect bandwidth, and it differs between the latency regime and the
+      throughput regime.
+    why_it_mattered: >
+      Established that low latency and high throughput are different
+      optimisation problems with different answers, which is the framing the
+      throughput-versus-latency chapter is built on.
+    what_changed_after: >
+      Serving stacks began exposing the regime as an explicit configuration
+      choice rather than a tuning accident.
+    descendants: ["roofline analysis for inference", "regime-specific serving configs"]
+
+  leviathan2023speculative:
+    title: "Fast Inference from Transformers via Speculative Decoding"
+    authors: ["Yaniv Leviathan", "Matan Kalman", "Yossi Matias"]
+    year: 2022
+    venue: "ICML 2023 (arXiv preprint November 2022)"
+    arxiv: "2211.17192"
+    url: "https://arxiv.org/abs/2211.17192"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2211.17192 - title, three authors, November 2022, ICML 2023; abstract confirms speculative execution using an efficient approximation model to draft tokens verified in parallel by the target model, a novel sampling method that provably preserves the target model's output distribution identically, and 2x-3x acceleration on T5-XXL without retraining or architecture changes."
+    contribution: >
+      Draft several tokens cheaply, verify them in one forward pass of the
+      expensive model, and accept the longest correct prefix - with a sampling
+      rule that leaves the output distribution EXACTLY unchanged.
+    why_it_mattered: >
+      A latency improvement with no quality cost, which is rare enough to be
+      worth stating twice. It exploits the fact that decoding is memory-bound,
+      so verifying k tokens costs almost the same as generating one.
+    what_changed_after: >
+      Speculative decoding became a standard serving feature; Medusa and
+      lookahead variants removed the need for a separate draft model.
+    descendants: ["Medusa", "lookahead decoding", "n-gram speculation"]
+
+  cai2024medusa:
+    title: "Medusa: Simple LLM Inference Acceleration Framework with Multiple Decoding Heads"
+    authors: ["Tianle Cai", "Yuhong Li", "Zhengyang Geng", "Hongwu Peng",
+              "Jason D. Lee", "Deming Chen", "Tri Dao"]
+    year: 2024
+    venue: "ICML 2024 (arXiv preprint January 2024)"
+    arxiv: "2401.10774"
+    url: "https://arxiv.org/abs/2401.10774"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2401.10774 - title, seven authors, January 2024; abstract confirms extra decoding heads predicting several subsequent tokens in parallel so no separate draft model is needed, tree-based attention to generate and verify multiple candidate continuations at once, and speedups of over 2.2x for Medusa-1 and 2.3-3.6x for Medusa-2."
+    contribution: >
+      Replaced the separate draft model of speculative decoding with extra
+      prediction heads on the target model itself, plus tree attention to verify
+      many candidate continuations in one pass.
+    why_it_mattered: >
+      Removed the main operational objection to speculative decoding - that it
+      requires finding, training and serving a second model whose distribution
+      matches the first.
+    what_changed_after: >
+      Self-speculation became the common form; the draft-model variant is now
+      the special case rather than the default.
+    descendants: ["self-speculative decoding", "tree attention verification"]
