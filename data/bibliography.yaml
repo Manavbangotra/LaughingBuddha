@@ -6418,3 +6418,34 @@ entries:
       it in.
     descendants: ["zero-shot CoT", "reasoning system prompts",
                   "instruction-elicited reasoning"]
+
+  madaan2023selfrefine:
+    title: "Self-Refine: Iterative Refinement with Self-Feedback"
+    authors: ["Aman Madaan", "Niket Tandon", "Prakhar Gupta",
+              "Skyler Hallinan", "Luyu Gao", "Sarah Wiegreffe", "Uri Alon",
+              "Nouha Dziri", "Shrimai Prabhumoye", "Yiming Yang",
+              "Shashank Gupta", "Bodhisattwa Prasad Majumder",
+              "Katherine Hermann", "Sean Welleck", "Amir Yazdanbakhsh",
+              "Peter Clark"]
+    year: 2023
+    venue: "NeurIPS 2023 (arXiv preprint March 2023)"
+    arxiv: "2303.17651"
+    url: "https://arxiv.org/abs/2303.17651"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2303.17651 - title, sixteen authors, March 2023; abstract confirms that a single LLM acts as generator, refiner and feedback provider with no supervised data, training or RL, evaluation across 7 tasks from dialogue response generation to mathematical reasoning on GPT-3.5, ChatGPT and GPT-4, and the reported average improvement of about 20% absolute in task performance over conventional one-step generation."
+    contribution: >
+      The canonical positive claim for intrinsic self-correction: one model as
+      generator, critic and reviser, iterated, with no external signal and a
+      large reported average gain across seven tasks.
+    why_it_mattered: >
+      It made reflection a default pattern in agent frameworks, and its headline
+      number set the expectation that a model can improve its own output by
+      being asked to.
+    what_changed_after: >
+      Reflection loops appeared in most agent scaffolds. It also became the
+      claim that later work set out to check, which is how the distinction
+      between task types - where a cheap check exists and where the model is
+      judging itself - came to be drawn carefully.
+    descendants: ["reflection loops", "critic-revise agent scaffolds",
+                  "intrinsic self-correction critiques"]
