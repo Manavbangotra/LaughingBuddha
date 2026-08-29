@@ -6532,3 +6532,142 @@ entries:
       interleaved calls per step.
     descendants: ["program-of-thought prompting", "code interpreters in agents",
                   "tool-augmented reasoning"]
+
+  schick2023toolformer:
+    title: "Toolformer: Language Models Can Teach Themselves to Use Tools"
+    authors: ["Timo Schick", "Jane Dwivedi-Yu", "Roberto Dessi",
+              "Roberta Raileanu", "Maria Lomeli", "Luke Zettlemoyer",
+              "Nicola Cancedda", "Thomas Scialom"]
+    year: 2023
+    venue: "NeurIPS 2023 (arXiv preprint February 2023)"
+    arxiv: "2302.04761"
+    url: "https://arxiv.org/abs/2302.04761"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2302.04761 - title, eight authors, February 2023; abstract confirms the framing that LMs struggle with arithmetic and factual lookup where much smaller models excel, the self-supervised training approach requiring only a handful of demonstrations per API, the decision structure (which API, when, what arguments, how to incorporate the result), the tool set (calculator, QA system, two search engines, translation, calendar), and improved zero-shot performance without loss of core language modelling ability."
+    contribution: >
+      Framed tool use as four decisions the model has to make - which API,
+      when, what arguments, how to use the result - and showed the model can
+      learn all four from a handful of demonstrations by self-supervision.
+    why_it_mattered: >
+      It separated tool USE from tool PLUMBING. Before it, calling a tool was a
+      prompting pattern; after it, deciding to call one was a capability that
+      could be trained and measured, which is the precondition for treating
+      agents as engineered systems.
+    what_changed_after: >
+      Function calling became a first-class model capability with its own
+      training data and its own evaluations, and the argument shifted to which
+      of the four decisions fails most often.
+    descendants: ["function calling APIs", "tool-use fine-tuning",
+                  "agent tool schemas"]
+
+  shinn2023reflexion:
+    title: "Reflexion: Language Agents with Verbal Reinforcement Learning"
+    authors: ["Noah Shinn", "Federico Cassano", "Edward Berman",
+              "Ashwin Gopinath", "Karthik Narasimhan", "Shunyu Yao"]
+    year: 2023
+    venue: "NeurIPS 2023 (arXiv preprint March 2023)"
+    arxiv: "2303.11366"
+    url: "https://arxiv.org/abs/2303.11366"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2303.11366 - title, six authors, March 2023; abstract confirms reinforcement through linguistic feedback rather than weight updates, verbal reflection on task feedback kept as reflective text in episodic memory, evaluation across sequential decision-making, coding and language reasoning, and the reported 91% pass@1 on HumanEval against a previous state of the art of 80%."
+    contribution: >
+      Made the feedback loop textual: the agent writes down what went wrong and
+      reads it back on the next attempt, so learning happens in the context
+      window rather than in the weights.
+    why_it_mattered: >
+      It is the cheapest form of adaptation available at inference time, and its
+      HumanEval result is a case where the external signal - test failures - is
+      real. The distinction between that setting and unaided self-criticism is
+      the one that decides whether reflection works at all.
+    what_changed_after: >
+      Reflection loops became a standard agent component, and episodic memory of
+      past failures became a standard piece of agent state.
+    descendants: ["reflection loops", "episodic agent memory",
+                  "verbal feedback learning"]
+
+  greshake2023indirect:
+    title: "Not what you've signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection"
+    authors: ["Kai Greshake", "Sahar Abdelnabi", "Shailesh Mishra",
+              "Christoph Endres", "Thorsten Holz", "Mario Fritz"]
+    year: 2023
+    venue: "AISec 2023 (arXiv preprint February 2023)"
+    arxiv: "2302.12173"
+    url: "https://arxiv.org/abs/2302.12173"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2302.12173 - title, six authors, February 2023; abstract confirms the central claim that LLM-integrated applications blur the line between data and instructions, the indirect injection vector of planting prompts in data likely to be retrieved, the taxonomy covering data theft, worming and information-ecosystem contamination, demonstrations against real systems including Bing's GPT-4 powered Chat and code-completion engines, the framing of retrieved prompts as arbitrary code execution including control over whether and how other APIs are called, and the statement that effective mitigations are currently lacking."
+    contribution: >
+      Named the structural vulnerability of every agent: an LLM has no channel
+      separation between the instructions it was given and the data it reads, so
+      anything it retrieves can issue commands.
+    why_it_mattered: >
+      It reframes agent security from "can the model be jailbroken" to "who else
+      can write to the model's input". Retrieval, browsing, email and file
+      access are all injection surfaces, and the paper's demonstrations against
+      production systems made that concrete rather than theoretical.
+    what_changed_after: >
+      Indirect prompt injection became the defining agent security problem, and
+      the design response - least privilege, confirmation on consequential
+      actions, treating retrieved content as untrusted - became standard advice.
+      The abstract's note that mitigations are lacking has aged well.
+    descendants: ["agent sandboxing", "tool permission models",
+                  "untrusted-content handling"]
+
+  zhou2024webarena:
+    title: "WebArena: A Realistic Web Environment for Building Autonomous Agents"
+    authors: ["Shuyan Zhou", "Frank F. Xu", "Hao Zhu", "Xuhui Zhou",
+              "Robert Lo", "Abishek Sridhar", "Xianyi Cheng", "Tianyue Ou",
+              "Yonatan Bisk", "Daniel Fried", "Uri Alon", "Graham Neubig"]
+    year: 2023
+    venue: "ICLR 2024 (arXiv preprint July 2023)"
+    arxiv: "2307.13854"
+    url: "https://arxiv.org/abs/2307.13854"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2307.13854 - title, twelve authors, submitted 25 July 2023 with a later version April 2024; abstract confirms four functional website domains (e-commerce, social forum, collaborative software development, content management), tools and knowledge bases in the environment, functional-correctness evaluation of long-horizon tasks, and the headline result that the best GPT-4-based agent reaches an end-to-end task success rate of 14.41% against human performance of 78.24%."
+    contribution: >
+      A reproducible environment of real, functional websites with tasks scored
+      on functional correctness rather than on trajectory similarity - and the
+      number that punctured the agent-demo cycle: 14.41% against a human 78.24%.
+    why_it_mattered: >
+      Agent capability had been demonstrated on curated tasks and asserted for
+      everything else. This measured it on long-horizon work with real state,
+      and the gap it reported set expectations for what a deployed agent could
+      be trusted with.
+    what_changed_after: >
+      Functional-correctness evaluation became the standard for agent
+      benchmarks, and the 14.41% figure became the reference point for arguments
+      about autonomy and human oversight.
+    descendants: ["agent benchmarks", "browser agents",
+                  "functional-correctness evaluation"]
+
+  liu2024agentbench:
+    title: "AgentBench: Evaluating LLMs as Agents"
+    authors: ["Xiao Liu", "Hao Yu", "Hanchen Zhang", "Yifan Xu", "Xuanyu Lei",
+              "Hanyu Lai", "Yu Gu", "Hangliang Ding", "Kaiwen Men",
+              "Kejuan Yang", "Shudan Zhang", "Xiang Deng", "Aohan Zeng",
+              "Zhengxiao Du", "Chenhui Zhang", "Sheng Shen", "Tianjun Zhang",
+              "Yu Su", "Huan Sun", "Minlie Huang", "Yuxiao Dong", "Jie Tang"]
+    year: 2023
+    venue: "ICLR 2024 (arXiv preprint August 2023)"
+    arxiv: "2308.03688"
+    url: "https://arxiv.org/abs/2308.03688"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2308.03688 - title, twenty-two authors, August 2023, ICLR 2024; abstract confirms eight distinct interactive environments, a significant performance disparity between top commercial models and open-source models under 70B, and the identification of poor long-term reasoning, decision-making and instruction-following as the primary obstacles, along with the observation that training on code has ambivalent effects across agent tasks."
+    contribution: >
+      Eight interactive environments in one harness, and a diagnosis: the
+      bottleneck is long-horizon reasoning, decision-making and
+      instruction-following rather than any single missing capability.
+    why_it_mattered: >
+      It separated "the model is not smart enough" from "the model cannot hold a
+      plan across many steps", which are different engineering problems. The
+      finding that code training helps some agent tasks and hurts others also
+      complicated the then-standard advice.
+    what_changed_after: >
+      Agent evaluation became multi-environment by default, and long-horizon
+      consistency became a named capability rather than an assumed one.
+    descendants: ["multi-environment agent evaluation",
+                  "long-horizon consistency metrics"]
