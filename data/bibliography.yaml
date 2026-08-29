@@ -6923,3 +6923,179 @@ entries:
       moved to opt-in extensions.
     descendants: ["stateless MCP deployments", "MCP extensions",
                   "per-request capability negotiation"]
+
+  yu2018spider:
+    title: "Spider: A Large-Scale Human-Labeled Dataset for Complex and Cross-Domain Semantic Parsing and Text-to-SQL Task"
+    authors: ["Tao Yu", "Rui Zhang", "Kai Yang", "Michihiro Yasunaga",
+              "Dongxu Wang", "Zifan Li", "James Ma", "Irene Li",
+              "Qingning Yao", "Shanelle Roman", "Zilin Zhang",
+              "Dragomir Radev"]
+    year: 2018
+    venue: "EMNLP 2018 (long paper); arXiv preprint (September 2018)"
+    arxiv: "1809.08887"
+    url: "https://arxiv.org/abs/1809.08887"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/1809.08887 - title, twelve authors, submitted 24 September 2018 with v5 on 2 February 2019, not withdrawn, published as an EMNLP 2018 long paper; abstract confirms 10,181 questions, 5,693 unique complex SQL queries, 200 databases with multiple tables covering 138 different domains, and the database-split setting in which different complex SQL queries AND different databases appear in train and test."
+    contribution: >
+      The dataset that made text-to-SQL a generalisation problem rather than a
+      memorisation one: 10,181 questions over 200 multi-table databases in 138
+      domains, split so that both the queries and the schemas in the test set
+      are unseen.
+    why_it_mattered: >
+      Earlier semantic-parsing benchmarks reused the same databases across
+      train and test, so a model could learn one schema's idioms and score
+      well. The database split forced systems to read a schema they had never
+      seen, which is the actual task and a far harder one.
+    what_changed_after: >
+      Cross-domain generalisation became the default evaluation setting for
+      text-to-SQL, and schema linking emerged as a distinct component worth
+      studying on its own.
+    descendants: ["cross-domain text-to-SQL", "schema linking research",
+                  "BIRD and later execution-accuracy benchmarks"]
+
+  li2023bird:
+    title: "Can LLM Already Serve as A Database Interface? A BIg Bench for Large-Scale Database Grounded Text-to-SQLs"
+    authors: ["Jinyang Li", "Binyuan Hui", "Ge Qu", "Jiaxi Yang", "Binhua Li",
+              "Bowen Li", "Bailin Wang", "Bowen Qin", "Rongyu Cao",
+              "Ruiying Geng", "Nan Huo", "Xuanhe Zhou", "Chenhao Ma",
+              "Guoliang Li", "Kevin C.C. Chang", "Fei Huang", "Reynold Cheng",
+              "Yongbin Li"]
+    year: 2023
+    venue: "arXiv preprint (May 2023); NeurIPS 2023 Datasets and Benchmarks"
+    arxiv: "2305.03111"
+    url: "https://arxiv.org/abs/2305.03111"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2305.03111 - title, eighteen authors, submitted 4 May 2023 with v3 on 15 November 2023, not withdrawn; abstract confirms 12,751 text-to-SQL pairs over 95 databases totalling 33.4 GB across 37 professional domains, and the headline result that the most effective model tested reached 40.08% execution accuracy against a human result of 92.96%."
+    contribution: >
+      Text-to-SQL on databases that look like production ones - 95 databases,
+      33.4 GB, 37 professional domains, with dirty values and the need for
+      external knowledge - and the gap it exposed: 40.08% execution accuracy
+      against 92.96% for humans.
+    why_it_mattered: >
+      Spider's databases were clean and small, so high scores there implied
+      more than they should. BIRD showed that the difficulty is mostly in the
+      data rather than the SQL: messy values, ambiguous columns, and domain
+      knowledge that is not in the schema.
+    what_changed_after: >
+      Execution accuracy on realistic databases replaced exact-match on clean
+      ones as the reported metric, and schema and value grounding became the
+      focus of text-to-SQL system design.
+    descendants: ["execution-accuracy evaluation", "value-grounded text-to-SQL",
+                  "enterprise text-to-SQL systems"]
+
+  huang2024dacode:
+    title: "DA-Code: Agent Data Science Code Generation Benchmark for Large Language Models"
+    authors: ["Yiming Huang", "Jianwen Luo", "Yan Yu", "Yitong Zhang",
+              "Fangyu Lei", "Yifan Wei", "Shizhu He", "Lifu Huang", "Xiao Liu",
+              "Jun Zhao", "Kang Liu"]
+    year: 2024
+    venue: "EMNLP 2024; arXiv preprint (October 2024)"
+    arxiv: "2410.07331"
+    url: "https://arxiv.org/abs/2410.07331"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2410.07331 - title, eleven authors, submitted 9 October 2024 with v2 on 11 October 2024, not withdrawn, EMNLP 2024; abstract confirms agent-based data science tasks drawn from Kaggle, GitHub and other sources spanning exploratory analysis, data preparation and modelling, requiring SQL, Python and Bash, and the headline that the best LLMs reach only 30.5% accuracy."
+    contribution: >
+      A data science benchmark posed as agent tasks rather than as isolated
+      code completions - real repositories, real data, and a mix of SQL, Python
+      and shell - on which the best models reached 30.5%.
+    why_it_mattered: >
+      Earlier data science benchmarks scored single functions against unit
+      tests, which measures a different thing from completing an analysis. The
+      30.5% figure is a useful corrective to demonstrations that show an agent
+      producing a plausible notebook.
+    what_changed_after: >
+      Data science agent evaluation moved toward end-to-end tasks with
+      execution-based grading, and the gap between notebook-generating demos
+      and completed analyses became measurable.
+    descendants: ["agentic data science benchmarks",
+                  "execution-graded analysis evaluation"]
+
+  chan2024mlebench:
+    title: "MLE-bench: Evaluating Machine Learning Agents on Machine Learning Engineering"
+    authors: ["Jun Shern Chan", "Neil Chowdhury", "Oliver Jaffe", "James Aung",
+              "Dane Sherburn", "Evan Mays", "Giulio Starace", "Kevin Liu",
+              "Leon Maksin", "Tejal Patwardhan", "Lilian Weng",
+              "Aleksander Madry"]
+    year: 2024
+    venue: "arXiv preprint (October 2024); ICLR 2025"
+    arxiv: "2410.07095"
+    url: "https://arxiv.org/abs/2410.07095"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2410.07095 - title, twelve authors, submitted 9 October 2024 with v6 on 26 February 2025, not withdrawn; abstract confirms 75 Kaggle competitions testing real-world ML engineering skills, human baselines established from Kaggle public leaderboards, and the headline that the best setup tested (o1-preview with AIDE scaffolding) reaches at least a bronze medal in 16.9% of competitions."
+    contribution: >
+      Seventy-five Kaggle competitions as an agent benchmark, with human
+      baselines taken from the actual public leaderboards, and the result that
+      the best configuration medalled in 16.9% of them.
+    why_it_mattered: >
+      The human baseline is the important design choice: performance is
+      measured against the distribution of real competitors rather than against
+      a reference solution, so "how good is this" has a meaning outside the
+      benchmark. It also reported resource scaling and contamination checks,
+      which most agent benchmarks omit.
+    what_changed_after: >
+      Medal rate against human leaderboards became a recognisable unit for
+      agent capability in modelling tasks, and scaffolding was shown to matter
+      as much as the underlying model.
+    descendants: ["agent scaffolding comparisons",
+                  "human-baselined agent benchmarks"]
+
+  lu2024aiscientist:
+    title: "The AI Scientist: Towards Fully Automated Open-Ended Scientific Discovery"
+    authors: ["Chris Lu", "Cong Lu", "Robert Tjarko Lange", "Jakob Foerster",
+              "Jeff Clune", "David Ha"]
+    year: 2024
+    venue: "arXiv preprint (August 2024)"
+    arxiv: "2408.06292"
+    url: "https://arxiv.org/abs/2408.06292"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2408.06292 - title, six authors, submitted 12 August 2024 with v3 on 1 September 2024, not withdrawn; abstract confirms the end-to-end pipeline (idea generation, code, experiments, visualisation, paper writing, simulated review), the cost of under $15 per paper, demonstrations across diffusion modelling, transformer language modelling and learning dynamics, and the claim that it can produce papers exceeding a top-conference acceptance threshold AS JUDGED BY THE AUTHORS' OWN AUTOMATED REVIEWER, which they report as achieving near-human performance on paper scoring."
+    contribution: >
+      An end-to-end pipeline from idea to written paper, at under $15 per
+      paper, demonstrated across three machine learning subfields - the most
+      complete public attempt at automating the whole research loop rather than
+      a stage of it.
+    why_it_mattered: >
+      It made the automation of research a concrete engineering artefact rather
+      than a thought experiment, and it made the evaluation problem
+      unavoidable: the headline acceptance claim is judged by an automated
+      reviewer the same authors built, which is exactly the circularity this
+      book's verifier results predict.
+    what_changed_after: >
+      Automated research pipelines became a studied category, and the question
+      of who judges their output - and whether that judge is independent of the
+      generator - became the central methodological dispute.
+    descendants: ["automated research pipelines", "LLM-as-reviewer evaluation",
+                  "autonomous experimentation systems"]
+
+  testini2025dsautomation:
+    title: "Measuring Data Science Automation: A Survey of Evaluation Tools for AI Assistants and Agents"
+    authors: ["Irene Testini", "Jose Hernandez-Orallo", "Lorenzo Pacchiardi"]
+    year: 2025
+    venue: "Transactions on Machine Learning Research (October 2025); arXiv preprint (June 2025)"
+    arxiv: "2506.08800"
+    url: "https://arxiv.org/abs/2506.08800"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2506.08800 - title, three authors, submitted 10 June 2025 with v2 on 22 October 2025, not withdrawn, published in TMLR October 2025; abstract confirms the three identified gaps: a dominant focus on a small subset of goal-oriented activities while largely ignoring data management and exploratory activities, a focus on pure assistance or full autonomy that neglects intermediate collaboration, and evaluation aimed at human substitution rather than task redesign."
+    contribution: >
+      A survey of how data science automation is actually evaluated, finding
+      three systematic gaps: coverage concentrated on goal-oriented tasks while
+      data management and exploration are ignored, evaluation only at the
+      extremes of the collaboration spectrum, and an implicit framing of
+      automation as substitution rather than redesign.
+    why_it_mattered: >
+      It names a selection effect that distorts the field's picture of what is
+      automated: the parts of data science that are easy to score are the parts
+      that get benchmarked, and those are not the parts practitioners spend
+      their time on.
+    what_changed_after: >
+      Evaluation coverage - which activities a benchmark actually touches -
+      became a reportable property, and the intermediate collaboration regime
+      was named as the under-studied one.
+    descendants: ["activity-coverage analysis of benchmarks",
+                  "human-AI collaboration evaluation in data science"]
