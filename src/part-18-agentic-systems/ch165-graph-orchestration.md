@@ -277,6 +277,59 @@ argued for on those terms. A team that adopts a graph for maintainability and
 accepts $p_e^{\beta}$ as its cost has made a defensible trade. A team that adopts
 one expecting higher success rates has not measured $p_e$.
 
+### 7.6 The two graphs people mean
+
+"Graph orchestration" covers two designs that behave very differently, and
+conflating them is why the reliability argument survives despite measurements like
+this chapter's.
+
+**The static graph** has edges whose conditions are checkable predicates over typed
+state: a status field, a record's existence, a numeric threshold. Its routing is
+deterministic given the state, so the branch term in
+{{eq:branch-count-is-an-exponent}} disappears entirely and its only cost is the
+tail. This is a state machine, it is genuinely more reliable than a free loop on
+the traffic it covers, and it is {{ch:as-state-machines}}'s subject.
+
+**The dynamic graph** has edges whose conditions are model judgements: "if the
+user seems to be asking about billing", "if the result looks incomplete". Its
+routing is a classification, it carries the full $p_e^{eta}$ penalty, and it is
+what {{sec:9-practical-example}} measures.
+
+Most deployed graphs are a mixture, and the mixture's reliability is the product
+over both kinds of edge — so a graph with eight structural edges and two judged
+ones pays $p_e^2$, not $p_e^{10}$.
+
+That gives the practical instrument. **Count your judged edges separately from your
+structural ones**, because only the first appear in the exponent. A refactoring
+that converts a judged edge into a structural one — by having an earlier node write
+a typed field rather than leaving the decision implicit — is worth a full factor of
+$p_e$, and it is usually available.
+
+It also explains the disagreement between this chapter and practitioners'
+experience. A team whose graph is mostly structural edges is running something
+closer to {{ch:as-state-machines}}'s design and correctly reports it as reliable.
+A team whose edges are judgements is running the design measured here.
+
+### 7.7 Why the tail argument is weaker than it looks
+
+{{eq:graph-surrenders-the-tail}} treats an unroutable request as a failure, which
+is the right model for a pure graph and is pessimistic for a real deployment in one
+specific way: **a graph fails unroutable requests VISIBLY.**
+
+That is {{ch:ag-loop}}'s distinction arriving again. A free loop given a request it
+cannot handle wanders, consumes budget, and may return a confident wrong answer. A
+graph given a request no edge matches has nowhere to go and says so.
+
+So the tail comparison in {{sec:9-practical-example}} understates the graph on the
+axis that matters most for anything with side effects. Its $33.2\%$ at high tail
+mass is $33.2\%$ correct and $66.8\%$ *refused*, where the loop's $65.5\%$ is
+$65.5\%$ correct and $34.5\%$ mixed between refusal and confident error.
+
+Which is a real point in the graph's favour and it is a containment argument rather
+than a capability one — the same shape as {{ch:ag-security}}'s. A graph is a
+system that can only do what it was drawn to do, and for an agent with write access
+that is worth something the success column does not show.
+
 ## 8. Implementation
 
 Two listings. The first counts what each shape can reach and what a test budget
