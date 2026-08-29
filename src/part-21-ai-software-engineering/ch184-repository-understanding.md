@@ -251,7 +251,13 @@ change, so they belong in context at lower priority.
 
 **Recent co-change history.** Files that historically change together, from version
 control — an empirical edge rather than a static one, and it captures couplings the
-call graph misses.
+call graph misses: a configuration file and the code that reads it, a schema and its
+migration, a constant and the documentation that quotes it. None of those pairs share
+a call edge and all of them share a change history.
+
+**Files the same issue reporter or maintainer touched recently.** A weaker signal and
+occasionally the decisive one, since issues cluster by area and the person who
+reported this one has usually been near the code.
 
 That last one deserves emphasis: **version control history is a structural index
 nobody uses**, and it encodes exactly the couplings that are real rather than
@@ -272,6 +278,12 @@ and not the expansion step.
 The practical composition: **embeddings or keyword search to find the seed, exact
 symbol indexes to expand from it.** Using embeddings for the second step is both
 slower and worse, because the relationship being followed is exact.
+
+There is a corollary worth stating for anyone building this. The symbol index does
+not need to be clever or complete — a parse of every file recording definitions and
+references covers the high-yield edges, costs a single pass over the repository, and
+updates incrementally. Teams frequently defer it in favour of tuning an embedding
+model, which is optimising the step that was already working.
 
 ### 7.4 Reproduce before retrieve
 
