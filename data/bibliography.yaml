@@ -7099,3 +7099,115 @@ entries:
       was named as the under-studied one.
     descendants: ["activity-coverage analysis of benchmarks",
                   "human-AI collaboration evaluation in data science"]
+
+  jimenez2023swebench:
+    title: "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?"
+    authors: ["Carlos E. Jimenez", "John Yang", "Alexander Wettig",
+              "Shunyu Yao", "Kexin Pei", "Ofir Press", "Karthik Narasimhan"]
+    year: 2023
+    venue: "ICLR 2024; arXiv preprint (October 2023)"
+    arxiv: "2310.06770"
+    url: "https://arxiv.org/abs/2310.06770"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2310.06770 - title, seven authors, submitted 10 October 2023 with v3 on 11 November 2024, not withdrawn, published at ICLR 2024; abstract confirms 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories, the requirement to coordinate changes across multiple functions, classes and files, and the headline that the best model tested (Claude 2) resolved 1.96% of issues."
+    contribution: >
+      The benchmark that made "can a model fix a real bug" measurable: 2,294
+      issues from 12 real Python repositories, graded by whether the
+      repository's own tests pass after the model's patch.
+    why_it_mattered: >
+      Prior code benchmarks scored self-contained function synthesis against
+      unit tests. SWE-bench required reading an existing codebase, locating the
+      relevant files, and making a coordinated change - which is what software
+      engineering actually consists of. The initial 1.96% is the useful
+      historical marker for how far that gap was.
+    what_changed_after: >
+      Repository-scale issue resolution became the headline capability metric
+      for coding systems, agent scaffolding became a distinct research area,
+      and a family of derived benchmarks and critical re-analyses followed.
+    descendants: ["SWE-bench Verified", "SWE agent scaffolds",
+                  "repository-scale code benchmarks"]
+
+  wang2025solvedcorrectly:
+    title: "Are \"Solved Issues\" in SWE-bench Really Solved Correctly? An Empirical Study"
+    authors: ["You Wang", "Michael Pradel", "Zhongxin Liu"]
+    year: 2025
+    venue: "arXiv preprint (March 2025)"
+    arxiv: "2503.15223"
+    url: "https://arxiv.org/abs/2503.15223"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2503.15223 - title, three authors, submitted 19 March 2025 with v2 on 9 September 2025, not withdrawn; abstract confirms the study of patches from three state-of-the-art issue-solving tools on SWE-bench Verified, the PatchDiff differential-testing technique, and the headline numbers: 7.8% of patches counted correct despite failing the developer-written test suite, 29.6% of plausible patches behaving differently from ground-truth human patches, 28.6% of those behaviourally divergent patches confirmed incorrect by manual inspection, and reported resolution rates inflated by about 6.2 percentage points."
+    contribution: >
+      A differential-testing audit of SWE-bench Verified results finding that
+      29.6% of plausible patches diverge behaviourally from the human patch,
+      28.6% of those are outright incorrect, and reported resolution rates are
+      inflated by roughly 6.2 percentage points.
+    why_it_mattered: >
+      SWE-bench grades by running the repository's tests, which is a real
+      verifier and an incomplete one: a patch can pass the tests and change
+      behaviour the tests do not cover. This paper measures the size of that
+      gap, which is the concrete form of "the verifier sets the ceiling" in the
+      best-instrumented coding benchmark there is.
+    what_changed_after: >
+      Test-passing stopped being treated as equivalent to correctness in coding
+      agent evaluation, and differential testing against the reference patch
+      became a proposed standard.
+    descendants: ["differential-testing evaluation of patches",
+                  "test-adequacy analysis for coding benchmarks"]
+
+  liang2025swebenchillusion:
+    title: "The SWE-Bench Illusion: When State-of-the-Art LLMs Remember Instead of Reason"
+    authors: ["Shanchao Liang", "Spandan Garg",
+              "Roshanak Zilouchian Moghaddam"]
+    year: 2025
+    venue: "arXiv preprint (June 2025)"
+    arxiv: "2506.12286"
+    url: "https://arxiv.org/abs/2506.12286"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2506.12286 - title, three authors, submitted 14 June 2025 with a later version 1 December 2025, not withdrawn; abstract confirms up to 76% accuracy at identifying buggy file paths from issue descriptions ALONE on SWE-bench tasks against up to 53% on repositories not in SWE-bench, and up to 35% consecutive 5-gram accuracy reproducing functions on SWE-bench Verified and Full against up to 18% on other benchmarks."
+    contribution: >
+      A contamination diagnostic: models identify the buggy file from the issue
+      text alone at 76% on SWE-bench repositories and 53% elsewhere, and
+      reproduce functions at 35% 5-gram accuracy on SWE-bench against 18%
+      elsewhere.
+    why_it_mattered: >
+      The file-path result is the sharp one, because locating the bug from a
+      prose description without seeing the repository is not something
+      reasoning should permit at that rate. The 23-point gap is a measurement
+      of memorisation rather than an argument about it.
+    what_changed_after: >
+      Contamination checks became an expected component of coding-agent
+      evaluation, and held-out or dynamically-constructed repository benchmarks
+      gained urgency.
+    descendants: ["contamination diagnostics for code benchmarks",
+                  "dynamically constructed SWE benchmarks"]
+
+  becker2025devproductivity:
+    title: "Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity"
+    authors: ["Joel Becker", "Nate Rush", "Elizabeth Barnes", "David Rein"]
+    year: 2025
+    venue: "arXiv preprint (July 2025)"
+    arxiv: "2507.09089"
+    url: "https://arxiv.org/abs/2507.09089"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2507.09089 - title, four authors, submitted 12 July 2025 with a revision 25 July 2025, not withdrawn; abstract confirms a randomised controlled trial of 16 experienced open-source developers completing 246 tasks on mature repositories with an average of 5 years of prior experience, tasks randomised to allow or disallow AI (primarily Cursor Pro with Claude 3.5/3.7 Sonnet), and the headline numbers: developers forecast a 24% reduction in completion time, estimated a 20% reduction afterwards, and were measured 19% SLOWER. The abstract also records that economics experts predicted 39% shorter and ML experts 38% shorter, and that the authors examined 20 potential explanatory factors."
+    contribution: >
+      A randomised controlled trial on real work: 16 experienced developers,
+      246 tasks, mature repositories they averaged five years on. Developers
+      forecast 24% faster, self-reported 20% faster afterwards, and were
+      measured 19% slower.
+    why_it_mattered: >
+      It is the rare study that measures the thing everyone assumes, on people
+      who know their codebase, with randomisation. The gap between the
+      self-report and the measurement - 39 points - is the more important
+      result than the slowdown itself, because it means practitioner testimony
+      about these tools cannot be used as evidence.
+    what_changed_after: >
+      Developer-productivity claims began requiring measurement rather than
+      survey, and the setting dependence of the effect - expert developers on
+      familiar mature code - became the central question.
+    descendants: ["randomised trials of coding assistants",
+                  "self-report versus measurement studies"]
