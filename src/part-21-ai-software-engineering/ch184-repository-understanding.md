@@ -344,6 +344,50 @@ differently from the human patch while passing the tests.
 Applying all three to a reported figure lands somewhere well below the headline, and
 that is the number to plan against.
 
+### 7.8 Understanding is not the same as retrieving
+
+This chapter has treated localisation as a retrieval problem, which it largely is,
+and the second sub-problem in {{sec:9-practical-example}} deserves separating out
+because it is not.
+
+**Understanding the code** scored $72\%$ on unseen repositories against $84\%$ on
+benchmark ones — the second largest drop in the table, and no retrieval technique
+addresses it. Having the right file in context is necessary and not sufficient: the
+question is why the code is the way it is.
+
+Three kinds of knowledge sit behind that, and they degrade differently.
+
+**Local invariants.** This function assumes the list is sorted; this cache is not
+thread-safe; this early return exists because of a bug in a dependency. Sometimes a
+comment says so. Usually the reason is in a commit message, a linked issue, or
+nobody's memory.
+
+**Architectural constraints.** This layer must not import that one; errors here
+propagate rather than log; this module is performance-critical. These are rarely
+written anywhere an agent can read, and violating one produces a change that is
+correct in isolation and wrong in the codebase — which is
+{{ch:aise-generation}}'s largest friction source.
+
+**Intent.** What the code is *for*, as opposed to what it does. A refactor that
+preserves behaviour and destroys the reason for a structure is a defect that no test
+catches.
+
+The retrieval techniques in this chapter reach the first partially — a blame
+annotation or a linked commit message is retrievable — and the second and third not
+at all.
+
+Which lands on the same recommendation {{ch:aids-text-to-sql}} reached about
+conventions and {{ch:aids-agentic-eda}} reached about cleaning policy: **the durable
+fix is to write the constraint down somewhere executable.** An architectural rule
+enforced by a lint rule is a constraint an agent can neither violate nor need to
+know about. A layering rule enforced by an import checker is not documentation that
+might be read; it is a verifier that runs.
+
+That is worth stating as the general form, because it is now the fourth independent
+arrival: **when the missing information is convention, encode it as a check rather
+than hoping it is retrieved.** In a codebase this is unusually tractable, because the
+tooling to enforce such rules already exists and is mostly unused.
+
 ## 8. Implementation
 
 Two listings. The first decomposes issue resolution and prices the contamination
