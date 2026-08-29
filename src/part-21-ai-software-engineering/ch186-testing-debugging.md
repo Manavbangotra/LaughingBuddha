@@ -326,6 +326,43 @@ Confusing them is the failure this chapter is about, in both directions: using
 generated tests to verify a fix (no independence where it is needed), and writing
 characterisation tests from a specification (no fidelity where it is needed).
 
+### 7.7 Where generated tests are genuinely valuable
+
+The measurements in this chapter are unflattering and it would be a
+misreading to conclude that generating tests is a bad idea. Four uses survive
+{{eq:same-model-tests-codify-the-bug}} intact, and between them they cover a large
+fraction of why teams want the capability at all.
+
+**Characterisation before change**, which {{sec:9-practical-example}}'s second
+listing measures directly. Fidelity is the requirement and independence is not.
+
+**Regression capture after a fix.** Once a bug is understood and fixed, a test
+pinning the corrected behaviour is a characterisation of something now known to be
+right. The independence was supplied by the debugging; the test is recording its
+outcome.
+
+**Coverage of mechanical branches.** Error paths, argument validation, exhaustive
+enumeration handling — cases where "what the code should do" is not in dispute and
+the work is tedium. A model that writes forty boundary cases is doing something a
+person would do identically and skip.
+
+**Finding crashes rather than wrong answers.** A generated suite that exercises
+paths nobody ran will find exceptions, and an exception is self-evidently wrong
+regardless of whether the assertion encoded intent. This is fuzzing with a nicer
+interface, and it works because the oracle is "did it blow up" rather than "is this
+the right value".
+
+That last one generalises usefully. **Generated tests are worth what their oracle is
+worth independently of the model.** A crash oracle, a type-invariant oracle, a
+"the two implementations agree" oracle, a "this property holds" oracle — each is
+external, so a test carrying one has independence the assertion does not need to
+supply.
+
+Which reframes the chapter's recommendation from "generate fewer tests" to
+**"generate tests around oracles that are not the model's opinion"** — and puts
+property-based and metamorphic testing at the top of the list rather than as
+alternatives at the bottom.
+
 ## 8. Implementation
 
 Two listings. The first measures what generated tests detect. The second measures
