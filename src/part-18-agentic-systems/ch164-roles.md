@@ -291,6 +291,40 @@ beating per-task ones, and a supervisor holding the pool is a natural place to
 implement that. **A supervisor that allocates is doing something; a supervisor that
 merely delegates is a handoff.**
 
+### 7.6 Why the role taxonomy persists anyway
+
+If roles buy so little, it is worth asking why every framework ships them, and the
+answer is that they are solving a different problem from the one this chapter
+measures.
+
+**They are a decomposition aid for the person writing the system.** "Planner,
+worker, critic" is a way of thinking about what a system has to do, and thinking
+about it that way produces better prompts than thinking about it as one
+undifferentiated instruction. That benefit is real and it accrues at design time,
+not at run time — which means it is fully available from one agent switching
+prompts, with no handoffs.
+
+**They are an observability structure.** A trace segmented by role is easier to
+read than a trace that is one long conversation, and
+{{ch:ag-what-is-an-agent}} established that an agent's debugging surface is mostly
+its trace. That benefit is also available without separate agents, from labelling
+the segments.
+
+**And they map onto how teams divide ownership.** Different people own the planner
+prompt and the critic prompt, and separate agents make that boundary enforceable.
+This is a genuine organisational benefit with a measurable engineering cost, and it
+should be recognised as the trade it is rather than justified on performance
+grounds.
+
+So the recommendation is not to abandon the vocabulary. It is to **keep the roles
+as a design and observability structure and stop paying handoffs for them**, unless
+the role-bearer carries different capabilities — at which point the handoff is
+buying containment and the decorrelation arrives free.
+
+That distinction — roles as a way of thinking versus roles as a deployment topology
+— is what {{sec:9-practical-example}}'s middle two rows separate, and it is the
+practical output of the chapter.
+
 ## 8. Implementation
 
 Two listings. The first compares role-structured designs against one agent at equal
