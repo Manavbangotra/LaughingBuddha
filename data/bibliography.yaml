@@ -7346,3 +7346,43 @@ entries:
       Attacked the same two-phase problem as disaggregation from the opposite
       direction - mix the phases rather than separate them - which makes the two
       a genuine architectural choice rather than a settled question.
+  paleyes2020deployment:
+    title: "Challenges in Deploying Machine Learning: a Survey of Case Studies"
+    authors: ["Andrei Paleyes", "Raoul-Gabriel Urma", "Neil D. Lawrence"]
+    year: 2020
+    venue: "ACM Computing Surveys 2022 (arXiv preprint Nov 2020; v3 May 2022)"
+    arxiv: "2011.09926"
+    url: "https://arxiv.org/abs/2011.09926"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2011.09926 - title, three authors and 18 Nov 2020 submission confirmed (v3 19 May 2022); abstract confirms the survey-of-case-studies method, the mapping of reported obstacles onto deployment-workflow stages, and the framing conclusion that practitioners face issues at EVERY stage rather than at one. Accepted to ACM Computing Surveys 2022; presented at the NeurIPS 2020 ML-Retrospectives workshop."
+    contribution: >-
+      Surveyed published deployment case studies and mapped their reported
+      obstacles onto the stages of an ML deployment workflow, showing the
+      difficulties are distributed across the whole pipeline rather than
+      concentrated in modelling.
+    why_it_mattered: >-
+      Supplied evidence for a claim the field asserted but had not documented:
+      the hard part is not the model. It is the standard reference for
+      "everything around the model" being where deployments fail.
+
+  deshpande2025trail:
+    title: "TRAIL: Trace Reasoning and Agentic Issue Localization"
+    authors: ["Darshan Deshpande", "Varun Gangal", "Hersh Mehta",
+              "Jitin Krishnan", "Anand Kannappan", "Rebecca Qian"]
+    year: 2025
+    venue: "arXiv preprint (May 2025; v3 Jun 2025)"
+    arxiv: "2505.08638"
+    url: "https://arxiv.org/abs/2505.08638"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2505.08638 - title, six authors and 13 May 2025 submission confirmed (v3 23 Jun 2025); abstract confirms 148 large human-annotated traces, a formal taxonomy of agentic error types, coverage of single- and multi-agent systems in software engineering and open-world information retrieval, and the headline result that the best model tested (Gemini-2.5-pro) reached only 11%."
+    contribution: >-
+      Built a human-annotated benchmark for locating the cause of failure inside
+      an agent execution trace, with a formal error taxonomy, and measured how
+      well models can do it.
+    why_it_mattered: >-
+      Turned "agent traces are hard to debug" into a number. At 11% for the best
+      model, automated trace triage is not close to solved - which makes trace
+      structure and human-legible instrumentation a design requirement rather
+      than a convenience.
