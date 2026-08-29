@@ -6731,3 +6731,195 @@ entries:
       spending the same budget on one agent.
     descendants: ["multi-agent debate", "society-of-minds architectures",
                   "consensus decoding"]
+
+  qin2023toolllm:
+    title: "ToolLLM: Facilitating Large Language Models to Master 16000+ Real-world APIs"
+    authors: ["Yujia Qin", "Shihao Liang", "Yining Ye", "Kunlun Zhu", "Lan Yan",
+              "Yaxi Lu", "Yankai Lin", "Xin Cong", "Xiangru Tang", "Bill Qian",
+              "Sihan Zhao", "Lauren Hong", "Runchu Tian", "Ruobing Xie",
+              "Jie Zhou", "Mark Gerstein", "Dahai Li", "Zhiyuan Liu",
+              "Maosong Sun"]
+    year: 2023
+    venue: "arXiv preprint (July 2023); ICLR 2024"
+    arxiv: "2307.16789"
+    url: "https://arxiv.org/abs/2307.16789"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2307.16789 - title, nineteen authors, submitted 31 July 2023; abstract confirms ToolBench built over 16,000+ real-world REST APIs across 49 categories, the ToolEval automatic evaluator, and the claim that ToolLLaMA exhibits performance comparable to ChatGPT on complex tool-use tasks with generalisation to unseen APIs."
+    contribution: >
+      The first tool-use dataset at ecosystem scale - 16,000+ real APIs in 49
+      categories - together with an automatic evaluator, establishing that the
+      interesting regime is thousands of tools rather than a handful.
+    why_it_mattered: >
+      Tool-calling work before this used inventories small enough to fit in a
+      prompt, which hides every problem that only appears at scale: discovery,
+      naming collisions, context budget, and stale documentation. ToolLLM made
+      the large-inventory regime measurable.
+    what_changed_after: >
+      Tool retrieval became a distinct component rather than an afterthought,
+      and "how many tools can you put in context" became a design constraint
+      people quantified.
+    descendants: ["tool retrieval systems", "large tool-inventory benchmarks",
+                  "MCP server registries"]
+
+  patil2023gorilla:
+    title: "Gorilla: Large Language Model Connected with Massive APIs"
+    authors: ["Shishir G. Patil", "Tianjun Zhang", "Xin Wang",
+              "Joseph E. Gonzalez"]
+    year: 2023
+    venue: "arXiv preprint (May 2023); NeurIPS 2024"
+    arxiv: "2305.15334"
+    url: "https://arxiv.org/abs/2305.15334"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2305.15334 - title, four authors, submitted 24 May 2023; abstract confirms the APIBench dataset over HuggingFace, TorchHub and TensorHub, the claim that Gorilla surpasses GPT-4 on writing API calls, the substantial reduction in hallucination when coupled with a document retriever, and adaptation to test-time document changes without retraining."
+    contribution: >
+      A retrieval-aware API-calling model plus APIBench, and the specific
+      finding that pairing generation with a document retriever both reduces
+      API hallucination and lets the system track documentation changes
+      without retraining.
+    why_it_mattered: >
+      It separated two things that had been conflated: knowing an API exists
+      and knowing its current signature. The second is a retrieval problem with
+      a freshness property, which is the argument for a discovery protocol
+      rather than a fine-tune.
+    what_changed_after: >
+      Retrieval-over-documentation became the default architecture for large
+      tool inventories, and the staleness of baked-in API knowledge became a
+      recognised failure mode.
+    descendants: ["retrieval-augmented tool calling", "API documentation indexes",
+                  "dynamic tool discovery"]
+
+  li2023apibank:
+    title: "API-Bank: A Comprehensive Benchmark for Tool-Augmented LLMs"
+    authors: ["Minghao Li", "Yingxiu Zhao", "Bowen Yu", "Feifan Song",
+              "Hangyu Li", "Haiyang Yu", "Zhoujun Li", "Fei Huang",
+              "Yongbin Li"]
+    year: 2023
+    venue: "arXiv preprint (April 2023); EMNLP 2023"
+    arxiv: "2304.08244"
+    url: "https://arxiv.org/abs/2304.08244"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2304.08244 - title, nine authors, submitted 14 April 2023; abstract confirms the evaluation system of 73 API tools with 314 tool-use dialogues containing 753 API calls, the training set of 1,888 tool-use dialogues from 2,138 APIs across 1,000 domains, and the Lynx model outperforming its baseline by over 26 points."
+    contribution: >
+      An evaluation benchmark that decomposes tool use into distinct abilities -
+      deciding whether a call is needed, retrieving the right API, and planning
+      a sequence - rather than scoring end-to-end success alone.
+    why_it_mattered: >
+      The decomposition is the useful part: it showed that systems fail at
+      different stages, and that a single accuracy number conceals which stage
+      is binding. That is the same argument this book makes about verifiers.
+    what_changed_after: >
+      Tool-use evaluation acquired per-stage reporting, and "retrieval failure
+      versus invocation failure" became a distinction people measured.
+    descendants: ["staged tool-use evaluation", "tool retrieval benchmarks"]
+
+  hou2025mcp:
+    title: "Model Context Protocol (MCP): Landscape, Security Threats, and Future Research Directions"
+    authors: ["Xinyi Hou", "Yanjie Zhao", "Shenao Wang", "Haoyu Wang"]
+    year: 2025
+    venue: "arXiv preprint (March 2025)"
+    arxiv: "2503.23278"
+    url: "https://arxiv.org/abs/2503.23278"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2503.23278 - title, four authors, submitted 30 March 2025; abstract confirms the MCP server lifecycle of four phases (creation, deployment, operation, maintenance) decomposed into 16 key activities, a threat taxonomy over four attacker categories (malicious developers, external attackers, malicious users, security flaws) with 16 representative threat scenarios including tool poisoning and installer spoofing, and per-phase safeguards."
+    contribution: >
+      The first systematic security analysis of MCP: a four-phase server
+      lifecycle decomposed into 16 activities, and a threat taxonomy of 16
+      scenarios across four attacker categories.
+    why_it_mattered: >
+      It reframed MCP security as a supply-chain and lifecycle problem rather
+      than a protocol-message problem. Most of the named threats - tool
+      poisoning, installer spoofing - occur before any protocol message is
+      exchanged, which is why protocol-level defences do not address them.
+    what_changed_after: >
+      Server provenance, installer integrity and tool-metadata trust became
+      explicit concerns in MCP deployments, and registry design started
+      treating publication as a security boundary.
+    descendants: ["MCP threat modelling", "server registries with provenance",
+                  "tool-metadata scanning"]
+
+  huang2026mcpthreat:
+    title: "Model Context Protocol Threat Modeling and Analyzing Vulnerabilities to Prompt Injection with Tool Poisoning"
+    authors: ["Charoes Huang", "Xin Huang", "Ngoc Phu Tran",
+              "Amin Milani Fard"]
+    year: 2026
+    venue: "arXiv preprint (March 2026)"
+    arxiv: "2603.22489"
+    url: "https://arxiv.org/abs/2603.22489"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2603.22489 - title, four authors, submitted 23 March 2026, confirmed not withdrawn; abstract confirms STRIDE and DREAD threat modelling across five components (MCP Host/Client, LLM, MCP Server, External Data Stores, Authorization Server), an empirical evaluation of seven major MCP clients, the identification of tool poisoning - malicious instructions embedded in tool metadata - as the most prevalent and impactful client-side vulnerability, and a four-layer mitigation of static metadata analysis, model decision tracking, behavioural anomaly detection and user transparency."
+    contribution: >
+      A component-level threat model of MCP evaluated against seven real
+      clients, identifying tool poisoning - instructions hidden in tool
+      metadata - as the dominant client-side vulnerability, attributed to
+      insufficient static validation and parameter visibility.
+    why_it_mattered: >
+      Tool metadata is read by the model and shown to the user in abbreviated
+      form, so it is simultaneously an instruction channel and an
+      under-inspected one. This paper is the measurement that the gap is
+      general across clients rather than a single implementation's bug.
+    what_changed_after: >
+      Clients began treating tool descriptions as untrusted content requiring
+      display and validation, matching the specification's own instruction that
+      tool annotations be considered untrusted unless the server is trusted.
+    descendants: ["tool-metadata static analysis", "client-side injection defences",
+                  "parameter visibility requirements"]
+
+  gaire2025mcpsok:
+    title: "Systematization of Knowledge: Security and Safety in the Model Context Protocol Ecosystem"
+    authors: ["Shiva Gaire", "Srijan Gyawali", "Saroj Mishra", "Suman Niroula",
+              "Dilip Thakur", "Umesh Yadav"]
+    year: 2025
+    venue: "arXiv preprint (December 2025)"
+    arxiv: "2512.08290"
+    url: "https://arxiv.org/abs/2512.08290"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2512.08290 - title, six authors, submitted 9 December 2025 with v2 on 13 December 2025, confirmed not withdrawn; abstract confirms a taxonomy separating adversarial threats such as indirect prompt injection from safety failures in multi-agent settings, analysis organised around the MCP primitives Resources, Prompts and Tools, and a survey of defences from cryptographic verification to runtime intent validation."
+    contribution: >
+      A systematisation that separates adversarial threats from non-adversarial
+      safety failures across the MCP primitives, and surveys defences ranging
+      from cryptographic server verification to runtime intent validation.
+    why_it_mattered: >
+      The separation matters because the two classes need different responses:
+      an attacker is deterred by provenance and least privilege, while a
+      multi-agent safety failure needs the structural bounds Part XVIII
+      measured. Conflating them produces defences that address neither.
+    what_changed_after: >
+      MCP security discussion acquired a vocabulary distinguishing attack from
+      accident, and runtime intent validation emerged as a defence category
+      distinct from static scanning.
+    descendants: ["MCP defence taxonomies", "runtime intent validation",
+                  "primitive-scoped threat analysis"]
+
+  mcp2026spec:
+    title: "Model Context Protocol Specification, revision 2026-07-28"
+    authors: ["Model Context Protocol contributors"]
+    year: 2026
+    venue: "Specification, modelcontextprotocol.io (revision 2026-07-28)"
+    url: "https://modelcontextprotocol.io/specification/2026-07-28"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "Fetched modelcontextprotocol.io/specification/2026-07-28, /specification/versioning, /specification/2026-07-28/basic/transports and /specification/2026-07-28/basic/authorization on 2026-08-29. Confirms 2026-07-28 is the current revision; base protocol is JSON-RPC 2.0 with stateless self-contained requests and per-request capability negotiation; server features are Resources, Prompts and Tools; the sole core client feature is Elicitation; utilities are Configuration, Progress tracking, Cancellation and Error reporting; extensions include Tasks, Skills over MCP and MCP Apps. Transports page confirms two standard bindings, stdio and Streamable HTTP, and that servers do not initiate JSON-RPC requests and clients do not send responses. Versioning page confirms YYYY-MM-DD version strings, per-request declaration via _meta io.modelcontextprotocol/protocolVersion, the MCP-Protocol-Version header on Streamable HTTP, UnsupportedProtocolVersionError, and the mandatory server/discover RPC. Authorization page confirms OAuth 2.1, mandatory RFC 9728 Protected Resource Metadata, mandatory RFC 8707 resource indicators, mandatory audience validation, the prohibition on accepting or transiting other tokens, and RFC 9207 iss validation."
+    contribution: >
+      The normative definition of MCP as of revision 2026-07-28: a JSON-RPC 2.0
+      protocol with stateless self-contained requests, per-request version and
+      capability negotiation, three server primitives, two standard transports,
+      and an OAuth 2.1 authorization binding for HTTP.
+    why_it_mattered: >
+      This revision replaced the connection-scoped initialize handshake of
+      2025-11-25 and earlier with per-request negotiation and a mandatory
+      server/discover RPC, and removed server-initiated requests from the core
+      protocol. Material written against the earlier model describes a
+      different protocol.
+    what_changed_after: >
+      Servers became far easier to operate behind ordinary HTTP
+      infrastructure, since a request no longer depends on connection state,
+      and the client feature surface narrowed to Elicitation with the rest
+      moved to opt-in extensions.
+    descendants: ["stateless MCP deployments", "MCP extensions",
+                  "per-request capability negotiation"]
