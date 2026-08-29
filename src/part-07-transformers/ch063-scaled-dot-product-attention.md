@@ -11,7 +11,7 @@ provides: [attention, self-attention, cross-attention, scaled-dot-product-attent
            query, key, value, attention-weights, attention-head, logit,
            temperature, causal-masking,
            permutation-equivariance, inductive-bias]
-citations: [bahdanau2015, luong2015, sukhbaatar2015, vaswani2017, shazeer2019, dao2022]
+citations: [bahdanau2015, luong2015, sukhbaatar2015, vaswani2017, shazeer2019, dao2022flash]
 ---
 
 ## 1. Learning Objectives
@@ -493,7 +493,7 @@ $$ (eq:grad-qk)
 > MATH NOTE: {{eq:grad-softmax}} is why the backward pass needs $\mat{A}$, not
 > $\mat{S}$. A naive implementation therefore stores the full $n \times n$
 > attention matrix for the backward pass — which is precisely the $O(n^2)$
-> memory that {{cite:dao2022}} eliminates by recomputing tiles of $\mat{A}$ on
+> memory that {{cite:dao2022flash}} eliminates by recomputing tiles of $\mat{A}$ on
 > the fly instead of storing them. The derivation above is what makes that
 > optimisation possible to see.
 
@@ -519,7 +519,7 @@ But the two quadratics are not the same kind of problem:
   every key; that is what the operation means. Reducing it below $O(n^2)$
   requires computing something other than exact attention.
 - The **memory** cost is an artefact of the implementation. Nothing requires the
-  full $n \times n$ matrix to exist at once, and {{cite:dao2022}} showed it need
+  full $n \times n$ matrix to exist at once, and {{cite:dao2022flash}} showed it need
   not.
 
 Conflating these two led to a decade of approximate-attention research motivated
@@ -1157,7 +1157,7 @@ practice, and fp16's maximum is about 65504. Accumulate in fp32.
 | Approach | Score function | Cost | Trade-off |
 |---|---|---|---|
 | Scaled dot-product {{cite:vaswani2017}} | $\vec{q}\T\vec{k}/\sqrt{d_k}$ | $O(n^2 d)$ | The baseline |
-| FlashAttention {{cite:dao2022}} | identical | $O(n^2 d)$ time, $O(n)$ memory | Exact; needs a fused kernel |
+| FlashAttention {{cite:dao2022flash}} | identical | $O(n^2 d)$ time, $O(n)$ memory | Exact; needs a fused kernel |
 | Additive {{cite:bahdanau2015}} | $\vec{w}\T\tanh(\mat{W}_q\vec{q} + \mat{W}_k\vec{k})$ | $O(n^2 d)$, larger constant | More expressive per pair; not a single matmul, so far slower in practice |
 | Multiplicative {{cite:luong2015}} | $\vec{q}\T\mat{W}\vec{k}$ | $O(n^2 d)$ | A learned bilinear form; subsumed by the QK circuit of eq. 63.16 |
 | Multi-query {{cite:shazeer2019}} | identical, shared K/V | $O(n^2 d)$ time, cache ÷ $h$ | Small quality loss for a large cache reduction |
@@ -1233,7 +1233,7 @@ quantisation, and it remains outside standard practice.
 {{maturity:EXPERIMENTAL}}
 
 **Online softmax and the tiling recurrence.** The insight underlying
-{{cite:dao2022}} is that softmax can be computed in a single streaming pass by
+{{cite:dao2022flash}} is that softmax can be computed in a single streaming pass by
 maintaining a running maximum and a running sum, rescaling accumulated results
 when the maximum changes. That makes the softmax associative over tiles, which is
 what allows attention to be computed without materialising $\mat{A}$. Working
@@ -1313,7 +1313,7 @@ which is most of them — rests on this operation.
 13. Derive the online-softmax recurrence: given running maximum $m$ and running
     sum $\ell$ over a prefix, and a new block of scores, give the update rule
     that yields the correct global softmax. This is the core of
-    {{cite:dao2022}}.
+    {{cite:dao2022flash}}.
 
 **Implementation**
 
@@ -1395,7 +1395,7 @@ which is most of them — rests on this operation.
 3. The attention-sink phenomenon has several competing explanations in the
    literature. Find two, state what each predicts, and identify an experiment
    that would distinguish them.
-4. Work through {{cite:dao2022}} and reproduce the tiling argument on paper.
+4. Work through {{cite:dao2022flash}} and reproduce the tiling argument on paper.
    What is the arithmetic intensity of the tiled algorithm as a function of tile
    size, and where is the optimum?
 5. {{cite:shazeer2019}} reports a small quality cost for multi-query attention.
@@ -1451,7 +1451,7 @@ alignment was needed, Luong for why the dot product replaced the additive
 network. {{cite:sukhbaatar2015}} for the key/value split arriving before the
 terminology.
 
-**Systems.** {{cite:dao2022}} for the IO-aware reformulation; the tiling and
+**Systems.** {{cite:dao2022flash}} for the IO-aware reformulation; the tiling and
 online-softmax derivation in section 3 is the part to work through.
 {{cite:shazeer2019}} for multi-query attention and, more importantly, for the
 reframing of decoding as a memory-bandwidth problem.

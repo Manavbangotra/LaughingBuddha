@@ -138,42 +138,6 @@ entries:
     descendants: ["Grouped-query attention", "multi-head latent attention",
                   "paged KV caches"]
 
-  dao2022:
-    title: "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness"
-    authors: ["Tri Dao", "Daniel Y. Fu", "Stefano Ermon", "Atri Rudra",
-              "Christopher Ré"]
-    year: 2022
-    venue: "NeurIPS 2022"
-    arxiv: "2205.14135"
-    url: "https://arxiv.org/abs/2205.14135"
-    verified: true
-    verified_on: "2026-08-13"
-    verified_via: "arXiv abstract page arxiv.org/abs/2205.14135 (v1 2022-05-27)"
-    contribution: >-
-      Computed exact attention without ever materialising the n×n score matrix
-      in high-bandwidth memory, by tiling the computation into on-chip SRAM and
-      using the online-softmax recurrence to combine tiles.
-    why_it_mattered: >-
-      It separated two things the field had conflated: attention's quadratic
-      *arithmetic* cost, which is unavoidable for exact attention, and its
-      quadratic *memory* cost, which is an artefact of a naive implementation.
-      Long contexts became practical without approximating attention.
-    what_changed_after: >-
-      IO-aware kernel design became standard practice, and the many
-      approximate-attention schemes proposed to save memory largely lost their
-      motivation.
-    descendants: ["FlashAttention-2 and -3", "fused attention kernels in
-                  mainstream serving stacks", "paged attention"]
-
-  # ---------------------------------------------------------------------------
-  # Part I — Mathematical Foundations
-  #
-  # Deliberately sparse. Standard mathematics has no "original paper" a reader
-  # should be sent to, and inventing citations for it would be dishonest. The
-  # two research citations below are here because their origin genuinely
-  # explains something the reader will otherwise take on faith.
-  # ---------------------------------------------------------------------------
-
   deisenroth2020:
     title: "Mathematics for Machine Learning"
     authors: ["Marc Peter Deisenroth", "A. Aldo Faisal", "Cheng Soon Ong"]
@@ -7264,3 +7228,121 @@ entries:
       frontier became the standard way to present a routing result.
     descendants: ["router evaluation methodology",
                   "cost-quality frontier reporting", "later routing benchmarks"]
+  shoeybi2019megatron:
+    title: "Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism"
+    authors: ["Mohammad Shoeybi", "Mostofa Patwary", "Raul Puri",
+              "Patrick LeGresley", "Jared Casper", "Bryan Catanzaro"]
+    year: 2019
+    venue: "arXiv preprint (Sep 2019; revised Mar 2020)"
+    arxiv: "1909.08053"
+    url: "https://arxiv.org/abs/1909.08053"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/1909.08053 - title, six authors and 17 Sep 2019 submission confirmed; abstract confirms 8.3B parameter transformer and 3.9B BERT-like model, 512 GPUs, 15.1 PetaFLOPs sustained, 76% scaling efficiency against a 39 TeraFLOPs single-GPU baseline (30% of peak), and WikiText103 10.8 perplexity, LAMBADA 66.5%, RACE 90.9%."
+    contribution: >-
+      Introduced intra-layer (tensor) model parallelism for transformers by
+      splitting the attention heads and the feed-forward matrices across
+      devices, implemented in plain PyTorch with no compiler or library change.
+    why_it_mattered: >-
+      Established tensor parallelism as the default way to fit a layer that does
+      not fit on one device, and supplied the scaling-efficiency figure that
+      every later parallelism scheme is compared against.
+
+  rajbhandari2020zero:
+    title: "ZeRO: Memory Optimizations Toward Training Trillion Parameter Models"
+    authors: ["Samyam Rajbhandari", "Jeff Rasley", "Olatunji Ruwase",
+              "Yuxiong He"]
+    year: 2019
+    venue: "SC 2020 (arXiv preprint Oct 2019)"
+    arxiv: "1910.02054"
+    url: "https://arxiv.org/abs/1910.02054"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/1910.02054 - title, four authors and 4 Oct 2019 submission confirmed; abstract confirms models beyond 100B parameters, 13B without model parallelism, super-linear speedup on 400 GPUs at 15 Petaflops, 8x model size and 10x performance over prior state of the art, and the Turing-NLG 17B application."
+    contribution: >-
+      Removed the memory redundancy in data-parallel training by partitioning
+      optimiser state, gradients, and parameters across devices rather than
+      replicating them, while keeping communication volume controlled.
+    why_it_mattered: >-
+      Reframed the memory question: the limit was not the model but the
+      duplication, and eliminating duplication bought more than adding
+      parallelism dimensions did.
+
+  fedus2021switch:
+    title: "Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity"
+    authors: ["William Fedus", "Barret Zoph", "Noam Shazeer"]
+    year: 2021
+    venue: "JMLR 2022 (arXiv preprint Jan 2021)"
+    arxiv: "2101.03961"
+    url: "https://arxiv.org/abs/2101.03961"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2101.03961 - title, three authors and 11 Jan 2021 submission confirmed (final revision 16 Jun 2022); abstract confirms up to 7x pre-training speed increase at equal compute, gains across all 101 languages, 4x speedup over T5-XXL at trillion-parameter scale, and bfloat16 training."
+    contribution: >-
+      Simplified mixture-of-experts routing to a single expert per token, making
+      sparse models stable enough to train at scale and decoupling parameter
+      count from per-token compute.
+    why_it_mattered: >-
+      Made parameter count and inference cost separable, which is the property
+      every later sparse serving design depends on - and which changes what a
+      memory budget means at serving time.
+
+  patel2023splitwise:
+    title: "Splitwise: Efficient generative LLM inference using phase splitting"
+    authors: ["Pratyush Patel", "Esha Choukse", "Chaojie Zhang", "Aashaka Shah",
+              "Inigo Goiri", "Saeed Maleki", "Ricardo Bianchini"]
+    year: 2023
+    venue: "ISCA 2024 (arXiv preprint Nov 2023; revised May 2024)"
+    arxiv: "2311.18677"
+    url: "https://arxiv.org/abs/2311.18677"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2311.18677 - title, seven authors and 30 Nov 2023 submission confirmed (v2 20 May 2024); abstract confirms the compute-intensive prompt phase versus memory-intensive token phase framing, 1.4x higher throughput at 20% lower cost, and 2.35x more throughput at the same cost and power budgets."
+    contribution: >-
+      Showed that prefill and decode have different hardware bottlenecks and can
+      profitably run on different machines, including machines of different
+      generations.
+    why_it_mattered: >-
+      Turned a scheduling observation into a procurement one: the right fleet is
+      heterogeneous, and matching phase to hardware beats buying more of one kind.
+
+  zhong2024distserve:
+    title: "DistServe: Disaggregating Prefill and Decoding for Goodput-optimized Large Language Model Serving"
+    authors: ["Yinmin Zhong", "Shengyu Liu", "Junda Chen", "Jianbo Hu",
+              "Yibo Zhu", "Xuanzhe Liu", "Xin Jin", "Hao Zhang"]
+    year: 2024
+    venue: "OSDI 2024 (arXiv preprint Jan 2024)"
+    arxiv: "2401.09670"
+    url: "https://arxiv.org/abs/2401.09670"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2401.09670 - title, eight authors and 18 Jan 2024 submission confirmed; abstract confirms the goodput framing, that colocating phases forces a trade-off between time-to-first-token and time-per-output-token, and 7.4x more requests or 12.6x tighter SLO while holding latency constraints for over 90% of requests."
+    contribution: >-
+      Formalised serving quality as goodput under two separate latency
+      constraints, and showed disaggregating the two phases dominates colocation
+      on both.
+    why_it_mattered: >-
+      Supplied the argument that a single latency target is the wrong
+      specification for a two-phase workload - the same
+      one-number-two-jobs failure this book finds in rate limiting and latency
+      budgeting.
+
+  agrawal2023sarathi:
+    title: "SARATHI: Efficient LLM Inference by Piggybacking Decodes with Chunked Prefills"
+    authors: ["Amey Agrawal", "Ashish Panwar", "Jayashree Mohan",
+              "Nipun Kwatra", "Bhargav S. Gulavani", "Ramachandran Ramjee"]
+    year: 2023
+    venue: "arXiv preprint (Aug 2023)"
+    arxiv: "2308.16369"
+    url: "https://arxiv.org/abs/2308.16369"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2308.16369 - title, six authors and 31 Aug 2023 submission confirmed; abstract confirms chunked prefills piggybacked with decodes, up to 10x decode throughput and 1.33x end-to-end for LLaMA-13B on A6000, 1.25x end-to-end and 4.25x decode for LLaMA-33B on A100, and 6.29x pipeline bubble reduction giving 1.91x end-to-end on GPT-3."
+    contribution: >-
+      Split prefill into chunks so each scheduling slot carries one prefill chunk
+      plus many decodes, keeping the GPU saturated instead of alternating between
+      compute-bound and memory-bound work.
+    why_it_mattered: >-
+      Attacked the same two-phase problem as disaggregation from the opposite
+      direction - mix the phases rather than separate them - which makes the two
+      a genuine architectural choice rather than a settled question.
