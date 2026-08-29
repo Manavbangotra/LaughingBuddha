@@ -256,7 +256,9 @@ a human reading YAML.
 
 **Dependency bumps.** Run the full suite, check the changelog for breaking markers,
 and diff the transitive tree. The $55\%$ catch rate in the model is low because most
-teams run only their own tests.
+teams run only their own tests — a bump that changes a transitive dependency's
+behaviour in a path your suite does not exercise is invisible until it is not, and
+the lockfile diff that would have shown it is the artefact nobody reads.
 
 Each of those moves a type down the gating table permanently, which is worth more
 than reviewing it forever — and it is {{ch:as-specialized}}'s affordance-building
@@ -301,6 +303,15 @@ them is verification rather than judgement.
 What does not survive is **deciding**. Not because a model cannot produce a good
 architecture, but because nothing will tell anyone it was wrong until reversal is
 expensive.
+
+That distinction is worth holding precisely, because it is easy to hear as a claim
+about capability and it is not one. An agent may well produce a better service
+boundary than the team would have. The problem is that neither the agent nor the team
+can find out for eighteen months, and the mechanism that would normally resolve
+that — try it, observe, adjust — is exactly what a $9\%$ reversibility forecloses.
+**The objection is to the feedback loop, not to the proposer**, which is why the
+advisory roles survive intact: they put the model's output in front of someone who
+will still be there when the consequences arrive.
 
 ### 7.5 Building the verifiers architecture lacks
 
