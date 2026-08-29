@@ -301,7 +301,15 @@ unverified step, not the size of the change.
 **And treat any characterisation test that fails as a stop**, not as a test to
 update. Updating a characterisation test to match new behaviour is the exact move
 that converts a safety net into a rubber stamp, and an agent will do it readily
-because the test looks wrong.
+because the test looks wrong — from inside the refactor, a test asserting the old
+behaviour is indistinguishable from a test that was always incorrect.
+
+There is a legitimate case where the characterisation must change: a refactor that
+deliberately alters behaviour is no longer a refactor, and the test should be updated
+as part of a change that says so. The discipline is that this is a decision requiring
+a human, not a step the agent takes when a test is inconvenient. In practice that
+means the characterisation suite lives outside the agent's writable scope, and a
+required change to it is a signal to stop and ask rather than a task to complete.
 
 That last point deserves enforcement rather than instruction: **a refactoring agent
 should not have permission to modify the characterisation suite.**
@@ -951,8 +959,10 @@ outputs, which are far harder to derive from an implementation and therefore car
 more independence.
 
 **Metamorphic testing.** Relations between outputs — sorting twice equals sorting
-once — that hold regardless of implementation and can be stated from the
-specification alone.
+once, a discount applied then reversed returns the original — that hold regardless of
+implementation and can be stated from the specification alone. These are unusually
+well suited to generation, because enumerating plausible invariants is a task a model
+does well and checking them is mechanical.
 
 **Test-first generation.** The model writes tests from the issue *before* seeing or
 writing any code, which arranges independence by ordering.
