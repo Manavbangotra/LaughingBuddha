@@ -343,6 +343,42 @@ All four say the same thing about where to invest: **the pipeline is the scaffol
 A team improving CI is improving the agent, and a team adopting an agent onto a weak
 pipeline has adopted the part that does not work without the part it does not have.
 
+### 7.7 What changes when the volume goes up
+
+Every number in the first listing is a rate per change, and the policies that follow
+from it are stable under volume. The pipeline itself is not, and it is worth being
+explicit about what breaks first when a team goes from twenty pull requests a week to
+two hundred.
+
+**Review capacity binds before anything else.** It is the only fixed resource in the
+system: CI scales with money, agents scale with money, reviewers do not. The gating
+table is a way of allocating that fixed resource, and its whole value is that it
+allocates against consequence rather than against arrival rate.
+
+**CI cost becomes a real constraint.** A suite that takes twenty minutes is fine at
+twenty changes a week and is four days of compute at two hundred with retries. The
+temptation is to run less of it, which lowers $a_i$ for every change type at once and
+moves everything up the gating table — precisely the wrong direction. Test selection
+by change impact is the correct response and it is
+{{ch:aise-repo}}'s structural analysis used for a second purpose.
+
+**Merge conflicts become a systemic cost.** Agents working in parallel on the same
+repository produce changes that pass individually and conflict jointly, which is
+{{ch:as-failures}}'s correlated-failure structure in a merge queue: independent
+agents drawing on the same context produce overlapping edits far more often than
+independent humans would.
+
+**And the queue becomes a place where things wait.** {{ch:as-long-running}}'s
+wall-clock argument applies: a change that sits for a day while its reviewer works
+through a backlog has consumed a day of latency that no token count records, and the
+staleness of the branch grows with it.
+
+The composite effect is that **a pipeline tuned for human volume degrades in several
+independent ways at agent volume**, and the degradation is not gradual in each. That
+argues for measuring the pipeline's own throughput and latency as a first-class
+metric before increasing agent output, rather than discovering the ceiling by
+reaching it.
+
 ## 8. Implementation
 
 Two listings. The first places gates in a delivery pipeline. The second ranks
