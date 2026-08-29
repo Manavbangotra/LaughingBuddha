@@ -7211,3 +7211,56 @@ entries:
       familiar mature code - became the central question.
     descendants: ["randomised trials of coding assistants",
                   "self-report versus measurement studies"]
+
+  chen2023frugalgpt:
+    title: "FrugalGPT: How to Use Large Language Models While Reducing Cost and Improving Performance"
+    authors: ["Lingjiao Chen", "Matei Zaharia", "James Zou"]
+    year: 2023
+    venue: "arXiv preprint (May 2023)"
+    arxiv: "2305.05176"
+    url: "https://arxiv.org/abs/2305.05176"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2305.05176 - title, three authors, submitted 9 May 2023, not withdrawn; abstract confirms the three strategies (prompt adaptation, LLM approximation, LLM cascade), the cascade implementation that learns which combinations of models to use per query, and the headline claims of matching the best individual model's performance with up to 98% cost reduction, or improving accuracy over that model by 4% at the same cost."
+    contribution: >
+      The cascade formulation for language-model serving: try a cheap model
+      first, escalate on low confidence, and learn the escalation policy - with
+      a reported 98% cost reduction at matched quality.
+    why_it_mattered: >
+      It moved cost from a procurement question to an architecture one. The
+      cascade only works if something can judge when the cheap answer is good
+      enough, so the paper is really about the quality of that judge, which is
+      the same verifier question this book keeps arriving at.
+    what_changed_after: >
+      Routing and cascading became standard components of production language
+      model systems, and per-query model selection became a design decision
+      rather than a deployment default.
+    descendants: ["LLM routers", "cascade serving architectures",
+                  "confidence-based escalation"]
+
+  hu2024routerbench:
+    title: "RouterBench: A Benchmark for Multi-LLM Routing System"
+    authors: ["Qitian Jason Hu", "Jacob Bieker", "Xiuyu Li", "Nan Jiang",
+              "Benjamin Keigwin", "Gaurav Ranganath", "Kurt Keutzer",
+              "Shriyash Kaustubh Upadhyay"]
+    year: 2024
+    venue: "arXiv preprint (March 2024)"
+    arxiv: "2403.12031"
+    url: "https://arxiv.org/abs/2403.12031"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2403.12031 - title, eight authors, submitted 18 March 2024 with v2 on 28 March 2024, not withdrawn; abstract confirms a dataset of over 405,000 inference outcomes used to evaluate routing systems, a comparative analysis of routing approaches with their potentials and limitations, and the framing claim that no single model optimally addresses all tasks and applications when balancing performance against cost. Code and data at github.com/withmartian/routerbench."
+    contribution: >
+      A benchmark for model routing built from over 405,000 precomputed
+      inference outcomes, so routing policies can be evaluated offline against
+      a fixed set of model responses and costs.
+    why_it_mattered: >
+      Routing had been evaluated ad hoc, per paper, on private task mixes. A
+      shared dataset of outcomes makes the policy the variable and the models
+      the constant, which is the right factoring - and it makes the
+      cost-quality frontier something you can plot rather than assert.
+    what_changed_after: >
+      Router evaluation acquired a common baseline, and the cost-quality
+      frontier became the standard way to present a routing result.
+    descendants: ["router evaluation methodology",
+                  "cost-quality frontier reporting", "later routing benchmarks"]
