@@ -325,6 +325,29 @@ That distinction — roles as a way of thinking versus roles as a deployment top
 — is what {{sec:9-practical-example}}'s middle two rows separate, and it is the
 practical output of the chapter.
 
+### 7.7 The one number to measure before adopting any role
+
+Everything in this chapter reduces to $ho$, and it is measurable in an
+afternoon on data you already have.
+
+Take a hundred cases your worker got wrong. Run the critic prompt on each and
+record whether it flags them. Take a hundred it got right and do the same. The
+first gives you $	au$, the second gives you $\phi$, and the correlation follows
+from comparing the critic's flags against a difficulty ranking of the cases: a
+decorrelated critic catches hard cases at roughly the rate it catches easy ones,
+and a correlated one catches almost none of the hard ones.
+
+That last test is the discriminating one, and it is the one nobody runs. A critic
+with a respectable aggregate $	au$ can have a $	au$ near zero on the cases where
+the worker failed systematically — which are precisely the cases the critic was
+added to catch. **Aggregate critic accuracy is not evidence about critic value**,
+which is {{ch:ag-loop}}'s lesson about the stopping classifier and
+{{ch:rsn-supervision}}'s about reward models, arriving once more.
+
+If the conditional $	au$ on hard cases is low, the critic is decoration and the
+three routes in {{sec:7-internal-mechanics}} are what to try next. If it is high,
+the critic is a genuine second opinion and the handoff may be worth paying.
+
 ## 8. Implementation
 
 Two listings. The first compares role-structured designs against one agent at equal
