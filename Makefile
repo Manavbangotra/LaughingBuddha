@@ -7,6 +7,7 @@
 #    make book          merge the part PDFs into one volume
 #    make code          extract every tagged code block into code/
 #    make check         run all quality gates (structure, refs, code, citations)
+#    make numbers       verify quoted results against the listings that produce them
 #    make report        per-chapter status dashboard
 #    make all           code + html + pdf + book
 #    make serve         preview the site at http://localhost:8000
@@ -18,7 +19,7 @@ PY      := .venv/bin/python
 TOOLS   := tools
 PART    ?=
 
-.PHONY: all html pdf book code check report serve clean distclean deps
+.PHONY: all html pdf book code check numbers report serve clean distclean deps
 
 all: code html pdf book
 
@@ -40,6 +41,11 @@ code:
 
 check:
 	@$(PY) $(TOOLS)/check.py
+
+# Numbers quoted in each Practical Example must come from that chapter's
+# own listings. Slow (it runs every tier-A listing), so it is separate.
+numbers:
+	@$(PY) $(TOOLS)/verify_numbers.py
 
 report:
 	@$(PY) $(TOOLS)/report.py
