@@ -352,6 +352,42 @@ deciding whether the question was worth asking and whether the answer would chan
 anything** — and that job is made harder, not easier, by presenting forty findings
 instead of three.
 
+### 7.8 The defence of exploratory automation
+
+This chapter has been hard on exploratory agents, and it would be dishonest to
+close the mechanics without stating the case on the other side, because there is a
+real one and the listings do not capture it.
+
+**Exploration's value is not measured in confirmed findings.** Its purpose is to
+change what the analyst thinks to ask next, and a pattern that fails confirmation
+can still have done that job — it directed attention to a subgroup, a period, a
+data quality problem worth looking at. {{eq:more-exploration-finds-only-noise}}
+prices *reported* findings, which is the right thing to price when the output goes
+to a decision-maker and the wrong thing when it goes back to an analyst who will
+keep working.
+
+That distinction gives the practical rule its shape. The precision collapse matters
+at the boundary where exploration output leaves the analyst and becomes a claim. It
+does not matter inside the loop. **An agent exploring for an analyst who will
+confirm what interests them is doing something useful; the same agent writing a
+findings summary for a stakeholder is not.**
+
+**And the coverage argument runs the other way from the precision one.** A human
+exploring for an afternoon tests twenty things, and the twenty are chosen by
+habit — the cuts they always look at, the segments they know about. An agent
+testing nine hundred covers regions of the space a person would never reach, which
+is precisely where an unsuspected real effect would hide. The listing gives the
+agent no credit for this, because it fixes the six real effects as equally
+discoverable by anyone; a model where some effects are only findable by
+exhaustive search would show the agent finding effects the human never would.
+
+Both things are true at once, and they resolve into one recommendation rather than
+a compromise. **Explore exhaustively, confirm ruthlessly, and never let the
+unconfirmed output cross a boundary.** The exhaustive half is what agents are for;
+the confirmation half is what makes it safe; and the boundary discipline is the
+part organisations get wrong, because an impressive-looking findings document is
+exactly the artefact that circulates.
+
 ## 8. Implementation
 
 Two listings. The first measures what exploration volume does to precision. The
