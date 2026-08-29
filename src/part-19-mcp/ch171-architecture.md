@@ -41,7 +41,7 @@ chain in {{ch:ag-loop}}'s exact sense — completion falls from $100\%$ to $59.8
 at a $5\%$ restart rate, and the gap grows from $+1.5$ points at a two-request
 session to $+61.4$ at two hundred ({{eq:stateless-removes-the-chain}}). And a
 session pinned to a replica must return to it, so the fleet balances *sessions*
-rather than requests: peak-to-mean load reaches $4.77$ at sixty-four replicas
+rather than requests: peak-to-mean load reaches $4.64$ at sixty-four replicas
 against $1.31$ ({{eq:sessions-pin-to-replicas}}). **Sticky routing gets worse as
 you add replicas**, which is the opposite of what adding capacity is supposed to
 do.
@@ -123,7 +123,7 @@ so distributing sessions distributes a heavy-tailed quantity into a small number
 of bins. That is much less even than distributing the individual requests, and it
 gets *less* even as you add replicas, because each replica added divides the
 sessions more finely. {{sec:9-practical-example}} measures peak-to-mean load
-climbing from $1.09$ at two replicas to $4.77$ at sixty-four.
+climbing from $1.09$ at two replicas to $4.64$ at sixty-four.
 
 Self-contained requests remove both. Any replica can serve any request; a restart
 costs only what was in flight.
@@ -840,9 +840,9 @@ The routing cost:
 ```
   replicas  sticky (sessions)  any replica   excess
 ---------------------------------------------------
-         2              1.089        1.014   +0.075
-         8              1.517        1.067   +0.450
-        64              4.767        1.309   +3.458
+         2              1.094        1.013   +0.080
+         8              1.537        1.069   +0.468
+        64              4.640        1.315   +3.325
 ```
 
 **Sticky routing gets worse as you add replicas**
@@ -895,8 +895,8 @@ Replication, and where it acts:
 ```
   replicas  availability  >50% hit together   memory GB
 -------------------------------------------------------
-         1      99.5812%             4.925%         3.0
-         2      99.9958%             0.050%         6.1
+         1      99.5979%             4.750%         3.0
+         2      99.9979%             0.025%         6.1
          3     100.0000%             0.000%         9.1
 ```
 
@@ -1125,7 +1125,7 @@ $+61.4$ at two hundred ({{eq:stateless-removes-the-chain}}). **Statelessness
 removes an exponent, not a constant.**
 
 And a pinned session must return to its replica, so the fleet balances sessions
-rather than requests. Peak-to-mean load rose from $1.09$ at two replicas to $4.77$
+rather than requests. Peak-to-mean load rose from $1.09$ at two replicas to $4.64$
 at sixty-four ({{eq:sessions-pin-to-replicas}}) — **sticky routing gets worse as
 you add replicas**, so the usual remedy for an overloaded fleet is the wrong one.
 
@@ -1134,7 +1134,7 @@ one, so **the transport decides whether failures are independent or correlated**
 ({{eq:transport-decides-correlation}}). Two deployments measured $99.60\%$ and
 $99.59\%$ availability with conditional severities of $5.0\%$ and $100.0\%$:
 **availability cannot see the difference** ({{eq:severity-hides-in-the-mean}}).
-Replication fixes it, moving fleet-wide outage from $4.925\%$ to $0.050\%$ while
+Replication fixes it, moving fleet-wide outage from $4.750\%$ to $0.025\%$ while
 moving the mean barely at all — **replication buys tail**
 ({{eq:replication-buys-tail}}), which is exactly what an availability target will
 under-provision.

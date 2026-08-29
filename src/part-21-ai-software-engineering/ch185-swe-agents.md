@@ -815,9 +815,9 @@ Coverage decides it:
 ```
   coverage   reported   correct   inflation  precision
 ------------------------------------------------------
-       40%      35.0%     26.5%        8.5%      75.7%
-       71%      31.0%     26.6%        4.4%      85.9%
-       98%      26.9%     26.5%        0.3%      98.6%
+       40%      36.0%     26.6%        9.3%      74.1%
+       71%      31.0%     26.5%        4.5%      85.5%
+       98%      26.7%     26.4%        0.3%      98.8%
 ```
 
 **Passing a suite is evidence proportional to its coverage**

@@ -124,12 +124,12 @@ conclusion against.
 
 {{sec:9-practical-example}} finds those detection rates differing by a factor of
 nine, and that dominates the freshness effect. A single check at the model stage is
-worth $+11.6$ points; at the exploration stage, $+1.7$.
+worth $+11.4$ points; at the exploration stage, $+2.3$.
 
 And then the reversal that makes the chapter. If you can *build* a verifier rather
 than merely place a check, the ranking inverts: improving detection at the
-conclusion stage is worth $+6.2$ points where improving it at the model stage is
-worth $+2.0$. The strong stages are near their ceiling; the weak ones are nowhere
+conclusion stage is worth $+5.8$ points where improving it at the model stage is
+worth $+2.2$. The strong stages are near their ceiling; the weak ones are nowhere
 near it.
 
 ## 5. Formal Explanation
@@ -797,7 +797,7 @@ Allocating benchmark coverage in proportion to gradeability:
 ```
      benchmark-weighted automation score     60.8%
           time-weighted automation score     47.3%
-    gradeable share of a practitioner day     33.3%
+    gradeable share of a practitioner day     32.9%
 ```
 
 The headline overstates by $13.5$ points, and **two thirds of the day is in a
@@ -866,10 +866,10 @@ Single checks:
 ```
     check at   correct     gain   gain/hour
 -------------------------------------------
-      access     41.3%    +3.4%       0.086
-     explore     39.5%    +1.7%       0.021
-       model     49.4%   +11.6%       0.231
-    conclude     39.1%    +1.2%       0.042
+      access     41.2%    +3.6%       0.090
+     explore     39.9%    +2.3%       0.028
+       model     49.0%   +11.4%       0.227
+    conclude     38.9%    +1.3%       0.043
 ```
 
 **Check where the verifier is strong, not where the error is fresh**
@@ -881,10 +881,10 @@ And then the reversal, with checks already everywhere:
 ```
                       intervention   correct     gain
 -----------------------------------------------------
-          checks everywhere, as is     68.2%       --
-      explore detection 15% -> 60%     72.3%    +4.1%
-     conclude detection 10% -> 60%     74.4%    +6.2%
-        model detection 80% -> 98%     70.2%    +2.0%
+          checks everywhere, as is     68.1%       --
+      explore detection 15% -> 60%     72.0%    +3.9%
+     conclude detection 10% -> 60%     74.0%    +5.8%
+        model detection 80% -> 98%     70.4%    +2.2%
 ```
 
 **Given the verifiers you have, check where detection is strong. Given the chance
@@ -1109,14 +1109,14 @@ $2\times$; the rest of the opportunity is in activities nobody can score.
 
 On errors, an analysis is a chain in which every stage after a mistake produces
 correct work given the mistake. Detection rates vary ninefold across stages, and
-that dominates freshness: a single check at the model stage was worth $+11.6$
-points against $+1.7$ at exploration, and the early pair lost to the end pair —
+that dominates freshness: a single check at the model stage was worth $+11.4$
+points against $+2.3$ at exploration, and the early pair lost to the end pair —
 **check where the verifier is strong**
 ({{eq:pipeline-fails-at-the-weakest-verifier}}), which qualifies
 {{ch:as-failures}}'s coverage rule for the case of unequal detectors.
 
 And the reversal that matters most: with checks everywhere, improving the
-*conclusion* stage's detection was worth $+6.2$ points against $+2.0$ for improving
+*conclusion* stage's detection was worth $+5.8$ points against $+2.2$ for improving
 the *model* stage's. **Place checks where detection is strong; build verifiers
 where it is weak** ({{eq:check-strong-build-weak}}) — and the weak stages are also
 where the time goes, where the errors survive, and where nobody is working.

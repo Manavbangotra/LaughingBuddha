@@ -746,7 +746,7 @@ $1.6\times$ budget, and six standing assumptions each expiring at $0.25\%$ per s
 ```
   horizon   correct  silent drift  exhausted  hard failure
 ----------------------------------------------------------
-       10     94.2%          5.6%       0.0%          0.3%
+       10     84.8%         14.4%       0.0%          0.9%
       100     19.7%         72.2%       0.0%          8.1%
       300      0.8%         77.2%       0.0%         22.0%
      1000      0.0%         43.7%       0.0%         56.3%
@@ -821,8 +821,8 @@ The second listing places a human. Pausing more often:
   pause every   no harm   pauses   catch rate   delay (h)
 ---------------------------------------------------------
         never     15.8%      0.0        85.0%           0
-           50     21.9%      4.0        63.8%          16
-           10     31.0%     20.0        31.9%          80
+           50     22.4%      4.0        63.8%          16
+           10     32.3%     20.0        31.9%          80
             1     37.1%    200.0         4.8%         800
 ```
 

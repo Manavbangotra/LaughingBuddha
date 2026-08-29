@@ -886,9 +886,9 @@ review at \$0.40 sharing $90\%$ of the blind spots:
 ```
   generated  delivered sound  delivered unsound  precision        cost
 ----------------------------------------------------------------------
-         10                1                  8      11.1%         154
-      1,000              161                758      17.5%      15,400
-     10,000            1,706               7,488      18.6%     154,000
+         10                2                  7      22.2%         154
+      1,000              190                724      20.8%      15,400
+     10,000            1,726               7,503      18.7%     154,000
 ```
 
 Volume raises the numerator and leaves the ratio. Adding unlimited independent

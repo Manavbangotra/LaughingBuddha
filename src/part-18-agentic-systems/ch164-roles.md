@@ -52,7 +52,7 @@ underperforming no critic at all.
 The critic is nonetheless the one role with a genuine mechanism, and the second
 listing prices it properly. Without a selector, extra attempts buy *nothing* — you
 keep the last one — so a critic is not competing with "more tries", it is competing
-with other selectors. Against that framing it does real work: $54.9\% \to 91.0\%$.
+with other selectors. Against that framing it does real work: $54.9\% \to 90.6\%$.
 And it should be configured to **advise rather than gate**, because a gating critic
 can veto correct work and an advising one cannot.
 
@@ -830,9 +830,9 @@ The second listing isolates the critic and reframes what it competes with:
                             design   completed   vs no selector
 ---------------------------------------------------------------
         more attempts, no selector       54.9%           +0.0%
-           half on a gating critic       91.0%          +36.1%
-        half on an advising critic       91.6%          +36.7%
-    executable check, 95% coverage       95.4%          +40.5%
+           half on a gating critic       90.6%          +35.7%
+        half on an advising critic       91.8%          +36.9%
+    executable check, 95% coverage       95.5%          +40.6%
      oracle selector (the ceiling)       99.2%          +44.3%
 ```
 
@@ -1079,7 +1079,7 @@ all**.
 The critic is nonetheless the one role with a mechanism, and its proper comparison
 is not "more attempts" but "other selectors", because without a selector extra
 attempts buy nothing ({{eq:critic-must-beat-more-attempts}}). Against that framing
-it takes $54.9\%$ to $91.0\%$. Configure it to **advise rather than gate** —
+it takes $54.9\%$ to $90.6\%$. Configure it to **advise rather than gate** —
 advising has a floor and gating does not, and the gap grows with a false-positive
 rate nobody measures ({{eq:advise-not-gate-roles}}).
 

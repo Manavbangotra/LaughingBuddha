@@ -806,7 +806,7 @@ result from a different direction:
 --------------------------------------------------------
       0%       47.2%       47.4%       47.3%   replan /4
       5%       27.1%       30.3%       47.8%   replan /1
-     20%        9.4%       14.6%       47.4%   replan /1
+     20%        4.1%        6.4%       47.6%   replan /1
 ```
 
 At zero drift the extra eleven calls bought nothing whatsoever.

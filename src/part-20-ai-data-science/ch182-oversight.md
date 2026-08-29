@@ -898,15 +898,15 @@ The second listing prices five collaboration modes:
 ```
                                 mode   quality   human hours   per hour
 -----------------------------------------------------------------------
-                          human only     77.3%           3.5      0.221
-        human judges, agent executes     79.1%           1.7      0.465
-        agent proposes, human judges     72.3%           0.9      0.804
-   agent does all, human spot-checks     55.9%           0.2      2.485
-                    fully autonomous     48.3%           0.0        --
+                          human only     77.2%           3.5      0.221
+        human judges, agent executes     79.4%           1.7      0.481
+        agent proposes, human judges     72.4%           0.9      0.804
+   agent does all, human spot-checks     55.8%           0.2      2.480
+                    fully autonomous     48.7%           0.0         --
 ```
 
-**"Human judges, agent executes" beats a human doing everything — $79.1\%$ against
-$77.3\%$ — at $47\%$ of the hours** ({{eq:divide-by-gradeability}}). Not a
+**"Human judges, agent executes" beats a human doing everything — $79.4\%$ against
+$77.2\%$ — at $47\%$ of the hours** ({{eq:divide-by-gradeability}}). Not a
 trade-off: better on both axes, because reviewing execution gives the work two
 passes where doing it alone gives one.
 
@@ -1155,7 +1155,7 @@ a mechanism rather than sitting on a trade-off.
 On arrangement, {{cite:testini2025dsautomation}} found the field evaluating pure
 assistance and full autonomy and neglecting the middle. Splitting a task into
 ungradeable judgement and checkable execution, **"human judges, agent executes"
-reached $79.1\%$ against a human doing everything at $77.3\%$, using $47\%$ of the
+reached $79.4\%$ against a human doing everything at $77.2\%$, using $47\%$ of the
 hours** ({{eq:divide-by-gradeability}}) — better on both axes, because reviewing
 gives the work two passes where doing it alone gives one.
 

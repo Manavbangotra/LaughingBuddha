@@ -112,7 +112,7 @@ is coverage ({{eq:refactoring-safety-is-coverage}}), and it moves a lot.
 Which produces the unfortunate part. Code gets refactored because it is bad —
 tangled, old, poorly understood. That code is also undertested, because undertested
 and tangled are the same history ({{eq:worst-code-is-least-covered}}).
-{{sec:9-practical-example}} finds refactoring safe $97.2\%$ of the time in
+{{sec:9-practical-example}} finds refactoring safe $97.1\%$ of the time in
 well-maintained code and $83.8\%$ in code nobody understands, which is precisely
 inverted from where the value is.
 
@@ -784,10 +784,10 @@ The first listing runs modules of which $22\%$ contain a defect:
 ```
                   tests written by   coverage  catches the bug  passes on it
 ----------------------------------------------------------------------------
-              human, from the spec        75%            68.3%         31.7%
-  a different model, from the spec        73%            54.1%         45.9%
-     the same model, from the spec        74%            34.4%         65.6%
-     the same model, from the code        88%             9.8%         90.2%
+              human, from the spec        75%            68.3%         30.9%
+  a different model, from the spec        73%            54.1%         45.1%
+     the same model, from the spec        74%            34.4%         66.7%
+     the same model, from the code        88%             9.8%         90.6%
 ```
 
 **The highest coverage in the table has the lowest detection**
@@ -831,15 +831,15 @@ The second listing separates the two activities:
 ```
   coverage  debug: verified  debug: broken  refactor: safe  refactor: broken
 ----------------------------------------------------------------------------
-       25%            75.4%          4.4%           85.6%             14.4%
-       90%            79.2%          0.6%           98.4%              1.6%
+       25%            72.6%         22.4%           85.8%             14.2%
+       90%            79.3%          2.9%           98.1%              1.9%
 ```
 
 ```
                           at 25% coverage   at 90% coverage    range
 ---------------------------------------------------------------------
-        debugging verified           75.4%             79.2%    +3.8%
-          refactoring safe           85.6%             98.4%   +12.8%
+        debugging verified           72.6%             79.3%    +6.7%
+          refactoring safe           85.8%             98.1%   +12.3%
 ```
 
 **Debugging is handed its verifier and refactoring has to find one already there**
@@ -850,7 +850,7 @@ And the correlation that makes it bite:
 ```
     code quality  typical coverage  refactor safe  broken silently
 ------------------------------------------------------------------
- well-maintained               85%          97.2%             2.8%
+ well-maintained               85%          97.1%             2.9%
  legacy, tangled               34%          87.6%            12.4%
   nobody understands it        15%          83.8%            16.2%
 ```
@@ -1101,11 +1101,11 @@ implementation is already in context.
 
 Debugging and refactoring look identical and are not. **Debugging is handed its
 verifier** — a failing test supplies localisation, a check, a termination condition
-and a regression guard at once — so its success moved $+3.8$ points across the whole
+and a regression guard at once — so its success moved $+6.7$ points across the whole
 coverage range. **Refactoring must find a verifier already there**, so its safety is
-coverage ({{eq:refactoring-safety-is-coverage}}) and moved $+12.8$. And the demand is
-inversely correlated with the safety: refactoring succeeded $97.2\%$ of the time in
-well-maintained code and $83.8\%$ in code nobody understands
+coverage ({{eq:refactoring-safety-is-coverage}}) and moved $+12.3$, nearly twice as
+far. And the demand is inversely correlated with the safety: refactoring succeeded
+$97.1\%$ of the time in well-maintained code and $83.8\%$ in code nobody understands
 ({{eq:worst-code-is-least-covered}}).
 
 The resolution is that the two listings answer each other. **Characterisation tests**

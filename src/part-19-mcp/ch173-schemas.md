@@ -843,7 +843,7 @@ The second listing divides $24{,}000$ tokens three ways:
        schema-heavy (many servers)      60%        25%      15%     44.4%
       resource-heavy (preload all)      15%        65%      20%     47.8%
          history-heavy (long chat)      15%        15%      70%     33.6%
-                  best split found      27%        45%      27%     53.8%
+                  best split found      27%        45%      27%     53.6%
 ```
 
 An even split is within $1.8$ points of best — the surface is flat near its peak.

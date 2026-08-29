@@ -804,10 +804,10 @@ Policies:
 ```
                             policy  cost/change   minutes   escapes
 -------------------------------------------------------------------
-                      gate nothing         26.3       0.0     4.72%
-gate by author (all agent changes)         12.3      11.0     2.30%
-                gate the big diffs         21.2       4.8     3.65%
-              gate by blast radius         13.9       2.2     3.98%
+                      gate nothing         29.3       0.0     5.92%
+gate by author (all agent changes)         12.3      11.0     2.72%
+                gate the big diffs         27.7       4.8     4.41%
+              gate by blast radius         13.9       2.2     4.88%
 ```
 
 **Roughly the same protection for a fifth of the review time**
