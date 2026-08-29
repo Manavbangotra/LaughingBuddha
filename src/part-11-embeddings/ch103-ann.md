@@ -354,7 +354,7 @@ convention. The one the field has settled on:
   high-recall end where throughput falls off a cliff and a linear axis hides it.
 - **State the build parameters**, because an index tuned at build time for one
   recall region will lose in another, and a curve without its $M$ and
-  $	ext{ef}_{	ext{construction}}$ is not reproducible.
+  $\text{ef}_{\text{construction}}$ is not reproducible.
 
 ### 7.5 Where LSH went
 

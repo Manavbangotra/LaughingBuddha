@@ -358,7 +358,7 @@ $$ \text{cost per million tokens} = \frac{c}{3600\,T}\times 10^{6} $$
 **Moving up the batch axis divides the cost linearly until the frontier flattens**,
 after which additional batch buys latency degradation and nothing else. So the
 economically-correct operating point is at the knee — where
-{{sec:6-mathematical-foundation}} located it, at $\kappa S B pprox P b/8$ —
+{{sec:6-mathematical-foundation}} located it, at $\kappa S B \approx P b/8$ —
 unless a latency SLO forces you below it.
 
 **That is the sentence that connects this part to a budget.** The techniques here

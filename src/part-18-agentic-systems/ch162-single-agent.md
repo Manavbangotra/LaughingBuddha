@@ -317,7 +317,7 @@ comparing architectures compares whatever their loop currently is.
 The second is that the components were published separately and each was measured
 against a bare baseline. {{eq:components-interact-superadditively}} says that
 measurement understates them, so the literature's own numbers make the reference
-agent look like a modest collection of improvements rather than a $13	imes$
+agent look like a modest collection of improvements rather than a $13\times$
 difference.
 
 The third is that a multi-agent comparison is usually run by whoever built the

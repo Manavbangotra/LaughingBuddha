@@ -346,15 +346,15 @@ it is available before any of the others.
 lot ({{eq:decorrelate-cheaply}}), which at the time looked like a convenient
 empirical fact. {{eq:redundancy-needs-independence}} explains it.
 
-The value of a panel is governed by $k_{	ext{eff}} pprox 1 + (k-1)(1-ho)$, and
-that expression is *linear in $1-ho$* while being flat in $k$ once $ho$ is
+The value of a panel is governed by $k_{\text{eff}} \approx 1 + (k-1)(1-\rho)$, and
+that expression is *linear in $1-\rho$* while being flat in $k$ once $\rho$ is
 high. So a small reduction in shared cause moves the effective panel size by more
 than a large increase in the actual panel size does — which is precisely the
-asymmetry {{sec:9-practical-example}} measures, where dropping $ho$ from $0.9$ to
+asymmetry {{sec:9-practical-example}} measures, where dropping $\rho$ from $0.9$ to
 $0.1$ was worth more than going from three voters to nine at any correlation.
 
 The reason it is *cheap* is separate and equally structural. Adding a voter costs a
-full inference. Reducing $ho$ often costs nothing at inference time at all: giving
+full inference. Reducing $\rho$ often costs nothing at inference time at all: giving
 two panel members different evidence, or different system prompts, or asking one to
 argue the opposite case, are edits to the setup rather than additional calls.
 
@@ -363,9 +363,9 @@ touching the denominator**, which is why it dominates on any cost-adjusted
 comparison — and why {{ch:as-multi-agent}}'s equal-cost methodology found it when
 naive comparisons of panel sizes would not have.
 
-It also sets a limit worth knowing. $k_{	ext{eff}}$ cannot exceed $k$, so
+It also sets a limit worth knowing. $k_{\text{eff}}$ cannot exceed $k$, so
 decorrelation buys at most what an independent panel of the same size would give.
-Once $ho$ is near zero, the only remaining lever is more voters, and their
+Once $\rho$ is near zero, the only remaining lever is more voters, and their
 returns are the familiar diminishing ones.
 
 ## 8. Implementation

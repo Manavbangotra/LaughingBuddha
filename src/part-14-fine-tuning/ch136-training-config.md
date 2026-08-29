@@ -377,7 +377,7 @@ improvement, consistent with {{eq:lever-ratio}}, and the underlying trade is nev
 made visible.
 
 **The three additions that change this are all cheap**: log the base benchmark per
-checkpoint, log $\|	heta - 	heta_0\|$, and write down $\omega$ before the
+checkpoint, log $\|\theta - \theta_0\|$, and write down $\omega$ before the
 run. None requires a new method, a new library, or a larger budget. What they
 require is treating the base model's existing capability as a quantity the run is
 spending rather than as a property it inherits — and that reframing is the whole

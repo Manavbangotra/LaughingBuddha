@@ -292,7 +292,7 @@ the traffic it covers, and it is {{ch:as-state-machines}}'s subject.
 
 **The dynamic graph** has edges whose conditions are model judgements: "if the
 user seems to be asking about billing", "if the result looks incomplete". Its
-routing is a classification, it carries the full $p_e^{eta}$ penalty, and it is
+routing is a classification, it carries the full $p_e^{\beta}$ penalty, and it is
 what {{sec:9-practical-example}} measures.
 
 Most deployed graphs are a mixture, and the mixture's reliability is the product

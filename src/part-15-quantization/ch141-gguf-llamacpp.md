@@ -360,7 +360,7 @@ characteristics.
 
 **Prefill** processes the whole prompt at once, so every weight read serves as
 many token-positions as the prompt is long. A 2,000-token prompt has an arithmetic
-intensity of $16 	imes 2000 / b$ — tens of thousands of FLOPs per byte, far past
+intensity of $16 \times 2000 / b$ — tens of thousands of FLOPs per byte, far past
 any machine's balance point. **Prefill is compute-bound, always.**
 
 That has three consequences worth holding separately from the rest of the chapter.

@@ -140,7 +140,7 @@ deciding the whole question above about one percent change per step.
 
 Write the three primitives as a map from capability to *initiator*:
 
-$$	ext{Tool} \mapsto 	ext{model}, \qquad 	ext{Resource} \mapsto 	ext{host}, \qquad 	ext{Prompt} \mapsto 	ext{user}$$ (eq:primitive-is-a-controller-choice)
+$$\text{Tool} \mapsto \text{model}, \qquad \text{Resource} \mapsto \text{host}, \qquad \text{Prompt} \mapsto \text{user}$$ (eq:primitive-is-a-controller-choice)
 
 Each initiator has a different information set and a different error rate. The
 model knows what its reasoning currently requires and selects imperfectly; the

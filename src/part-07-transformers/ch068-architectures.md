@@ -299,9 +299,9 @@ parameter comparison hides.
 Concretely, generating $n$ tokens from an input of length $T$:
 
 $$
-M_{	ext{cache}}^{	ext{dec-only}} \propto (T + n),
+M_{\text{cache}}^{\text{dec-only}} \propto (T + n),
 \qquad
-M_{	ext{cache}}^{	ext{enc-dec}} \propto T + n
+M_{\text{cache}}^{\text{enc-dec}} \propto T + n
 $$
 
 which look identical until you notice the first grows *quadratically in

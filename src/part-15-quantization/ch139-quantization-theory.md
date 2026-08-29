@@ -380,7 +380,7 @@ runs out.
 
 Within a single matmul, each output element is a sum of $K$ products, and the
 quantization errors in those products are also independent — so they too add in
-quadrature, giving an error proportional to $\sqrt{K}\,\sigma_arepsilon$
+quadrature, giving an error proportional to $\sqrt{K}\,\sigma_\varepsilon$
 against a signal proportional to $\sqrt{K}\,\sigma_w\sigma_x$. **The two square
 roots cancel**, and the relative error of a matmul output is independent of the
 reduction width. That is a second piece of good news and it comes from the same
