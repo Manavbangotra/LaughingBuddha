@@ -6671,3 +6671,63 @@ entries:
       consistency became a named capability rather than an assumed one.
     descendants: ["multi-environment agent evaluation",
                   "long-horizon consistency metrics"]
+
+  cemri2025mast:
+    title: "Why Do Multi-Agent LLM Systems Fail?"
+    authors: ["Mert Cemri", "Melissa Z. Pan", "Shuyi Yang",
+              "Lakshya A. Agrawal", "Bhavya Chopra", "Rishabh Tiwari",
+              "Kurt Keutzer", "Aditya Parameswaran", "Dan Klein",
+              "Kannan Ramchandran", "Matei Zaharia", "Joseph E. Gonzalez",
+              "Ion Stoica"]
+    year: 2025
+    venue: "arXiv preprint (March 2025)"
+    arxiv: "2503.13657"
+    url: "https://arxiv.org/abs/2503.13657"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2503.13657 - title, thirteen authors, March 2025; abstract confirms the framing that MAS performance gains on popular benchmarks are often minimal, the MAST-Data dataset of 1600+ annotated traces across 7 popular MAS frameworks, the taxonomy built from rigorous analysis of 150 traces with expert annotators at inter-annotator agreement kappa = 0.88, and the structure of 14 unique failure modes clustered into 3 categories: system design issues, inter-agent misalignment, and task verification."
+    contribution: >
+      The first systematic empirical account of multi-agent failure: 1600+
+      annotated traces across seven frameworks, and a validated taxonomy of 14
+      failure modes in 3 categories - system design, inter-agent misalignment,
+      and task verification.
+    why_it_mattered: >
+      It opens by stating that multi-agent performance gains on popular
+      benchmarks are often minimal, which contradicts the premise most
+      multi-agent tooling is sold on, and then supplies the failure vocabulary
+      that had been missing. The kappa of 0.88 matters: the modes are
+      distinguishable by independent annotators rather than being a post-hoc
+      narrative.
+    what_changed_after: >
+      Multi-agent design acquired a failure taxonomy to design against rather
+      than a set of architectural preferences, and "does the multi-agent version
+      actually beat the single-agent baseline" became a question people asked.
+    descendants: ["multi-agent failure taxonomies", "MAS debugging tooling",
+                  "single-agent baselines for MAS claims"]
+
+  du2023debate:
+    title: "Improving Factuality and Reasoning in Language Models through Multiagent Debate"
+    authors: ["Yilun Du", "Shuang Li", "Antonio Torralba",
+              "Joshua B. Tenenbaum", "Igor Mordatch"]
+    year: 2023
+    venue: "ICML 2024 (arXiv preprint May 2023)"
+    arxiv: "2305.14325"
+    url: "https://arxiv.org/abs/2305.14325"
+    verified: true
+    verified_on: "2026-08-29"
+    verified_via: "arXiv abstract page arxiv.org/abs/2305.14325 - title, five authors, submitted 23 May 2023; abstract confirms the design of multiple language model instances proposing and debating their individual responses and reasoning processes over multiple rounds to reach a common answer, improvements to mathematical and strategic reasoning, reduced fallacious answers and hallucinations, and that the method applies directly to black-box models with identical procedure and prompts across the tasks investigated."
+    contribution: >
+      The canonical multi-agent reasoning result: several instances argue over
+      several rounds and converge, improving mathematical reasoning and reducing
+      hallucination, with no training and identical prompts across tasks.
+    why_it_mattered: >
+      It is the strongest published case that more than one agent helps, and its
+      mechanism - independent proposals that must be reconciled - is the one
+      multi-agent pattern with a clear theoretical justification, since it is
+      ensemble disagreement rather than division of labour.
+    what_changed_after: >
+      Debate became a standard multi-agent pattern, and the cost question
+      followed it: n instances over r rounds is n*r calls, which has to beat
+      spending the same budget on one agent.
+    descendants: ["multi-agent debate", "society-of-minds architectures",
+                  "consensus decoding"]
