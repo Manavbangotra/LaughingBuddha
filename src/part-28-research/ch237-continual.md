@@ -324,7 +324,7 @@ gets smaller as the verifiable fraction falls.
 
 The first listing prices continual updating.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/ke1}
+```python {tier=A name=plasticity-and-retention-are-one-dial}
 """Retention and plasticity are one dial, and the update cadence has an interior optimum.
 
 A deployed model faces a moving world (cite:gama2014). The obvious response is to keep training
@@ -621,7 +621,7 @@ correlates 0.34.
 
 The second listing prices self-improvement.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/ke2}
+```python {tier=A name=self-training-improves-only-the-verifiable-fraction}
 """A self-improvement loop improves the part it can check, and shrinks the part it can see.
 
 Generate answers, keep the ones a verifier accepts, train on those, repeat (cite:zelikman2022star,

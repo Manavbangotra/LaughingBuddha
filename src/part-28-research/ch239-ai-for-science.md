@@ -306,7 +306,7 @@ deliberate institutional effort rather than for individual incentives.
 
 The first listing prices verification.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/kg1}
+```python {tier=A name=autonomous-output-shifts-the-bottleneck-to-review}
 """Automating research moves the bottleneck to review, and review is capacity-bound.
 
 An automated research system produces candidate findings cheaply (cite:lu2024aiscientist,
@@ -579,7 +579,7 @@ gate advice.
 
 The second listing prices the experiments.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/kg2}
+```python {tier=A name=replication-has-higher-information-per-dollar-than-novelty}
 """The experiments worth automating are the ones nobody wants to run.
 
 The first listing found that review capacity, not generation, bounds automated research. This one

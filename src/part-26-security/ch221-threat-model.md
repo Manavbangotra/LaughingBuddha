@@ -299,7 +299,7 @@ the decision gets made.
 
 The first listing counts the trust boundary and the attack surface.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/ia1}
+```python {tier=A name=instructions-and-data-share-a-channel}
 """Every security architecture separates code from data. A prompt does not have that seam.
 
 A SQL injection is prevented by a parameterised query: the database is told, structurally,
@@ -577,7 +577,7 @@ visible.
 
 The second listing asks how much detection can substitute for structure.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/ia2}
+```python {tier=A name=detection-layers-fail-against-an-adaptive-attacker}
 """Detection layers compose beautifully against an attacker who only tries once.
 
 Defence in depth is the right instinct and the arithmetic is usually done wrong. Stacked

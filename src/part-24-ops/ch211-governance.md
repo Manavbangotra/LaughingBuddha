@@ -261,7 +261,7 @@ worth more than it looks.
 
 The first listing measures the feedback loop and the attribution it enables.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/fg1}
+```python {tier=A name=budget-overrun-is-set-by-feedback-delay}
 """A budget enforced on billing data is a budget enforced yesterday.
 
 Every cost control is a feedback loop, and every feedback loop has a delay. For AI spend
@@ -541,7 +541,7 @@ the binding constraint.
 
 The second listing measures the distribution the budget was aimed at.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/fg2}
+```python {tier=A name=agent-cost-is-heavy-tailed}
 """The mean cost of an agent request is a tail statistic, so budgeting on it is unstable.
 
 An agent runs until it decides to stop. That makes step count a stopping-time

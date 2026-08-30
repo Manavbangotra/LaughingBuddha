@@ -297,7 +297,7 @@ same time.
 
 The first listing computes a benchmark's expiry date.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/hc1}
+```python {tier=A name=contamination-inflates-and-flattens}
 """A public benchmark has a lifespan, and it is shorter than anyone plans for.
 
 Two things happen to a benchmark after publication. Its items leak into training corpora,
@@ -593,7 +593,7 @@ a new benchmark, which is why the field keeps building them.
 
 The second listing asks what the number means while it is still valid.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/hc2}
+```python {tier=A name=a-score-needs-a-human-baseline}
 """A benchmark score has no scale until somebody measures a human on the same items.
 
 39% sounds bad. 72% sounds good. Neither statement is meaningful without knowing what a

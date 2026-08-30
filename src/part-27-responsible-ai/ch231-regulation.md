@@ -308,7 +308,7 @@ that ranges over 45× dominates one that ranges over 3×.
 
 The first listing prices the tier structure.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/jd1}
+```python {tier=A name=compliance-cost-is-a-step-function}
 """Compliance cost is a step function of a classification, and the classification is arguable.
 
 Every AI regulatory framework in circulation works the same way structurally: a system is
@@ -578,7 +578,7 @@ Obligations and cost by tier:
 
 The second listing maps obligations to artefacts.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/jd2}
+```python {tier=A name=most-compliance-evidence-is-engineering-you-already-do}
 """Most of a compliance package is engineering you should be doing anyway. Recorded at the time.
 
 A conformity assessment asks for evidence: what the system does, what data it was built on, how

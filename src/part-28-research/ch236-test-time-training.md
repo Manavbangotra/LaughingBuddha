@@ -284,7 +284,7 @@ equals the marginal gain lost to drift.
 
 The first listing prices the two axes.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/kd1}
+```python {tier=A name=test-time-compute-has-a-ceiling-training-does-not}
 """Two ways to buy accuracy, and only one of them has no ceiling.
 
 ch:rsn-test-time-compute established the mechanism: sample more, select better, and accuracy
@@ -552,7 +552,7 @@ product.
 
 The second listing prices adaptation.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/kd2}
+```python {tier=A name=adaptation-must-amortise-over-reuse}
 """Adapting at test time is cheap in FLOPs and expensive in batching.
 
 The first listing spent test-time compute on sampling. The other way to spend it is on

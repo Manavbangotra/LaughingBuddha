@@ -292,7 +292,7 @@ where anybody looks.
 
 The first listing makes the impossibility concrete.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/ja1}
+```python {tier=A name=three-fairness-criteria-cannot-hold-together}
 """You can have calibration, equal false-positive rates, or equal false-negative rates. Two.
 
 cite:kleinberg2016tradeoffs proved that three fairness conditions cannot be satisfied
@@ -578,7 +578,7 @@ against a typical deployed 0.86.
 
 The second listing decomposes a measured disparity.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/ja2}
+```python {tier=A name=disparity-decomposes-and-only-some-parts-are-fixable}
 """Measured disparity is five different things added together, and only some are fixable.
 
 A single "the model performs worse for group B" number tells you nothing about what to do,

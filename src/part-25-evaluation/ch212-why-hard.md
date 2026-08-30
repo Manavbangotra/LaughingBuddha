@@ -280,7 +280,7 @@ not independent; the second causes the first.
 
 The first listing takes one smooth capability and measures it six ways.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/ha1}
+```python {tier=A name=metric-choice-manufactures-the-finding}
 """The metric is not a lens on the finding. Below a point, it is the finding.
 
 cite:schaeffer2023mirage showed that a large class of reported "emergent abilities"
@@ -569,7 +569,7 @@ been continued on the second, with the same model in both rooms.
 
 The second listing measures the problem no metric choice escapes.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/ha2}
+```python {tier=A name=reference-scoring-penalises-valid-answers}
 """For most useful tasks there is no ground truth, only one sample from a set of them.
 
 A classifier has a label. A summariser does not -- it has a space of acceptable summaries,

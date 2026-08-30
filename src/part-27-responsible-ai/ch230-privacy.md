@@ -302,7 +302,7 @@ years later in someone else's problem.
 
 The first listing prices the formal guarantee.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/jc1}
+```python {tier=A name=privacy-budget-composes-across-queries}
 """A privacy budget is a budget. It is spent by every query and it does not refill.
 
 cite:abadi2016dpsgd made differential privacy practical for deep learning by tracking the
@@ -562,7 +562,7 @@ training run is a label, not an accounting.**
 
 The second listing takes up deletion and copyright.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/jc2}
+```python {tier=A name=deletion-is-a-product-over-derived-artefacts}
 """Deleting a record means deleting it everywhere it went, and one destination cannot.
 
 A deletion request is a conjunction: the record is gone only if it is gone from the source

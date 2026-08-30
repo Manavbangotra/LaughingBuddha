@@ -303,7 +303,7 @@ diagram.
 
 The first listing measures the surface.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/ic1}
+```python {tier=A name=jailbreak-surface-is-capability-minus-safety-coverage}
 """Safety training covers a subset of the domains the model is capable in, and always will.
 
 cite:wei2023jailbroken named two failure modes. **Competing objectives** is the model's
@@ -573,7 +573,7 @@ rate capability advances.
 
 The second listing takes up the request-time layer.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/ic2}
+```python {tier=A name=guardrail-precision-is-set-by-the-base-rate}
 """A guardrail is a classifier on a rare event, and rare events destroy precision.
 
 Genuinely harmful requests are a small fraction of traffic. A guardrail with excellent

@@ -284,7 +284,7 @@ nothing.
 
 The first listing decomposes end-to-end accuracy and finds the unmeasured term.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/hf1}
+```python {tier=A name=rag-accuracy-is-a-product-with-a-utilisation-term}
 """Retrieving the right document is worth what the generator does with it, and no more.
 
 RAG evaluation almost always starts with retrieval metrics -- recall@k, MRR, nDCG -- because
@@ -575,7 +575,7 @@ visible to retrieval metrics                                      32.5%
 
 The second listing takes up the generation side.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/hf2}
+```python {tier=A name=faithfulness-and-usefulness-are-different-axes}
 """Faithfulness is the cheapest RAG metric to compute and the least related to usefulness.
 
 cite:es2023ragas made faithfulness -- is every claim in the answer supported by the

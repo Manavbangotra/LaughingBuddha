@@ -310,7 +310,7 @@ because nobody measures it.
 
 The first listing prices the exchange.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/kb1}
+```python {tier=A name=sparsity-moves-the-bottleneck-from-flops-to-memory}
 """Sparsity trades a training cost for a serving cost, and the exchange rate is your traffic.
 
 A mixture-of-experts layer replicates the feed-forward block E times and routes each token to k
@@ -620,7 +620,7 @@ Against the dense model at **the same loss**, the sparse one trains **3.2× chea
 
 The second listing prices the routing.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/kb2}
+```python {tier=A name=capacity-factor-trades-dropped-tokens-for-wasted-compute}
 """Routing is a load-balancing problem with a quality term, and the two pull opposite ways.
 
 An MoE layer only works if tokens spread across experts. Learned routing does not spread them:

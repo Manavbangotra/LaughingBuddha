@@ -307,7 +307,7 @@ history.**
 
 The first listing computes experiment duration and prices the proxy substitution.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/hi1}
+```python {tier=A name=experiment-duration-is-set-by-outcome-variance}
 """The experiment you can afford measures a proxy; the decision you need is about the outcome.
 
 cite:card2020power found that typical NLP test sets are underpowered for the differences
@@ -575,7 +575,7 @@ systems, offline. It is {{ch:ev-llm-judge}}'s both-orders protocol applied to a 
 
 The second listing takes up the regression gate.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/hi2}
+```python {tier=A name=gate-alarms-multiply-with-metrics-and-releases}
 """A regression gate is a hypothesis test run every release, and that is the problem.
 
 Run one test at 5% and you get a false alarm one time in twenty. Run it on twelve metrics

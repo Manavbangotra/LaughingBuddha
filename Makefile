@@ -50,6 +50,30 @@ numbers:
 report:
 	@$(PY) $(TOOLS)/report.py
 
+# ---------------------------------------------------------------------------
+# Offline gates. These need only PyYAML and the stdlib, so they run before the
+# Node toolchain exists — useful on a fresh clone and in CI's cheap stage.
+# They are a SUBSET of `make check`: they do not render math or diagrams, so a
+# clean run here says nothing about KaTeX or Mermaid. See BUILD.md.
+# ---------------------------------------------------------------------------
+.PHONY: offline offline-code offline-lint offline-tex offline-listings
+
+offline: offline-lint offline-tex offline-code
+
+offline-lint:
+	@python $(TOOLS)/offline_check.py
+
+offline-tex:
+	@python $(TOOLS)/audit_tex.py
+
+offline-code:
+	@python $(TOOLS)/extract_code.py .
+
+# Execute one chapter's tier-A listings: make offline-listings DOC=src/.../ch233-*.md
+offline-listings:
+	@test -n "$(DOC)" || (echo "usage: make offline-listings DOC=src/part-28-research/ch233-scaling-revisited.md" && exit 1)
+	@python $(TOOLS)/run_listings.py $(DOC)
+
 # Render, check, and build one part end to end — the per-part workflow.
 part:
 	@test -n "$(PART)" || (echo "usage: make part PART=07" && exit 1)

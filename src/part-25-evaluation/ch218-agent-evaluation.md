@@ -289,7 +289,7 @@ rather than sampling it — applied to the process instead of the result.
 
 The first listing reconciles single-run success with pass^k and prices retries.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/hg1}
+```python {tier=A name=pass-k-separates-capability-from-reliability}
 """A single-run success rate is a capability measurement. Users experience reliability.
 
 cite:yao2024taubench reported state-of-the-art function-calling agents succeeding on under
@@ -598,7 +598,7 @@ an expensive positive one.**
 
 The second listing asks what "succeed" should mean.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/hg2}
+```python {tier=A name=outcome-evaluation-credits-lucky-trajectories}
 """An agent that reaches the right answer by the wrong route has passed your evaluation.
 
 cite:jimenez2023swebench grades by running the repository's tests, which is the strongest

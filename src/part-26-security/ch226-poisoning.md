@@ -306,7 +306,7 @@ also why the mirror's date matters and why re-mirroring resets the exposure.
 
 The first listing prices the attack.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/if1}
+```python {tier=A name=poisoning-cost-is-per-fraction-not-per-record}
 """Poisoning is priced per fraction of a dataset, which is why it is cheap.
 
 cite:carlini2023poisoning demonstrated two practical attacks against ten popular datasets,
@@ -541,7 +541,7 @@ Read the last column: **every control covers something narrower than its name.**
 
 The second listing composes the chain.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/if2}
+```python {tier=A name=trust-is-a-product-over-the-supply-chain}
 """Trust in an AI system is a product over its supply chain, and one unsigned link zeroes it.
 
 A deployed system is a chain: base weights from one party, a fine-tune from another, an

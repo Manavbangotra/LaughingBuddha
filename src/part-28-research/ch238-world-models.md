@@ -289,7 +289,7 @@ to anyone deciding a budget.
 
 The first listing prices the horizon.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/kf1}
+```python {tier=A name=planning-horizon-is-set-by-per-step-error}
 """A learned world model is a rollout budget, and per-step error sets it.
 
 The appeal of a world model is that it lets a system plan: imagine a sequence of actions, predict
@@ -559,7 +559,7 @@ How far a rollout stays usable:
 
 The second listing prices the data.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/kf2}
+```python {tier=A name=embodied-data-is-rate-limited-not-cost-limited}
 """Embodied data is rate-limited, not cost-limited, and the transfer coefficient sets the fleet.
 
 Everything else in this book buys data with money. Physical interaction is bought with

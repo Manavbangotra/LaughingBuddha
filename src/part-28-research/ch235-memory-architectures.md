@@ -290,7 +290,7 @@ less.
 
 The first listing measures what the window is worth.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/kc1}
+```python {tier=A name=effective-context-is-shorter-than-nominal}
 """A context window you can fill is not a context window the model uses.
 
 ch:inf-gpu-memory priced the window: bytes per token, cache against weights, concurrency. This
@@ -559,7 +559,7 @@ Sixteen times the window buys **14.2×** the effective content
 
 The second listing compares the architectures.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/kc2}
+```python {tier=A name=memory-is-compression-times-retrieval}
 """Every memory architecture is a compression ratio times a retrieval accuracy.
 
 The first listing showed that holding tokens is not using them. This one asks what the

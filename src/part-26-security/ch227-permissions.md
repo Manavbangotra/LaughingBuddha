@@ -307,7 +307,7 @@ sensitive — which is why it is skipped and why both chapters end up recommendi
 
 The first listing measures the approval queue.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/ig1}
+```python {tier=A name=approval-quality-falls-with-volume}
 """An approval queue where almost everything is fine trains the reviewer to approve.
 
 Human approval is the strongest control in ch:sec-tool-abuse's table and the one most likely
@@ -586,7 +586,7 @@ Same reviewer, same items, same 0.88 minutes each — **4.2× from density alone
 
 The second listing follows the authority.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/ig2}
+```python {tier=A name=delegation-preserves-authority-unless-attenuated}
 """Delegation preserves authority by default, so a chain is as strong as its strongest link.
 
 When a user calls an agent, which calls a sub-agent, which calls a tool server, each hop

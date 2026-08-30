@@ -291,7 +291,7 @@ another place.
 
 The first listing measures memorisation.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/id1}
+```python {tier=A name=extraction-risk-does-not-vanish-at-one-occurrence}
 """A secret that appears once in the corpus is still extractable, and that is the whole problem.
 
 cite:carlini2021extracting recovered hundreds of verbatim sequences from GPT-2 -- names, phone
@@ -548,7 +548,7 @@ holds for a secret nobody anticipated.**
 
 The second listing corrects where the leaks actually are.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/id2}
+```python {tier=A name=most-leaks-are-inference-time-not-memorised}
 """Almost every production leak is inference-time, and memorisation is the smallest term.
 
 Memorisation gets the attention because it is the interesting one -- it involves the weights,

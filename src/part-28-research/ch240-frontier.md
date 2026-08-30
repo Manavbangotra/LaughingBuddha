@@ -298,7 +298,7 @@ demotion signals continuously rather than reviewing the whole frontier periodica
 
 The first listing scores the evidence.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/kh1}
+```python {tier=A name=confidence-is-a-product-over-independent-evidence}
 """A claim's tier is a product over independent evidence, and popularity is not one of the terms.
 
 This book cites 331 papers and refused several dozen more. The rule was
@@ -597,7 +597,7 @@ The rubric:
 
 The second listing turns a tier into a decision.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/kh2}
+```python {tier=A name=adoption-value-is-tier-times-lead-time}
 """A tier is not a verdict, it is an adoption policy with a break-even.
 
 The first listing sorted claims into established, emerging and speculative. This one asks what to

@@ -376,7 +376,7 @@ exhortation about diligence.
 
 The first listing measures the team.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/je1}
+```python {tier=A name=review-helps-only-when-catch-exceeds-override-odds}
 """A human in the loop is a claim about a team, and teams are measurable.
 
 "A human reviews the output" is the most common answer to every question in the previous four
@@ -697,7 +697,7 @@ Routing at 20% is **5× less reviewer time** at higher accuracy; perfect routing
 
 The second listing scores the arrangements.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/je2}
+```python {tier=A name=oversight-is-a-conjunction-of-preconditions}
 """Oversight needs authority, information, time and incentive. Missing one makes it ceremony.
 
 The first listing asked whether a reviewer improves accuracy. This one asks what has to be true

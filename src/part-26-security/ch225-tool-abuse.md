@@ -287,7 +287,7 @@ and waves reads through is protecting the recoverable half.
 
 The first listing separates the two capability axes.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/ie1}
+```python {tier=A name=agent-authority-exceeds-requester-authority}
 """An agent is a confused deputy by construction: it holds authority its requester lacks.
 
 A service account exists because the agent must act for many users. So it is provisioned with
@@ -549,7 +549,7 @@ held by a proxy that signs requests      never in context                  yes
 
 The second listing takes up composition.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/ie2}
+```python {tier=A name=tool-damage-composes-superadditively}
 """Two harmless tools compose into a harmful one, and per-tool approval cannot see it.
 
 A search tool reads. An email tool writes. Neither is dangerous alone -- reading what the user

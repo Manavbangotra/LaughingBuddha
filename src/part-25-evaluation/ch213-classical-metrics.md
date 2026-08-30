@@ -261,7 +261,7 @@ is meant to affect. That is rare enough in machine learning practice to be worth
 
 The first listing sweeps the threshold and recovers what each metric assumes.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/hb1}
+```python {tier=A name=f1-asserts-a-cost-ratio}
 """Every classification metric asserts a cost ratio. F1 asserts that it is one.
 
 Precision, recall and F1 are usually presented as descriptions of a classifier. They are
@@ -547,7 +547,7 @@ Same model, same threshold. **A metric that does not take a cost ratio has one a
 
 The second listing takes the threshold-free alternative apart.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/hb2}
+```python {tier=A name=auc-averages-over-thresholds-you-will-not-use}
 """AUC scores a ranking. Deployment picks one threshold and lives there.
 
 AUC integrates performance over every threshold, including the ones no product would

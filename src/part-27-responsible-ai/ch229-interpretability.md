@@ -304,7 +304,7 @@ revisits the decision because there is already an explanation.
 
 The first listing separates attribution from intervention.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/jb1}
+```python {tier=A name=attribution-is-not-an-intervention-effect}
 """An attribution satisfies axioms. It does not answer "what happens if I change this".
 
 cite:lundberg2017shap proved that one class of additive feature attributions has a unique
@@ -588,7 +588,7 @@ specific guarantee and not a claim about mechanism.
 
 The second listing takes up generated explanations.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/jb2}
+```python {tier=A name=stated-reasons-need-not-be-actual-reasons}
 """A model's stated reason and its operative reason are two different quantities.
 
 cite:turpin2023faithfulness measured this directly: chain-of-thought explanations can be

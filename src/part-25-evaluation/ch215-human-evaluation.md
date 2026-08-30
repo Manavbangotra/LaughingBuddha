@@ -290,7 +290,7 @@ mistake is transferring the practice rather than the reasoning.
 
 The first listing computes what label error costs and what redundancy buys.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/hd1}
+```python {tier=A name=budget-splits-between-items-and-annotators}
 """Label noise is not noise once the labels become the reference set.
 
 While you are estimating a quantity, annotator error averages out. The moment those labels
@@ -629,7 +629,7 @@ gap at 0.050, needing 1,264 items.
 
 The second listing asks where the disagreement comes from.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/hd2}
+```python {tier=A name=guideline-defect-is-the-cheapest-disagreement}
 """Annotator disagreement is four different problems and only one of them is the annotator.
 
 Teams read a low agreement number as a staffing problem: the annotators are careless, hire

@@ -283,7 +283,7 @@ exactly like configuration.
 
 The first listing prices the indirect channel.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/ib1}
+```python {tier=A name=the-attacker-need-not-be-present}
 """Direct injection costs one attempt per victim. Indirect injection costs one write.
 
 cite:perez2022ignore demonstrated injection through the user's own message, which requires
@@ -537,7 +537,7 @@ RESIDUAL AFTER SOURCE DELETION                                                  
 
 The second listing separates the two outcomes.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/ib2}
+```python {tier=A name=leaking-is-bounded-by-context-hijacking-is-not}
 """Goal hijacking and prompt leaking are one attack with two blast radii.
 
 cite:perez2022ignore separated them and the separation is the useful part. A leak exfiltrates

@@ -267,7 +267,7 @@ retired by a coin flip.
 
 The first listing measures both triage channels against the arrival rate.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/ef1}
+```python {tier=A name=triage-capacity-is-the-binding-constraint}
 """Agent traces arrive faster than anything can triage them, and nothing can triage them.
 
 A single-turn request produces one span worth reading. An agent request produces a
@@ -544,7 +544,7 @@ model ({{eq:structure-improves-both-channels}}).
 
 The second listing measures what the structure has to contain.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/ef2}
+```python {tier=A name=cause-distance-drives-triage-cost}
 """In an agent trace, the failure is a step and the cause is an earlier step.
 
 A single-turn failure has one place to look. An agent failure has a chain: the answer was

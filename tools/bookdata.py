@@ -134,7 +134,10 @@ class Book:
 
     def __init__(self, config_path: Path | None = None) -> None:
         self.config_path = config_path or (ROOT / "book.yaml")
-        self.cfg: dict[str, Any] = yaml.safe_load(self.config_path.read_text())
+        self.cfg: dict[str, Any] = yaml.safe_load(
+            # explicit: Windows defaults to cp1252, which mangles the en-dashes
+            # in chapter titles into mojibake that then lands in every artefact
+            self.config_path.read_text(encoding="utf-8"))
         self.parts: list[Part] = []
         self.docs: list[Doc] = []
         self.by_id: dict[str, Doc] = {}

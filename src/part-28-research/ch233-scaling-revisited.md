@@ -308,7 +308,7 @@ affordable.
 
 The first listing treats the law as an allocation rule.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/ka1}
+```python {tier=A name=scaling-exponents-set-allocation-not-the-ceiling}
 """A scaling law is an allocation rule, and the allocation changes when you count inference.
 
 The parametric form is `L(N, D) = E + A/N^a + B/D^b` -- an irreducible floor plus a parameter
@@ -618,7 +618,7 @@ Each halving costs **86×** — set by the exponents and nothing else.
 
 The second listing measures the curve.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/ka2}
+```python {tier=A name=extrapolation-error-grows-with-the-log-range}
 """One run, three metrics, three stories -- and a fit used outside the range it was fitted on.
 
 The first listing treated the loss curve as given. This one asks what the curve is made of.

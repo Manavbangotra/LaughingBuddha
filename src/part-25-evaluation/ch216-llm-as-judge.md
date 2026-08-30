@@ -291,7 +291,7 @@ Searching harder against a biased objective finds more bias, faster.
 
 The first listing reads the agreement figure and prices the presentation biases.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/he1}
+```python {tier=A name=judge-agreement-is-at-the-human-ceiling}
 """A judge agreeing with humans 80% of the time has matched the humans, not the truth.
 
 cite:zheng2023judge reported that strong LLM judges reach over 80% agreement with human
@@ -599,7 +599,7 @@ Five rounds of selection: length **2.29×**, judge score **+0.122**, true qualit
 
 The second listing takes up the bias that closes the loop.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/he2}
+```python {tier=A name=self-preference-distorts-the-ranking}
 """Self-preference is the bias that closes the loop, and a closed loop stops measuring.
 
 cite:zheng2023judge lists self-enhancement alongside position and verbosity, and it is the

@@ -290,7 +290,7 @@ first evidence of them is a complaint.
 
 The first listing selects the portfolio.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/hh1}
+```python {tier=A name=coverage-is-a-union-not-a-sum}
 """An evaluation framework is a portfolio of instruments, and coverage is a union.
 
 Every chapter in this part produced an instrument and a failure class it sees. Put them
@@ -610,7 +610,7 @@ spot of everything else.
 
 The second listing places the gates.
 
-```python {tier=A name=C:/Users/MANAVB~1/AppData/Local/Temp/claude/C--Github-LaughingBuddha/30a87753-43a8-48c3-8378-261faf976dbb/scratchpad/hh2}
+```python {tier=A name=gate-placement-is-set-by-cost-times-escape}
 """Where a gate goes is a cost decision, and "as early as possible" is the wrong rule.
 
 An instrument that runs on every commit runs a hundred times more often than one that runs
