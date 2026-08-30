@@ -7627,3 +7627,363 @@ entries:
       The 65% versus 34% gap makes the ceiling explicit, which almost no
       benchmark does. Without a human baseline a model score has no scale, and
       GPQA is the standard example of supplying one.
+  zou2023universal:
+    title: "Universal and Transferable Adversarial Attacks on Aligned Language Models"
+    authors: ["Andy Zou", "Zifan Wang", "Nicholas Carlini", "Milad Nasr",
+              "J. Zico Kolter", "Matt Fredrikson"]
+    year: 2023
+    venue: "arXiv preprint (Jul 2023)"
+    arxiv: "2307.15043"
+    url: "https://arxiv.org/abs/2307.15043"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/2307.15043 - title, six authors and 27 July 2023 v1 submission confirmed; abstract confirms an automatically-constructed adversarial suffix that induces objectionable content, trained on Vicuna-7B and Vicuna-13B, transferring to open models including LLaMA-2-Chat, Pythia and Falcon and to black-box commercial systems including ChatGPT, Bard and Claude. The abstract states no numeric success rates."
+    contribution: >-
+      Showed that a single adversarial suffix, found by greedy coordinate
+      gradient search on open models, transfers across prompts and across models
+      including closed commercial ones.
+    why_it_mattered: >-
+      Turned jailbreaking from a manual craft into an optimisation problem with
+      transferable artefacts, which means a defence tested against known strings
+      is testing against a set that can be regenerated at will.
+
+  wei2023jailbroken:
+    title: "Jailbroken: How Does LLM Safety Training Fail?"
+    authors: ["Alexander Wei", "Nika Haghtalab", "Jacob Steinhardt"]
+    year: 2023
+    venue: "arXiv preprint (Jul 2023); NeurIPS 2023"
+    arxiv: "2307.02483"
+    url: "https://arxiv.org/abs/2307.02483"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/2307.02483 - title, three authors and 5 July 2023 v1 submission confirmed; abstract confirms two named failure modes - competing objectives (capabilities conflict with safety goals) and mismatched generalization (safety training does not cover a domain where capabilities exist) - and that attacks built from these succeed on every prompt in a collection of unsafe requests drawn from the models' own red-teaming evaluation sets, against GPT-4 and Claude v1.3."
+    contribution: >-
+      Explained jailbreak success structurally rather than anecdotally, as two
+      failure modes of safety training, and constructed attacks from the
+      explanation that succeeded universally on a red-team set.
+    why_it_mattered: >-
+      The mismatched-generalization mode predicts that safety training will keep
+      lagging capability coverage, which makes it a property of the training
+      regime rather than a bug to be patched.
+
+  carlini2021extracting:
+    title: "Extracting Training Data from Large Language Models"
+    authors: ["Nicholas Carlini", "Florian Tramer", "Eric Wallace",
+              "Matthew Jagielski", "Ariel Herbert-Voss", "Katherine Lee",
+              "and 6 others"]
+    year: 2021
+    venue: "arXiv preprint (Dec 2020); USENIX Security 2021"
+    arxiv: "2012.07805"
+    url: "https://arxiv.org/abs/2012.07805"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/2012.07805 - title, twelve-author list headed by Nicholas Carlini and 14 December 2020 v1 submission confirmed; abstract confirms extraction of hundreds of verbatim training sequences from GPT-2 including personally identifiable information (names, phone numbers, email addresses), IRC conversations, code and 128-bit UUIDs, that each extracted sequence appeared in just one training document, and that larger models are more vulnerable than smaller ones."
+    contribution: >-
+      Demonstrated practical extraction of memorised training data from a
+      deployed language model, including single-occurrence secrets, and showed
+      the vulnerability grows with model size.
+    why_it_mattered: >-
+      Single-occurrence memorisation is the finding that matters for
+      engineering: a secret does not need to be common in the corpus to be
+      recoverable, so redaction cannot be justified by rarity.
+
+  carlini2023poisoning:
+    title: "Poisoning Web-Scale Training Datasets is Practical"
+    authors: ["Nicholas Carlini", "Matthew Jagielski",
+              "Christopher A. Choquette-Choo", "Daniel Paleka", "Will Pearce",
+              "Hyrum Anderson", "Andreas Terzis", "Kurt Thomas",
+              "Florian Tramer"]
+    year: 2023
+    venue: "arXiv preprint (Feb 2023); IEEE S&P 2024"
+    arxiv: "2302.10149"
+    url: "https://arxiv.org/abs/2302.10149"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/2302.10149 - title, nine authors and 20 February 2023 v1 submission confirmed; abstract confirms two practical poisoning attacks against ten popular datasets, including guaranteed poisoning of 0.01% of LAION-400M or COYO-700M for approximately 60 US dollars."
+    contribution: >-
+      Showed that web-scale dataset poisoning is not hypothetical: buying
+      expired domains referenced by a public dataset gives an attacker
+      guaranteed control of a fraction of it for tens of dollars.
+    why_it_mattered: >-
+      The cost figure is what changes the threat model. A supply-chain attack
+      priced at 60 dollars is not a nation-state capability, and the exposure
+      belongs to anyone training on a URL list.
+
+  debenedetti2024agentdojo:
+    title: "AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents"
+    authors: ["Edoardo Debenedetti", "Jie Zhang", "Mislav Balunovic",
+              "Luca Beurer-Kellner", "Marc Fischer", "Florian Tramer"]
+    year: 2024
+    venue: "arXiv preprint (Jun 2024); NeurIPS 2024 Datasets and Benchmarks"
+    arxiv: "2406.13352"
+    url: "https://arxiv.org/abs/2406.13352"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/2406.13352 - title, six authors and 19 June 2024 v1 submission confirmed; abstract confirms 97 realistic tasks (email client, e-banking, travel booking) and 629 security test cases, and reports that state-of-the-art LLMs fail many tasks even without attacks while existing prompt injection attacks break some security properties but not all."
+    contribution: >-
+      Built an extensible environment that measures agent utility and attack
+      success on the same tasks, so a defence can be scored on what it costs as
+      well as what it prevents.
+    why_it_mattered: >-
+      Made "does this defence work" a measurable question with a utility
+      penalty attached, which is the only framing under which prompt-injection
+      defences can be compared.
+
+  perez2022ignore:
+    title: "Ignore Previous Prompt: Attack Techniques For Language Models"
+    authors: ["Fabio Perez", "Ian Ribeiro"]
+    year: 2022
+    venue: "arXiv preprint (Nov 2022); NeurIPS 2022 ML Safety Workshop"
+    arxiv: "2211.09527"
+    url: "https://arxiv.org/abs/2211.09527"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/2211.09527 - title, two authors and 17 November 2022 v1 submission confirmed; abstract confirms the PromptInject framework using mask-based iterative adversarial prompt composition and two attack types, goal hijacking and prompt leaking, demonstrated against GPT-3."
+    contribution: >-
+      Named and demonstrated the two canonical prompt-injection outcomes - goal
+      hijacking and prompt leaking - with a reproducible construction framework.
+    why_it_mattered: >-
+      The naming is the contribution that stuck. Distinguishing hijacking from
+      leaking separates two failures with different blast radii and different
+      defences, which the term "prompt injection" alone conflates.
+
+  beurerkellner2025patterns:
+    title: "Design Patterns for Securing LLM Agents against Prompt Injections"
+    authors: ["Luca Beurer-Kellner", "Beat Buesser", "Ana-Maria Cretu",
+              "Edoardo Debenedetti", "Daniel Dobos", "Daniel Fabian",
+              "Marc Fischer", "David Froelicher", "Kathrin Grosse",
+              "Daniel Naeff", "Ezinwanne Ozoani", "Andrew Paverd",
+              "Florian Tramer", "Vaclav Volhejn"]
+    year: 2025
+    venue: "arXiv preprint (Jun 2025)"
+    arxiv: "2506.08837"
+    url: "https://arxiv.org/abs/2506.08837"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/2506.08837 - title, fourteen authors and 10 June 2025 v1 submission confirmed; abstract confirms a set of principled design patterns for building AI agents with provable resistance to prompt injection, that the patterns deliberately constrain agent utility in exchange for security, and a series of case studies. No count of patterns or case studies is given in the abstract."
+    contribution: >-
+      Argued that prompt-injection resistance comes from architecture rather
+      than detection, and set out design patterns that constrain what an agent
+      can do with untrusted input.
+    why_it_mattered: >-
+      Shifts the question from "can we detect the injection" to "what can the
+      injection reach", which is the only formulation in which a guarantee is
+      available. The utility cost is stated rather than hidden.
+
+  hardt2016equality:
+    title: "Equality of Opportunity in Supervised Learning"
+    authors: ["Moritz Hardt", "Eric Price", "Nathan Srebro"]
+    year: 2016
+    venue: "arXiv preprint (Oct 2016); NIPS 2016"
+    arxiv: "1610.02413"
+    url: "https://arxiv.org/abs/1610.02413"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/1610.02413 - title, three authors and 7 October 2016 v1 submission confirmed; abstract confirms an oblivious criterion depending only on the joint statistics of predictor, target and protected attribute, a procedure to adjust any learned predictor to remove discrimination under that definition, the incentive argument that it shifts the cost of poor classification onto the decision maker, and an analysis of the inherent limits of oblivious measures."
+    contribution: >-
+      Defined equalised odds and equality of opportunity as constraints on the
+      joint statistics of prediction, outcome and group, and gave a
+      post-processing procedure that enforces them on any predictor.
+    why_it_mattered: >-
+      Made fairness a post-processing step with a stated criterion rather than a
+      property of the training data, and the obliviousness analysis is the
+      earliest clear statement of what such measures cannot detect.
+
+  kleinberg2016tradeoffs:
+    title: "Inherent Trade-Offs in the Fair Determination of Risk Scores"
+    authors: ["Jon Kleinberg", "Sendhil Mullainathan", "Manish Raghavan"]
+    year: 2016
+    venue: "arXiv preprint (Sep 2016); ITCS 2017"
+    arxiv: "1609.05807"
+    url: "https://arxiv.org/abs/1609.05807"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/1609.05807 - title, three authors and 19 September 2016 v1 submission confirmed; abstract confirms formalisation of three fairness conditions and the result that no method can satisfy all three simultaneously except in constrained special cases, and that even approximate satisfaction of all three requires the data to lie in an approximate version of one of those special cases."
+    contribution: >-
+      Proved that calibration and the two error-rate balance conditions are
+      mutually incompatible except in degenerate cases, and that the
+      incompatibility survives approximation.
+    why_it_mattered: >-
+      Converts fairness from a solvable optimisation into a choice between
+      criteria. Any system claiming to satisfy all three is either in a
+      degenerate case or has not checked.
+
+  abadi2016dpsgd:
+    title: "Deep Learning with Differential Privacy"
+    authors: ["Martin Abadi", "Andy Chu", "Ian Goodfellow",
+              "H. Brendan McMahan", "Ilya Mironov", "Kunal Talwar",
+              "Li Zhang"]
+    year: 2016
+    venue: "arXiv preprint (Jul 2016); ACM CCS 2016"
+    arxiv: "1607.00133"
+    url: "https://arxiv.org/abs/1607.00133"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/1607.00133 - title, seven authors and 1 July 2016 v1 submission confirmed; abstract confirms differentially private SGD with a refined privacy-cost analysis (the moments accountant), and the claim that deep networks with non-convex objectives can be trained under a modest privacy budget at manageable cost in software complexity, training efficiency and model quality. No epsilon values or accuracy figures appear in the abstract."
+    contribution: >-
+      Made differential privacy practical for deep learning via per-example
+      gradient clipping, noise addition, and a tighter accounting of privacy
+      loss across training steps.
+    why_it_mattered: >-
+      The standard mechanism for training with a formal privacy guarantee, and
+      the source of the clipping-and-noise pattern every later private training
+      method is a variation on.
+
+  shokri2017membership:
+    title: "Membership Inference Attacks against Machine Learning Models"
+    authors: ["Reza Shokri", "Marco Stronati", "Congzheng Song",
+              "Vitaly Shmatikov"]
+    year: 2017
+    venue: "arXiv preprint (Oct 2016); IEEE S&P 2017"
+    arxiv: "1610.05820"
+    url: "https://arxiv.org/abs/1610.05820"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/1610.05820 - title, four authors and 18 October 2016 v1 submission confirmed; abstract confirms the black-box membership inference setting (given a record and query access, decide whether it was in the training set), the shadow-model training technique, evaluation against commercial machine-learning-as-a-service models from Google and Amazon, and a hospital discharge dataset whose membership is itself sensitive."
+    contribution: >-
+      Established membership inference as a practical black-box attack, with
+      shadow models as the standard construction, and demonstrated it against
+      commercial hosted models.
+    why_it_mattered: >-
+      The hospital-discharge example is why this matters beyond academia:
+      membership in the training set can itself be the sensitive fact, so a
+      model that leaks nothing about content can still leak everything.
+
+  ribeiro2016lime:
+    title: "\"Why Should I Trust You?\": Explaining the Predictions of Any Classifier"
+    authors: ["Marco Tulio Ribeiro", "Sameer Singh", "Carlos Guestrin"]
+    year: 2016
+    venue: "arXiv preprint (Feb 2016); KDD 2016"
+    arxiv: "1602.04938"
+    url: "https://arxiv.org/abs/1602.04938"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/1602.04938 - title, three authors and 16 February 2016 v1 submission confirmed; abstract confirms LIME as a technique explaining any classifier's prediction by learning an interpretable model locally around it, SP-LIME as a submodular selection of representative explanations, and experiments both simulated and with human subjects on trusting a prediction, choosing between models, improving an untrustworthy classifier, and identifying why a classifier should not be trusted."
+    contribution: >-
+      Introduced local surrogate explanation - fit a simple interpretable model
+      in the neighbourhood of one prediction - and a submodular method for
+      choosing which explanations to show.
+    why_it_mattered: >-
+      Established the local-explanation framing that dominates practice, and its
+      own framing is careful in a way later usage is not: the surrogate is
+      faithful locally and makes no global claim.
+
+  lundberg2017shap:
+    title: "A Unified Approach to Interpreting Model Predictions"
+    authors: ["Scott Lundberg", "Su-In Lee"]
+    year: 2017
+    venue: "arXiv preprint (May 2017); NIPS 2017"
+    arxiv: "1705.07874"
+    url: "https://arxiv.org/abs/1705.07874"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/1705.07874 - title, two authors and 22 May 2017 v1 submission confirmed; abstract confirms identification of a new class of additive feature importance measures unifying six existing methods, theoretical results showing a unique solution in that class with a set of desirable properties, and new methods with improved computational performance or better consistency with human intuition."
+    contribution: >-
+      Unified several attribution methods under Shapley values and proved
+      uniqueness given local accuracy, missingness and consistency.
+    why_it_mattered: >-
+      Gave attribution a uniqueness theorem, which is why SHAP became the
+      default. The theorem is about the axioms, not about whether the
+      attribution corresponds to a causal mechanism.
+
+  mitchell2019modelcards:
+    title: "Model Cards for Model Reporting"
+    authors: ["Margaret Mitchell", "Simone Wu", "Andrew Zaldivar",
+              "Parker Barnes", "Lucy Vasserman", "Ben Hutchinson",
+              "Elena Spitzer", "Inioluwa Deborah Raji", "Timnit Gebru"]
+    year: 2019
+    venue: "arXiv preprint (Oct 2018); FAT* 2019"
+    arxiv: "1810.03993"
+    url: "https://arxiv.org/abs/1810.03993"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/1810.03993 - title, nine authors and 5 October 2018 v1 submission confirmed; abstract confirms the proposal that released models be accompanied by short documents providing benchmarked evaluation across cultural, demographic and phenotypic groups, and disclosing the context in which the model is intended to be used."
+    contribution: >-
+      Proposed a standard short document accompanying a model, with
+      disaggregated evaluation and an explicit statement of intended use.
+    why_it_mattered: >-
+      The disaggregated-evaluation requirement is the operative part: an
+      aggregate score is compatible with arbitrary subgroup failure, and a model
+      card is the artefact that forces the breakdown to exist.
+
+  gebru2021datasheets:
+    title: "Datasheets for Datasets"
+    authors: ["Timnit Gebru", "Jamie Morgenstern", "Briana Vecchione",
+              "Jennifer Wortman Vaughan", "Hanna Wallach",
+              "Hal Daume III", "Kate Crawford"]
+    year: 2021
+    venue: "arXiv preprint (Mar 2018); CACM 2021"
+    arxiv: "1803.09010"
+    url: "https://arxiv.org/abs/1803.09010"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/1803.09010 - title, seven authors and 23 March 2018 v1 submission confirmed; abstract confirms the proposal that every dataset be accompanied by a datasheet documenting its motivation, composition, collection process and recommended uses, to improve communication between dataset creators and consumers and encourage transparency and accountability."
+    contribution: >-
+      Proposed structured dataset documentation covering motivation,
+      composition, collection and recommended uses, by analogy with component
+      datasheets in electronics.
+    why_it_mattered: >-
+      The recommended-uses field is the one that does work: most dataset harms
+      come from reuse outside the conditions the data was collected under, and
+      nothing else in the pipeline records those conditions.
+
+  shazeer2017moe:
+    title: "Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer"
+    authors: ["Noam Shazeer", "Azalia Mirhoseini", "Krzysztof Maziarz",
+              "Andy Davis", "Quoc Le", "Geoffrey Hinton", "Jeff Dean"]
+    year: 2017
+    venue: "arXiv preprint (Jan 2017); ICLR 2017"
+    arxiv: "1701.06538"
+    url: "https://arxiv.org/abs/1701.06538"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/1701.06538 - title, seven authors and 23 January 2017 v1 submission confirmed; abstract confirms a sparsely-gated mixture-of-experts layer with up to thousands of feed-forward sub-networks, greater than 1000x improvements in model capacity with only minor losses in computational efficiency on modern GPU clusters, MoE models with up to 137 billion parameters applied convolutionally between stacked LSTM layers, and better results than the state of the art at lower computational cost on language modelling and machine translation benchmarks."
+    contribution: >-
+      Introduced conditional computation at scale: a gating network routes each
+      example to a small subset of experts, so capacity grows without
+      proportional compute.
+    why_it_mattered: >-
+      The 1000x capacity claim is the origin of every sparse-model economic
+      argument since, and the caveats it names - load balancing and
+      communication cost - are still the two things that decide whether the
+      argument holds.
+
+  ha2018worldmodels:
+    title: "World Models"
+    authors: ["David Ha", "Jurgen Schmidhuber"]
+    year: 2018
+    venue: "arXiv preprint (Mar 2018); NeurIPS 2018"
+    arxiv: "1803.10122"
+    url: "https://arxiv.org/abs/1803.10122"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/1803.10122 - title, two authors and 27 March 2018 v1 submission confirmed; abstract confirms generative neural network models of reinforcement learning environments trained quickly and unsupervised to learn a compressed spatial and temporal representation, a compact policy trained on the world model's features, and training an agent entirely inside its own hallucinated dream before transferring the policy back to the real environment."
+    contribution: >-
+      Separated a learned environment model from the policy, and showed a policy
+      trained entirely inside the learned model can transfer to the real
+      environment.
+    why_it_mattered: >-
+      The dream-training result is the clearest early demonstration that a
+      learned simulator can substitute for the environment, which is the premise
+      every later model-based and world-model system rests on.
+
+  driess2023palme:
+    title: "PaLM-E: An Embodied Multimodal Language Model"
+    authors: ["Danny Driess", "Fei Xia", "Mehdi S. M. Sajjadi",
+              "Corey Lynch", "Aakanksha Chowdhery", "and 17 others"]
+    year: 2023
+    venue: "arXiv preprint (Mar 2023); ICML 2023"
+    arxiv: "2303.03378"
+    url: "https://arxiv.org/abs/2303.03378"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/2303.03378 - title, 22-author list headed by Danny Driess and 6 March 2023 v1 submission confirmed; abstract confirms embodied language models incorporating continuous sensor modalities directly into the language embedding space, the largest model PaLM-E-562B at 562B parameters, state-of-the-art performance on OK-VQA, and positive transfer from diverse joint training across internet-scale language, vision and visual-language domains."
+    contribution: >-
+      Injected continuous robot sensor observations directly into a language
+      model's embedding space and trained end-to-end across robotics, vision and
+      language.
+    why_it_mattered: >-
+      The positive-transfer result is what distinguishes it from a robot
+      controller with a language front end: joint training across unrelated
+      domains improved all of them, which is the argument for a single embodied
+      model rather than a stack.
