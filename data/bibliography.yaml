@@ -7386,3 +7386,244 @@ entries:
       model, automated trace triage is not close to solved - which makes trace
       structure and human-legible instrumentation a design requirement rather
       than a convenience.
+  hendrycks2020mmlu:
+    title: "Measuring Massive Multitask Language Understanding"
+    authors: ["Dan Hendrycks", "Collin Burns", "Steven Basart", "Andy Zou",
+              "Mantas Mazeika", "Dawn Song", "Jacob Steinhardt"]
+    year: 2020
+    venue: "arXiv preprint (Sep 2020); ICLR 2021"
+    arxiv: "2009.03300"
+    url: "https://arxiv.org/abs/2009.03300"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/2009.03300 - title, seven authors and 7 September 2020 v1 submission confirmed; abstract confirms 57 tasks spanning elementary mathematics, US history, computer science and law, that most models tested were near random-chance accuracy, that the largest GPT-3 model improved over random chance by almost 20 percentage points on average while remaining lopsided across all 57 tasks, and that models are poorly calibrated and 'frequently do not know when they are wrong'."
+    contribution: >-
+      Built a 57-subject multiple-choice benchmark spanning school through
+      professional level, designed to measure breadth of knowledge rather than
+      a single capability, and reported both accuracy and calibration.
+    why_it_mattered: >-
+      Became the default headline number for a general-purpose model, and its
+      calibration finding - models do not know when they are wrong - is the
+      more durable result and the one usually dropped when the score is quoted.
+
+  liang2022helm:
+    title: "Holistic Evaluation of Language Models"
+    authors: ["Percy Liang", "Rishi Bommasani", "Tony Lee", "Dimitris Tsipras",
+              "Dilara Soylu", "Michihiro Yasunaga", "and 44 others"]
+    year: 2022
+    venue: "arXiv preprint (Nov 2022); TMLR 2023"
+    arxiv: "2211.09110"
+    url: "https://arxiv.org/abs/2211.09110"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/2211.09110 - title, 50-author list headed by Percy Liang and 16 November 2022 v1 submission confirmed; abstract confirms 7 metrics (accuracy, calibration, robustness, fairness, bias, toxicity, efficiency) measured for each of 16 core scenarios where possible (87.5% of the time), 7 targeted evaluations over 26 targeted scenarios, evaluation of 30 models over 42 scenarios, and an increase in benchmark coverage of the models from 17.9% to 96.0%."
+    contribution: >-
+      Proposed evaluating language models as a matrix of scenarios by metrics
+      rather than as a leaderboard of accuracies, and ran it densely enough that
+      model-to-model comparison became possible across all seven metrics.
+    why_it_mattered: >-
+      The 17.9% starting coverage is the finding that matters operationally:
+      before HELM, most published model comparisons were between models that
+      had not been run on the same things.
+
+  zheng2023judge:
+    title: "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena"
+    authors: ["Lianmin Zheng", "Wei-Lin Chiang", "Ying Sheng", "Siyuan Zhuang",
+              "Zhanghao Wu", "Yonghao Zhuang", "Zi Lin", "Zhuohan Li",
+              "Dacheng Li", "Eric P. Xing", "Hao Zhang", "Joseph E. Gonzalez",
+              "Ion Stoica"]
+    year: 2023
+    venue: "arXiv preprint (Jun 2023); NeurIPS 2023 Datasets and Benchmarks"
+    arxiv: "2306.05685"
+    url: "https://arxiv.org/abs/2306.05685"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/2306.05685 - title, thirteen authors and 9 June 2023 v1 submission confirmed; abstract confirms strong LLM judges such as GPT-4 matching both controlled and crowdsourced human preferences at over 80% agreement, release of 3K expert votes and 30K conversations with human preferences, and explicit identification of position, verbosity and self-enhancement biases together with limited reasoning ability as the method's limitations."
+    contribution: >-
+      Measured how well a strong model agrees with human preference judgements,
+      and catalogued the systematic biases that agreement figure conceals.
+    why_it_mattered: >-
+      The load-bearing citation for automated evaluation, and the source of the
+      three biases every judge design must handle. Over 80% agreement is quoted
+      constantly; the biases in the same abstract much less so.
+
+  schaeffer2023mirage:
+    title: "Are Emergent Abilities of Large Language Models a Mirage?"
+    authors: ["Rylan Schaeffer", "Brando Miranda", "Sanmi Koyejo"]
+    year: 2023
+    venue: "arXiv preprint (Apr 2023); NeurIPS 2023"
+    arxiv: "2304.15004"
+    url: "https://arxiv.org/abs/2304.15004"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/2304.15004 - title, three authors and 28 April 2023 v1 submission confirmed; abstract confirms the central claim that nonlinear or discontinuous metrics produce apparent emergent abilities while linear or continuous metrics produce smooth predictable change, supported by three confirmed predictions on the InstructGPT/GPT-3 family, two on a BIG-Bench meta-analysis, and a demonstration that metric choice can manufacture seemingly emergent abilities in vision tasks."
+    contribution: >-
+      Showed that a large class of reported emergent abilities is an artefact
+      of choosing a discontinuous metric, and demonstrated the effect can be
+      manufactured on demand in unrelated domains.
+    why_it_mattered: >-
+      The clearest published demonstration that the metric, not the model,
+      produced the result - which is the central hazard of evaluation and the
+      reason metric choice belongs in a design review.
+
+  wang2023unfair:
+    title: "Large Language Models are not Fair Evaluators"
+    authors: ["Peiyi Wang", "Lei Li", "Liang Chen", "Zefan Cai", "Dawei Zhu",
+              "Binghuai Lin", "Yunbo Cao", "Qi Liu", "Tianyu Liu",
+              "Zhifang Sui"]
+    year: 2023
+    venue: "arXiv preprint (May 2023); ACL 2024"
+    arxiv: "2305.17926"
+    url: "https://arxiv.org/abs/2305.17926"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/2305.17926 - title, ten authors and 29 May 2023 v1 submission confirmed; abstract confirms the positional bias result that merely changing the order of two candidate responses could make Vicuna-13B beat ChatGPT on 66 of 80 tested queries with ChatGPT as the evaluator, and proposes a calibration framework bringing judgements closer to human ones."
+    contribution: >-
+      Demonstrated that a judge's verdict can be flipped on a majority of items
+      by swapping the presentation order alone, and proposed calibration to
+      mitigate it.
+    why_it_mattered: >-
+      66 of 80 is the number that ends the argument about whether position bias
+      is a rounding error. Any judge design that does not randomise or balance
+      order is measuring order.
+
+  jimenez2023swebench:
+    title: "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?"
+    authors: ["Carlos E. Jimenez", "John Yang", "Alexander Wettig",
+              "Shunyu Yao", "Kexin Pei", "Ofir Press", "Karthik Narasimhan"]
+    year: 2023
+    venue: "arXiv preprint (Oct 2023); ICLR 2024"
+    arxiv: "2310.06770"
+    url: "https://arxiv.org/abs/2310.06770"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/2310.06770 - title, seven authors and 10 October 2023 v1 submission confirmed; abstract confirms 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across popular Python repositories, and that the best-performing model at the time, Claude 2, resolved a mere 1.96% of issues."
+    contribution: >-
+      Built an evaluation from real repository issues with real test suites as
+      the grader, so the task is defined by whether the change works rather than
+      by whether it matches a reference.
+    why_it_mattered: >-
+      The template for execution-graded evaluation, and a demonstration of the
+      gap between benchmark scores on curated tasks and performance on the work
+      the task was abstracted from.
+
+  yao2024taubench:
+    title: "tau-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains"
+    authors: ["Shunyu Yao", "Noah Shinn", "Pedram Razavi", "Karthik Narasimhan"]
+    year: 2024
+    venue: "arXiv preprint (Jun 2024)"
+    arxiv: "2406.12045"
+    url: "https://arxiv.org/abs/2406.12045"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/2406.12045 - title (rendered as $\\tau$-bench), four authors and 17 June 2024 v1 submission confirmed; abstract confirms that state-of-the-art function-calling agents such as GPT-4o succeed on under 50% of tasks, and that agents are inconsistent across repeated trials with pass^8 below 25% in the retail domain."
+    contribution: >-
+      Evaluated agents on multi-turn tool use against a simulated user and a
+      domain policy, and reported pass^k across repeated trials rather than a
+      single-run success rate.
+    why_it_mattered: >-
+      pass^8 under 25% against a sub-50% single-run rate is the reliability
+      result: an agent that succeeds sometimes is not an agent that succeeds,
+      and single-run benchmark scores cannot express the difference.
+
+  singh2025leaderboard:
+    title: "The Leaderboard Illusion"
+    authors: ["Shivalika Singh", "Yiyang Nan", "Alex Wang", "Daniel D'Souza",
+              "Sayash Kapoor", "Ahmet Ustun", "Sanmi Koyejo", "Yuntian Deng",
+              "Shayne Longpre", "Noah A. Smith", "Beyza Ermis",
+              "Marzieh Fadaee", "Sara Hooker"]
+    year: 2025
+    venue: "arXiv preprint (Apr 2025)"
+    arxiv: "2504.20879"
+    url: "https://arxiv.org/abs/2504.20879"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/2504.20879 - title, thirteen authors and 29 April 2025 v1 submission confirmed; abstract confirms 27 private LLM variants tested by Meta ahead of the Llama-4 release, estimated arena data shares of 19.2% for Google and 20.4% for OpenAI against 29.7% for a combined 83 open-weight models, and that limited additional data can produce relative performance gains of up to 112% on the arena distribution."
+    contribution: >-
+      Audited a widely used preference leaderboard and quantified how unequal
+      data access and private pre-testing distort the resulting rankings.
+    why_it_mattered: >-
+      Made concrete what "the leaderboard is gameable" means. The 112% figure is
+      the operative one: the ranking measures arena-distribution fit as much as
+      capability, and fit is purchasable with data access.
+
+  chen2021humaneval:
+    title: "Evaluating Large Language Models Trained on Code"
+    authors: ["Mark Chen", "Jerry Tworek", "Heewoo Jun", "Qiming Yuan",
+              "Henrique Ponde de Oliveira Pinto", "Jared Kaplan",
+              "and 52 others"]
+    year: 2021
+    venue: "arXiv preprint (Jul 2021)"
+    arxiv: "2107.03374"
+    url: "https://arxiv.org/abs/2107.03374"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/2107.03374 - title, 58-author list headed by Mark Chen and 7 July 2021 v1 submission confirmed; abstract confirms introduction of the HumanEval evaluation set measuring functional correctness from docstrings, Codex solving 28.8% of problems against GPT-3's 0% and GPT-J's 11.4%, and 70.2% solved with 100 samples per problem."
+    contribution: >-
+      Introduced HumanEval and the pass@k estimator, grading generated code by
+      whether it passes unit tests rather than by similarity to a reference.
+    why_it_mattered: >-
+      Established functional correctness as the grading standard for code, and
+      the 28.8% versus 70.2% gap between one sample and a hundred is the
+      clearest statement of what a sampled metric does and does not promise.
+
+  card2020power:
+    title: "With Little Power Comes Great Responsibility"
+    authors: ["Dallas Card", "Peter Henderson", "Urvashi Khandelwal",
+              "Robin Jia", "Kyle Mahowald", "Dan Jurafsky"]
+    year: 2020
+    venue: "arXiv preprint (Oct 2020); EMNLP 2020"
+    arxiv: "2010.06595"
+    url: "https://arxiv.org/abs/2010.06595"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/2010.06595 - title, six authors and 13 October 2020 v1 submission confirmed; abstract confirms the machine translation result that typical test sets of 2000 sentences have approximately 75% power to detect a difference of 1 BLEU point, that small GLUE test sets mean most attempted comparisons to state-of-the-art models are not adequately powered, and that the most typical human rating study design is underpowered for small model differences."
+    contribution: >-
+      Applied statistical power analysis to standard NLP evaluation practice and
+      quantified how often published comparisons cannot detect the differences
+      they claim.
+    why_it_mattered: >-
+      Turns evaluation-set sizing from a convention into a calculation, and is
+      the citation for why a regression gate needs a power analysis before it
+      needs a threshold.
+
+  ribeiro2020checklist:
+    title: "Beyond Accuracy: Behavioral Testing of NLP Models with CheckList"
+    authors: ["Marco Tulio Ribeiro", "Tongshuang Wu", "Carlos Guestrin",
+              "Sameer Singh"]
+    year: 2020
+    venue: "arXiv preprint (May 2020); ACL 2020 (Best Paper)"
+    arxiv: "2005.04118"
+    url: "https://arxiv.org/abs/2005.04118"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/2005.04118 - title, four authors and 8 May 2020 v1 submission confirmed; abstract confirms the task-agnostic behavioural testing methodology, that a team responsible for a commercial sentiment analysis model found new and actionable bugs in an extensively tested model, and that practitioners using CheckList created twice as many tests and found almost three times as many bugs as users without it."
+    contribution: >-
+      Reframed model evaluation as behavioural testing - capability-by-capability
+      test suites with minimum functionality tests, invariance tests and
+      directional expectation tests - rather than a single held-out score.
+    why_it_mattered: >-
+      The bridge between software testing practice and model evaluation, and the
+      finding that an extensively tested commercial model still had actionable
+      bugs is why a held-out score is not a test suite.
+
+  rein2023gpqa:
+    title: "GPQA: A Graduate-Level Google-Proof Q&A Benchmark"
+    authors: ["David Rein", "Betty Li Hou", "Asa Cooper Stickland",
+              "Jackson Petty", "Richard Yuanzhe Pang", "Julien Dirani",
+              "Julian Michael", "Samuel R. Bowman"]
+    year: 2023
+    venue: "arXiv preprint (Nov 2023); COLM 2024"
+    arxiv: "2311.12022"
+    url: "https://arxiv.org/abs/2311.12022"
+    verified: true
+    verified_on: "2026-08-30"
+    verified_via: "arXiv abstract page arxiv.org/abs/2311.12022 - title, eight authors and 20 November 2023 v1 submission confirmed; abstract confirms 448 multiple-choice questions in biology, physics and chemistry, domain-expert accuracy of 65% (74% discounting clear mistakes), highly skilled non-expert validator accuracy of 34% despite averaging over 30 minutes each with unrestricted web access, and a strongest GPT-4 based baseline at 39%."
+    contribution: >-
+      Built a benchmark whose questions resist web search, with expert and
+      non-expert human baselines measured under the same conditions as the
+      models.
+    why_it_mattered: >-
+      The 65% versus 34% gap makes the ceiling explicit, which almost no
+      benchmark does. Without a human baseline a model score has no scale, and
+      GPQA is the standard example of supplying one.
