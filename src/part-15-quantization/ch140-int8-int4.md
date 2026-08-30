@@ -995,6 +995,15 @@ set. A cheap sensitivity estimate — quantize twice with disjoint calibration d
 and compare — would turn an invisible risk into a number, and it costs one extra
 run.
 
+**And a note on what the accuracy numbers are measured over.**
+{{maturity:EMERGING}} Quantisation is evaluated on aggregate benchmark scores,
+which are averages over many items, and the loss it causes is concentrated on the
+items where the model was least confident to begin with. An aggregate that moves
+half a point can hide a much larger change on the tail — the long-context, the
+rare entity, the unusual format. **The measurement that would show it is
+disaggregated**, and it is the same argument {{ch:rai-bias}} makes for a different
+reason.
+
 ## 16. Connection to Previous Chapters
 
 {{ch:q-theory}}'s {{eq:outlier-inflates-the-step}} and {{eq:effective-levels}} are

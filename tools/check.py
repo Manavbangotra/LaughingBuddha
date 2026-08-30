@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import argparse
 import ast
+import os
 import re
 import subprocess
 import sys
@@ -35,7 +36,10 @@ from lxml import html as lhtml
 from bookdata import ROOT, Book, Doc, split_frontmatter
 from build import Builder
 
-VENV_PY = ROOT / ".venv" / "bin" / "python"
+# Prefer the project venv; fall back to the interpreter running this check so
+# a bare `python tools/check.py` works on a machine without one.
+_VENV = ROOT / ".venv" / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
+VENV_PY = _VENV if _VENV.exists() else Path(sys.executable)
 
 # Wall-clock budget for a single Tier A listing. A listing that exceeds this is
 # reported as a failure rather than being allowed to stall the whole run: the

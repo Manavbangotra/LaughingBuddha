@@ -899,6 +899,14 @@ the number of skills is what you were never counting.**
 {{part:20}}'s pipelines are where this is won or lost, long before anyone opens a
 training script.
 
+**And the deduplication result has a limit worth naming.**
+{{maturity:EMERGING}} Exact and near-duplicate removal is measurable and worth
+doing, but the duplicates that damage a fine-tune most are *semantic*: fifty
+examples teaching the same lesson in different words look diverse to every metric
+here and are one example to the model. **Diversity measured on the surface form
+overstates diversity of instruction**, which is the mechanism behind a dataset that
+passes every check and still produces a model with one behaviour.
+
 ## 16. Connection to Previous Chapters
 
 {{ch:fm-instruction-tuning}} established that quality dominates quantity; this

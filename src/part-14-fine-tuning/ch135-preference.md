@@ -926,6 +926,15 @@ goes to objectives instead. **What makes a rubric reduce bar spread is not
 systematically studied, and it is the highest-leverage unstudied thing in the
 pipeline.**
 
+**The deepest limitation is that a preference is not a measurement.**
+{{maturity:EMERGING}} Every method here optimises agreement with a comparison
+someone made between two outputs, and that comparison is influenced by length,
+formatting and confidence as much as by correctness — which is the same
+correlation {{ch:ev-llm-judge}} finds in automated judges, arriving here as the
+training signal rather than the evaluation. **Optimising against a biased
+comparator moves the model toward the bias**, and no amount of algorithmic care in
+the optimiser corrects a systematically tilted preference set.
+
 ## 16. Connection to Previous Chapters
 
 {{ch:fm-rlhf}} and {{ch:fm-dpo}} supply the objectives this chapter feeds.

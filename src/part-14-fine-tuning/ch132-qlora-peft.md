@@ -859,6 +859,14 @@ a fine-tune that cannot move far cannot undo far. This is the ordering
 because all of them need the full input-gradient chain. Methods that also shorten
 that chain would be a genuinely different thing.
 
+**A closing caution about where the savings are measured.**
+{{maturity:ESTABLISHED}} The memory figures here are training-time, and they are
+real. They say nothing about serving, where an adapter must be resident alongside
+the base and where the number of *distinct* adapters in a batch decides throughput
+rather than the size of any one of them. **A method that makes training fit on one
+device can still make serving cost more**, and the two budgets are usually held by
+different teams in different quarters, which is how the trade goes unpriced.
+
 ## 16. Connection to Previous Chapters
 
 {{ch:ft-lora}} supplies the parameterisation and {{eq:forgetting-quadratic}},

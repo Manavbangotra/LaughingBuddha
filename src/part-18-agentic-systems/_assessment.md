@@ -176,7 +176,7 @@ current systems score.
 to persist the three agent-state fields as a first-class concept, and implement it
 over an existing engine.
 
-**F. Estimating $H^\*$.** Given a system's consequence density, drift rate and
+**F. Estimating $H^{*}$.** Given a system's consequence density, drift rate and
 reviewer habituation curve, compute the horizon past which gate-based oversight
 cannot hold harm below a target. Validate against a real workload.
 

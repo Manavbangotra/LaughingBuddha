@@ -778,6 +778,15 @@ ones needing document *structure*, not reading — which is why
 {{ch:mm-layout}} exists and why document VQA became the axis general VLMs are
 judged on.
 
+**And the error model is the part that does not transfer.**
+{{maturity:EMERGING}} Every number in this chapter is a rate over a corpus, and an
+OCR error is not a random draw: it concentrates on the documents that were already
+hard — poor scans, unusual layouts, minority scripts — so a corpus-level accuracy
+figure describes the easy majority and says almost nothing about the subset that
+generates support tickets. **A per-document-class breakdown is the measurement
+worth having**, and it is the one that is almost never published, because it
+requires labelling the classes before the errors are known.
+
 ## 16. Connection to Previous Chapters
 
 {{ch:rag-ingestion}}'s {{eq:ingestion-loss}} is what this chapter supplies the

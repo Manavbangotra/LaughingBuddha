@@ -972,6 +972,14 @@ quantization should be trained differently — weight decay, precision schedule,
 possibly a shorter run. Almost nobody plans this way, and the arithmetic says
 they should.
 
+**One caveat on treating quantisation error as noise.**
+{{maturity:ESTABLISHED}} The analysis here models rounding as an independent
+perturbation per weight, which makes the error analysis tractable and is wrong in
+a specific direction: rounding errors within a layer are correlated through the
+shared scale, so they do not average out across a matrix multiply the way
+independent noise would. **The independence assumption is optimistic**, and the
+correction runs against every bound in this chapter rather than for it.
+
 ## 16. Connection to Previous Chapters
 
 {{ch:q-formats}}'s {{eq:scale-group-condition}} is this chapter's

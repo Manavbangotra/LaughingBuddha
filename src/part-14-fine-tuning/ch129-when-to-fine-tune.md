@@ -808,6 +808,14 @@ outlives all of them**, and it is the artefact that makes any of these decisions
 answerable — the same argument {{ch:mm-ocr}} made about the text layer, applied to
 process.
 
+**One assumption underlies every threshold here and is rarely stated.**
+{{maturity:ESTABLISHED}} The decision model treats the base model as fixed for the
+life of the adapter, and it is not: a base upgrade invalidates the fine-tune and
+the comparison has to be re-run. That turns a one-off decision into a recurring
+cost with a period set by someone else's release schedule. **The right quantity is
+not the cost of fine-tuning but the cost of fine-tuning divided by the expected
+life of the base**, which shortens every payback period computed above.
+
 ## 16. Connection to Previous Chapters
 
 {{ch:fm-what-they-are}}'s {{eq:adaptation-information-ratio}} is what

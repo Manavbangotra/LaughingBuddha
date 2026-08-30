@@ -163,7 +163,7 @@ $$ \text{healed}_f(\ell) \;=\; \phi_f \min\!\left(1, \frac{W}{\delta_f + \ell}\r
 Writing \(\alpha_d\) for the share of damage a design makes
 reversible before it happens, the recoverable share of a deploy's damage is
 
-$$ \text{recoverable} = \alpha_d + (1 - \alpha_d)\left[\sum_{f \text{ future}}\phi_f + \sum_f \text{healed}_f(\ell)" + B + "right] $$ (eq:reversibility-is-a-design-property)
+$$ \text{recoverable} = \alpha_d + (1 - \alpha_d)\left[\sum_{f \text{ future}}\phi_f + \sum_f \text{healed}_f(\ell)\right] $$ (eq:reversibility-is-a-design-property)
 
 **The design term dominates**, because it multiplies everything else: a shadow deployment
 sets \(\alpha_d = 1\) and the bracket becomes irrelevant, while

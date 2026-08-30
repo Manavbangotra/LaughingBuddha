@@ -176,9 +176,9 @@ which at $6\%$ consequential steps is a factor of roughly $16$ in efficiency per
 pause — the mechanism behind the eightfold budget equivalence measured.
 
 Finally, a limit. Since $c(g) \to 0$ as $g$ grows and harm probability rises with
-$H$, there is an $H^\*$ beyond which no gate schedule holds harm below a target:
+$H$, there is an $H^{*}$ beyond which no gate schedule holds harm below a target:
 
-$$\exists\, H^\* : \forall G,\ \Pr[\text{harm}] > \tau \quad \text{for } H > H^\*$$ (eq:oversight-has-a-horizon-limit)
+$$\exists\, H^{*} : \forall G,\ \Pr[\text{harm}] > \tau \quad \text{for } H > H^{*}$$ (eq:oversight-has-a-horizon-limit)
 
 **Gate-based oversight has a horizon past which it does not work at any budget.**
 
@@ -275,7 +275,7 @@ segment-level rather than step-level verification.
 
 ### 7.5 What to do past the oversight horizon
 
-{{eq:oversight-has-a-horizon-limit}} says gates stop working past some $H^\*$.
+{{eq:oversight-has-a-horizon-limit}} says gates stop working past some $H^{*}$.
 {{sec:9-practical-example}} finds every design at or under $1.2\%$ by horizon $600$.
 
 Three responses, in order of preference. **Shorten the horizon** by decomposing into
@@ -955,7 +955,7 @@ re-validation signal.
 timer rather than on failure, which subsumes re-validation at higher cost.
 
 **Automated invariant checks instead of human gates.** They do not habituate, which
-{{sec:7-internal-mechanics}} argues is the property that matters past $H^\*$.
+{{sec:7-internal-mechanics}} argues is the property that matters past $H^{*}$.
 
 **Human as author rather than approver.** Rather than gating an autonomous run, have
 the human approve a plan once and the agent execute a bounded version of it —
@@ -992,7 +992,7 @@ reviewer has a finite catch-rate-integral per period. Scheduling against that
 explicitly — rather than against step counts — would make oversight a resource
 allocation problem with known structure. Nothing does this.
 
-**Estimating $H^\*$ from a trace.** {{eq:oversight-has-a-horizon-limit}} is an
+**Estimating $H^{*}$ from a trace.** {{eq:oversight-has-a-horizon-limit}} is an
 existence claim; computing where the horizon limit falls for a given system would
 tell teams when to stop adding gates and start decomposing.
 
@@ -1033,7 +1033,7 @@ this chapter's modes as instances.
 3. Add per-premise volatility and implement adaptive intervals. How much does that
    beat the best global $\kappa$?
 
-4. Compute $H^\*$ numerically for the second listing's parameters, and check the
+4. Compute $H^{*}$ numerically for the second listing's parameters, and check the
    $600$-step row against it.
 
 5. Model batched gates: pausing before groups of consequential steps. Does the lower
@@ -1067,7 +1067,7 @@ this chapter's modes as instances.
 2. What is the right formalisation of a reviewer's attention budget, and can
    oversight be scheduled against it?
 
-3. Can $H^\*$ be estimated from a trace rather than assumed?
+3. Can $H^{*}$ be estimated from a trace rather than assumed?
 
 4. How would an agent benchmark introduce controlled environment drift, and what
    would current systems score?

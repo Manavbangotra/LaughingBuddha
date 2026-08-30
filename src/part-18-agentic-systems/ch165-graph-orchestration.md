@@ -195,6 +195,19 @@ $1 - e$ and a capability claim of the full loop. Reporting only the first is the
 usual practice and it is misleading, because the uncovered $e$ is the unusual
 behaviour.
 
+**And the tail is surrendered outright, not merely served worse.** Read
+{{eq:branch-count-is-an-exponent}} again: $S_{\text{loop}}$ carries a $(1-h)$ term
+and $S_{\text{graph}}$ carries none. An unroutable request has no path, so it
+contributes nothing, which bounds the graph above by the head mass:
+
+$$S_{\text{graph}} = h \cdot p_e^{\,\beta} \cdot p^{\,k_h} \;\le\; h$$ (eq:graph-surrenders-the-tail)
+
+with equality only at $p_e = p = 1$. **Perfect branching and perfect steps still
+lose the tail**, so a graph's ceiling is a property of the request distribution
+rather than of its engineering — which is why {{sec:7-internal-mechanics}} argues
+the honest comparison is against what a loop does with that same $(1-h)$, not
+against its head-path reliability.
+
 One caveat on the model. It treats a graph's nodes as having the same per-step
 reliability as a loop's, which is generous to the loop in one respect and to the
 graph in another. A node with a narrower job may well execute more reliably — that

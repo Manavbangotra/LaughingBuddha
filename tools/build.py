@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -31,7 +32,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 from lxml import html as lhtml
 
 from bookdata import BUILD, DATA, ROOT, Book, Doc
-from external import MathRenderer, MermaidRenderer
+from external import MathRenderer, MermaidRenderer, _browser_env
 from generated import build_generated_docs
 from render import DocRenderer, Rendered, ReferenceResolver
 
@@ -39,7 +40,8 @@ HTML_OUT = BUILD / "html"
 PDF_OUT = BUILD / "pdf"
 TEMPLATES = ROOT / "templates"
 ASSETS = ROOT / "assets"
-PAGEDJS = ROOT / "node_modules" / ".bin" / "pagedjs-cli"
+PAGEDJS = ROOT / "node_modules" / ".bin" / (
+    "pagedjs-cli.cmd" if os.name == "nt" else "pagedjs-cli")
 
 
 # =============================================================================
@@ -276,9 +278,8 @@ class Builder:
         cmd = [str(PAGEDJS), str(src), "-o", str(out),
                "--browserArgs", "--no-sandbox,--disable-dev-shm-usage",
                "--outline-tags", "h1,h2", "-t", "180000"]
-        env = {"PUPPETEER_EXECUTABLE_PATH": "/usr/bin/google-chrome",
-               "PATH": "/usr/bin:/bin:/usr/local/bin", "HOME": str(Path.home())}
-        proc = subprocess.run(cmd, capture_output=True, text=True, cwd=ROOT, env=env)
+        proc = subprocess.run(cmd, capture_output=True, text=True,
+                              encoding="utf-8", cwd=ROOT, env=_browser_env())
         if proc.returncode != 0 or not out.exists():
             print(f"  ! pagedjs failed for {src.name}:\n"
                   f"{(proc.stderr or proc.stdout)[-1500:]}")

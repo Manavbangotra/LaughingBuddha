@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import subprocess
 from pathlib import Path
@@ -18,7 +19,8 @@ from bookdata import BUILD, ROOT
 
 NODE = "node"
 KATEX_SCRIPT = ROOT / "tools" / "katex_render.js"
-MMDC = ROOT / "node_modules" / ".bin" / "mmdc"
+MMDC = ROOT / "node_modules" / ".bin" / (
+    "mmdc.cmd" if os.name == "nt" else "mmdc")
 PUPPETEER_CFG = ROOT / "tools" / "puppeteer.json"
 MERMAID_CFG = ROOT / "tools" / "mermaid.json"
 
@@ -57,7 +59,7 @@ class MathRenderer:
             payload = json.dumps([{"tex": t, "display": d} for _, t, d in todo])
             proc = subprocess.run(
                 [NODE, str(KATEX_SCRIPT)], input=payload, capture_output=True,
-                text=True, cwd=ROOT, timeout=300,
+                text=True, encoding="utf-8", cwd=ROOT, timeout=300,
             )
             if proc.returncode != 0:
                 raise RuntimeError(f"katex bridge failed: {proc.stderr[:2000]}")
@@ -98,6 +100,34 @@ _THEME_HEX = {
     "#ca8a04": "var(--dgm-note-line)",
 }
 _HEX_RE = re.compile("|".join(re.escape(h) for h in _THEME_HEX), re.IGNORECASE)
+
+
+def _browser_env() -> dict[str, str]:
+    """Environment for mermaid-cli.
+
+    Inherits the caller's environment rather than replacing it: on Windows a
+    scrubbed PATH loses node itself, and puppeteer needs SystemRoot and friends
+    to launch a browser at all. An explicit PUPPETEER_EXECUTABLE_PATH always
+    wins; otherwise fall back to a known-good browser for the platform, and if
+    none is found leave the variable unset so puppeteer uses its bundled
+    Chromium.
+    """
+    env = dict(os.environ)
+    if env.get("PUPPETEER_EXECUTABLE_PATH"):
+        return env
+    candidates = ([
+        r"C:\Program Files\Google\Chrome\Application\chrome.exe",
+        r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
+        r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
+    ] if os.name == "nt" else [
+        "/usr/bin/google-chrome", "/usr/bin/chromium",
+        "/usr/bin/chromium-browser",
+    ])
+    for c in candidates:
+        if Path(c).exists():
+            env["PUPPETEER_EXECUTABLE_PATH"] = c
+            break
+    return env
 
 
 class MermaidRenderer:
@@ -141,10 +171,9 @@ class MermaidRenderer:
                "-p", str(PUPPETEER_CFG), "-b", "transparent"]
         if MERMAID_CFG.exists():
             cmd += ["-c", str(MERMAID_CFG)]
-        env = {"PUPPETEER_EXECUTABLE_PATH": "/usr/bin/google-chrome",
-               "PATH": "/usr/bin:/bin:/usr/local/bin", "HOME": str(Path.home())}
-        proc = subprocess.run(cmd, capture_output=True, text=True, cwd=ROOT,
-                              env=env, timeout=180)
+        proc = subprocess.run(cmd, capture_output=True, text=True,
+                              encoding="utf-8", cwd=ROOT,
+                              env=_browser_env(), timeout=180)
         if proc.returncode != 0 or not out.exists():
             self.errors.append((src[:120], (proc.stderr or proc.stdout)[-600:]))
         tmp.unlink(missing_ok=True)

@@ -819,6 +819,15 @@ retrieval*: enumerate attributes, include extracted text verbatim, and avoid
 prose. Almost nobody prompts for this, and it is the cheapest available
 improvement to a multimodal index.
 
+**The unresolved question is what a shared embedding space actually shares.**
+{{maturity:EXPERIMENTAL}} Retrieval across modalities assumes an image and a
+paragraph can be near each other in a way that predicts usefulness, and the
+evidence for that is strongest exactly where the pairing was supervised — captions
+and their images. For a diagram and the prose that explains it, the pairing is
+looser and the retrieval quality falls accordingly. **The modality gap is not a
+constant to be corrected but a function of how the pair was learned**, and no
+number in this chapter separates the two.
+
 ## 16. Connection to Previous Chapters
 
 {{ch:mm-clip}}'s {{eq:modality-gap}} is what
